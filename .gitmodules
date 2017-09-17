@@ -1,0 +1,3 @@
+[submodule "src/MQLib"]
+	path = src/MQLib
+	url = https://bitbucket.org/raulMrello/mqlib

@@ -3,45 +3,50 @@
 <pre>
 <h1>µVision Build Log</h1>
 <h2>Tool Versions:</h2>
-IDE-Version: µVision V5.16a
-Copyright (C) 2015 ARM Ltd and ARM Germany GmbH. All rights reserved.
-License Information: Raul Martin, raulMrello, LIC=VGX2Z-J5T0F-T31MI-T3M7U-6CJLI-CIJ5Y
+IDE-Version: µVision V5.21.1.0
+Copyright (C) 2016 ARM Ltd and ARM Germany GmbH. All rights reserved.
+License Information: Raul Martin, ORBIS TECNOLOGIA ELECTRICA S.A., LIC=ZB4Y8-35ATQ-43QM6-DNRDV-8AHNP-W3DZ8
  
 Tool Versions:
-Toolchain:       MDK-ARM Standard  Version: 5.16a
+Toolchain:       MDK-ARM Plus  Version: 5.21a
 Toolchain Path:  C:\Keil_v5\ARM\ARMCC\Bin
-C Compiler:      Armcc.exe V5.06 (build 20)
-Assembler:       Armasm.exe V5.06 (build 20)
-Linker/Locator:  ArmLink.exe V5.06 (build 20)
-Library Manager: ArmAr.exe V5.06 (build 20)
-Hex Converter:   FromElf.exe V5.06 (build 20)
+C Compiler:      Armcc.exe V5.06 update 3 (build 300)
+Assembler:       Armasm.exe V5.06 update 3 (build 300)
+Linker/Locator:  ArmLink.exe V5.06 update 3 (build 300)
+Library Manager: ArmAr.exe V5.06 update 3 (build 300)
+Hex Converter:   FromElf.exe V5.06 update 3 (build 300)
 CPU DLL:         
-Dialog DLL:      DCM.DLL V1.13.2.0
-Target DLL:      STLink\ST-LINKIII-KEIL_SWO.dll V2.0.17.0
-Dialog DLL:      TCM.DLL V1.14.5.0
+Dialog DLL:      DCM.DLL V1.13.8.0
+Target DLL:      STLink\ST-LINKIII-KEIL_SWO.dll V2.0.18.0
+Dialog DLL:      TCM.DLL V1.14.14.0
  
 <h2>Project:</h2>
-D:\_workspace\mbed-os-l432kc\mbed-os-example-blinky.uvprojx
-Project File Date:  09/16/2017
+C:\Users\raulm\workspace\mbed\mbed-os-l432kc\mbed-os-example-blinky.uvprojx
+Project File Date:  10/25/2017
 
 <h2>Output:</h2>
-*** Using Compiler 'V5.06 (build 20)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
+*** Using Compiler 'V5.06 update 3 (build 300)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'mbed-os-example-blinky'
-compiling MQLib.cpp...
-src\MQLib\MQLib.cpp(20): warning:  #1-D: last line of file ends without a newline
-  List<MQ::Topic> * MQ::MQBroker::_topic_list = 0;
-src\MQLib\MQLib.cpp: 1 warning, 0 errors
-linking...
-Program Size: Code=38996 RO-data=3032 RW-data=2400 ZI-data=6144  
-FromELF: creating hex file...
-".\BUILD\mbed-os-example-blinky.axf" - 0 Error(s), 1 Warning(s).
+compiling stm32l4xx_hal_msp.c...
+src\BspDrivers\SpiDmaInterface\stm32l4xx_hal_msp.c(37): error:  #5: cannot open source input file "main.h": No such file or directory
+  #include "main.h"
+src\BspDrivers\SpiDmaInterface\stm32l4xx_hal_msp.c: 0 warnings, 1 error
+compiling SpiDmaInterface.cpp...
+src\BspDrivers\SpiDmaInterface\SpiDmaInterface.cpp(34): error:  #20: identifier "SpiHandle" is undefined
+    HAL_DMA_IRQHandler(SpiHandle.hdmarx);
+src\BspDrivers\SpiDmaInterface\SpiDmaInterface.cpp(46): error:  #20: identifier "SpiHandle" is undefined
+    HAL_DMA_IRQHandler(SpiHandle.hdmatx);
+src\BspDrivers\SpiDmaInterface\SpiDmaInterface.cpp: 0 warnings, 2 errors
+compiling main.cpp...
+".\BUILD\mbed-os-example-blinky.axf" - 3 Error(s), 0 Warning(s).
 
 <h2>Collection of Component include folders:</h2>
-  D:\_workspace\mbed-os-l432kc\RTE
-  C:\Keil_v5\ARM\PACK\Keil\STM32L4xx_DFP\1.3.0\Device\Include
+  C:\Users\raulm\workspace\mbed\mbed-os-l432kc\RTE
+  C:\Keil_v5\ARM\PACK\Keil\STM32L4xx_DFP\1.2.0\Device\Include
 
 <h2>Collection of Component Files used:</h2>
-Build Time Elapsed:  00:01:08
+Target not created.
+Build Time Elapsed:  00:00:09
 </pre>
 </body>
 </html>

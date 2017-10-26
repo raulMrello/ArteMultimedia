@@ -149,50 +149,18 @@
         <Bp>
           <Number>0</Number>
           <Type>0</Type>
-          <LineNumber>2849</LineNumber>
+          <LineNumber>59</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>134238952</Address>
+          <Address>134245978</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
           <SizeOfObject>0</SizeOfObject>
           <BreakByAccess>0</BreakByAccess>
           <BreakIfRCount>1</BreakIfRCount>
-          <Filename>mbed-os/targets/TARGET_STM/TARGET_STM32L4/device/stm32l4xx_hal_spi.c</Filename>
+          <Filename>mbed-os/drivers/SPI.cpp</Filename>
           <ExecCommand></ExecCommand>
-          <Expression>\\mbed_os_example_blinky\mbed-os/targets/TARGET_STM/TARGET_STM32L4/device/stm32l4xx_hal_spi.c\2849</Expression>
-        </Bp>
-        <Bp>
-          <Number>1</Number>
-          <Type>0</Type>
-          <LineNumber>2888</LineNumber>
-          <EnabledFlag>1</EnabledFlag>
-          <Address>134238912</Address>
-          <ByteObject>0</ByteObject>
-          <HtxType>0</HtxType>
-          <ManyObjects>0</ManyObjects>
-          <SizeOfObject>0</SizeOfObject>
-          <BreakByAccess>0</BreakByAccess>
-          <BreakIfRCount>1</BreakIfRCount>
-          <Filename>mbed-os/targets/TARGET_STM/TARGET_STM32L4/device/stm32l4xx_hal_spi.c</Filename>
-          <ExecCommand></ExecCommand>
-          <Expression>\\mbed_os_example_blinky\mbed-os/targets/TARGET_STM/TARGET_STM32L4/device/stm32l4xx_hal_spi.c\2888</Expression>
-        </Bp>
-        <Bp>
-          <Number>2</Number>
-          <Type>0</Type>
-          <LineNumber>2626</LineNumber>
-          <EnabledFlag>1</EnabledFlag>
-          <Address>134238966</Address>
-          <ByteObject>0</ByteObject>
-          <HtxType>0</HtxType>
-          <ManyObjects>0</ManyObjects>
-          <SizeOfObject>0</SizeOfObject>
-          <BreakByAccess>0</BreakByAccess>
-          <BreakIfRCount>1</BreakIfRCount>
-          <Filename>mbed-os/targets/TARGET_STM/TARGET_STM32L4/device/stm32l4xx_hal_spi.c</Filename>
-          <ExecCommand></ExecCommand>
-          <Expression>\\mbed_os_example_blinky\mbed-os/targets/TARGET_STM/TARGET_STM32L4/device/stm32l4xx_hal_spi.c\2626</Expression>
+          <Expression>\\mbed_os_example_blinky\mbed-os/drivers/SPI.cpp\59</Expression>
         </Bp>
       </Breakpoint>
       <WatchWindow1>
@@ -200,6 +168,11 @@
           <count>0</count>
           <WinNumber>1</WinNumber>
           <ItemText>color_buffer</ItemText>
+        </Ww>
+        <Ww>
+          <count>1</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>hz,0x0A</ItemText>
         </Ww>
       </WatchWindow1>
       <Tracepoint>
@@ -8821,7 +8794,7 @@
   </Group>
 
   <Group>
-    <GroupName>User/BspDrivers/SpiDmaInterface</GroupName>
+    <GroupName>User/BspDrivers/DMA</GroupName>
     <tvExp>1</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
@@ -8833,8 +8806,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\src\BspDrivers\SpiDmaInterface\SpiDmaInterface.h</PathWithFileName>
-      <FilenameWithoutPath>SpiDmaInterface.h</FilenameWithoutPath>
+      <PathWithFileName>.\src\BspDrivers\DMA\DMA_IRQHandlers.h</PathWithFileName>
+      <FilenameWithoutPath>DMA_IRQHandlers.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -8845,20 +8818,56 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\src\BspDrivers\SpiDmaInterface\SpiDmaInterface.cpp</PathWithFileName>
-      <FilenameWithoutPath>SpiDmaInterface.cpp</FilenameWithoutPath>
+      <PathWithFileName>.\src\BspDrivers\DMA\DMA_IRQHandlers.cpp</PathWithFileName>
+      <FilenameWithoutPath>DMA_IRQHandlers.cpp</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
     <File>
       <GroupNumber>4</GroupNumber>
       <FileNumber>716</FileNumber>
-      <FileType>1</FileType>
+      <FileType>5</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\src\BspDrivers\SpiDmaInterface\stm32l4xx_hal_msp.c</PathWithFileName>
-      <FilenameWithoutPath>stm32l4xx_hal_msp.c</FilenameWithoutPath>
+      <PathWithFileName>.\src\BspDrivers\PwmOutDmaBurst\PwmOutDmaBurst.h</PathWithFileName>
+      <FilenameWithoutPath>PwmOutDmaBurst.h</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+    <File>
+      <GroupNumber>4</GroupNumber>
+      <FileNumber>717</FileNumber>
+      <FileType>8</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>.\src\BspDrivers\PwmOutDmaBurst\PwmOutDmaBurst.cpp</PathWithFileName>
+      <FilenameWithoutPath>PwmOutDmaBurst.cpp</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+    <File>
+      <GroupNumber>4</GroupNumber>
+      <FileNumber>718</FileNumber>
+      <FileType>5</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>.\src\BspDrivers\SpiDmaInterface\SpiDmaInterface.h</PathWithFileName>
+      <FilenameWithoutPath>SpiDmaInterface.h</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+    <File>
+      <GroupNumber>4</GroupNumber>
+      <FileNumber>719</FileNumber>
+      <FileType>8</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>.\src\BspDrivers\SpiDmaInterface\SpiDmaInterface.cpp</PathWithFileName>
+      <FilenameWithoutPath>SpiDmaInterface.cpp</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>

@@ -10,27 +10,26 @@
  *  La notificación de eventos se delega a callbacks dedicadas: dmaHalfIsrCb, dmaCpltIsrCb y dmaErrIsrCb que
  *  deberán ser instaladas al inicio del proceso.
  *
- *  NOTA: Esta librería es compatible con procesadores STM32L4xx
+ *  NOTA: Esta librería es compatible con procesadores STM32L4xx. Nota la velocidad del bus SPI es un múltiplo
+ *  de fpclk/br siendo br (2,4,8,...,256) y fpclk (SPI1: PCLK2 (80MHz), SPI3: PCLK1)
  */
  
  
 #ifndef SPIDMAINTERFACE_H
 #define SPIDMAINTERFACE_H
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-void SPIx_DMA_RX_IRQHandler(void);
-void SPIx_DMA_TX_IRQHandler(void);
-#ifdef __cplusplus
-}
-#endif
  
 #include "mbed.h"
 #include "spi_api.h"
 #include "stm32l4xx_hal_def.h" 
 #include "stm32l4xx_hal_dma.h"    
+
+
+
+//------------------------------------------------------------------------------------
+//- CLASS SpiDmaInterface ------------------------------------------------------------
+//------------------------------------------------------------------------------------
+
 
 class SpiDmaInterface : public SPI {
   public:
@@ -111,6 +110,10 @@ class SpiDmaInterface : public SPI {
     
   protected:        
     SPI_HandleTypeDef* _handle;
+    DMA_HandleTypeDef _hdma_tx;
+    DMA_HandleTypeDef _hdma_rx;
 };    
+
+
 
 #endif   /* SPIDMAINTERFACE_H */

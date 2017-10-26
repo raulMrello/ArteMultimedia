@@ -112,6 +112,7 @@ static const Color_t red_color = {0, 255, 0};
 static const Color_t green_color = {255, 0, 0};
 static const Color_t blue_color = {0, 0, 255};
 static const Color_t white_color = {255, 255, 255};
+static const Color_t test_color = {0x55, 0x55, 0x55};
 
 __packed struct ColorBits_t{
     uint8_t green[8];
@@ -157,7 +158,7 @@ int test_SpiDma(){
     Callback<void()> half_isr = callback(onDmaHalfIsr);
     Callback<void()> cplt_isr = callback(onDmaCpltIsr);
     Callback<void(SpiDmaInterface::ErrorResult)> err_isr = callback(onDmaErrIsr);
-    Color_t* curr_color = (Color_t*)&red_color;
+    Color_t* curr_color = (Color_t*)&test_color;
     // Inicio el puerto spi1 a 6.4MHz (= 800Kbps)
     spi = new SpiDmaInterface(6400000, PA_7, PA_6, PA_5);    
     
@@ -169,7 +170,7 @@ int test_SpiDma(){
     
     // Relleno el array de 100 leds a rojo
     for(int i=0;i<ROW_COUNT;i++){
-        setColorAt(&red_color, i);
+        setColorAt(curr_color, i);
     }
 
     
@@ -183,32 +184,32 @@ int test_SpiDma(){
             uint32_t sig = evt.value.signals;
             // repinto la primera mitad
             if((sig & 1)!=0){
-                if(curr_color == &red_color){
-                    curr_color = (Color_t*)&green_color;
-                }
-                else if(curr_color == &green_color){
-                    curr_color = (Color_t*)&blue_color;
-                }
-                else if(curr_color == &blue_color){
-                    curr_color = (Color_t*)&red_color;
-                }
-                for(int i=0;i<(ROW_COUNT/2);i++){                    
-                    setColorAt(curr_color, i);
-                }                
+//                if(curr_color == &red_color){
+//                    curr_color = (Color_t*)&green_color;
+//                }
+//                else if(curr_color == &green_color){
+//                    curr_color = (Color_t*)&blue_color;
+//                }
+//                else if(curr_color == &blue_color){
+//                    curr_color = (Color_t*)&red_color;
+//                }
+//                for(int i=0;i<(ROW_COUNT/2);i++){                    
+//                    setColorAt(curr_color, i);
+//                }                
             }
             // repinto la segunda mitad e inicio de nuevo
             if((sig & 2)!=0){
-                for(int i=(ROW_COUNT/2);i<ROW_COUNT;i++){
-                    setColorAt(curr_color, i);
-                }                
+//                for(int i=(ROW_COUNT/2);i<ROW_COUNT;i++){
+//                    setColorAt(curr_color, i);
+//                }                
                 Thread::wait(1);
                 spi->transmit((uint8_t*)&color_buffer, sizeof(ColorBuffer_t), half_isr, cplt_isr, err_isr);
             }
             // pinto de blanco
-            if((sig & 2)!=0){
-                for(int i=0;i<ROW_COUNT;i++){
-                    setColorAt(&white_color, i);
-                }                
+            if((sig & 4)!=0){
+//                for(int i=0;i<ROW_COUNT;i++){
+//                    setColorAt(&white_color, i);
+//                }                
                 Thread::wait(1);
                 spi->transmit((uint8_t*)&color_buffer, sizeof(ColorBuffer_t), half_isr, cplt_isr, err_isr);
             }

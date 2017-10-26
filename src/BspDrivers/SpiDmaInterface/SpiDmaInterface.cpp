@@ -13,9 +13,12 @@
 //- STATIC ---------------------------------------------------------------------------
 //------------------------------------------------------------------------------------
 
+/** Referencias de DMA_IRQHandlers.cpp */
+extern SPI_HandleTypeDef*  dma_spi1;    
+extern SPI_HandleTypeDef*  dma_spi3; 
+static SpiDmaInterface* spi1Dma;
+static SpiDmaInterface* spi3Dma;
 
-static SpiDmaInterface* spi1Dma;    /// Manejador estático del periférico SPI1
-static SpiDmaInterface* spi3Dma;    /// Manejador estático del periférico SPI3
 
 
 //------------------------------------------------------------------------------------
@@ -24,42 +27,13 @@ static SpiDmaInterface* spi3Dma;    /// Manejador estático del periférico SPI3
 
 
 //------------------------------------------------------------------------------------
-/**
-  * @brief  This function handles DMA Rx interrupt request.
-  * @param  None
-  * @retval None
-  */
-extern "C" void SPIx_DMA_RX_IRQHandler(void)
-{
-  HAL_DMA_IRQHandler(SpiHandle.hdmarx);
-}
-
-
-//------------------------------------------------------------------------------------
-/**
-  * @brief  This function handles DMA Tx interrupt request.
-  * @param  None
-  * @retval None
-  */
-extern "C" void SPIx_DMA_TX_IRQHandler(void)
-{
-  HAL_DMA_IRQHandler(SpiHandle.hdmatx);
-}
-
-
-//------------------------------------------------------------------------------------
-/**
-  * @brief Tx Transfer completed callback.
-  * @param  hspi: pointer to a SPI_HandleTypeDef structure that contains
-  *               the configuration information for SPI module.
-  * @retval None
-  */
+/** Callback de interrupción dma_transmit_complete */
 void HAL_SPI_TxCpltCallback(SPI_HandleTypeDef *hspi){
-    if(spi1Dma->getHandler() == hspi){
+    if(dma_spi1 == hspi){
         spi1Dma->dmaCpltIsrCb.call();
         return;
     }
-    if(spi3Dma->getHandler() == hspi){
+    if(dma_spi3 == hspi){
         spi3Dma->dmaCpltIsrCb.call();
         return;
     }
@@ -67,18 +41,13 @@ void HAL_SPI_TxCpltCallback(SPI_HandleTypeDef *hspi){
 
 
 //------------------------------------------------------------------------------------
-/**
-  * @brief Rx Transfer completed callback.
-  * @param  hspi: pointer to a SPI_HandleTypeDef structure that contains
-  *               the configuration information for SPI module.
-  * @retval None
-  */
+/** Callback de interrupción dma_receive_complete */
 void HAL_SPI_RxCpltCallback(SPI_HandleTypeDef *hspi){
-    if(spi1Dma->getHandler() == hspi){
+    if(dma_spi1 == hspi){
         spi1Dma->dmaCpltIsrCb.call();
         return;
     }
-    if(spi3Dma->getHandler() == hspi){
+    if(dma_spi3 == hspi){
         spi3Dma->dmaCpltIsrCb.call();
         return;
     }
@@ -86,18 +55,13 @@ void HAL_SPI_RxCpltCallback(SPI_HandleTypeDef *hspi){
 
 
 //------------------------------------------------------------------------------------
-/**
-  * @brief Tx and Rx Transfer completed callback.
-  * @param  hspi: pointer to a SPI_HandleTypeDef structure that contains
-  *               the configuration information for SPI module.
-  * @retval None
-  */
+/** Callback de interrupción dma_transmit_receive_complete */
 void HAL_SPI_TxRxCpltCallback(SPI_HandleTypeDef *hspi){
-    if(spi1Dma->getHandler() == hspi){
+    if(dma_spi1 == hspi){
         spi1Dma->dmaCpltIsrCb.call();
         return;
     }
-    if(spi3Dma->getHandler() == hspi){
+    if(dma_spi3 == hspi){
         spi3Dma->dmaCpltIsrCb.call();
         return;
     }
@@ -105,18 +69,13 @@ void HAL_SPI_TxRxCpltCallback(SPI_HandleTypeDef *hspi){
 
 
 //------------------------------------------------------------------------------------
-/**
-  * @brief Tx Half Transfer completed callback.
-  * @param  hspi: pointer to a SPI_HandleTypeDef structure that contains
-  *               the configuration information for SPI module.
-  * @retval None
-  */
+/** Callback de interrupción dma_transmit_halfcomplete */
 void HAL_SPI_TxHalfCpltCallback(SPI_HandleTypeDef *hspi){
-    if(spi1Dma->getHandler() == hspi){
+    if(dma_spi1 == hspi){
         spi1Dma->dmaHalfIsrCb.call();
         return;
     }
-    if(spi3Dma->getHandler() == hspi){
+    if(dma_spi3 == hspi){
         spi3Dma->dmaHalfIsrCb.call();
         return;
     }
@@ -124,18 +83,13 @@ void HAL_SPI_TxHalfCpltCallback(SPI_HandleTypeDef *hspi){
 
 
 //------------------------------------------------------------------------------------
-/**
-  * @brief Rx Half Transfer completed callback.
-  * @param  hspi: pointer to a SPI_HandleTypeDef structure that contains
-  *               the configuration information for SPI module.
-  * @retval None
-  */
+/** Callback de interrupción dma_receive_halfcomplete */
 void HAL_SPI_RxHalfCpltCallback(SPI_HandleTypeDef *hspi){
-    if(spi1Dma->getHandler() == hspi){
+    if(dma_spi1 == hspi){
         spi1Dma->dmaHalfIsrCb.call();
         return;
     }
-    if(spi3Dma->getHandler() == hspi){
+    if(dma_spi3 == hspi){
         spi3Dma->dmaHalfIsrCb.call();
         return;
     }
@@ -143,18 +97,13 @@ void HAL_SPI_RxHalfCpltCallback(SPI_HandleTypeDef *hspi){
 
 
 //------------------------------------------------------------------------------------
-/**
-  * @brief Tx and Rx Half Transfer callback.
-  * @param  hspi: pointer to a SPI_HandleTypeDef structure that contains
-  *               the configuration information for SPI module.
-  * @retval None
-  */
+/** Callback de interrupción dma_transmit_receive_halfcomplete */
 void HAL_SPI_TxRxHalfCpltCallback(SPI_HandleTypeDef *hspi){
-    if(spi1Dma->getHandler() == hspi){
+    if(dma_spi1 == hspi){
         spi1Dma->dmaHalfIsrCb.call();
         return;
     }
-    if(spi3Dma->getHandler() == hspi){
+    if(dma_spi3 == hspi){
         spi3Dma->dmaHalfIsrCb.call();
         return;
     }
@@ -162,18 +111,13 @@ void HAL_SPI_TxRxHalfCpltCallback(SPI_HandleTypeDef *hspi){
 
 
 //------------------------------------------------------------------------------------
-/**
-  * @brief SPI error callback.
-  * @param  hspi: pointer to a SPI_HandleTypeDef structure that contains
-  *               the configuration information for SPI module.
-  * @retval None
-  */
+/** Callback de interrupción dma_error */
 void HAL_SPI_ErrorCallback(SPI_HandleTypeDef *hspi){
-    if(spi1Dma->getHandler() == hspi){
+    if(dma_spi1 == hspi){
         spi1Dma->dmaErrIsrCb.call(SpiDmaInterface::TRANSFER_ERROR);
         return;
     }
-    if(spi3Dma->getHandler() == hspi){
+    if(dma_spi3 == hspi){
         spi3Dma->dmaErrIsrCb.call(SpiDmaInterface::TRANSFER_ERROR);
         return;
     }
@@ -181,17 +125,13 @@ void HAL_SPI_ErrorCallback(SPI_HandleTypeDef *hspi){
 
 
 //------------------------------------------------------------------------------------
-/**
-  * @brief  SPI Abort Complete callback.
-  * @param  hspi SPI handle.
-  * @retval None
-  */
+/** Callback de interrupción dma_abort */
 void HAL_SPI_AbortCpltCallback(SPI_HandleTypeDef *hspi){
-    if(spi1Dma->getHandler() == hspi){
+    if(dma_spi1 == hspi){
         spi1Dma->dmaErrIsrCb.call(SpiDmaInterface::ABORT_ERROR);
         return;
     }
-    if(spi3Dma->getHandler() == hspi){
+    if(dma_spi3 == hspi){
         spi3Dma->dmaErrIsrCb.call(SpiDmaInterface::ABORT_ERROR);
         return;
     }
@@ -209,11 +149,95 @@ SpiDmaInterface::SpiDmaInterface(int hz, PinName mosi, PinName miso, PinName scl
     SPI::frequency(hz);
     _handle = &_spi.spi.handle;
     if(_handle->Instance == SPI1){
+        dma_spi1 = _handle;
         spi1Dma = this;
+        // Activo clock DMA1
+        __HAL_RCC_DMA1_CLK_ENABLE();
+        /* Configure the DMA handler for Transmission process */
+        _hdma_tx.Instance                 = DMA1_Channel3;
+        _hdma_tx.Init.Request             = DMA_REQUEST_1;
+        _hdma_tx.Init.Direction           = DMA_MEMORY_TO_PERIPH;
+        _hdma_tx.Init.PeriphInc           = DMA_PINC_DISABLE;
+        _hdma_tx.Init.MemInc              = DMA_MINC_ENABLE;
+        _hdma_tx.Init.PeriphDataAlignment = DMA_PDATAALIGN_BYTE;
+        _hdma_tx.Init.MemDataAlignment    = DMA_MDATAALIGN_BYTE;
+        _hdma_tx.Init.Mode                = DMA_NORMAL;
+        _hdma_tx.Init.Priority            = DMA_PRIORITY_HIGH;
+
+        HAL_DMA_Init(&_hdma_tx);
+
+        /* Associate the initialized DMA handle to the the SPI handle */
+        __HAL_LINKDMA(_handle, hdmatx, _hdma_tx);
+
+        /* Configure the DMA handler for Reception process */
+        _hdma_rx.Instance                 = DMA1_Channel2;
+        _hdma_rx.Init.Request             = DMA_REQUEST_1;
+        _hdma_rx.Init.Direction           = DMA_PERIPH_TO_MEMORY;
+        _hdma_rx.Init.PeriphInc           = DMA_PINC_DISABLE;
+        _hdma_rx.Init.MemInc              = DMA_MINC_ENABLE;
+        _hdma_rx.Init.PeriphDataAlignment = DMA_PDATAALIGN_BYTE;
+        _hdma_rx.Init.MemDataAlignment    = DMA_MDATAALIGN_BYTE;
+        _hdma_rx.Init.Mode                = DMA_NORMAL;
+        _hdma_rx.Init.Priority            = DMA_PRIORITY_HIGH;
+
+        HAL_DMA_Init(&_hdma_rx);
+
+        /* Associate the initialized DMA handle to the the SPI handle */
+        __HAL_LINKDMA(_handle, hdmarx, _hdma_rx);
+        
+        /*##-4- Configure the NVIC for DMA #########################################*/ 
+        /* NVIC configuration for DMA transfer complete interrupt (SPI1_TX) */
+        HAL_NVIC_SetPriority(DMA1_Channel3_IRQn, 1, 1);
+        HAL_NVIC_EnableIRQ(DMA1_Channel3_IRQn);
+        
+        /* NVIC configuration for DMA transfer complete interrupt (SPI1_RX) */
+        HAL_NVIC_SetPriority(DMA1_Channel2_IRQn, 1, 0);
+        HAL_NVIC_EnableIRQ(DMA1_Channel2_IRQn);            
     }
     else if(_handle->Instance == SPI3){
+        dma_spi3 = _handle;
         spi3Dma = this;
-    }            
+        // Activo clock DMA2
+        __HAL_RCC_DMA2_CLK_ENABLE();
+        /* Configure the DMA handler for Transmission process */
+        _hdma_tx.Instance                 = DMA2_Channel2;
+        _hdma_tx.Init.Request             = DMA_REQUEST_3;
+        _hdma_tx.Init.Direction           = DMA_MEMORY_TO_PERIPH;
+        _hdma_tx.Init.PeriphInc           = DMA_PINC_DISABLE;
+        _hdma_tx.Init.MemInc              = DMA_MINC_ENABLE;
+        _hdma_tx.Init.PeriphDataAlignment = DMA_PDATAALIGN_BYTE;
+        _hdma_tx.Init.MemDataAlignment    = DMA_MDATAALIGN_BYTE;
+        _hdma_tx.Init.Mode                = DMA_NORMAL;
+        _hdma_tx.Init.Priority            = DMA_PRIORITY_HIGH;
+
+        HAL_DMA_Init(&_hdma_tx);
+
+        /* Associate the initialized DMA handle to the the SPI handle */
+        __HAL_LINKDMA(_handle, hdmatx, _hdma_tx);
+
+        /* Configure the DMA handler for Reception process */
+        _hdma_rx.Instance                 = DMA2_Channel1;
+        _hdma_rx.Init.Request             = DMA_REQUEST_3;
+        _hdma_rx.Init.Direction           = DMA_PERIPH_TO_MEMORY;
+        _hdma_rx.Init.PeriphInc           = DMA_PINC_DISABLE;
+        _hdma_rx.Init.MemInc              = DMA_MINC_ENABLE;
+        _hdma_rx.Init.PeriphDataAlignment = DMA_PDATAALIGN_BYTE;
+        _hdma_rx.Init.MemDataAlignment    = DMA_MDATAALIGN_BYTE;
+        _hdma_rx.Init.Mode                = DMA_NORMAL;
+        _hdma_rx.Init.Priority            = DMA_PRIORITY_HIGH;
+
+        /* Associate the initialized DMA handle to the the SPI handle */
+        __HAL_LINKDMA(_handle, hdmarx, _hdma_rx);
+        
+        /*##-4- Configure the NVIC for DMA #########################################*/ 
+        /* NVIC configuration for DMA transfer complete interrupt (SPI1_TX) */
+        HAL_NVIC_SetPriority(DMA2_Channel2_IRQn, 1, 1);
+        HAL_NVIC_EnableIRQ(DMA2_Channel2_IRQn);
+        
+        /* NVIC configuration for DMA transfer complete interrupt (SPI1_RX) */
+        HAL_NVIC_SetPriority(DMA2_Channel1_IRQn, 1, 0);
+        HAL_NVIC_EnableIRQ(DMA2_Channel1_IRQn);    
+    }      
 }
 
 

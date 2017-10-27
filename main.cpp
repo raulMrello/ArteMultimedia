@@ -96,12 +96,12 @@ int test_MQlib(){
 
 
 // **************************************************************************
-// *********** TEST SPIDMA **************************************************
+// *********** TEST DMA_SPI *************************************************
 // **************************************************************************
 
-#include "SpiDmaInterface.h"
+#include "DMA_SPI.h"
 
-SpiDmaInterface* spi;
+DMA_SPI* spi;
 
 struct Color_t{
     uint8_t green;
@@ -112,33 +112,31 @@ static const Color_t red_color = {0, 255, 0};
 static const Color_t green_color = {255, 0, 0};
 static const Color_t blue_color = {0, 0, 255};
 static const Color_t white_color = {255, 255, 255};
-static const Color_t test_color = {0x55, 0x55, 0x55};
+static const Color_t test_color = {0, 0, 0};
 
-__packed struct ColorBits_t{
-    uint8_t green[8];
-    uint8_t red[8];
-    uint8_t blue[8];
+struct ColorBits_t{
+    uint32_t green[8];
+    uint32_t red[8];
+    uint32_t blue[8];
 };
 
 static const uint16_t ROW_COUNT = 100;
-__packed struct ColorBuffer_t{
+struct ColorBuffer_t{
+//    uint32_t resetcode[50];
     ColorBits_t row[ROW_COUNT];
-    uint8_t resetcode[50];
 };
 
 static ColorBuffer_t color_buffer;
 
-void setColorAt(const Color_t* color, uint16_t pos){    
-    const uint8_t bitAt0 = 82;
-    const uint8_t bitAt1 = 164;
-    for(uint8_t i=0;i<8;i++){
-        color_buffer.row[pos].green[7-i] = ((color->green & (1 << (7-i))) != 0)? bitAt1 : bitAt0;
+void setColorAt(const Color_t* color, uint16_t pos, uint32_t bitAt1, uint32_t bitAt0){    
+    for(uint8_t i=0;i<32;i++){
+        color_buffer.row[pos].green[31-i] = ((color->green & (1 << (31-i))) != 0)? bitAt1 : bitAt0;
     }
-    for(uint8_t i=0;i<8;i++){
-        color_buffer.row[pos].red[7-i] = ((color->red & (1 << (7-i))) != 0)? bitAt1 : bitAt0;
+    for(uint8_t i=0;i<32;i++){
+        color_buffer.row[pos].red[31-i] = ((color->red & (1 << (31-i))) != 0)? bitAt1 : bitAt0;
     }
-    for(uint8_t i=0;i<8;i++){
-        color_buffer.row[pos].blue[7-i] = ((color->blue & (1 << (7-i))) != 0)? bitAt1 : bitAt0;
+    for(uint8_t i=0;i<32;i++){
+        color_buffer.row[pos].blue[31-i] = ((color->blue & (1 << (31-i))) != 0)? bitAt1 : bitAt0;
     }
 }
 
@@ -150,17 +148,17 @@ void onDmaHalfIsr(){
 void onDmaCpltIsr(){
     osSignalSet(thTestSpi, 2);
 }
-void onDmaErrIsr(SpiDmaInterface::ErrorResult err){
+void onDmaErrIsr(DMA_SPI::ErrorResult err){
     osSignalSet(thTestSpi, 4);
 }
 
 int test_SpiDma(){
     Callback<void()> half_isr = callback(onDmaHalfIsr);
     Callback<void()> cplt_isr = callback(onDmaCpltIsr);
-    Callback<void(SpiDmaInterface::ErrorResult)> err_isr = callback(onDmaErrIsr);
+    Callback<void(DMA_SPI::ErrorResult)> err_isr = callback(onDmaErrIsr);
     Color_t* curr_color = (Color_t*)&test_color;
     // Inicio el puerto spi1 a 6.4MHz (= 800Kbps)
-    spi = new SpiDmaInterface(6400000, PA_7, PA_6, PA_5);    
+    spi = new DMA_SPI(6400000, PA_7, PA_6, PA_5);    
     
     // obtengo referencia al hilo de ejecución principal
     thTestSpi = Thread::gettid();
@@ -170,7 +168,7 @@ int test_SpiDma(){
     
     // Relleno el array de 100 leds a rojo
     for(int i=0;i<ROW_COUNT;i++){
-        setColorAt(curr_color, i);
+        setColorAt(curr_color, i, 64, 32);
     }
 
     
@@ -219,6 +217,53 @@ int test_SpiDma(){
 
 
 // **************************************************************************
+// *********** TEST DMA_PwmOut **********************************************
+// **************************************************************************
+
+#include "DMA_PwmOut.h"
+
+DMA_PwmOut* pwm;
+
+
+osThreadId thTestPwm;
+
+
+int test_DMA_PwmOut(){
+    Color_t* curr_color = (Color_t*)&test_color;
+    
+    // Inicio el puerto pwm en PA_10 (TIM1_CH3, DMA1_Ch7) con periodo de a 800KHz (25ns * 1250)
+    pwm = new DMA_PwmOut(PA_10, 800000);    
+    
+    // obtengo referencia al hilo de ejecución principal
+    thTestPwm = Thread::gettid();
+
+    // Preparo buffer de color (todo apagado = duty cycles = 0)
+    memset(&color_buffer, 0, sizeof(ColorBuffer_t));
+    
+    // Preparo el duty para enviar bits a 0 y a 1.
+    uint32_t ws2812_bit1 = pwm->getTickPercent(64);
+    uint32_t ws2812_bit0 = pwm->getTickPercent(32);
+    
+    // Relleno el array de 100 leds a rojo
+    for(int i=0;i<ROW_COUNT;i++){
+        setColorAt(curr_color, i, ws2812_bit1, ws2812_bit0);
+    }
+
+    
+    // Inicio la operación vía DMA
+    pwm->dmaStart((uint32_t*)&color_buffer, 1);
+    
+    for(;;){
+        // Tras 10seg la detengo
+        Thread::wait(10000);
+        pwm->dmaStop();
+        // Tras 10seg la reinicio
+        Thread::wait(10000);
+        pwm->dmaStart((uint32_t*)&color_buffer, 1);
+    }
+}
+
+// **************************************************************************
 // **************************************************************************
 // **************************************************************************
 
@@ -226,7 +271,8 @@ int test_SpiDma(){
 // main() runs in its own thread in the OS
 int main() {
 //    test_MQlib();
-    test_SpiDma();
+//    test_SpiDma();
+    test_DMA_PwmOut();
 }
 
 

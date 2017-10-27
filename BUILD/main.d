@@ -218,4 +218,6 @@
 .\build\main.o: .\src\MQLib\List.h
 .\build\main.o: .\src\MQLib\List_tpp.h
 .\build\main.o: .\src\MQLib\Heap.h
-.\build\main.o: .\src\BspDrivers\SpiDmaInterface\SpiDmaInterface.h
+.\build\main.o: .\src\BspDrivers\DMA\DMA_SPI\DMA_SPI.h
+.\build\main.o: .\src\BspDrivers\DMA\DMA.h
+.\build\main.o: .\src\BspDrivers\DMA\DMA_PwmOut\DMA_PwmOut.h

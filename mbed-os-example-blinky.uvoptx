@@ -149,18 +149,34 @@
         <Bp>
           <Number>0</Number>
           <Type>0</Type>
-          <LineNumber>59</LineNumber>
+          <LineNumber>259</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>134245978</Address>
+          <Address>134242398</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
           <SizeOfObject>0</SizeOfObject>
           <BreakByAccess>0</BreakByAccess>
           <BreakIfRCount>1</BreakIfRCount>
-          <Filename>mbed-os/drivers/SPI.cpp</Filename>
+          <Filename>main.cpp</Filename>
           <ExecCommand></ExecCommand>
-          <Expression>\\mbed_os_example_blinky\mbed-os/drivers/SPI.cpp\59</Expression>
+          <Expression>\\mbed_os_example_blinky\main.cpp\259</Expression>
+        </Bp>
+        <Bp>
+          <Number>1</Number>
+          <Type>0</Type>
+          <LineNumber>258</LineNumber>
+          <EnabledFlag>1</EnabledFlag>
+          <Address>134242390</Address>
+          <ByteObject>0</ByteObject>
+          <HtxType>0</HtxType>
+          <ManyObjects>0</ManyObjects>
+          <SizeOfObject>0</SizeOfObject>
+          <BreakByAccess>0</BreakByAccess>
+          <BreakIfRCount>1</BreakIfRCount>
+          <Filename>main.cpp</Filename>
+          <ExecCommand></ExecCommand>
+          <Expression>\\mbed_os_example_blinky\main.cpp\258</Expression>
         </Bp>
       </Breakpoint>
       <WatchWindow1>
@@ -174,7 +190,20 @@
           <WinNumber>1</WinNumber>
           <ItemText>hz,0x0A</ItemText>
         </Ww>
+        <Ww>
+          <count>2</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>_handle</ItemText>
+        </Ww>
       </WatchWindow1>
+      <MemoryWindow1>
+        <Mm>
+          <WinNumber>1</WinNumber>
+          <SubType>1</SubType>
+          <ItemText>color_buffer</ItemText>
+          <AccSizeX>0</AccSizeX>
+        </Mm>
+      </MemoryWindow1>
       <Tracepoint>
         <THDelay>0</THDelay>
       </Tracepoint>
@@ -8806,8 +8835,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\src\BspDrivers\DMA\DMA_IRQHandlers.h</PathWithFileName>
-      <FilenameWithoutPath>DMA_IRQHandlers.h</FilenameWithoutPath>
+      <PathWithFileName>.\src\BspDrivers\DMA\DMA.h</PathWithFileName>
+      <FilenameWithoutPath>DMA.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -8818,56 +8847,72 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\src\BspDrivers\DMA\DMA_IRQHandlers.cpp</PathWithFileName>
-      <FilenameWithoutPath>DMA_IRQHandlers.cpp</FilenameWithoutPath>
+      <PathWithFileName>.\src\BspDrivers\DMA\DMA.cpp</PathWithFileName>
+      <FilenameWithoutPath>DMA.cpp</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
+  </Group>
+
+  <Group>
+    <GroupName>User/BspDrivers/DMA_SPI</GroupName>
+    <tvExp>1</tvExp>
+    <tvExpOptDlg>0</tvExpOptDlg>
+    <cbSel>0</cbSel>
+    <RteFlg>0</RteFlg>
     <File>
-      <GroupNumber>4</GroupNumber>
+      <GroupNumber>5</GroupNumber>
       <FileNumber>716</FileNumber>
       <FileType>5</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\src\BspDrivers\PwmOutDmaBurst\PwmOutDmaBurst.h</PathWithFileName>
-      <FilenameWithoutPath>PwmOutDmaBurst.h</FilenameWithoutPath>
+      <PathWithFileName>.\src\BspDrivers\DMA\DMA_SPI\DMA_SPI.h</PathWithFileName>
+      <FilenameWithoutPath>DMA_SPI.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
     <File>
-      <GroupNumber>4</GroupNumber>
+      <GroupNumber>5</GroupNumber>
       <FileNumber>717</FileNumber>
       <FileType>8</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\src\BspDrivers\PwmOutDmaBurst\PwmOutDmaBurst.cpp</PathWithFileName>
-      <FilenameWithoutPath>PwmOutDmaBurst.cpp</FilenameWithoutPath>
+      <PathWithFileName>.\src\BspDrivers\DMA\DMA_SPI\DMA_SPI.cpp</PathWithFileName>
+      <FilenameWithoutPath>DMA_SPI.cpp</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
+  </Group>
+
+  <Group>
+    <GroupName>User/BspDrivers/DMA_PwmOut</GroupName>
+    <tvExp>1</tvExp>
+    <tvExpOptDlg>0</tvExpOptDlg>
+    <cbSel>0</cbSel>
+    <RteFlg>0</RteFlg>
     <File>
-      <GroupNumber>4</GroupNumber>
+      <GroupNumber>6</GroupNumber>
       <FileNumber>718</FileNumber>
       <FileType>5</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\src\BspDrivers\SpiDmaInterface\SpiDmaInterface.h</PathWithFileName>
-      <FilenameWithoutPath>SpiDmaInterface.h</FilenameWithoutPath>
+      <PathWithFileName>.\src\BspDrivers\DMA\DMA_PwmOut\DMA_PwmOut.h</PathWithFileName>
+      <FilenameWithoutPath>DMA_PwmOut.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
     <File>
-      <GroupNumber>4</GroupNumber>
+      <GroupNumber>6</GroupNumber>
       <FileNumber>719</FileNumber>
       <FileType>8</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\src\BspDrivers\SpiDmaInterface\SpiDmaInterface.cpp</PathWithFileName>
-      <FilenameWithoutPath>SpiDmaInterface.cpp</FilenameWithoutPath>
+      <PathWithFileName>.\src\BspDrivers\DMA\DMA_PwmOut\DMA_PwmOut.cpp</PathWithFileName>
+      <FilenameWithoutPath>DMA_PwmOut.cpp</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>

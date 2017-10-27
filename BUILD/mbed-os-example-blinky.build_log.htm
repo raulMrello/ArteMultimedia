@@ -22,46 +22,32 @@ Dialog DLL:      TCM.DLL V1.14.14.0
  
 <h2>Project:</h2>
 C:\Users\raulm\workspace\mbed\mbed-os-l432kc\mbed-os-example-blinky.uvprojx
-Project File Date:  10/26/2017
+Project File Date:  10/27/2017
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 3 (build 300)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'mbed-os-example-blinky'
-compiling PwmOutDmaBurst.cpp...
-src\BspDrivers\PwmOutDmaBurst\PwmOutDmaBurst.cpp(104): error:  #20: identifier "Error_Handler" is undefined
-              Error_Handler();
-src\BspDrivers\PwmOutDmaBurst\PwmOutDmaBurst.cpp(117): error:  #20: identifier "Error_Handler" is undefined
-          Error_Handler();
-src\BspDrivers\PwmOutDmaBurst\PwmOutDmaBurst.cpp(130): error:  #20: identifier "Error_Handler" is undefined
-          Error_Handler();
-src\BspDrivers\PwmOutDmaBurst\PwmOutDmaBurst.cpp(134): error:  #20: identifier "TIM2_CLK_ENABLE" is undefined
-      TIM2_CLK_ENABLE();
-src\BspDrivers\PwmOutDmaBurst\PwmOutDmaBurst.cpp(170): error:  #167: argument of type "void (*)()" is incompatible with parameter of type "IRQn_Type"
-              HAL_NVIC_EnableIRQ(DMA1_Channel5_IRQHandler);    
-src\BspDrivers\PwmOutDmaBurst\PwmOutDmaBurst.cpp(174): error:  #167: argument of type "void (*)()" is incompatible with parameter of type "IRQn_Type"
-              HAL_NVIC_EnableIRQ(DMA1_Channel7_IRQHandler);    
-src\BspDrivers\PwmOutDmaBurst\PwmOutDmaBurst.cpp(178): error:  #167: argument of type "void (*)()" is incompatible with parameter of type "IRQn_Type"
-              HAL_NVIC_EnableIRQ(DMA1_Channel1_IRQHandler);    
-src\BspDrivers\PwmOutDmaBurst\PwmOutDmaBurst.cpp(182): error:  #167: argument of type "void (*)()" is incompatible with parameter of type "IRQn_Type"
-              HAL_NVIC_EnableIRQ(DMA1_Channel7_IRQHandler);    
-src\BspDrivers\PwmOutDmaBurst\PwmOutDmaBurst.cpp(190): error:  #20: identifier "ErrorResult" is undefined
-  ErrorResult PwmOutDmaBurst::dmaStart(uint32_t* buf, uint16_t bufsize){
-src\BspDrivers\PwmOutDmaBurst\PwmOutDmaBurst.cpp(190): error:  #147: declaration is incompatible with "PwmOutDmaBurst::ErrorResult PwmOutDmaBurst::dmaStart(std::uint32_t *, std::uint16_t)" (declared at line 70 of "src\BspDrivers\PwmOutDmaBurst\PwmOutDmaBurst.h")
-  ErrorResult PwmOutDmaBurst::dmaStart(uint32_t* buf, uint16_t bufsize){
-src\BspDrivers\PwmOutDmaBurst\PwmOutDmaBurst.cpp(196): error:  #20: identifier "ErrorResult" is undefined
-  ErrorResult PwmOutDmaBurst::dmaStop(){
-src\BspDrivers\PwmOutDmaBurst\PwmOutDmaBurst.cpp(196): error:  #147: declaration is incompatible with "PwmOutDmaBurst::ErrorResult PwmOutDmaBurst::dmaStop()" (declared at line 76 of "src\BspDrivers\PwmOutDmaBurst\PwmOutDmaBurst.h")
-  ErrorResult PwmOutDmaBurst::dmaStop(){
-src\BspDrivers\PwmOutDmaBurst\PwmOutDmaBurst.cpp: 0 warnings, 12 errors
-".\BUILD\mbed-os-example-blinky.axf" - 12 Error(s), 0 Warning(s).
+compiling main.cpp...
+main.cpp(111): warning:  #177-D: variable "red_color" was declared but never referenced
+  static const Color_t red_color = {0, 255, 0};
+main.cpp(112): warning:  #177-D: variable "green_color" was declared but never referenced
+  static const Color_t green_color = {255, 0, 0};
+main.cpp(113): warning:  #177-D: variable "blue_color" was declared but never referenced
+  static const Color_t blue_color = {0, 0, 255};
+main.cpp(114): warning:  #177-D: variable "white_color" was declared but never referenced
+  static const Color_t white_color = {255, 255, 255};
+main.cpp: 4 warnings, 0 errors
+linking...
+Program Size: Code=41288 RO-data=2884 RW-data=2528 ZI-data=15744  
+FromELF: creating hex file...
+".\BUILD\mbed-os-example-blinky.axf" - 0 Error(s), 4 Warning(s).
 
 <h2>Collection of Component include folders:</h2>
   C:\Users\raulm\workspace\mbed\mbed-os-l432kc\RTE
   C:\Keil_v5\ARM\PACK\Keil\STM32L4xx_DFP\1.2.0\Device\Include
 
 <h2>Collection of Component Files used:</h2>
-Target not created.
-Build Time Elapsed:  00:00:04
+Build Time Elapsed:  00:00:06
 </pre>
 </body>
 </html>

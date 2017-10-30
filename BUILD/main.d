@@ -221,3 +221,4 @@
 .\build\main.o: .\src\BspDrivers\WS281xLedStrip\WS281xLedStrip.h
 .\build\main.o: .\src\BspDrivers\DMA\DMA_PwmOut\DMA_PwmOut.h
 .\build\main.o: .\src\BspDrivers\DMA\DMA.h
+.\build\main.o: .\src\BspDrivers\HCSR04\HCSR04.h

@@ -7,6 +7,11 @@ Proyecto plantilla para desarrollos con la tarjeta NUCLEO_L432KC de ST en mbed-o
 ## Changelog
 
 ----------------------------------------------------------------------------------------------
+##### 30.10.2017 ->commit:"Inctegrando driver HCSR04"
+- [x] Integrando driver del sensor de ultrasonidos.	  
+	  
+
+----------------------------------------------------------------------------------------------
 ##### 30.10.2017 ->commit:"Incluyo drivers DMA y WS281xLedStrip"
 - [x] Modifico los drivers que utilizan capacidades DMA dentro de ese directorio y los renombro
 	  como DMA_SPI y DMA_PwmOut.

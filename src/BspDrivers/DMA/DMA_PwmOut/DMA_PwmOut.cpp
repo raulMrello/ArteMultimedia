@@ -113,7 +113,7 @@ void HAL_TIM_PWM_MspInit(TIM_HandleTypeDef *htim){
     hdma_tim->Init.PeriphInc = DMA_PINC_DISABLE;
     hdma_tim->Init.MemInc = DMA_MINC_ENABLE;
     hdma_tim->Init.PeriphDataAlignment = DMA_PDATAALIGN_WORD;
-    hdma_tim->Init.MemDataAlignment = DMA_PDATAALIGN_WORD;
+    hdma_tim->Init.MemDataAlignment = DMA_MDATAALIGN_WORD;
     hdma_tim->Init.Mode = DMA_CIRCULAR;
     hdma_tim->Init.Priority = DMA_PRIORITY_HIGH;
 
@@ -207,7 +207,7 @@ DMA_PwmOut::DMA_PwmOut(PinName pin, uint32_t hz){
         }
     }
     do{
-        _handle.Init.RepetitionCounter  = 1;
+        _handle.Init.RepetitionCounter  = 0;
         _handle.Init.Prescaler          = 0; 
         _handle.Init.Period             = (uint32_t)((SystemCoreClock / hz) - 1);
         _handle.Init.ClockDivision      = 0;
@@ -239,7 +239,12 @@ DMA_PwmOut::DMA_PwmOut(PinName pin, uint32_t hz){
 
 //------------------------------------------------------------------------------------
 DMA_PwmOut::ErrorResult DMA_PwmOut::dmaStart(uint32_t* buf, uint16_t bufsize){
-    return (DMA_PwmOut::ErrorResult)HAL_TIM_PWM_Start_DMA(&_handle, _channel, buf, bufsize);
+    DMA_PwmOut::ErrorResult err;
+    _sConfig.Pulse = *buf;
+    if ((err = (DMA_PwmOut::ErrorResult)HAL_TIM_PWM_ConfigChannel(&_handle, &_sConfig, _channel)) == HAL_OK)  {
+        return (DMA_PwmOut::ErrorResult)HAL_TIM_PWM_Start_DMA(&_handle, _channel, buf, bufsize);
+    } 
+    return err;    
 }
 
 

@@ -7,6 +7,13 @@ Proyecto plantilla para desarrollos con la tarjeta NUCLEO_L432KC de ST en mbed-o
 ## Changelog
 
 ----------------------------------------------------------------------------------------------
+##### 30.10.2017 ->commit:"Incluyo drivers DMA y WS281xLedStrip"
+- [x] Modifico los drivers que utilizan capacidades DMA dentro de ese directorio y los renombro
+	  como DMA_SPI y DMA_PwmOut.
+- [x] Añado driver WS281xLedStrip con capacidades mínimas. Hay que seguir implementando funciones	  
+	  
+
+----------------------------------------------------------------------------------------------
 ##### 26.10.2017 ->commit:"Incluyo SpiDmaInterface, PwmOutDmaBurst"
 - [x] Integro módulos con gestión de DMA así como el módulo común DMA_IRQHandlers que permite 
 	  agrupar todas las definiciones comunes relativas a los diferentes canales DMA.

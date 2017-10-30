@@ -108,7 +108,7 @@ class DMA_PwmOut : public DMA {
      *  @return Ticks correspondientes a un porcentaje 0..100%
      */
     uint32_t getTickPercent(uint8_t percent){
-        return ((uint32_t)(((uint32_t) percent * (_period_ticks - 1)) / 100)); 
+        return ((uint32_t)(((uint32_t) percent * _period_ticks) / 100)); 
     }
     
         

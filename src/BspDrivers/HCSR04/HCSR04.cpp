@@ -32,7 +32,7 @@ HCSR04::HCSR04(PinName trig, PinName echo){
     _approach_dist_cm = DefaultDifDistance;
     _goaway_dist_cm = DefaultDifDistance;
     _num_meas = 0;
-    _lapse_ms = 0;
+    _lapse_us = 0;
 }
 
 
@@ -44,17 +44,17 @@ void HCSR04::setDistRange(int16_t approach_dist, int16_t goaway_dist){
 
 
 //------------------------------------------------------------------------------------
-void HCSR04::start(Callback<void(DistanceEvent, uint16_t)>& evCb, uint32_t lapse_ms){
+void HCSR04::start(Callback<void(DistanceEvent, uint16_t)> evCb, uint32_t lapse_ms){
     // detiene el contador del echo
     _echo_tmr.stop();
     _echo_tmr.reset();
-    _lapse_ms = lapse_ms;
+    _lapse_us = 1000 * lapse_ms;
     _callback = evCb;
     
     // planifica inicio temporizado si corresponde
-    if(_lapse_ms){
+    if(_lapse_us){
         _stat = WaitingTrigger;
-        _tick_trig.attach_us(callback(this, &HCSR04::trigger), _lapse_ms);
+        _tick_trig.attach_us(callback(this, &HCSR04::trigger), _lapse_us);
         return;
     }
     // en caso de ser un único disparo, lo ejecuta
@@ -71,6 +71,7 @@ void HCSR04::stop(){
     _out_trig->write(0);
     _echo_tmr.stop();
     _echo_tmr.reset();
+    _stat = Stopped;
 }
 
 
@@ -81,6 +82,14 @@ void HCSR04::stop(){
 
 //------------------------------------------------------------------------------------
 void HCSR04::trigger(){
+    // en caso de no haber recibido un echo previo, debe notificar el error primero
+    if(_stat > WaitingTrigger){
+        _callback.call(MeasureError, 0);        
+        if(!_lapse_us){
+            stop();
+            return;
+        }
+    }
     _stat = Triggered;
     _out_trig->write(1);
     wait_us(10);
@@ -88,6 +97,11 @@ void HCSR04::trigger(){
     _iin_echo->rise(callback(this, &HCSR04::echoStart));
     _iin_echo->fall(callback(this, &HCSR04::echoEnd));
     _stat = WaitingEcho;
+    // en caso de ser un disparo único, utiliza el tiempo de error por defecto para detectar
+    // ausencias de echo
+    if(!_lapse_us){
+        _tick_trig.attach_us(callback(this, &HCSR04::trigger), DefaultTimeoutUs);
+    }
 }
 
 
@@ -112,15 +126,15 @@ void HCSR04::echoEnd(){
     else{
         if(distance_cm < (_last_dist_cm - _approach_dist_cm)){
             _last_dist_cm = distance_cm;
-            _callback(Approaching, _last_dist_cm);
+            _callback.call(Approaching, _last_dist_cm);
         }
         else if(distance_cm > (_last_dist_cm + _goaway_dist_cm)){
             _last_dist_cm = distance_cm;
-            _callback(MovingAway, _last_dist_cm);
+            _callback.call(MovingAway, _last_dist_cm);
         }
     }
     
-    if(_lapse_ms){    
+    if(_lapse_us){    
         _stat = WaitingTrigger;
     }
     else{

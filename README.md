@@ -7,6 +7,12 @@ Proyecto plantilla para desarrollos con la tarjeta NUCLEO_L432KC de ST en mbed-o
 ## Changelog
 
 ----------------------------------------------------------------------------------------------
+##### 31.10.2017 ->commit:"Integrando driver MPR121"
+- [ ] Integrando driver de detectores táctiles MPR121. Lista de comandos iniciales.
+- [x] Integrados drivers HCSR04 ultrasonidos y PCA9685 servos.
+	  
+
+----------------------------------------------------------------------------------------------
 ##### 30.10.2017 ->commit:"Inctegrando driver HCSR04"
 - [x] Integrando driver del sensor de ultrasonidos.	  
 	  

@@ -1,9 +1,10 @@
 #include "mbed.h"
 #include "MQLib.h"
-
+#include "Logger.h"
 
 DigitalOut led1(LED3);
-
+Logger* logger;
+#define DEBUG_TRACE(format, ...)    if(logger){logger->printf(format, ##__VA_ARGS__);}
 
 
 // **************************************************************************
@@ -266,29 +267,29 @@ int test_MQlib(){
 // **************************************************************************
 // *********** TEST WS281xLedStrip ******************************************
 // **************************************************************************
-#include "WS281xLedStrip.h"
+//#include "WS281xLedStrip.h"
 
-static const WS281xLedStrip::Color_t red = { .red   = 255, 
-                                             .green = 0, 
-                                             .blue  = 0};
-static const WS281xLedStrip::Color_t test = {.red   = 0x55, 
-                                             .green = 0x55, 
-                                             .blue  = 0x55};
+//static const WS281xLedStrip::Color_t red = { .red   = 255, 
+//                                             .green = 0, 
+//                                             .blue  = 0};
+//static const WS281xLedStrip::Color_t test = {.red   = 0x55, 
+//                                             .green = 0x55, 
+//                                             .blue  = 0x55};
 
 
-static WS281xLedStrip* led_strip;
+//static WS281xLedStrip* led_strip;
 
-void test_WS281xLedStrip(){
-    led_strip = new WS281xLedStrip(PA_10, 800000, 20);
-    led_strip->setRange(0, 19, test);
-    led_strip->start();
-    for(;;){
-        Thread::wait(5000);
-        led_strip->stop();
-        Thread::wait(5000);
-        led_strip->start();
-    }    
-}
+//void test_WS281xLedStrip(){
+//    led_strip = new WS281xLedStrip(PA_10, 800000, 20);
+//    led_strip->setRange(0, 19, test);
+//    led_strip->start();
+//    for(;;){
+//        Thread::wait(5000);
+//        led_strip->stop();
+//        Thread::wait(5000);
+//        led_strip->start();
+//    }    
+//}
 
 
 
@@ -296,19 +297,71 @@ void test_WS281xLedStrip(){
 // **************************************************************************
 // *********** TEST HCSR04 **************************************************
 // **************************************************************************
-#include "HCSR04.h"
-HCSR04* usound;
+//#include "HCSR04.h"
+//HCSR04* usound;
 
-void onDistEvent(HCSR04::DistanceEvent ev, uint16_t distance){
-}
+//void onDistEvent(HCSR04::DistanceEvent ev, uint16_t distance){
+//    switch(ev){
+//        case HCSR04::Approaching:{
+//            DEBUG_TRACE("Acercándose a %d cm\r\n", distance);
+//            break;
+//        }        
+//        case HCSR04::MovingAway:{
+//            DEBUG_TRACE("Alejándose a %d cm\r\n", distance);
+//            break;
+//        }
+//        case HCSR04::MeasureError:{
+//            DEBUG_TRACE("Error en la medida\r\n");
+//            break;
+//        }
+//        
+//    }
+//}
 
-void test_HCSR04(){
-    usound = new HCSR04(PA_8, PA_11);
-    usound->setDistRange(20, 20);
-    usound->start(callback(onDistEvent), 2000);
+//void test_HCSR04(){
+//    usound = new HCSR04(PA_8, PA_11);
+//    usound->setDistRange(20, 20);
+//    usound->start(callback(onDistEvent), 2000);
+//    
+//}
+
+
+
+
+// **************************************************************************
+// *********** TEST PCA9685 *************************************************
+// **************************************************************************
+#include "PCA9685_ServoDrv.h"
+PCA9685_ServoDrv* servodrv;
+
+void test_PCA9685(){
+    uint8_t SERVO_COUNT = 12;
+    uint8_t ADDR = 0;
+    // creo driver
+    servodrv = new PCA9685_ServoDrv(PB_7, PB_6, SERVO_COUNT, ADDR);
     
-}
+    // espero a que esté listo
+    do{
+        Thread::yield();
+        }while(servodrv->getState() != PCA9685_ServoDrv::Ready);
+    
+    // establezco rangos de funcionamiento
+    for(uint8_t i=0;i<SERVO_COUNT;i++){
+        servodrv->setServoRanges(i, 0, 180, 1000, 2000);    
+    }
+    
+    // situo todos a 45º y doy la orden sincronizada
+    for(uint8_t i=0;i<SERVO_COUNT;i++){
+        servodrv->setServoAngle(i, 45);    
+    }
+    servodrv->updateAll();
+    
+    // situo el 2º servo a 90º
+    servodrv->setServoAngle(1, 90, true);    
 
+    for(;;){
+    }
+}
 // **************************************************************************
 // **************************************************************************
 // **************************************************************************
@@ -316,11 +369,14 @@ void test_HCSR04(){
 
 // main() runs in its own thread in the OS
 int main() {
+    logger = new Logger(USBTX, USBRX);
+    DEBUG_TRACE("\r\nIniciando test...\r\n");
 //    test_MQlib();
 //    test_SpiDma();
 //    test_DMA_PwmOut();
 //    test_WS281xLedStrip();
-    test_HCSR04();
+//    test_HCSR04();
+    test_PCA9685();
 }
 
 

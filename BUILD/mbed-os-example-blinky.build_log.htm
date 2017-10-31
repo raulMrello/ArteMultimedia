@@ -22,18 +22,18 @@ Dialog DLL:      TCM.DLL V1.14.14.0
  
 <h2>Project:</h2>
 C:\Users\raulm\workspace\mbed\mbed-os-l432kc\mbed-os-example-blinky.uvprojx
-Project File Date:  10/30/2017
+Project File Date:  10/31/2017
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 3 (build 300)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'mbed-os-example-blinky'
 compiling main.cpp...
-main.cpp(308): error:  #461: initial value of reference to non-const must be an lvalue
-      usound->start(callback(onDistEvent), 2000);
-main.cpp(271): warning:  #177-D: variable "red" was declared but never referenced
-  static const WS281xLedStrip::Color_t red = { .red   = 255, 
-main.cpp: 1 warning, 1 error
-".\BUILD\mbed-os-example-blinky.axf" - 1 Error(s), 1 Warning(s).
+compiling PCA9685_ServoDrv.cpp...
+src\BspDrivers\PCA9685\PCA9685_ServoDrv.cpp(186): error:  #20: identifier "round" is undefined
+      CHANGE_FREQ[1] = 
+CA9685_PWM_FREQ(_hz, _freq);
+src\BspDrivers\PCA9685\PCA9685_ServoDrv.cpp: 0 warnings, 1 error
+".\BUILD\mbed-os-example-blinky.axf" - 1 Error(s), 0 Warning(s).
 
 <h2>Collection of Component include folders:</h2>
   C:\Users\raulm\workspace\mbed\mbed-os-l432kc\RTE

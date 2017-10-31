@@ -40,6 +40,7 @@ class HCSR04 {
     enum DistanceEvent{
         Approaching,            /// Evento al acercarse
         MovingAway,             /// Evento al alejarse
+        MeasureError,           /// Error en la operación de medida
     };
 	
     /** @enum State
@@ -81,7 +82,7 @@ class HCSR04 {
      *  @param evCb Callback instalada para recibir los eventos de medida
      *  @param lapse_ms Lapso en ms para repetir la medida contínuamente. Si se deja a 0 sólo realiza una medida.
      */
-    void start(Callback<void(DistanceEvent, uint16_t)>& evCb, uint32_t lapse_ms = 0);
+    void start(Callback<void(DistanceEvent, uint16_t)> evCb, uint32_t lapse_ms = 0);
 
 	
     /** @fn stop()
@@ -92,7 +93,8 @@ class HCSR04 {
     
         
   protected:           
-    static const uint32_t DefaultDifDistance = 50;  // Eventos por defecto al detectar cambios de al menos 50cm
+    static const uint32_t DefaultDifDistance = 50;      // Eventos por defecto al detectar cambios de al menos 50cm
+    static const uint32_t DefaultTimeoutUs = 2000000;  // Tiempo de vuelo por defecto en modo one-shot (2sec)
   
     State _stat;                            /// Estado de ejecución
     uint16_t _approach_dist_cm;             /// Diferencia de distancia al aproximarse
@@ -107,7 +109,7 @@ class HCSR04 {
     void echoEnd();                         /// Callback a invocar al detectar fin de echo
     void trigger();                         /// Callback a invocar al iniciar un trigger
   
-    uint32_t _lapse_ms;                     /// Cadencia en ms para eventos del trigger
+    uint32_t _lapse_us;                     /// Cadencia en us para eventos del trigger
     Ticker _tick_trig;                      /// Ticker para la generación de triggers
     Timer _echo_tmr;                        /// Timer para el cálculo del echo
   

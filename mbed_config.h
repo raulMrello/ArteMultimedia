@@ -34,7 +34,7 @@
 #define MBED_CONF_PPP_CELL_IFACE_AT_PARSER_BUFFER_SIZE 256         // set by library:ppp-cell-iface
 #define MBED_CONF_PLATFORM_STDIO_BAUD_RATE             9600        // set by library:platform
 #define CLOCK_SOURCE                                   USE_PLL_MSI // set by target:NUCLEO_L432KC
-#define MBED_CONF_PLATFORM_DEFAULT_SERIAL_BAUD_RATE    9600        // set by library:platform
+#define MBED_CONF_PLATFORM_DEFAULT_SERIAL_BAUD_RATE    115200      // set by library:platform (9600 default)
 #define MBED_CONF_PPP_CELL_IFACE_AT_PARSER_TIMEOUT     8000        // set by library:ppp-cell-iface
 #define MBED_CONF_PLATFORM_STDIO_FLUSH_AT_EXIT         1           // set by library:platform
 // Macros

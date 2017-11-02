@@ -220,4 +220,5 @@
 .\build\main.o: .\src\MQLib\Heap.h
 .\build\main.o: .\src\BspDrivers\SerialTerminal\Logger.h
 .\build\main.o: .\src\BspDrivers\SerialTerminal\SerialTerminal.h
-.\build\main.o: .\src\BspDrivers\PCA9685\PCA9685_ServoDrv.h
+.\build\main.o: .\src\BspManagers\TouchManager\TouchManager.h
+.\build\main.o: .\src\BspDrivers\MPR121\MPR121_CapTouch.h

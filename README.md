@@ -7,6 +7,14 @@ Proyecto plantilla para desarrollos con la tarjeta NUCLEO_L432KC de ST en mbed-o
 ## Changelog
 
 ----------------------------------------------------------------------------------------------
+##### 2.11.2017 ->commit:"Integrado driver MPR121 y TouchManager"
+- [x] Integrado driver de detectores táctiles MPR121 y módulo de gestión de alto nivel TouchManager.
+- [ ] Nota: Sería posible hacer que MQLib utilizara las callbacks directamente en lugar de punteros
+	  pero para ello, habría que retocar la librería "List" ya que guarda objetos tipo T* y por lo 
+	  tanto no se puede. Habría que retocar "List" para que utilizara objetos T directamente.
+	  
+
+----------------------------------------------------------------------------------------------
 ##### 31.10.2017 ->commit:"Integrando driver MPR121"
 - [ ] Integrando driver de detectores táctiles MPR121. Lista de comandos iniciales.
 - [x] Integrados drivers HCSR04 ultrasonidos y PCA9685 servos.

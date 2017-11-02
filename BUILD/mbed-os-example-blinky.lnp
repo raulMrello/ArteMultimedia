@@ -317,6 +317,8 @@
 ".\build\hcsr04.o"
 ".\build\serialterminal.o"
 ".\build\pca9685_servodrv.o"
+".\build\touchmanager.o"
+".\build\mpr121_captouch.o"
 --scatter "mbed-os/targets/TARGET_STM/TARGET_STM32L4/TARGET_STM32L432xC/device/TOOLCHAIN_ARM_STD/stm32l432xx.sct"
 --summary_stderr --info summarysizes --map --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers

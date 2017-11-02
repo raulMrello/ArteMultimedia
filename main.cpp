@@ -27,6 +27,7 @@ size_t SizeOfArray( const T(&)[ N ] )
 static MQ::Token token_list[] = {
     "topic0",
     "topic1",
+    "touch",
 };
 
 //-----------------------------------------------------------------------------
@@ -331,37 +332,86 @@ int test_MQlib(){
 // **************************************************************************
 // *********** TEST PCA9685 *************************************************
 // **************************************************************************
-#include "PCA9685_ServoDrv.h"
-PCA9685_ServoDrv* servodrv;
+//#include "PCA9685_ServoDrv.h"
+//PCA9685_ServoDrv* servodrv;
 
-void test_PCA9685(){
-    uint8_t SERVO_COUNT = 12;
-    uint8_t ADDR = 0;
-    // creo driver
-    servodrv = new PCA9685_ServoDrv(PB_7, PB_6, SERVO_COUNT, ADDR);
-    
-    // espero a que esté listo
-    do{
+//void test_PCA9685(){
+//    uint8_t SERVO_COUNT = 12;
+//    uint8_t ADDR = 0;
+//    // creo driver
+//    servodrv = new PCA9685_ServoDrv(PB_7, PB_6, SERVO_COUNT, ADDR);
+//    
+//    // espero a que esté listo
+//    do{
+//        Thread::yield();
+//        }while(servodrv->getState() != PCA9685_ServoDrv::Ready);
+//    
+//    // establezco rangos de funcionamiento
+//    for(uint8_t i=0;i<SERVO_COUNT;i++){
+//        servodrv->setServoRanges(i, 0, 180, 1000, 2000);    
+//    }
+//    
+//    // situo todos a 45º y doy la orden sincronizada
+//    for(uint8_t i=0;i<SERVO_COUNT;i++){
+//        servodrv->setServoAngle(i, 45);    
+//    }
+//    servodrv->updateAll();
+//    
+//    // situo el 2º servo a 90º
+//    servodrv->setServoAngle(1, 90, true);    
+
+//    for(;;){
+//    }
+//}
+
+
+
+
+
+// **************************************************************************
+// *********** TEST MPR121 *************************************************
+// **************************************************************************
+#include "TouchManager.h"
+TouchManager* touch;
+
+/** Procesa eventos touch mediante callback dedicada */
+void onTouchEvent(TouchManager::TouchMsg* msg){
+    DEBUG_TRACE("\r\nTouchEvt elec=%d, evt=%d", msg->elec, msg->evt);
+}
+
+/** Procesa eventos touch mediante suscripción al topic "touch" */
+void onTouchTopic(const char* topic, void* msg, uint16_t msg_len){    
+    DEBUG_TRACE("\r\nTouchMsg elec=%d, evt=%d", ((TouchManager::TouchMsg*)msg)->elec, ((TouchManager::TouchMsg*)msg)->evt);
+}
+
+void test_MPR121(){
+    // Arranca el broker con la siguiente configuración:
+    //  - Lista de tokens predefinida
+    //  - Número máximo de caracteres para los topics: 64 caracteres incluyendo fin de cadena '\0'
+    //  - Espera a que esté operativo
+    MQ::MQBroker::start(token_list, SizeOfArray(token_list), 64);
+    while(!MQ::MQBroker::ready()){
         Thread::yield();
-        }while(servodrv->getState() != PCA9685_ServoDrv::Ready);
-    
-    // establezco rangos de funcionamiento
-    for(uint8_t i=0;i<SERVO_COUNT;i++){
-        servodrv->setServoRanges(i, 0, 180, 1000, 2000);    
     }
     
-    // situo todos a 45º y doy la orden sincronizada
-    for(uint8_t i=0;i<SERVO_COUNT;i++){
-        servodrv->setServoAngle(i, 45);    
-    }
-    servodrv->updateAll();
+    // Crea suscripción a mensajes del topic "touch"
+    MQ::SubscribeCallback   _subscriptionCb = callback(onTouchTopic);
+    MQ::MQClient::subscribe("touch", &_subscriptionCb);
     
-    // situo el 2º servo a 90º
-    servodrv->setServoAngle(1, 90, true);    
-
+    // Crea el manejador del driver MPR121 de alto nivel e instala callback y publicación de topics
+    touch = new TouchManager(PB_7, PB_6, PB_0);
+    touch->attachCallback(callback(onTouchEvent));
+    touch->attachTopics("touch");
+    
+    // Espero eventos...
+    DEBUG_TRACE("\r\nEsperando eventos ...");
     for(;;){
+        Thread::yield();
     }
 }
+
+
+
 // **************************************************************************
 // **************************************************************************
 // **************************************************************************
@@ -376,7 +426,8 @@ int main() {
 //    test_DMA_PwmOut();
 //    test_WS281xLedStrip();
 //    test_HCSR04();
-    test_PCA9685();
+//    test_PCA9685();
+    test_MPR121();
 }
 
 

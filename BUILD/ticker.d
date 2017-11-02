@@ -91,5 +91,8 @@
 .\build\ticker.o: mbed-os/./platform/NonCopyable.h
 .\build\ticker.o: mbed-os/./platform/Callback.h
 .\build\ticker.o: mbed-os/./platform/mbed_toolchain.h
-.\build\ticker.o: mbed-os/./platform/FunctionPointer.h
+.\build\ticker.o: mbed-os/./platform/mbed_sleep.h
+.\build\ticker.o: mbed-os/hal/sleep_api.h
+.\build\ticker.o: mbed-os/./hal/lp_ticker_api.h
 .\build\ticker.o: mbed-os/./platform/mbed_critical.h
+.\build\ticker.o: mbed-os/./platform/FunctionPointer.h

@@ -15,6 +15,8 @@
  */
 
 #include "mbed.h"
+#include "filesystem/Dir.h"
+#include "filesystem/File.h"
 #include "filesystem/FileSystem.h"
 #include <errno.h>
 
@@ -22,6 +24,11 @@
 FileSystem::FileSystem(const char *name)
     : FileSystemLike(name)
 {
+}
+
+int FileSystem::reformat(BlockDevice *bd)
+{
+    return -ENOSYS;
 }
 
 int FileSystem::remove(const char *path)

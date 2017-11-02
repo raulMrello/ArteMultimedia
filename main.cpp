@@ -531,6 +531,9 @@ int main() {
 //    test_PCA9685();
 //    test_MPR121();
     test_ESP8266MQTT();
+    for(;;){
+        Thread::yield();
+    }
 }
 
 

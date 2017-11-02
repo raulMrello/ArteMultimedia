@@ -7,6 +7,12 @@ Proyecto plantilla para desarrollos con la tarjeta NUCLEO_L432KC de ST en mbed-o
 ## Changelog
 
 ----------------------------------------------------------------------------------------------
+##### 2.11.2017 ->commit:"Creo rama dev y actualizo a mbed-os-5.6"
+- [x] Integrado módulos de comunicaciones wifi y mqtt, con actualización necesaria a mbed-os-5.6
+	  para solucionar compatibilidad con ATCmdParser.
+	  
+
+----------------------------------------------------------------------------------------------
 ##### 2.11.2017 ->commit:"Integro MQTT y ESP8266"
 - [x] Integrando módulos de comunicaciones wifi y mqtt
 - [ ] Nota: ATCmdParser me da un error. Voy a crear la rama dev para importar mbed-os a su última

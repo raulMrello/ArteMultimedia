@@ -95,3 +95,5 @@
 .\build\serialbase.o: mbed-os/./platform/NonCopyable.h
 .\build\serialbase.o: mbed-os/./platform/mbed_wait_api.h
 .\build\serialbase.o: mbed-os/./platform/mbed_critical.h
+.\build\serialbase.o: mbed-os/./platform/mbed_sleep.h
+.\build\serialbase.o: mbed-os/hal/sleep_api.h

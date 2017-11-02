@@ -92,3 +92,7 @@
 .\build\timeout.o: mbed-os/./platform/NonCopyable.h
 .\build\timeout.o: mbed-os/./platform/Callback.h
 .\build\timeout.o: mbed-os/./platform/mbed_toolchain.h
+.\build\timeout.o: mbed-os/./platform/mbed_sleep.h
+.\build\timeout.o: mbed-os/hal/sleep_api.h
+.\build\timeout.o: mbed-os/./hal/lp_ticker_api.h
+.\build\timeout.o: mbed-os/./platform/mbed_critical.h

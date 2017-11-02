@@ -96,4 +96,4 @@
 .\build\greentea_serial.o: mbed-os/./hal/dma_api.h
 .\build\greentea_serial.o: mbed-os/./platform/NonCopyable.h
 .\build\greentea_serial.o: mbed-os/platform/SingletonPtr.h
-.\build\greentea_serial.o: mbed-os/rtos/rtx5/TARGET_CORTEX_M/cmsis_os2.h
+.\build\greentea_serial.o: mbed-os/rtos/TARGET_CORTEX/rtx5/cmsis_os2.h

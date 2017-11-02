@@ -90,5 +90,8 @@
 .\build\timer.o: mbed-os/platform/mbed_assert.h
 .\build\timer.o: mbed-os/./hal/ticker_api.h
 .\build\timer.o: mbed-os/./platform/NonCopyable.h
+.\build\timer.o: mbed-os/./platform/mbed_sleep.h
+.\build\timer.o: mbed-os/hal/sleep_api.h
 .\build\timer.o: mbed-os/./hal/us_ticker_api.h
 .\build\timer.o: mbed-os/./platform/mbed_critical.h
+.\build\timer.o: mbed-os/./hal/lp_ticker_api.h

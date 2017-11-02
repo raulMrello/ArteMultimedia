@@ -1,9 +1,10 @@
 .\build\equeue_posix.o: mbed-os/events/equeue/equeue_posix.c
 .\build\equeue_posix.o: mbed_config.h
 .\build\equeue_posix.o: mbed-os/events/equeue/equeue_platform.h
-.\build\equeue_posix.o: mbed-os/rtos/rtx5/TARGET_CORTEX_M/cmsis_os2.h
-.\build\equeue_posix.o: mbed-os/rtos/rtx5/TARGET_CORTEX_M/rtx_lib.h
-.\build\equeue_posix.o: mbed-os/rtos/rtx5/TARGET_CORTEX_M/core_cm.h
+.\build\equeue_posix.o: mbed-os/rtos/TARGET_CORTEX/rtx5/cmsis_os2.h
+.\build\equeue_posix.o: mbed-os/rtos/TARGET_CORTEX/mbed_rtos_storage.h
+.\build\equeue_posix.o: mbed-os/rtos/TARGET_CORTEX/rtx5/rtx_lib.h
+.\build\equeue_posix.o: mbed-os/rtos/TARGET_CORTEX/rtx5/core_cm.h
 .\build\equeue_posix.o: mbed-os/targets/TARGET_STM/TARGET_STM32L4/TARGET_STM32L432xC/device/cmsis.h
 .\build\equeue_posix.o: mbed-os/targets/TARGET_STM/TARGET_STM32L4/TARGET_STM32L432xC/device/stm32l4xx.h
 .\build\equeue_posix.o: mbed-os/targets/TARGET_STM/TARGET_STM32L4/TARGET_STM32L432xC/device/stm32l432xx.h
@@ -81,8 +82,8 @@
 .\build\equeue_posix.o: mbed-os/cmsis/arm_math.h
 .\build\equeue_posix.o: mbed-os/cmsis/core_cm4.h
 .\build\equeue_posix.o: mbed-os/cmsis/tz_context.h
-.\build\equeue_posix.o: mbed-os/rtos/rtx5/TARGET_CORTEX_M/rtx_os.h
-.\build\equeue_posix.o: mbed-os/rtos/rtx5/TARGET_CORTEX_M/rtx_evr.h
-.\build\equeue_posix.o: mbed-os/rtos/rtx5/TARGET_CORTEX_M/RTX_Config.h
-.\build\equeue_posix.o: mbed-os/rtos/rtx5/mbed_rtx_conf.h
+.\build\equeue_posix.o: mbed-os/rtos/TARGET_CORTEX/rtx5/rtx_os.h
+.\build\equeue_posix.o: mbed-os/rtos/TARGET_CORTEX/rtx5/rtx_evr.h
+.\build\equeue_posix.o: mbed-os/rtos/TARGET_CORTEX/rtx5/RTX_Config.h
+.\build\equeue_posix.o: mbed-os/rtos/TARGET_CORTEX/mbed_rtx_conf.h
 .\build\equeue_posix.o: mbed-os/targets/TARGET_STM/mbed_rtx.h

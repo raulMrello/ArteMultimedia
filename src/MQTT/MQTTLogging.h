@@ -1,3 +1,4 @@
+
 #if !defined(MQTT_LOGGING_H)
 #define MQTT_LOGGING_H
 
@@ -38,4 +39,4 @@
 
 #endif
     
-    
+

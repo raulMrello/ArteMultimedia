@@ -3,9 +3,9 @@
 <title>Static Call Graph - [.\BUILD\mbed-os-example-blinky.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\BUILD\mbed-os-example-blinky.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060300: Last Updated: Thu Nov 02 11:25:53 2017
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060300: Last Updated: Thu Nov 02 13:25:10 2017
 <BR><P>
-<H3>Maximum Stack Usage =        792 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
+<H3>Maximum Stack Usage =        776 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
 pre_main &rArr; main &rArr; $Super$$main &rArr; test_MPR121() &rArr; TouchManager::TouchManager(PinName, PinName, PinName, unsigned char) &rArr; MPR121_CapTouch::MPR121_CapTouch(PinName, PinName, PinName, unsigned char) &rArr; MPR121_CapTouch::setThresholds(unsigned char, unsigned char) &rArr; mbed::I2C::write(int, const char*, int, bool) &rArr; i2c_write &rArr; i2c_init &rArr; i2c_frequency &rArr; mbed_assert_internal &rArr;  core_util_critical_section_enter (Cycle)
 <P>
@@ -251,15 +251,15 @@ Global Symbols
 <BR><BR>[Calls]<UL><LI><a href="#[d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_entry
 </UL>
 
-<P><STRONG><a name="[309]"></a>__scatterload_rt2_thumb_only</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, __scatter.o(!!!scatter), UNUSED)
+<P><STRONG><a name="[308]"></a>__scatterload_rt2_thumb_only</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, __scatter.o(!!!scatter), UNUSED)
 
-<P><STRONG><a name="[30a]"></a>__scatterload_null</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, __scatter.o(!!!scatter), UNUSED)
+<P><STRONG><a name="[309]"></a>__scatterload_null</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, __scatter.o(!!!scatter), UNUSED)
 
-<P><STRONG><a name="[30b]"></a>__decompress</STRONG> (Thumb, 58 bytes, Stack size unknown bytes, __dczerorl.o(!!dczerorl), UNUSED)
+<P><STRONG><a name="[30a]"></a>__decompress</STRONG> (Thumb, 58 bytes, Stack size unknown bytes, __dczerorl.o(!!dczerorl), UNUSED)
 
-<P><STRONG><a name="[30c]"></a>__decompress0</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, __dczerorl.o(!!dczerorl), UNUSED)
+<P><STRONG><a name="[30b]"></a>__decompress0</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, __dczerorl.o(!!dczerorl), UNUSED)
 
-<P><STRONG><a name="[30d]"></a>__scatterload_zeroinit</STRONG> (Thumb, 28 bytes, Stack size unknown bytes, __scatter_zi.o(!!handler_zi), UNUSED)
+<P><STRONG><a name="[30c]"></a>__scatterload_zeroinit</STRONG> (Thumb, 28 bytes, Stack size unknown bytes, __scatter_zi.o(!!handler_zi), UNUSED)
 
 <P><STRONG><a name="[d2]"></a>_printf_n</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, _printf_n.o(.ARM.Collect$$_printf_percent$$00000001))
 <BR><BR>[Calls]<UL><LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_charcount
@@ -304,7 +304,7 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_fp_hex
 </UL>
 
-<P><STRONG><a name="[30e]"></a>_printf_ll</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, _printf_ll.o(.ARM.Collect$$_printf_percent$$00000007))
+<P><STRONG><a name="[30d]"></a>_printf_ll</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, _printf_ll.o(.ARM.Collect$$_printf_percent$$00000007))
 
 <P><STRONG><a name="[dc]"></a>_printf_i</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, _printf_i.o(.ARM.Collect$$_printf_percent$$00000008))
 <BR><BR>[Stack]<UL><LI>Max Depth = 72 + Unknown Stack Size
@@ -376,7 +376,7 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_ll_hex
 </UL>
 
-<P><STRONG><a name="[30f]"></a>_printf_l</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, _printf_l.o(.ARM.Collect$$_printf_percent$$00000012))
+<P><STRONG><a name="[30e]"></a>_printf_l</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, _printf_l.o(.ARM.Collect$$_printf_percent$$00000012))
 
 <P><STRONG><a name="[ec]"></a>_printf_c</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, _printf_c.o(.ARM.Collect$$_printf_percent$$00000013))
 <BR><BR>[Stack]<UL><LI>Max Depth = 40 + Unknown Stack Size
@@ -406,7 +406,7 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_wstring
 </UL>
 
-<P><STRONG><a name="[310]"></a>_printf_percent_end</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, _printf_percent_end.o(.ARM.Collect$$_printf_percent$$00000017))
+<P><STRONG><a name="[30f]"></a>_printf_percent_end</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, _printf_percent_end.o(.ARM.Collect$$_printf_percent$$00000017))
 
 <P><STRONG><a name="[2eb]"></a>__rt_lib_init</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit.o(.ARM.Collect$$libinit$$00000000))
 <BR><BR>[Called By]<UL><LI><a href="#[79]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pre_main
@@ -423,9 +423,9 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_init_alloc
 </UL>
 
-<P><STRONG><a name="[311]"></a>__rt_lib_init_preinit_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000004))
+<P><STRONG><a name="[310]"></a>__rt_lib_init_preinit_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000004))
 
-<P><STRONG><a name="[312]"></a>__rt_lib_init_heap_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$0000000A))
+<P><STRONG><a name="[311]"></a>__rt_lib_init_heap_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$0000000A))
 
 <P><STRONG><a name="[f8]"></a>__rt_lib_init_lc_common</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$0000000F))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8 + Unknown Stack Size
@@ -434,11 +434,11 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_locale
 </UL>
 
-<P><STRONG><a name="[313]"></a>__rt_lib_init_rand_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$0000000E))
+<P><STRONG><a name="[312]"></a>__rt_lib_init_rand_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$0000000E))
 
-<P><STRONG><a name="[314]"></a>__rt_lib_init_user_alloc_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$0000000C))
+<P><STRONG><a name="[313]"></a>__rt_lib_init_user_alloc_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$0000000C))
 
-<P><STRONG><a name="[315]"></a>__rt_lib_init_lc_collate_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000011))
+<P><STRONG><a name="[314]"></a>__rt_lib_init_lc_collate_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000011))
 
 <P><STRONG><a name="[fa]"></a>__rt_lib_init_lc_ctype_2</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000012))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8 + Unknown Stack Size
@@ -447,9 +447,9 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[56]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_get_lc_ctype
 </UL>
 
-<P><STRONG><a name="[316]"></a>__rt_lib_init_lc_ctype_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000013))
+<P><STRONG><a name="[315]"></a>__rt_lib_init_lc_ctype_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000013))
 
-<P><STRONG><a name="[317]"></a>__rt_lib_init_lc_monetary_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000015))
+<P><STRONG><a name="[316]"></a>__rt_lib_init_lc_monetary_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000015))
 
 <P><STRONG><a name="[fb]"></a>__rt_lib_init_lc_numeric_2</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000016))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8 + Unknown Stack Size
@@ -458,19 +458,19 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_get_lc_numeric
 </UL>
 
-<P><STRONG><a name="[318]"></a>__rt_lib_init_atexit_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$0000001B))
+<P><STRONG><a name="[317]"></a>__rt_lib_init_atexit_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$0000001B))
 
-<P><STRONG><a name="[319]"></a>__rt_lib_init_clock_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000021))
+<P><STRONG><a name="[318]"></a>__rt_lib_init_clock_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000021))
 
-<P><STRONG><a name="[31a]"></a>__rt_lib_init_fp_trap_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$0000001F))
+<P><STRONG><a name="[319]"></a>__rt_lib_init_fp_trap_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$0000001F))
 
-<P><STRONG><a name="[31b]"></a>__rt_lib_init_getenv_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000023))
+<P><STRONG><a name="[31a]"></a>__rt_lib_init_getenv_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000023))
 
-<P><STRONG><a name="[31c]"></a>__rt_lib_init_lc_numeric_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000017))
+<P><STRONG><a name="[31b]"></a>__rt_lib_init_lc_numeric_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000017))
 
-<P><STRONG><a name="[31d]"></a>__rt_lib_init_lc_time_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000019))
+<P><STRONG><a name="[31c]"></a>__rt_lib_init_lc_time_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000019))
 
-<P><STRONG><a name="[31e]"></a>__rt_lib_init_signal_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$0000001D))
+<P><STRONG><a name="[31d]"></a>__rt_lib_init_signal_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$0000001D))
 
 <P><STRONG><a name="[fd]"></a>__rt_lib_init_stdio_2</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000024))
 <BR><BR>[Stack]<UL><LI>Max Depth = 544 + Unknown Stack Size
@@ -479,9 +479,9 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[fe]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_initio
 </UL>
 
-<P><STRONG><a name="[31f]"></a>__rt_lib_init_alloca_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$0000002E))
+<P><STRONG><a name="[31e]"></a>__rt_lib_init_alloca_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$0000002E))
 
-<P><STRONG><a name="[320]"></a>__rt_lib_init_argv_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$0000002C))
+<P><STRONG><a name="[31f]"></a>__rt_lib_init_argv_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$0000002C))
 
 <P><STRONG><a name="[ff]"></a>__rt_lib_init_cpp_2</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000031))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16 + Unknown Stack Size
@@ -490,43 +490,43 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__cpp_initialize__aeabi_
 </UL>
 
-<P><STRONG><a name="[321]"></a>__rt_lib_init_exceptions_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000030))
+<P><STRONG><a name="[320]"></a>__rt_lib_init_exceptions_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000030))
 
-<P><STRONG><a name="[322]"></a>__rt_lib_init_stdio_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000025))
+<P><STRONG><a name="[321]"></a>__rt_lib_init_stdio_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000025))
 
-<P><STRONG><a name="[323]"></a>__rt_lib_init_cpp_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000032))
+<P><STRONG><a name="[322]"></a>__rt_lib_init_cpp_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000032))
 
-<P><STRONG><a name="[324]"></a>__rt_lib_init_return</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000033))
+<P><STRONG><a name="[323]"></a>__rt_lib_init_return</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000033))
 
-<P><STRONG><a name="[325]"></a>__asm___13_rtx_mempool_c_7914b4c7__atomic_wr8</STRONG> (Thumb, 16 bytes, Stack size 0 bytes, rtx_mempool.o(.emb_text), UNUSED)
+<P><STRONG><a name="[324]"></a>__asm___13_rtx_mempool_c_7914b4c7__atomic_wr8</STRONG> (Thumb, 16 bytes, Stack size 0 bytes, rtx_mempool.o(.emb_text), UNUSED)
 
-<P><STRONG><a name="[326]"></a>__rt_lib_shutdown_heap_2</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, libshutdown2.o(.ARM.Collect$$libshutdown$$0000000F))
+<P><STRONG><a name="[325]"></a>__rt_lib_shutdown_heap_2</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, libshutdown2.o(.ARM.Collect$$libshutdown$$0000000F))
 
-<P><STRONG><a name="[327]"></a>__rt_lib_shutdown_stdio_2</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, libshutdown2.o(.ARM.Collect$$libshutdown$$00000004))
+<P><STRONG><a name="[326]"></a>__rt_lib_shutdown_stdio_2</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, libshutdown2.o(.ARM.Collect$$libshutdown$$00000004))
 
-<P><STRONG><a name="[328]"></a>__asm___13_rtx_mempool_c_7914b4c7__atomic_set32</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, rtx_mempool.o(.emb_text), UNUSED)
+<P><STRONG><a name="[327]"></a>__asm___13_rtx_mempool_c_7914b4c7__atomic_set32</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, rtx_mempool.o(.emb_text), UNUSED)
 
-<P><STRONG><a name="[329]"></a>__asm___13_rtx_mempool_c_7914b4c7__atomic_clr32</STRONG> (Thumb, 22 bytes, Stack size 0 bytes, rtx_mempool.o(.emb_text), UNUSED)
+<P><STRONG><a name="[328]"></a>__asm___13_rtx_mempool_c_7914b4c7__atomic_clr32</STRONG> (Thumb, 22 bytes, Stack size 0 bytes, rtx_mempool.o(.emb_text), UNUSED)
 
-<P><STRONG><a name="[32a]"></a>__asm___13_rtx_mempool_c_7914b4c7__atomic_chk32_all</STRONG> (Thumb, 38 bytes, Stack size 0 bytes, rtx_mempool.o(.emb_text), UNUSED)
+<P><STRONG><a name="[329]"></a>__asm___13_rtx_mempool_c_7914b4c7__atomic_chk32_all</STRONG> (Thumb, 38 bytes, Stack size 0 bytes, rtx_mempool.o(.emb_text), UNUSED)
 
-<P><STRONG><a name="[32b]"></a>__asm___13_rtx_mempool_c_7914b4c7__atomic_chk32_any</STRONG> (Thumb, 34 bytes, Stack size 0 bytes, rtx_mempool.o(.emb_text), UNUSED)
+<P><STRONG><a name="[32a]"></a>__asm___13_rtx_mempool_c_7914b4c7__atomic_chk32_any</STRONG> (Thumb, 34 bytes, Stack size 0 bytes, rtx_mempool.o(.emb_text), UNUSED)
 
-<P><STRONG><a name="[32c]"></a>__asm___13_rtx_mempool_c_7914b4c7__atomic_inc32</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, rtx_mempool.o(.emb_text), UNUSED)
+<P><STRONG><a name="[32b]"></a>__asm___13_rtx_mempool_c_7914b4c7__atomic_inc32</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, rtx_mempool.o(.emb_text), UNUSED)
 
 <P><STRONG><a name="[2a6]"></a>__asm___13_rtx_mempool_c_7914b4c7__atomic_inc32_lt</STRONG> (Thumb, 30 bytes, Stack size 0 bytes, rtx_mempool.o(.emb_text))
 <BR><BR>[Called By]<UL><LI><a href="#[274]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxMemoryPoolAlloc
 </UL>
 
-<P><STRONG><a name="[32d]"></a>__asm___13_rtx_mempool_c_7914b4c7__atomic_inc16_lt</STRONG> (Thumb, 30 bytes, Stack size 0 bytes, rtx_mempool.o(.emb_text), UNUSED)
+<P><STRONG><a name="[32c]"></a>__asm___13_rtx_mempool_c_7914b4c7__atomic_inc16_lt</STRONG> (Thumb, 30 bytes, Stack size 0 bytes, rtx_mempool.o(.emb_text), UNUSED)
 
-<P><STRONG><a name="[32e]"></a>__asm___13_rtx_mempool_c_7914b4c7__atomic_inc16_lim</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, rtx_mempool.o(.emb_text), UNUSED)
+<P><STRONG><a name="[32d]"></a>__asm___13_rtx_mempool_c_7914b4c7__atomic_inc16_lim</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, rtx_mempool.o(.emb_text), UNUSED)
 
 <P><STRONG><a name="[2aa]"></a>__asm___13_rtx_mempool_c_7914b4c7__atomic_dec32_nz</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, rtx_mempool.o(.emb_text))
 <BR><BR>[Called By]<UL><LI><a href="#[2a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxMemoryPoolFree
 </UL>
 
-<P><STRONG><a name="[32f]"></a>__asm___13_rtx_mempool_c_7914b4c7__atomic_dec16_nz</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, rtx_mempool.o(.emb_text), UNUSED)
+<P><STRONG><a name="[32e]"></a>__asm___13_rtx_mempool_c_7914b4c7__atomic_dec16_nz</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, rtx_mempool.o(.emb_text), UNUSED)
 
 <P><STRONG><a name="[2a7]"></a>__asm___13_rtx_mempool_c_7914b4c7__atomic_link_get</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, rtx_mempool.o(.emb_text))
 <BR><BR>[Called By]<UL><LI><a href="#[274]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxMemoryPoolAlloc
@@ -543,31 +543,31 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[1a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MessageQueueGet
 </UL>
 
-<P><STRONG><a name="[330]"></a>__asm___14_rtx_msgqueue_c_3fd3b50e__atomic_set32</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, rtx_msgqueue.o(.emb_text), UNUSED)
+<P><STRONG><a name="[32f]"></a>__asm___14_rtx_msgqueue_c_3fd3b50e__atomic_set32</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, rtx_msgqueue.o(.emb_text), UNUSED)
 
-<P><STRONG><a name="[331]"></a>__asm___14_rtx_msgqueue_c_3fd3b50e__atomic_clr32</STRONG> (Thumb, 22 bytes, Stack size 0 bytes, rtx_msgqueue.o(.emb_text), UNUSED)
+<P><STRONG><a name="[330]"></a>__asm___14_rtx_msgqueue_c_3fd3b50e__atomic_clr32</STRONG> (Thumb, 22 bytes, Stack size 0 bytes, rtx_msgqueue.o(.emb_text), UNUSED)
 
-<P><STRONG><a name="[332]"></a>__asm___14_rtx_msgqueue_c_3fd3b50e__atomic_chk32_all</STRONG> (Thumb, 38 bytes, Stack size 0 bytes, rtx_msgqueue.o(.emb_text), UNUSED)
+<P><STRONG><a name="[331]"></a>__asm___14_rtx_msgqueue_c_3fd3b50e__atomic_chk32_all</STRONG> (Thumb, 38 bytes, Stack size 0 bytes, rtx_msgqueue.o(.emb_text), UNUSED)
 
-<P><STRONG><a name="[333]"></a>__asm___14_rtx_msgqueue_c_3fd3b50e__atomic_chk32_any</STRONG> (Thumb, 34 bytes, Stack size 0 bytes, rtx_msgqueue.o(.emb_text), UNUSED)
+<P><STRONG><a name="[332]"></a>__asm___14_rtx_msgqueue_c_3fd3b50e__atomic_chk32_any</STRONG> (Thumb, 34 bytes, Stack size 0 bytes, rtx_msgqueue.o(.emb_text), UNUSED)
 
 <P><STRONG><a name="[1a9]"></a>__asm___14_rtx_msgqueue_c_3fd3b50e__atomic_inc32</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, rtx_msgqueue.o(.emb_text))
 <BR><BR>[Called By]<UL><LI><a href="#[1a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MessageQueuePut
 </UL>
 
-<P><STRONG><a name="[334]"></a>__asm___14_rtx_msgqueue_c_3fd3b50e__atomic_inc32_lt</STRONG> (Thumb, 30 bytes, Stack size 0 bytes, rtx_msgqueue.o(.emb_text), UNUSED)
+<P><STRONG><a name="[333]"></a>__asm___14_rtx_msgqueue_c_3fd3b50e__atomic_inc32_lt</STRONG> (Thumb, 30 bytes, Stack size 0 bytes, rtx_msgqueue.o(.emb_text), UNUSED)
 
-<P><STRONG><a name="[335]"></a>__asm___14_rtx_msgqueue_c_3fd3b50e__atomic_inc16_lt</STRONG> (Thumb, 30 bytes, Stack size 0 bytes, rtx_msgqueue.o(.emb_text), UNUSED)
+<P><STRONG><a name="[334]"></a>__asm___14_rtx_msgqueue_c_3fd3b50e__atomic_inc16_lt</STRONG> (Thumb, 30 bytes, Stack size 0 bytes, rtx_msgqueue.o(.emb_text), UNUSED)
 
-<P><STRONG><a name="[336]"></a>__asm___14_rtx_msgqueue_c_3fd3b50e__atomic_inc16_lim</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, rtx_msgqueue.o(.emb_text), UNUSED)
+<P><STRONG><a name="[335]"></a>__asm___14_rtx_msgqueue_c_3fd3b50e__atomic_inc16_lim</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, rtx_msgqueue.o(.emb_text), UNUSED)
 
 <P><STRONG><a name="[1a6]"></a>__asm___14_rtx_msgqueue_c_3fd3b50e__atomic_dec32_nz</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, rtx_msgqueue.o(.emb_text))
 <BR><BR>[Called By]<UL><LI><a href="#[1a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MessageQueueGet
 </UL>
 
-<P><STRONG><a name="[337]"></a>__asm___14_rtx_msgqueue_c_3fd3b50e__atomic_dec16_nz</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, rtx_msgqueue.o(.emb_text), UNUSED)
+<P><STRONG><a name="[336]"></a>__asm___14_rtx_msgqueue_c_3fd3b50e__atomic_dec16_nz</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, rtx_msgqueue.o(.emb_text), UNUSED)
 
-<P><STRONG><a name="[338]"></a>__asm___14_rtx_msgqueue_c_3fd3b50e__atomic_link_get</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, rtx_msgqueue.o(.emb_text), UNUSED)
+<P><STRONG><a name="[337]"></a>__asm___14_rtx_msgqueue_c_3fd3b50e__atomic_link_get</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, rtx_msgqueue.o(.emb_text), UNUSED)
 
 <P><STRONG><a name="[101]"></a>__asm___14_rtx_msgqueue_c_3fd3b50e__atomic_link_put</STRONG> (Thumb, 28 bytes, Stack size 0 bytes, rtx_msgqueue.o(.emb_text), UNUSED)
 <BR><BR>[Calls]<UL><LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__asm___14_rtx_msgqueue_c_3fd3b50e__atomic_link_put
@@ -575,33 +575,33 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__asm___14_rtx_msgqueue_c_3fd3b50e__atomic_link_put
 </UL>
 
-<P><STRONG><a name="[339]"></a>__asm___15_rtx_semaphore_c_eca73427__atomic_wr8</STRONG> (Thumb, 16 bytes, Stack size 0 bytes, rtx_semaphore.o(.emb_text), UNUSED)
+<P><STRONG><a name="[338]"></a>__asm___15_rtx_semaphore_c_eca73427__atomic_wr8</STRONG> (Thumb, 16 bytes, Stack size 0 bytes, rtx_semaphore.o(.emb_text), UNUSED)
 
-<P><STRONG><a name="[33a]"></a>__asm___15_rtx_semaphore_c_eca73427__atomic_set32</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, rtx_semaphore.o(.emb_text), UNUSED)
+<P><STRONG><a name="[339]"></a>__asm___15_rtx_semaphore_c_eca73427__atomic_set32</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, rtx_semaphore.o(.emb_text), UNUSED)
 
-<P><STRONG><a name="[33b]"></a>__asm___15_rtx_semaphore_c_eca73427__atomic_clr32</STRONG> (Thumb, 22 bytes, Stack size 0 bytes, rtx_semaphore.o(.emb_text), UNUSED)
+<P><STRONG><a name="[33a]"></a>__asm___15_rtx_semaphore_c_eca73427__atomic_clr32</STRONG> (Thumb, 22 bytes, Stack size 0 bytes, rtx_semaphore.o(.emb_text), UNUSED)
 
-<P><STRONG><a name="[33c]"></a>__asm___15_rtx_semaphore_c_eca73427__atomic_chk32_all</STRONG> (Thumb, 38 bytes, Stack size 0 bytes, rtx_semaphore.o(.emb_text), UNUSED)
+<P><STRONG><a name="[33b]"></a>__asm___15_rtx_semaphore_c_eca73427__atomic_chk32_all</STRONG> (Thumb, 38 bytes, Stack size 0 bytes, rtx_semaphore.o(.emb_text), UNUSED)
 
-<P><STRONG><a name="[33d]"></a>__asm___15_rtx_semaphore_c_eca73427__atomic_chk32_any</STRONG> (Thumb, 34 bytes, Stack size 0 bytes, rtx_semaphore.o(.emb_text), UNUSED)
+<P><STRONG><a name="[33c]"></a>__asm___15_rtx_semaphore_c_eca73427__atomic_chk32_any</STRONG> (Thumb, 34 bytes, Stack size 0 bytes, rtx_semaphore.o(.emb_text), UNUSED)
 
-<P><STRONG><a name="[33e]"></a>__asm___15_rtx_semaphore_c_eca73427__atomic_inc32</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, rtx_semaphore.o(.emb_text), UNUSED)
+<P><STRONG><a name="[33d]"></a>__asm___15_rtx_semaphore_c_eca73427__atomic_inc32</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, rtx_semaphore.o(.emb_text), UNUSED)
 
-<P><STRONG><a name="[33f]"></a>__asm___15_rtx_semaphore_c_eca73427__atomic_inc32_lt</STRONG> (Thumb, 30 bytes, Stack size 0 bytes, rtx_semaphore.o(.emb_text), UNUSED)
+<P><STRONG><a name="[33e]"></a>__asm___15_rtx_semaphore_c_eca73427__atomic_inc32_lt</STRONG> (Thumb, 30 bytes, Stack size 0 bytes, rtx_semaphore.o(.emb_text), UNUSED)
 
 <P><STRONG><a name="[1ae]"></a>__asm___15_rtx_semaphore_c_eca73427__atomic_inc16_lt</STRONG> (Thumb, 30 bytes, Stack size 0 bytes, rtx_semaphore.o(.emb_text))
 <BR><BR>[Called By]<UL><LI><a href="#[1ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SemaphoreTokenIncrement
 </UL>
 
-<P><STRONG><a name="[340]"></a>__asm___15_rtx_semaphore_c_eca73427__atomic_inc16_lim</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, rtx_semaphore.o(.emb_text), UNUSED)
+<P><STRONG><a name="[33f]"></a>__asm___15_rtx_semaphore_c_eca73427__atomic_inc16_lim</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, rtx_semaphore.o(.emb_text), UNUSED)
 
-<P><STRONG><a name="[341]"></a>__asm___15_rtx_semaphore_c_eca73427__atomic_dec32_nz</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, rtx_semaphore.o(.emb_text), UNUSED)
+<P><STRONG><a name="[340]"></a>__asm___15_rtx_semaphore_c_eca73427__atomic_dec32_nz</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, rtx_semaphore.o(.emb_text), UNUSED)
 
 <P><STRONG><a name="[1ac]"></a>__asm___15_rtx_semaphore_c_eca73427__atomic_dec16_nz</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, rtx_semaphore.o(.emb_text))
 <BR><BR>[Called By]<UL><LI><a href="#[1ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SemaphoreTokenDecrement
 </UL>
 
-<P><STRONG><a name="[342]"></a>__asm___15_rtx_semaphore_c_eca73427__atomic_link_get</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, rtx_semaphore.o(.emb_text), UNUSED)
+<P><STRONG><a name="[341]"></a>__asm___15_rtx_semaphore_c_eca73427__atomic_link_get</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, rtx_semaphore.o(.emb_text), UNUSED)
 
 <P><STRONG><a name="[102]"></a>__asm___15_rtx_semaphore_c_eca73427__atomic_link_put</STRONG> (Thumb, 28 bytes, Stack size 0 bytes, rtx_semaphore.o(.emb_text), UNUSED)
 <BR><BR>[Calls]<UL><LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__asm___15_rtx_semaphore_c_eca73427__atomic_link_put
@@ -609,19 +609,19 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__asm___15_rtx_semaphore_c_eca73427__atomic_link_put
 </UL>
 
-<P><STRONG><a name="[343]"></a>__asm___12_rtx_system_c_024f2f18__atomic_wr8</STRONG> (Thumb, 16 bytes, Stack size 0 bytes, rtx_system.o(.emb_text), UNUSED)
+<P><STRONG><a name="[342]"></a>__asm___12_rtx_system_c_024f2f18__atomic_wr8</STRONG> (Thumb, 16 bytes, Stack size 0 bytes, rtx_system.o(.emb_text), UNUSED)
 
-<P><STRONG><a name="[344]"></a>__asm___12_rtx_system_c_024f2f18__atomic_set32</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, rtx_system.o(.emb_text), UNUSED)
+<P><STRONG><a name="[343]"></a>__asm___12_rtx_system_c_024f2f18__atomic_set32</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, rtx_system.o(.emb_text), UNUSED)
 
-<P><STRONG><a name="[345]"></a>__asm___12_rtx_system_c_024f2f18__atomic_clr32</STRONG> (Thumb, 22 bytes, Stack size 0 bytes, rtx_system.o(.emb_text), UNUSED)
+<P><STRONG><a name="[344]"></a>__asm___12_rtx_system_c_024f2f18__atomic_clr32</STRONG> (Thumb, 22 bytes, Stack size 0 bytes, rtx_system.o(.emb_text), UNUSED)
 
-<P><STRONG><a name="[346]"></a>__asm___12_rtx_system_c_024f2f18__atomic_chk32_all</STRONG> (Thumb, 38 bytes, Stack size 0 bytes, rtx_system.o(.emb_text), UNUSED)
+<P><STRONG><a name="[345]"></a>__asm___12_rtx_system_c_024f2f18__atomic_chk32_all</STRONG> (Thumb, 38 bytes, Stack size 0 bytes, rtx_system.o(.emb_text), UNUSED)
 
-<P><STRONG><a name="[347]"></a>__asm___12_rtx_system_c_024f2f18__atomic_chk32_any</STRONG> (Thumb, 34 bytes, Stack size 0 bytes, rtx_system.o(.emb_text), UNUSED)
+<P><STRONG><a name="[346]"></a>__asm___12_rtx_system_c_024f2f18__atomic_chk32_any</STRONG> (Thumb, 34 bytes, Stack size 0 bytes, rtx_system.o(.emb_text), UNUSED)
 
-<P><STRONG><a name="[348]"></a>__asm___12_rtx_system_c_024f2f18__atomic_inc32</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, rtx_system.o(.emb_text), UNUSED)
+<P><STRONG><a name="[347]"></a>__asm___12_rtx_system_c_024f2f18__atomic_inc32</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, rtx_system.o(.emb_text), UNUSED)
 
-<P><STRONG><a name="[349]"></a>__asm___12_rtx_system_c_024f2f18__atomic_inc32_lt</STRONG> (Thumb, 30 bytes, Stack size 0 bytes, rtx_system.o(.emb_text), UNUSED)
+<P><STRONG><a name="[348]"></a>__asm___12_rtx_system_c_024f2f18__atomic_inc32_lt</STRONG> (Thumb, 30 bytes, Stack size 0 bytes, rtx_system.o(.emb_text), UNUSED)
 
 <P><STRONG><a name="[27b]"></a>__asm___12_rtx_system_c_024f2f18__atomic_inc16_lt</STRONG> (Thumb, 30 bytes, Stack size 0 bytes, rtx_system.o(.emb_text))
 <BR><BR>[Called By]<UL><LI><a href="#[27a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;isr_queue_put
@@ -632,13 +632,13 @@ Global Symbols
 <LI><a href="#[277]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;isr_queue_get
 </UL>
 
-<P><STRONG><a name="[34a]"></a>__asm___12_rtx_system_c_024f2f18__atomic_dec32_nz</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, rtx_system.o(.emb_text), UNUSED)
+<P><STRONG><a name="[349]"></a>__asm___12_rtx_system_c_024f2f18__atomic_dec32_nz</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, rtx_system.o(.emb_text), UNUSED)
 
 <P><STRONG><a name="[278]"></a>__asm___12_rtx_system_c_024f2f18__atomic_dec16_nz</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, rtx_system.o(.emb_text))
 <BR><BR>[Called By]<UL><LI><a href="#[277]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;isr_queue_get
 </UL>
 
-<P><STRONG><a name="[34b]"></a>__asm___12_rtx_system_c_024f2f18__atomic_link_get</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, rtx_system.o(.emb_text), UNUSED)
+<P><STRONG><a name="[34a]"></a>__asm___12_rtx_system_c_024f2f18__atomic_link_get</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, rtx_system.o(.emb_text), UNUSED)
 
 <P><STRONG><a name="[103]"></a>__asm___12_rtx_system_c_024f2f18__atomic_link_put</STRONG> (Thumb, 28 bytes, Stack size 0 bytes, rtx_system.o(.emb_text), UNUSED)
 <BR><BR>[Calls]<UL><LI><a href="#[103]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__asm___12_rtx_system_c_024f2f18__atomic_link_put
@@ -646,11 +646,11 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[103]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__asm___12_rtx_system_c_024f2f18__atomic_link_put
 </UL>
 
-<P><STRONG><a name="[34c]"></a>__asm___12_rtx_thread_c_add96be5__atomic_wr8</STRONG> (Thumb, 16 bytes, Stack size 0 bytes, rtx_thread.o(.emb_text), UNUSED)
+<P><STRONG><a name="[34b]"></a>__asm___12_rtx_thread_c_add96be5__atomic_wr8</STRONG> (Thumb, 16 bytes, Stack size 0 bytes, rtx_thread.o(.emb_text), UNUSED)
 
-<P><STRONG><a name="[34d]"></a>__asm___12_rtx_thread_c_add96be5__atomic_set32</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, rtx_thread.o(.emb_text), UNUSED)
+<P><STRONG><a name="[34c]"></a>__asm___12_rtx_thread_c_add96be5__atomic_set32</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, rtx_thread.o(.emb_text), UNUSED)
 
-<P><STRONG><a name="[34e]"></a>__asm___12_rtx_thread_c_add96be5__atomic_clr32</STRONG> (Thumb, 22 bytes, Stack size 0 bytes, rtx_thread.o(.emb_text), UNUSED)
+<P><STRONG><a name="[34d]"></a>__asm___12_rtx_thread_c_add96be5__atomic_clr32</STRONG> (Thumb, 22 bytes, Stack size 0 bytes, rtx_thread.o(.emb_text), UNUSED)
 
 <P><STRONG><a name="[1b6]"></a>__asm___12_rtx_thread_c_add96be5__atomic_chk32_all</STRONG> (Thumb, 38 bytes, Stack size 0 bytes, rtx_thread.o(.emb_text))
 <BR><BR>[Called By]<UL><LI><a href="#[1b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ThreadFlagsCheck
@@ -660,19 +660,19 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[1b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ThreadFlagsCheck
 </UL>
 
-<P><STRONG><a name="[34f]"></a>__asm___12_rtx_thread_c_add96be5__atomic_inc32</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, rtx_thread.o(.emb_text), UNUSED)
+<P><STRONG><a name="[34e]"></a>__asm___12_rtx_thread_c_add96be5__atomic_inc32</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, rtx_thread.o(.emb_text), UNUSED)
 
-<P><STRONG><a name="[350]"></a>__asm___12_rtx_thread_c_add96be5__atomic_inc32_lt</STRONG> (Thumb, 30 bytes, Stack size 0 bytes, rtx_thread.o(.emb_text), UNUSED)
+<P><STRONG><a name="[34f]"></a>__asm___12_rtx_thread_c_add96be5__atomic_inc32_lt</STRONG> (Thumb, 30 bytes, Stack size 0 bytes, rtx_thread.o(.emb_text), UNUSED)
 
-<P><STRONG><a name="[351]"></a>__asm___12_rtx_thread_c_add96be5__atomic_inc16_lt</STRONG> (Thumb, 30 bytes, Stack size 0 bytes, rtx_thread.o(.emb_text), UNUSED)
+<P><STRONG><a name="[350]"></a>__asm___12_rtx_thread_c_add96be5__atomic_inc16_lt</STRONG> (Thumb, 30 bytes, Stack size 0 bytes, rtx_thread.o(.emb_text), UNUSED)
 
-<P><STRONG><a name="[352]"></a>__asm___12_rtx_thread_c_add96be5__atomic_inc16_lim</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, rtx_thread.o(.emb_text), UNUSED)
+<P><STRONG><a name="[351]"></a>__asm___12_rtx_thread_c_add96be5__atomic_inc16_lim</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, rtx_thread.o(.emb_text), UNUSED)
 
-<P><STRONG><a name="[353]"></a>__asm___12_rtx_thread_c_add96be5__atomic_dec32_nz</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, rtx_thread.o(.emb_text), UNUSED)
+<P><STRONG><a name="[352]"></a>__asm___12_rtx_thread_c_add96be5__atomic_dec32_nz</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, rtx_thread.o(.emb_text), UNUSED)
 
-<P><STRONG><a name="[354]"></a>__asm___12_rtx_thread_c_add96be5__atomic_dec16_nz</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, rtx_thread.o(.emb_text), UNUSED)
+<P><STRONG><a name="[353]"></a>__asm___12_rtx_thread_c_add96be5__atomic_dec16_nz</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, rtx_thread.o(.emb_text), UNUSED)
 
-<P><STRONG><a name="[355]"></a>__asm___12_rtx_thread_c_add96be5__atomic_link_get</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, rtx_thread.o(.emb_text), UNUSED)
+<P><STRONG><a name="[354]"></a>__asm___12_rtx_thread_c_add96be5__atomic_link_get</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, rtx_thread.o(.emb_text), UNUSED)
 
 <P><STRONG><a name="[104]"></a>__asm___12_rtx_thread_c_add96be5__atomic_link_put</STRONG> (Thumb, 28 bytes, Stack size 0 bytes, rtx_thread.o(.emb_text), UNUSED)
 <BR><BR>[Calls]<UL><LI><a href="#[104]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__asm___12_rtx_thread_c_add96be5__atomic_link_put
@@ -683,7 +683,7 @@ Global Symbols
 <P><STRONG><a name="[14]"></a>SVC_Handler</STRONG> (Thumb, 140 bytes, Stack size 0 bytes, irq_cm4f.o(.text))
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32l432xx.o(RESET)
 </UL>
-<P><STRONG><a name="[356]"></a>_maybe_terminate_alloc</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, maybetermalloc2.o(.emb_text), UNUSED)
+<P><STRONG><a name="[355]"></a>_maybe_terminate_alloc</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, maybetermalloc2.o(.emb_text), UNUSED)
 
 <P><STRONG><a name="[16]"></a>PendSV_Handler</STRONG> (Thumb, 16 bytes, Stack size 0 bytes, irq_cm4f.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = PendSV_Handler &rArr; osRtxPendSV_Handler &rArr; osRtxThreadDispatch &rArr; osRtxThreadSwitch &rArr; osRtxThreadStackCheck &rArr; osRtxErrorNotify &rArr;  error (Cycle)
@@ -882,8 +882,8 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_locale
 </UL>
-<BR>[Called By]<UL><LI><a href="#[120]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strtol
-<LI><a href="#[13a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_wcrtomb
+<BR>[Called By]<UL><LI><a href="#[13a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_wcrtomb
+<LI><a href="#[120]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strtol
 </UL>
 
 <P><STRONG><a name="[108]"></a>__aeabi_errno_addr</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, rt_errno_addr_twolibspace.o(.text))
@@ -898,15 +898,15 @@ Global Symbols
 <LI><a href="#[140]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sys_flen
 <LI><a href="#[123]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sys_close
 <LI><a href="#[1c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;handle_open_errors(int, unsigned)
-<LI><a href="#[120]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strtol
+<LI><a href="#[11f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;atoi
 <LI><a href="#[13f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_ftell_internal
 <LI><a href="#[13d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_strtoul
-<LI><a href="#[11f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;atoi
+<LI><a href="#[120]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strtol
 </UL>
 
-<P><STRONG><a name="[357]"></a>__errno$twolibspace</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, rt_errno_addr_twolibspace.o(.text), UNUSED)
+<P><STRONG><a name="[356]"></a>__errno$twolibspace</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, rt_errno_addr_twolibspace.o(.text), UNUSED)
 
-<P><STRONG><a name="[358]"></a>__rt_errno_addr$twolibspace</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, rt_errno_addr_twolibspace.o(.text), UNUSED)
+<P><STRONG><a name="[357]"></a>__rt_errno_addr$twolibspace</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, rt_errno_addr_twolibspace.o(.text), UNUSED)
 
 <P><STRONG><a name="[10a]"></a>_malloc_internal</STRONG> (Thumb, 130 bytes, Stack size 24 bytes, h1_alloc_mt.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 96<LI>Call Chain = _malloc_internal &rArr; __Heap_Full &rArr; __Heap_ProvideMemory &rArr; _free_internal &rArr; _mutex_release &rArr; os_kernel_is_active &rArr; osKernelGetState &rArr; svcRtxKernelGetState
@@ -925,7 +925,7 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[10e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_heap_descriptor
 <LI><a href="#[10a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_malloc_internal
 </UL>
-<BR>[Called By]<UL><LI><a href="#[1c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;operator new(unsigned)
+<BR>[Called By]<UL><LI><a href="#[1c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;operator new(unsigned)
 <LI><a href="#[221]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;operator new[] (unsigned)
 <LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_mutex_initialize
 <LI><a href="#[1f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Heap::memAlloc(unsigned)
@@ -939,8 +939,8 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_mutex_release
 <LI><a href="#[cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_mutex_acquire
 </UL>
-<BR>[Called By]<UL><LI><a href="#[134]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__Heap_ProvideMemory
-<LI><a href="#[110]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;free
+<BR>[Called By]<UL><LI><a href="#[110]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;free
+<LI><a href="#[134]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__Heap_ProvideMemory
 </UL>
 
 <P><STRONG><a name="[110]"></a>free</STRONG> (Thumb, 20 bytes, Stack size 8 bytes, h1_free_mt.o(.text))
@@ -950,8 +950,8 @@ Global Symbols
 <LI><a href="#[10f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_free_internal
 </UL>
 <BR>[Called By]<UL><LI><a href="#[222]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;operator delete[] (void*)
-<LI><a href="#[148]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_terminateio
 <LI><a href="#[121]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_fclose_internal
+<LI><a href="#[148]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_terminateio
 </UL>
 
 <P><STRONG><a name="[1b9]"></a>__aeabi_uldivmod</STRONG> (Thumb, 0 bytes, Stack size 48 bytes, lludivv7m.o(.text))
@@ -960,7 +960,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[197]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART_SetConfig
 </UL>
 
-<P><STRONG><a name="[359]"></a>_ll_udiv</STRONG> (Thumb, 238 bytes, Stack size 48 bytes, lludivv7m.o(.text), UNUSED)
+<P><STRONG><a name="[358]"></a>_ll_udiv</STRONG> (Thumb, 238 bytes, Stack size 48 bytes, lludivv7m.o(.text), UNUSED)
 
 <P><STRONG><a name="[111]"></a>vsnprintf</STRONG> (Thumb, 48 bytes, Stack size 24 bytes, vsnprintf.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 128 + Unknown Stack Size
@@ -995,23 +995,23 @@ Global Symbols
 <P><STRONG><a name="[116]"></a>_printf_pre_padding</STRONG> (Thumb, 44 bytes, Stack size 16 bytes, _printf_pad.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = _printf_pre_padding
 </UL>
-<BR>[Called By]<UL><LI><a href="#[151]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_fp_dec_real
-<LI><a href="#[139]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_wctomb
-<LI><a href="#[11a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_int_common
+<BR>[Called By]<UL><LI><a href="#[115]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_str
 <LI><a href="#[153]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_fp_infnan
 <LI><a href="#[154]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_fp_hex_real
-<LI><a href="#[115]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_str
+<LI><a href="#[151]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_fp_dec_real
+<LI><a href="#[139]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_wctomb
+<LI><a href="#[11a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_int_common
 </UL>
 
 <P><STRONG><a name="[117]"></a>_printf_post_padding</STRONG> (Thumb, 34 bytes, Stack size 16 bytes, _printf_pad.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = _printf_post_padding
 </UL>
-<BR>[Called By]<UL><LI><a href="#[151]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_fp_dec_real
-<LI><a href="#[139]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_wctomb
-<LI><a href="#[11a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_int_common
+<BR>[Called By]<UL><LI><a href="#[115]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_str
 <LI><a href="#[153]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_fp_infnan
 <LI><a href="#[154]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_fp_hex_real
-<LI><a href="#[115]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_str
+<LI><a href="#[151]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_fp_dec_real
+<LI><a href="#[139]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_wctomb
+<LI><a href="#[11a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_int_common
 </UL>
 
 <P><STRONG><a name="[115]"></a>_printf_str</STRONG> (Thumb, 82 bytes, Stack size 16 bytes, _printf_str.o(.text))
@@ -1030,9 +1030,9 @@ Global Symbols
 <LI><a href="#[119]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_truncate_unsigned
 <LI><a href="#[118]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_truncate_signed
 </UL>
-<BR>[Called By]<UL><LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_i
-<LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_u
+<BR>[Called By]<UL><LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_u
 <LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_d
+<LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_i
 </UL>
 
 <P><STRONG><a name="[11b]"></a>_printf_longlong_hex</STRONG> (Thumb, 86 bytes, Stack size 16 bytes, _printf_hex_int_ll_ptr.o(.text))
@@ -1048,8 +1048,8 @@ Global Symbols
 <P><STRONG><a name="[e3]"></a>_printf_int_hex</STRONG> (Thumb, 28 bytes, Stack size 16 bytes, _printf_hex_int_ll_ptr.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 80<LI>Call Chain = _printf_int_hex &rArr; _printf_longlong_hex &rArr; _printf_int_common &rArr; _printf_post_padding
 </UL>
-<BR>[Calls]<UL><LI><a href="#[119]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_truncate_unsigned
-<LI><a href="#[11b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_longlong_hex
+<BR>[Calls]<UL><LI><a href="#[11b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_longlong_hex
+<LI><a href="#[119]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_truncate_unsigned
 </UL>
 <BR>[Called By]<UL><LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_x
 </UL>
@@ -1083,24 +1083,24 @@ Global Symbols
 <P><STRONG><a name="[11f]"></a>atoi</STRONG> (Thumb, 26 bytes, Stack size 16 bytes, atoi.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 128<LI>Call Chain = atoi &rArr; strtol &rArr; _strtoul &rArr; __aeabi_errno_addr &rArr; __user_perthread_libspace &rArr; os_kernel_is_active &rArr; osKernelGetState &rArr; svcRtxKernelGetState
 </UL>
-<BR>[Calls]<UL><LI><a href="#[120]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strtol
-<LI><a href="#[108]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_errno_addr
+<BR>[Calls]<UL><LI><a href="#[108]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_errno_addr
+<LI><a href="#[120]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strtol
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MQ::MQBroker::createTopicId(MQ::topic_t*, const char*)
 </UL>
 
-<P><STRONG><a name="[35a]"></a>_fclose$unlocked</STRONG> (Thumb, 0 bytes, Stack size 32 bytes, fclose.o(.text), UNUSED)
+<P><STRONG><a name="[359]"></a>_fclose$unlocked</STRONG> (Thumb, 0 bytes, Stack size 32 bytes, fclose.o(.text), UNUSED)
 
 <P><STRONG><a name="[121]"></a>_fclose_internal</STRONG> (Thumb, 76 bytes, Stack size 32 bytes, fclose.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 264<LI>Call Chain = _fclose_internal &rArr; _fflush &rArr; _writebuf &rArr; _sys_write &rArr; init_serial() &rArr; serial_init &rArr;  mbed_assert_internal (Cycle)
 </UL>
 <BR>[Calls]<UL><LI><a href="#[123]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sys_close
-<LI><a href="#[122]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_fflush
 <LI><a href="#[124]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
 <LI><a href="#[110]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;free
+<LI><a href="#[122]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_fflush
 </UL>
-<BR>[Called By]<UL><LI><a href="#[148]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_terminateio
-<LI><a href="#[128]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_freopen_locked
+<BR>[Called By]<UL><LI><a href="#[128]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_freopen_locked
+<LI><a href="#[148]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_terminateio
 </UL>
 
 <P><STRONG><a name="[125]"></a>_do_fflush</STRONG> (Thumb, 74 bytes, Stack size 24 bytes, fflush_locked.o(.text))
@@ -1136,9 +1136,9 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[12b]"></a>fopen</STRONG> (Thumb, 100 bytes, Stack size 24 bytes, fopen_locked.o(.text), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_mutex_initialize
-<LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_mutex_release
+<BR><BR>[Calls]<UL><LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_mutex_release
 <LI><a href="#[cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_mutex_acquire
+<LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_mutex_initialize
 <LI><a href="#[124]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
 <LI><a href="#[128]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_freopen_locked
 <LI><a href="#[10d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;malloc
@@ -1172,7 +1172,7 @@ Global Symbols
 <BR><BR>[Calls]<UL><LI><a href="#[12e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy4
 </UL>
 
-<P><STRONG><a name="[35b]"></a>_memcpy_lastbytes</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rt_memcpy_v6.o(.text), UNUSED)
+<P><STRONG><a name="[35a]"></a>_memcpy_lastbytes</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rt_memcpy_v6.o(.text), UNUSED)
 
 <P><STRONG><a name="[12e]"></a>__aeabi_memcpy4</STRONG> (Thumb, 0 bytes, Stack size 8 bytes, rt_memcpy_w.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = __aeabi_memcpy4
@@ -1181,11 +1181,11 @@ Global Symbols
 <LI><a href="#[12d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_memcpy
 </UL>
 
-<P><STRONG><a name="[35c]"></a>__aeabi_memcpy8</STRONG> (Thumb, 0 bytes, Stack size 8 bytes, rt_memcpy_w.o(.text), UNUSED)
+<P><STRONG><a name="[35b]"></a>__aeabi_memcpy8</STRONG> (Thumb, 0 bytes, Stack size 8 bytes, rt_memcpy_w.o(.text), UNUSED)
 
-<P><STRONG><a name="[35d]"></a>__rt_memcpy_w</STRONG> (Thumb, 100 bytes, Stack size 8 bytes, rt_memcpy_w.o(.text), UNUSED)
+<P><STRONG><a name="[35c]"></a>__rt_memcpy_w</STRONG> (Thumb, 100 bytes, Stack size 8 bytes, rt_memcpy_w.o(.text), UNUSED)
 
-<P><STRONG><a name="[35e]"></a>_memcpy_lastbytes_aligned</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rt_memcpy_w.o(.text), UNUSED)
+<P><STRONG><a name="[35d]"></a>_memcpy_lastbytes_aligned</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rt_memcpy_w.o(.text), UNUSED)
 
 <P><STRONG><a name="[132]"></a>__aeabi_memclr</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, rt_memclr.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;svcRtxMessageQueueNew
@@ -1196,29 +1196,29 @@ Global Symbols
 <BR><BR>[Calls]<UL><LI><a href="#[130]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_memset_w
 </UL>
 
-<P><STRONG><a name="[35f]"></a>_memset</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rt_memclr.o(.text), UNUSED)
+<P><STRONG><a name="[35e]"></a>_memset</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rt_memclr.o(.text), UNUSED)
 
 <P><STRONG><a name="[124]"></a>__aeabi_memclr4</STRONG> (Thumb, 0 bytes, Stack size 4 bytes, rt_memclr_w.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 4<LI>Call Chain = __aeabi_memclr4
 </UL>
-<BR>[Called By]<UL><LI><a href="#[1e5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::I2C::I2C(PinName, PinName)
+<BR>[Called By]<UL><LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;svcRtxKernelInitialize
+<LI><a href="#[1e5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::I2C::I2C(PinName, PinName)
 <LI><a href="#[1e6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::InterruptIn::InterruptIn(PinName)
 <LI><a href="#[223]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rtos::Mutex::constructor(const char*)
-<LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;svcRtxKernelInitialize
 <LI><a href="#[201]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::SerialBase::SerialBase(PinName, PinName, int)
 <LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::Transaction&lang;mbed::SPI&rang;::Transaction()
 <LI><a href="#[1b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SetSysClock_PLL_MSI
 <LI><a href="#[1d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rtos::Thread::start(mbed::Callback&lang;void()&rang;)
 <LI><a href="#[228]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rtos::Thread::constructor(osPriority_t, unsigned, unsigned char*, const char*)
 <LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__sti___8_main_cpp_led1
-<LI><a href="#[fe]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_initio
 <LI><a href="#[12b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;fopen
 <LI><a href="#[121]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_fclose_internal
+<LI><a href="#[fe]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_initio
 </UL>
 
-<P><STRONG><a name="[360]"></a>__aeabi_memclr8</STRONG> (Thumb, 0 bytes, Stack size 4 bytes, rt_memclr_w.o(.text), UNUSED)
+<P><STRONG><a name="[35f]"></a>__aeabi_memclr8</STRONG> (Thumb, 0 bytes, Stack size 4 bytes, rt_memclr_w.o(.text), UNUSED)
 
-<P><STRONG><a name="[361]"></a>__rt_memclr_w</STRONG> (Thumb, 78 bytes, Stack size 4 bytes, rt_memclr_w.o(.text), UNUSED)
+<P><STRONG><a name="[360]"></a>__rt_memclr_w</STRONG> (Thumb, 78 bytes, Stack size 4 bytes, rt_memclr_w.o(.text), UNUSED)
 
 <P><STRONG><a name="[130]"></a>_memset_w</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rt_memclr_w.o(.text), UNUSED)
 <BR><BR>[Called By]<UL><LI><a href="#[12f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_memclr
@@ -1234,12 +1234,12 @@ Global Symbols
 
 <P><STRONG><a name="[1f2]"></a>strcmp</STRONG> (Thumb, 128 bytes, Stack size 0 bytes, strcmpv7m.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[129]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sys_open
-<LI><a href="#[56]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_get_lc_ctype
-<LI><a href="#[fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_get_lc_numeric
 <LI><a href="#[1f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MQ::MQBroker::subscribeReq(const char*, mbed::Callback&lang;void(const char*, void*, unsigned short)&rang;*)
+<LI><a href="#[fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_get_lc_numeric
+<LI><a href="#[56]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_get_lc_ctype
 </UL>
 
-<P><STRONG><a name="[362]"></a>__use_two_region_memory</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, heapauxi.o(.text), UNUSED)
+<P><STRONG><a name="[361]"></a>__use_two_region_memory</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, heapauxi.o(.text), UNUSED)
 
 <P><STRONG><a name="[4]"></a>__rt_heap_escrow</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, heapauxi.o(.text), UNUSED)
 
@@ -1257,7 +1257,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[6e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::CircularBuffer&lang;mbed::Transaction&lang;mbed::SPI&rang;, (unsigned)2, unsigned&rang;::~CircularBuffer()
 </UL>
 
-<P><STRONG><a name="[363]"></a>__user_libspace</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, libspace.o(.text), UNUSED)
+<P><STRONG><a name="[362]"></a>__user_libspace</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, libspace.o(.text), UNUSED)
 
 <P><STRONG><a name="[133]"></a>__user_perproc_libspace</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, libspace.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_locale
@@ -1270,9 +1270,9 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[133]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__user_perproc_libspace
 </UL>
 <BR>[Called By]<UL><LI><a href="#[f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_init_alloc
-<LI><a href="#[15b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_terminate_alloc
 <LI><a href="#[110]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;free
 <LI><a href="#[10d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;malloc
+<LI><a href="#[15b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_terminate_alloc
 </UL>
 
 <P><STRONG><a name="[f9]"></a>__rt_locale</STRONG> (Thumb, 10 bytes, Stack size 8 bytes, rt_locale_twolibspace.o(.text))
@@ -1280,14 +1280,14 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[133]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__user_perproc_libspace
 </UL>
-<BR>[Called By]<UL><LI><a href="#[151]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_fp_dec_real
+<BR>[Called By]<UL><LI><a href="#[107]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_ctype_table
+<LI><a href="#[151]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_fp_dec_real
 <LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_lib_init_lc_common
-<LI><a href="#[107]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_ctype_table
 </UL>
 
-<P><STRONG><a name="[364]"></a>__use_no_heap</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, hguard.o(.text), UNUSED)
+<P><STRONG><a name="[363]"></a>__use_no_heap</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, hguard.o(.text), UNUSED)
 
-<P><STRONG><a name="[365]"></a>__heap$guard</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, hguard.o(.text), UNUSED)
+<P><STRONG><a name="[364]"></a>__heap$guard</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, hguard.o(.text), UNUSED)
 
 <P><STRONG><a name="[9]"></a>_terminate_user_alloc</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, init_alloc.o(.text), UNUSED)
 
@@ -1308,10 +1308,10 @@ Global Symbols
 <P><STRONG><a name="[f7]"></a>_init_alloc</STRONG> (Thumb, 94 bytes, Stack size 24 bytes, init_alloc.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 152<LI>Call Chain = _init_alloc &rArr; __Heap_Initialize &rArr; _mutex_initialize &rArr; malloc &rArr; _malloc_internal &rArr; __Heap_Full &rArr; __Heap_ProvideMemory &rArr; _free_internal &rArr; _mutex_release &rArr; os_kernel_is_active &rArr; osKernelGetState &rArr; svcRtxKernelGetState
 </UL>
-<BR>[Calls]<UL><LI><a href="#[134]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__Heap_ProvideMemory
-<LI><a href="#[137]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__Heap_Initialize
+<BR>[Calls]<UL><LI><a href="#[137]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__Heap_Initialize
 <LI><a href="#[10e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_heap_descriptor
 <LI><a href="#[136]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_SIGRTMEM
+<LI><a href="#[134]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__Heap_ProvideMemory
 </UL>
 <BR>[Called By]<UL><LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_lib_init_heap_2
 </UL>
@@ -1331,9 +1331,9 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[119]"></a>_printf_truncate_unsigned</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, _printf_truncate.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_int_oct
-<LI><a href="#[e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_int_hex
+<BR><BR>[Called By]<UL><LI><a href="#[e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_int_hex
 <LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_int_dec
+<LI><a href="#[e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_int_oct
 </UL>
 
 <P><STRONG><a name="[11a]"></a>_printf_int_common</STRONG> (Thumb, 178 bytes, Stack size 32 bytes, _printf_intcommon.o(.text))
@@ -1342,10 +1342,10 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[117]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_post_padding
 <LI><a href="#[116]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_pre_padding
 </UL>
-<BR>[Called By]<UL><LI><a href="#[13c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_longlong_oct
-<LI><a href="#[e5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_longlong_dec
-<LI><a href="#[11b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_longlong_hex
+<BR>[Called By]<UL><LI><a href="#[11b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_longlong_hex
 <LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_int_dec
+<LI><a href="#[13c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_longlong_oct
+<LI><a href="#[e5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_longlong_dec
 </UL>
 
 <P><STRONG><a name="[d3]"></a>_printf_charcount</STRONG> (Thumb, 40 bytes, Stack size 0 bytes, _printf_charcount.o(.text))
@@ -1402,9 +1402,9 @@ Global Symbols
 <P><STRONG><a name="[139]"></a>_printf_wctomb</STRONG> (Thumb, 182 bytes, Stack size 56 bytes, _printf_wctomb.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 88<LI>Call Chain = _printf_wctomb &rArr; _wcrtomb &rArr; __rt_ctype_table &rArr; __rt_locale
 </UL>
-<BR>[Calls]<UL><LI><a href="#[13a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_wcrtomb
-<LI><a href="#[117]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_post_padding
+<BR>[Calls]<UL><LI><a href="#[117]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_post_padding
 <LI><a href="#[116]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_pre_padding
+<LI><a href="#[13a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_wcrtomb
 </UL>
 <BR>[Called By]<UL><LI><a href="#[155]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_lcs_common
 </UL>
@@ -1453,9 +1453,9 @@ Global Symbols
 <P><STRONG><a name="[120]"></a>strtol</STRONG> (Thumb, 112 bytes, Stack size 32 bytes, strtol.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 112<LI>Call Chain = strtol &rArr; _strtoul &rArr; __aeabi_errno_addr &rArr; __user_perthread_libspace &rArr; os_kernel_is_active &rArr; osKernelGetState &rArr; svcRtxKernelGetState
 </UL>
-<BR>[Calls]<UL><LI><a href="#[13d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_strtoul
+<BR>[Calls]<UL><LI><a href="#[107]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_ctype_table
 <LI><a href="#[108]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_errno_addr
-<LI><a href="#[107]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_ctype_table
+<LI><a href="#[13d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_strtoul
 </UL>
 <BR>[Called By]<UL><LI><a href="#[11f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;atoi
 </UL>
@@ -1465,14 +1465,14 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[13e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sys_istty
 <LI><a href="#[140]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sys_flen
-<LI><a href="#[141]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_seterr
 <LI><a href="#[13f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_ftell_internal
+<LI><a href="#[141]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_seterr
 </UL>
 <BR>[Called By]<UL><LI><a href="#[128]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_freopen_locked
 <LI><a href="#[125]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_do_fflush
 </UL>
 
-<P><STRONG><a name="[366]"></a>fseek</STRONG> (Thumb, 0 bytes, Stack size 24 bytes, fseek.o(.text), UNUSED)
+<P><STRONG><a name="[365]"></a>fseek</STRONG> (Thumb, 0 bytes, Stack size 24 bytes, fseek.o(.text), UNUSED)
 
 <P><STRONG><a name="[141]"></a>_seterr</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, stdio.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[142]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_writebuf
@@ -1494,9 +1494,9 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[142]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_writebuf
 </UL>
-<BR>[Called By]<UL><LI><a href="#[145]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_deferredlazyseek
-<LI><a href="#[125]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_do_fflush
+<BR>[Called By]<UL><LI><a href="#[125]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_do_fflush
 <LI><a href="#[121]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_fclose_internal
+<LI><a href="#[145]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_deferredlazyseek
 </UL>
 
 <P><STRONG><a name="[145]"></a>_deferredlazyseek</STRONG> (Thumb, 60 bytes, Stack size 8 bytes, stdio.o(.text), UNUSED)
@@ -1517,10 +1517,10 @@ Global Symbols
 <LI>Call Chain = _initio &rArr; freopen &rArr; _freopen_locked &rArr; _sys_open &rArr; mbed::FilePath::FilePath(const char*) &rArr; mbed::FileBase::lookup(const char*, unsigned) &rArr; SingletonPtr&lang;rtos::Mutex&rang;::operator -&rang;() &rArr; SingletonPtr&lang;rtos::Mutex&rang;::get() &rArr; rtos::Mutex::Mutex() &rArr; rtos::Mutex::constructor(const char*) &rArr; mbed_assert_internal &rArr;  core_util_critical_section_enter (Cycle)
 </UL>
 <BR>[Calls]<UL><LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_mutex_initialize
-<LI><a href="#[146]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setvbuf
 <LI><a href="#[124]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
-<LI><a href="#[147]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_SIGRTRED
 <LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;freopen
+<LI><a href="#[147]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_SIGRTRED
+<LI><a href="#[146]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setvbuf
 </UL>
 <BR>[Called By]<UL><LI><a href="#[fd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_lib_init_stdio_2
 </UL>
@@ -1558,17 +1558,17 @@ Global Symbols
 <LI><a href="#[e5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_longlong_dec
 </UL>
 
-<P><STRONG><a name="[367]"></a>__lib_sel_fp_printf</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, _printf_fp_dec.o(.text), UNUSED)
+<P><STRONG><a name="[366]"></a>__lib_sel_fp_printf</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, _printf_fp_dec.o(.text), UNUSED)
 
 <P><STRONG><a name="[151]"></a>_printf_fp_dec_real</STRONG> (Thumb, 620 bytes, Stack size 104 bytes, _printf_fp_dec.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 320<LI>Call Chain = _printf_fp_dec_real &rArr; _fp_digits &rArr; _btod_etento &rArr; _btod_emul &rArr; _e2e
 </UL>
-<BR>[Calls]<UL><LI><a href="#[14c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_fp_digits
-<LI><a href="#[f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_locale
-<LI><a href="#[152]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ARM_fpclassify
-<LI><a href="#[153]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_fp_infnan
+<BR>[Calls]<UL><LI><a href="#[f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_locale
 <LI><a href="#[117]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_post_padding
 <LI><a href="#[116]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_pre_padding
+<LI><a href="#[152]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ARM_fpclassify
+<LI><a href="#[153]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_fp_infnan
+<LI><a href="#[14c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_fp_digits
 </UL>
 <BR>[Called By]<UL><LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_fp_dec
 </UL>
@@ -1576,10 +1576,10 @@ Global Symbols
 <P><STRONG><a name="[154]"></a>_printf_fp_hex_real</STRONG> (Thumb, 756 bytes, Stack size 72 bytes, _printf_fp_hex.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 112<LI>Call Chain = _printf_fp_hex_real &rArr; _printf_fp_infnan &rArr; _printf_post_padding
 </UL>
-<BR>[Calls]<UL><LI><a href="#[152]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ARM_fpclassify
-<LI><a href="#[153]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_fp_infnan
-<LI><a href="#[117]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_post_padding
+<BR>[Calls]<UL><LI><a href="#[117]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_post_padding
 <LI><a href="#[116]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_pre_padding
+<LI><a href="#[152]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ARM_fpclassify
+<LI><a href="#[153]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_fp_infnan
 </UL>
 <BR>[Called By]<UL><LI><a href="#[db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_fp_hex
 </UL>
@@ -1612,8 +1612,8 @@ Global Symbols
 <P><STRONG><a name="[13d]"></a>_strtoul</STRONG> (Thumb, 158 bytes, Stack size 40 bytes, _strtoul.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 80<LI>Call Chain = _strtoul &rArr; __aeabi_errno_addr &rArr; __user_perthread_libspace &rArr; os_kernel_is_active &rArr; osKernelGetState &rArr; svcRtxKernelGetState
 </UL>
-<BR>[Calls]<UL><LI><a href="#[156]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_chval
-<LI><a href="#[108]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_errno_addr
+<BR>[Calls]<UL><LI><a href="#[108]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_errno_addr
+<LI><a href="#[156]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_chval
 </UL>
 <BR>[Called By]<UL><LI><a href="#[120]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strtol
 </UL>
@@ -1626,7 +1626,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[126]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_fseek
 </UL>
 
-<P><STRONG><a name="[368]"></a>ftell</STRONG> (Thumb, 0 bytes, Stack size 8 bytes, ftell.o(.text), UNUSED)
+<P><STRONG><a name="[367]"></a>ftell</STRONG> (Thumb, 0 bytes, Stack size 8 bytes, ftell.o(.text), UNUSED)
 
 <P><STRONG><a name="[13a]"></a>_wcrtomb</STRONG> (Thumb, 64 bytes, Stack size 16 bytes, _wcrtomb.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = _wcrtomb &rArr; __rt_ctype_table &rArr; __rt_locale
@@ -1639,9 +1639,9 @@ Global Symbols
 <P><STRONG><a name="[14b]"></a>__sig_exit</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, defsig_exit.o(.text))
 <BR><BR>[Calls]<UL><LI><a href="#[157]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sys_exit
 </UL>
-<BR>[Called By]<UL><LI><a href="#[149]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_SIGPVFN
-<LI><a href="#[136]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_SIGRTMEM
+<BR>[Called By]<UL><LI><a href="#[136]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_SIGRTMEM
 <LI><a href="#[147]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_SIGRTRED
+<LI><a href="#[149]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_SIGPVFN
 </UL>
 
 <P><STRONG><a name="[147]"></a>__rt_SIGRTRED</STRONG> (Thumb, 14 bytes, Stack size 8 bytes, defsig_rtred_outer.o(.text))
@@ -1686,8 +1686,8 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[117]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_post_padding
 <LI><a href="#[116]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_pre_padding
 </UL>
-<BR>[Called By]<UL><LI><a href="#[151]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_fp_dec_real
-<LI><a href="#[154]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_fp_hex_real
+<BR>[Called By]<UL><LI><a href="#[154]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_fp_hex_real
+<LI><a href="#[151]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_fp_dec_real
 </UL>
 
 <P><STRONG><a name="[14d]"></a>_btod_etento</STRONG> (Thumb, 216 bytes, Stack size 72 bytes, bigflt0.o(.text))
@@ -1731,9 +1731,9 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[15a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__default_signal_display
 </UL>
 
-<P><STRONG><a name="[369]"></a>__I$use$semihosting</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, use_no_semi.o(.text), UNUSED)
+<P><STRONG><a name="[368]"></a>__I$use$semihosting</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, use_no_semi.o(.text), UNUSED)
 
-<P><STRONG><a name="[36a]"></a>__use_no_semihosting_swi</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, use_no_semi.o(.text), UNUSED)
+<P><STRONG><a name="[369]"></a>__use_no_semihosting_swi</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, use_no_semi.o(.text), UNUSED)
 
 <P><STRONG><a name="[15c]"></a>__Heap_Finalize</STRONG> (Thumb, 10 bytes, Stack size 8 bytes, h1_final_mt.o(.text), UNUSED)
 <BR><BR>[Calls]<UL><LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_mutex_free
@@ -1741,7 +1741,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[15b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_terminate_alloc
 </UL>
 
-<P><STRONG><a name="[36b]"></a>__semihosting_library_function</STRONG> (Thumb, 0 bytes, Stack size 8 bytes, indicate_semi.o(.text), UNUSED)
+<P><STRONG><a name="[36a]"></a>__semihosting_library_function</STRONG> (Thumb, 0 bytes, Stack size 8 bytes, indicate_semi.o(.text), UNUSED)
 
 <P><STRONG><a name="[14e]"></a>_btod_d2e</STRONG> (Thumb, 62 bytes, Stack size 0 bytes, btod.o(CL$$btod_d2e))
 <BR><BR>[Calls]<UL><LI><a href="#[15e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_d2e_norm_op1
@@ -1778,8 +1778,8 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[161]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_e2e
 <LI><a href="#[160]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__btod_div_common
 </UL>
-<BR>[Called By]<UL><LI><a href="#[14c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_fp_digits
-<LI><a href="#[14d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_btod_etento
+<BR>[Called By]<UL><LI><a href="#[14d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_btod_etento
+<LI><a href="#[14c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_fp_digits
 </UL>
 
 <P><STRONG><a name="[150]"></a>_btod_emul</STRONG> (Thumb, 40 bytes, Stack size 24 bytes, btod.o(CL$$btod_emul))
@@ -1788,8 +1788,8 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[162]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__btod_mult_common
 <LI><a href="#[161]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_e2e
 </UL>
-<BR>[Called By]<UL><LI><a href="#[14c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_fp_digits
-<LI><a href="#[14d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_btod_etento
+<BR>[Called By]<UL><LI><a href="#[14d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_btod_etento
+<LI><a href="#[14c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_fp_digits
 </UL>
 
 <P><STRONG><a name="[162]"></a>__btod_mult_common</STRONG> (Thumb, 580 bytes, Stack size 16 bytes, btod.o(CL$$btod_mult_common))
@@ -1799,7 +1799,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[163]"></a>main</STRONG> (Thumb, 12 bytes, Stack size 8 bytes, mbed_boot.o(i.$Sub$$main))
-<BR><BR>[Stack]<UL><LI>Max Depth = 768 + Unknown Stack Size
+<BR><BR>[Stack]<UL><LI>Max Depth = 752 + Unknown Stack Size
 <LI>Call Chain = main &rArr; $Super$$main &rArr; test_MPR121() &rArr; TouchManager::TouchManager(PinName, PinName, PinName, unsigned char) &rArr; MPR121_CapTouch::MPR121_CapTouch(PinName, PinName, PinName, unsigned char) &rArr; MPR121_CapTouch::setThresholds(unsigned char, unsigned char) &rArr; mbed::I2C::write(int, const char*, int, bool) &rArr; i2c_write &rArr; i2c_init &rArr; i2c_frequency &rArr; mbed_assert_internal &rArr;  core_util_critical_section_enter (Cycle)
 </UL>
 <BR>[Calls]<UL><LI><a href="#[164]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed_main
@@ -1900,10 +1900,10 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[28a]"></a>EvrRtxKernelError</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, rtx_evr.o(i.EvrRtxKernelError))
-<BR><BR>[Called By]<UL><LI><a href="#[280]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osKernelStart
-<LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;svcRtxKernelStart
+<BR><BR>[Called By]<UL><LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;svcRtxKernelStart
 <LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;svcRtxKernelInitialize
 <LI><a href="#[245]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osKernelInitialize
+<LI><a href="#[280]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osKernelStart
 </UL>
 
 <P><STRONG><a name="[287]"></a>EvrRtxKernelGetState</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, rtx_evr.o(i.EvrRtxKernelGetState))
@@ -2057,11 +2057,11 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[224]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osMutexNew
 <LI><a href="#[226]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osMutexRelease
 <LI><a href="#[225]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osMutexAcquire
-<LI><a href="#[227]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osMutexDelete
 <LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;svcRtxMutexRelease
 <LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;svcRtxMutexNew
 <LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;svcRtxMutexDelete
 <LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;svcRtxMutexAcquire
+<LI><a href="#[227]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osMutexDelete
 </UL>
 
 <P><STRONG><a name="[29b]"></a>EvrRtxMutexNew</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, rtx_evr.o(i.EvrRtxMutexNew))
@@ -2647,16 +2647,16 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[199]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART_CheckIdleState
 </UL>
 
-<P><STRONG><a name="[1bd]"></a>test_MPR121()</STRONG> (Thumb, 204 bytes, Stack size 40 bytes, main.o(i._Z11test_MPR121v))
-<BR><BR>[Stack]<UL><LI>Max Depth = 744 + Unknown Stack Size
+<P><STRONG><a name="[1bd]"></a>test_MPR121()</STRONG> (Thumb, 222 bytes, Stack size 24 bytes, main.o(i._Z11test_MPR121v))
+<BR><BR>[Stack]<UL><LI>Max Depth = 728 + Unknown Stack Size
 <LI>Call Chain = test_MPR121() &rArr; TouchManager::TouchManager(PinName, PinName, PinName, unsigned char) &rArr; MPR121_CapTouch::MPR121_CapTouch(PinName, PinName, PinName, unsigned char) &rArr; MPR121_CapTouch::setThresholds(unsigned char, unsigned char) &rArr; mbed::I2C::write(int, const char*, int, bool) &rArr; i2c_write &rArr; i2c_init &rArr; i2c_frequency &rArr; mbed_assert_internal &rArr;  core_util_critical_section_enter (Cycle)
 </UL>
-<BR>[Calls]<UL><LI><a href="#[1c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;operator new(unsigned)
+<BR>[Calls]<UL><LI><a href="#[1c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;operator new(unsigned)
 <LI><a href="#[1bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rtos::Thread::yield()
 <LI><a href="#[1c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::RawSerial::printf(const char*, ...)
-<LI><a href="#[1c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::Callback&lang;T1(T2, T3, T4)&rang; mbed::callback&lang;void, const char*, void*, unsigned short&rang;(T1(*)(T2, T3, T4))
 <LI><a href="#[1c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::Callback&lang;void(TouchManager::TouchMsg*)&rang;::~Callback()
-<LI><a href="#[1c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MQ::MQClient::subscribe(const char*, mbed::Callback&lang;void(const char*, void*, unsigned short)&rang;*)
+<LI><a href="#[1c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::Callback&lang;void(const char*, void*, unsigned short)&rang;::Callback(void(*)(const char*, void*, unsigned short))
+<LI><a href="#[1c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MQ::MQClient::subscribe(const char*, mbed::Callback&lang;void(const char*, void*, unsigned short)&rang;*)
 <LI><a href="#[1be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MQ::MQBroker::start(const char**, unsigned, unsigned char)
 <LI><a href="#[1c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MQ::MQBroker::ready()
 <LI><a href="#[1c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TouchManager::TouchManager(PinName, PinName, PinName, unsigned char)
@@ -2713,7 +2713,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[1bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;test_MPR121()
 </UL>
 
-<P><STRONG><a name="[36c]"></a>TouchManager::TouchManager__sub_object(PinName, PinName, PinName, unsigned char)</STRONG> (Thumb, 0 bytes, Stack size 104 bytes, touchmanager.o(i._ZN12TouchManagerC1E7PinNameS0_S0_h), UNUSED)
+<P><STRONG><a name="[36b]"></a>TouchManager::TouchManager__sub_object(PinName, PinName, PinName, unsigned char)</STRONG> (Thumb, 0 bytes, Stack size 104 bytes, touchmanager.o(i._ZN12TouchManagerC1E7PinNameS0_S0_h), UNUSED)
 
 <P><STRONG><a name="[a2]"></a>SerialTerminal::lock()</STRONG> (Thumb, 18 bytes, Stack size 8 bytes, serialterminal.o(i._ZN14SerialTerminal4lockEv))
 <BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = SerialTerminal::lock() &rArr; rtos::Mutex::lock(unsigned) &rArr; osMutexAcquire
@@ -2749,7 +2749,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[165]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;$Super$$main
 </UL>
 
-<P><STRONG><a name="[36d]"></a>SerialTerminal::SerialTerminal__sub_object(PinName, PinName, unsigned short, int, SerialTerminal::Receiver_mode)</STRONG> (Thumb, 0 bytes, Stack size 88 bytes, serialterminal.o(i._ZN14SerialTerminalC1E7PinNameS0_tiNS_13Receiver_modeE), UNUSED)
+<P><STRONG><a name="[36c]"></a>SerialTerminal::SerialTerminal__sub_object(PinName, PinName, unsigned short, int, SerialTerminal::Receiver_mode)</STRONG> (Thumb, 0 bytes, Stack size 88 bytes, serialterminal.o(i._ZN14SerialTerminalC1E7PinNameS0_tiNS_13Receiver_modeE), UNUSED)
 
 <P><STRONG><a name="[1e1]"></a>MPR121_CapTouch::setThresholds(unsigned char, unsigned char)</STRONG> (Thumb, 104 bytes, Stack size 32 bytes, mpr121_captouch.o(i._ZN15MPR121_CapTouch13setThresholdsEhh))
 <BR><BR>[Stack]<UL><LI>Max Depth = 512 + Unknown Stack Size
@@ -2791,7 +2791,7 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 600 + Unknown Stack Size
 <LI>Call Chain = MPR121_CapTouch::MPR121_CapTouch(PinName, PinName, PinName, unsigned char) &rArr; MPR121_CapTouch::setThresholds(unsigned char, unsigned char) &rArr; mbed::I2C::write(int, const char*, int, bool) &rArr; i2c_write &rArr; i2c_init &rArr; i2c_frequency &rArr; mbed_assert_internal &rArr;  core_util_critical_section_enter (Cycle)
 </UL>
-<BR>[Calls]<UL><LI><a href="#[1c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;operator new(unsigned)
+<BR>[Calls]<UL><LI><a href="#[1c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;operator new(unsigned)
 <LI><a href="#[1dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::Callback&lang;T1()&rang; mbed::callback&lang;void&rang;(T1(*)())
 <LI><a href="#[1dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::Callback&lang;void()&rang;::~Callback()
 <LI><a href="#[166]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::Callback&lang;void()&rang;::Callback(void(*)())
@@ -2808,7 +2808,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[1c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TouchManager::TouchManager(PinName, PinName, PinName, unsigned char)
 </UL>
 
-<P><STRONG><a name="[36e]"></a>MPR121_CapTouch::MPR121_CapTouch__sub_object(PinName, PinName, PinName, unsigned char)</STRONG> (Thumb, 0 bytes, Stack size 88 bytes, mpr121_captouch.o(i._ZN15MPR121_CapTouchC1E7PinNameS0_S0_h), UNUSED)
+<P><STRONG><a name="[36d]"></a>MPR121_CapTouch::MPR121_CapTouch__sub_object(PinName, PinName, PinName, unsigned char)</STRONG> (Thumb, 0 bytes, Stack size 88 bytes, mpr121_captouch.o(i._ZN15MPR121_CapTouchC1E7PinNameS0_S0_h), UNUSED)
 
 <P><STRONG><a name="[1cc]"></a>MQ::MQBroker::publishReq(const char*, void*, unsigned, mbed::Callback&lang;void(const char*, int)&rang;*)</STRONG> (Thumb, 272 bytes, Stack size 72 bytes, touchmanager.o(i._ZN2MQ8MQBroker10publishReqEPKcPvjPN4mbed8CallbackIFvS2_iEEE))
 <BR><BR>[Stack]<UL><LI>Max Depth = 408 + Unknown Stack Size
@@ -2833,8 +2833,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[1d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rtos::Mutex::unlock()
 <LI><a href="#[1d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rtos::Mutex::lock(unsigned)
-<LI><a href="#[1c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;operator new(unsigned)
-<LI><a href="#[1f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strcmp
+<LI><a href="#[1c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;operator new(unsigned)
 <LI><a href="#[1f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;List&lang;mbed::Callback&lang;void(const char*, void*, unsigned short)&rang;&rang;::List()
 <LI><a href="#[1f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;List&lang;mbed::Callback&lang;void(const char*, void*, unsigned short)&rang;&rang;::addItem(mbed::Callback&lang;void(const char*, void*, unsigned short)&rang;*)
 <LI><a href="#[1f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;List&lang;mbed::Callback&lang;void(const char*, void*, unsigned short)&rang;&rang;::searchItem(mbed::Callback&lang;void(const char*, void*, unsigned short)&rang;*)
@@ -2843,16 +2842,17 @@ Global Symbols
 <LI><a href="#[1f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;List&lang;MQ::Topic&rang;::getNextItem()
 <LI><a href="#[1f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Heap::memAlloc(unsigned)
 <LI><a href="#[1ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MQ::MQBroker::createTopicId(MQ::topic_t*, const char*)
+<LI><a href="#[1f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strcmp
 <LI><a href="#[1eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen
 </UL>
-<BR>[Called By]<UL><LI><a href="#[1c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MQ::MQClient::subscribe(const char*, mbed::Callback&lang;void(const char*, void*, unsigned short)&rang;*)
+<BR>[Called By]<UL><LI><a href="#[1c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MQ::MQClient::subscribe(const char*, mbed::Callback&lang;void(const char*, void*, unsigned short)&rang;*)
 </UL>
 
 <P><STRONG><a name="[1ec]"></a>MQ::MQBroker::createTopicId(MQ::topic_t*, const char*)</STRONG> (Thumb, 338 bytes, Stack size 56 bytes, main.o(i._ZN2MQ8MQBroker13createTopicIdEPNS_7topic_tEPKc))
 <BR><BR>[Stack]<UL><LI>Max Depth = 184<LI>Call Chain = MQ::MQBroker::createTopicId(MQ::topic_t*, const char*) &rArr; atoi &rArr; strtol &rArr; _strtoul &rArr; __aeabi_errno_addr &rArr; __user_perthread_libspace &rArr; os_kernel_is_active &rArr; osKernelGetState &rArr; svcRtxKernelGetState
 </UL>
-<BR>[Calls]<UL><LI><a href="#[131]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strncpy
-<LI><a href="#[1f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MQ::MQBroker::getNextDelimiter(const char*, unsigned char*, unsigned char*, bool*)
+<BR>[Calls]<UL><LI><a href="#[1f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MQ::MQBroker::getNextDelimiter(const char*, unsigned char*, unsigned char*, bool*)
+<LI><a href="#[131]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strncpy
 <LI><a href="#[1f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strncmp
 <LI><a href="#[11f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;atoi
 </UL>
@@ -2878,14 +2878,14 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[1d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rtos::Mutex::unlock()
 <LI><a href="#[1d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rtos::Mutex::lock(unsigned)
-<LI><a href="#[1c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;operator new(unsigned)
+<LI><a href="#[1c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;operator new(unsigned)
 <LI><a href="#[1fa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;List&lang;MQ::Topic&rang;::List()
 <LI><a href="#[1fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;List&lang;MQ::Topic&rang;::setLimit(unsigned)
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;test_MPR121()
 </UL>
 
-<P><STRONG><a name="[1c2]"></a>MQ::MQClient::subscribe(const char*, mbed::Callback&lang;void(const char*, void*, unsigned short)&rang;*)</STRONG> (Thumb, 16 bytes, Stack size 16 bytes, main.o(i._ZN2MQ8MQClient9subscribeEPKcPN4mbed8CallbackIFvS2_PvtEEE))
+<P><STRONG><a name="[1c3]"></a>MQ::MQClient::subscribe(const char*, mbed::Callback&lang;void(const char*, void*, unsigned short)&rang;*)</STRONG> (Thumb, 16 bytes, Stack size 16 bytes, main.o(i._ZN2MQ8MQClient9subscribeEPKcPN4mbed8CallbackIFvS2_PvtEEE))
 <BR><BR>[Stack]<UL><LI>Max Depth = 432 + Unknown Stack Size
 <LI>Call Chain = MQ::MQClient::subscribe(const char*, mbed::Callback&lang;void(const char*, void*, unsigned short)&rang;*) &rArr; MQ::MQBroker::subscribeReq(const char*, mbed::Callback&lang;void(const char*, void*, unsigned short)&rang;*) &rArr; operator new(unsigned) &rArr; error &rArr; exit &rArr; mbed_die &rArr; core_util_critical_section_enter &rArr; mbed_assert_internal &rArr;  core_util_critical_section_enter (Cycle)
 </UL>
@@ -2945,8 +2945,8 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[1dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::Callback&lang;void()&rang;::~Callback()
 <LI><a href="#[166]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::Callback&lang;void()&rang;::Callback(void(*)())
-<LI><a href="#[1bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;serial_baud
 <LI><a href="#[1bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;serial_init
+<LI><a href="#[1bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;serial_baud
 <LI><a href="#[203]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;serial_irq_handler
 <LI><a href="#[1de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::Callback&lang;void()&rang;::operator =(const mbed::Callback&lang;void()&rang;&)
 <LI><a href="#[202]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_vec_ctor_nocookie_nodtor
@@ -2955,7 +2955,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[1d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::RawSerial::RawSerial(PinName, PinName, int)
 </UL>
 
-<P><STRONG><a name="[36f]"></a>mbed::SerialBase::SerialBase__sub_object(PinName, PinName, int)</STRONG> (Thumb, 0 bytes, Stack size 48 bytes, serialbase.o(i._ZN4mbed10SerialBaseC1E7PinNameS1_i), UNUSED)
+<P><STRONG><a name="[36e]"></a>mbed::SerialBase::SerialBase__sub_object(PinName, PinName, int)</STRONG> (Thumb, 0 bytes, Stack size 48 bytes, serialbase.o(i._ZN4mbed10SerialBaseC1E7PinNameS1_i), UNUSED)
 
 <P><STRONG><a name="[204]"></a>mbed::TimerEvent::insert_absolute(unsigned long long)</STRONG> (Thumb, 26 bytes, Stack size 24 bytes, timerevent.o(i._ZN4mbed10TimerEvent15insert_absoluteEy))
 <BR><BR>[Stack]<UL><LI>Max Depth = 400 + Unknown Stack Size
@@ -3032,7 +3032,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[1cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MPR121_CapTouch::MPR121_CapTouch(PinName, PinName, PinName, unsigned char)
 </UL>
 
-<P><STRONG><a name="[370]"></a>mbed::InterruptIn::InterruptIn__sub_object(PinName)</STRONG> (Thumb, 0 bytes, Stack size 40 bytes, interruptin.o(i._ZN4mbed11InterruptInC1E7PinName), UNUSED)
+<P><STRONG><a name="[36f]"></a>mbed::InterruptIn::InterruptIn__sub_object(PinName)</STRONG> (Thumb, 0 bytes, Stack size 40 bytes, interruptin.o(i._ZN4mbed11InterruptInC1E7PinName), UNUSED)
 
 <P><STRONG><a name="[20d]"></a>mbed::transaction_t::transaction_t()</STRONG> (Thumb, 22 bytes, Stack size 8 bytes, spi.o(i._ZN4mbed13transaction_tC1Ev))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = mbed::transaction_t::transaction_t() &rArr; mbed::Callback&lang;void(int)&rang;::Callback(void(*)(int))
@@ -3042,7 +3042,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::Transaction&lang;mbed::SPI&rang;::Transaction()
 </UL>
 
-<P><STRONG><a name="[371]"></a>mbed::transaction_t::transaction_t__sub_object()</STRONG> (Thumb, 0 bytes, Stack size 8 bytes, spi.o(i._ZN4mbed13transaction_tC1Ev), UNUSED)
+<P><STRONG><a name="[370]"></a>mbed::transaction_t::transaction_t__sub_object()</STRONG> (Thumb, 0 bytes, Stack size 8 bytes, spi.o(i._ZN4mbed13transaction_tC1Ev), UNUSED)
 
 <P><STRONG><a name="[20f]"></a>mbed::transaction_t::~transaction_t()</STRONG> (Thumb, 20 bytes, Stack size 8 bytes, spi.o(i._ZN4mbed13transaction_tD1Ev))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = mbed::transaction_t::~transaction_t() &rArr; mbed::Callback&lang;void(int)&rang;::~Callback()
@@ -3052,7 +3052,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::Transaction&lang;mbed::SPI&rang;::~Transaction()
 </UL>
 
-<P><STRONG><a name="[372]"></a>mbed::transaction_t::~transaction_t__sub_object()</STRONG> (Thumb, 0 bytes, Stack size 8 bytes, spi.o(i._ZN4mbed13transaction_tD1Ev), UNUSED)
+<P><STRONG><a name="[371]"></a>mbed::transaction_t::~transaction_t__sub_object()</STRONG> (Thumb, 0 bytes, Stack size 8 bytes, spi.o(i._ZN4mbed13transaction_tD1Ev), UNUSED)
 
 <P><STRONG><a name="[99]"></a>mbed::I2C::irq_handler_asynch()</STRONG> (Thumb, 74 bytes, Stack size 24 bytes, i2c.o(i._ZN4mbed3I2C18irq_handler_asynchEv))
 <BR><BR>[Stack]<UL><LI>Max Depth = 488 + Unknown Stack Size
@@ -3125,7 +3125,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[1cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MPR121_CapTouch::MPR121_CapTouch(PinName, PinName, PinName, unsigned char)
 </UL>
 
-<P><STRONG><a name="[373]"></a>mbed::I2C::I2C__sub_object(PinName, PinName)</STRONG> (Thumb, 0 bytes, Stack size 32 bytes, i2c.o(i._ZN4mbed3I2CC1E7PinNameS1_), UNUSED)
+<P><STRONG><a name="[372]"></a>mbed::I2C::I2C__sub_object(PinName, PinName)</STRONG> (Thumb, 0 bytes, Stack size 32 bytes, i2c.o(i._ZN4mbed3I2CC1E7PinNameS1_), UNUSED)
 
 <P><STRONG><a name="[a9]"></a>mbed::Ticker::handler()</STRONG> (Thumb, 74 bytes, Stack size 24 bytes, ticker.o(i._ZN4mbed6Ticker7handlerEv))
 <BR><BR>[Stack]<UL><LI>Max Depth = 424 + Unknown Stack Size
@@ -3204,7 +3204,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[129]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sys_open
 </UL>
 
-<P><STRONG><a name="[374]"></a>mbed::FilePath::FilePath__sub_object(const char*)</STRONG> (Thumb, 0 bytes, Stack size 24 bytes, filepath.o(i._ZN4mbed8FilePathC1EPKc), UNUSED)
+<P><STRONG><a name="[373]"></a>mbed::FilePath::FilePath__sub_object(const char*)</STRONG> (Thumb, 0 bytes, Stack size 24 bytes, filepath.o(i._ZN4mbed8FilePathC1EPKc), UNUSED)
 
 <P><STRONG><a name="[aa]"></a>mbed::RawSerial::lock()</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, rawserial.o(i._ZN4mbed9RawSerial4lockEv))
 <BR>[Address Reference Count : 1]<UL><LI> rawserial.o(.constdata__ZTVN4mbed9RawSerialE)
@@ -3253,7 +3253,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[1d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SerialTerminal::SerialTerminal(PinName, PinName, unsigned short, int, SerialTerminal::Receiver_mode)
 </UL>
 
-<P><STRONG><a name="[375]"></a>mbed::RawSerial::RawSerial__sub_object(PinName, PinName, int)</STRONG> (Thumb, 0 bytes, Stack size 24 bytes, rawserial.o(i._ZN4mbed9RawSerialC1E7PinNameS1_i), UNUSED)
+<P><STRONG><a name="[374]"></a>mbed::RawSerial::RawSerial__sub_object(PinName, PinName, int)</STRONG> (Thumb, 0 bytes, Stack size 24 bytes, rawserial.o(i._ZN4mbed9RawSerialC1E7PinNameS1_i), UNUSED)
 
 <P><STRONG><a name="[223]"></a>rtos::Mutex::constructor(const char*)</STRONG> (Thumb, 78 bytes, Stack size 16 bytes, mutex.o(i._ZN4rtos5Mutex11constructorEPKc))
 <BR><BR>[Stack]<UL><LI>Max Depth = 352 + Unknown Stack Size
@@ -3272,14 +3272,14 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[225]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osMutexAcquire
 </UL>
 <BR>[Called By]<UL><LI><a href="#[218]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::FileBase::lookup(const char*, unsigned)
-<LI><a href="#[129]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sys_open
 <LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::I2C::lock()
+<LI><a href="#[129]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sys_open
 <LI><a href="#[6c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rtos::Thread::_thunk(void*)
 <LI><a href="#[1d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rtos::Thread::start(mbed::Callback&lang;void()&rang;)
 <LI><a href="#[1be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MQ::MQBroker::start(const char**, unsigned, unsigned char)
 <LI><a href="#[1f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MQ::MQBroker::subscribeReq(const char*, mbed::Callback&lang;void(const char*, void*, unsigned short)&rang;*)
-<LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SerialTerminal::lock()
 <LI><a href="#[1cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MQ::MQBroker::publishReq(const char*, void*, unsigned, mbed::Callback&lang;void(const char*, int)&rang;*)
+<LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SerialTerminal::lock()
 </UL>
 
 <P><STRONG><a name="[1d5]"></a>rtos::Mutex::unlock()</STRONG> (Thumb, 12 bytes, Stack size 8 bytes, mutex.o(i._ZN4rtos5Mutex6unlockEv))
@@ -3288,13 +3288,13 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[226]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osMutexRelease
 </UL>
 <BR>[Called By]<UL><LI><a href="#[218]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::FileBase::lookup(const char*, unsigned)
-<LI><a href="#[129]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sys_open
 <LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::I2C::unlock()
+<LI><a href="#[129]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sys_open
 <LI><a href="#[1d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rtos::Thread::start(mbed::Callback&lang;void()&rang;)
 <LI><a href="#[1be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MQ::MQBroker::start(const char**, unsigned, unsigned char)
 <LI><a href="#[1f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MQ::MQBroker::subscribeReq(const char*, mbed::Callback&lang;void(const char*, void*, unsigned short)&rang;*)
-<LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SerialTerminal::unlock()
 <LI><a href="#[1cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MQ::MQBroker::publishReq(const char*, void*, unsigned, mbed::Callback&lang;void(const char*, int)&rang;*)
+<LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SerialTerminal::unlock()
 </UL>
 
 <P><STRONG><a name="[1d8]"></a>rtos::Mutex::Mutex()</STRONG> (Thumb, 22 bytes, Stack size 8 bytes, mutex.o(i._ZN4rtos5MutexC1Ev))
@@ -3309,7 +3309,7 @@ Global Symbols
 <LI><a href="#[1d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SerialTerminal::SerialTerminal(PinName, PinName, unsigned short, int, SerialTerminal::Receiver_mode)
 </UL>
 
-<P><STRONG><a name="[376]"></a>rtos::Mutex::Mutex__sub_object()</STRONG> (Thumb, 0 bytes, Stack size 8 bytes, mutex.o(i._ZN4rtos5MutexC1Ev), UNUSED)
+<P><STRONG><a name="[375]"></a>rtos::Mutex::Mutex__sub_object()</STRONG> (Thumb, 0 bytes, Stack size 8 bytes, mutex.o(i._ZN4rtos5MutexC1Ev), UNUSED)
 
 <P><STRONG><a name="[6f]"></a>rtos::Mutex::~Mutex()</STRONG> (Thumb, 20 bytes, Stack size 8 bytes, mutex.o(i._ZN4rtos5MutexD1Ev))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = rtos::Mutex::~Mutex() &rArr; osMutexDelete
@@ -3318,7 +3318,7 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> mqlib.o(i.__sti___9_MQLib_cpp_cf225734)
 </UL>
-<P><STRONG><a name="[377]"></a>rtos::Mutex::~Mutex__sub_object()</STRONG> (Thumb, 0 bytes, Stack size 8 bytes, mutex.o(i._ZN4rtos5MutexD1Ev), UNUSED)
+<P><STRONG><a name="[376]"></a>rtos::Mutex::~Mutex__sub_object()</STRONG> (Thumb, 0 bytes, Stack size 8 bytes, mutex.o(i._ZN4rtos5MutexD1Ev), UNUSED)
 
 <P><STRONG><a name="[228]"></a>rtos::Thread::constructor(osPriority_t, unsigned, unsigned char*, const char*)</STRONG> (Thumb, 82 bytes, Stack size 24 bytes, thread.o(i._ZN4rtos6Thread11constructorE12osPriority_tjPhPKc))
 <BR><BR>[Stack]<UL><LI>Max Depth = 28<LI>Call Chain = rtos::Thread::constructor(osPriority_t, unsigned, unsigned char*, const char*) &rArr; __aeabi_memclr4
@@ -3391,7 +3391,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[1c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TouchManager::TouchManager(PinName, PinName, PinName, unsigned char)
 </UL>
 
-<P><STRONG><a name="[378]"></a>rtos::Thread::Thread__sub_object(osPriority_t, unsigned, unsigned char*, const char*)</STRONG> (Thumb, 0 bytes, Stack size 32 bytes, main.o(i._ZN4rtos6ThreadC1E12osPriority_tjPhPKc), UNUSED)
+<P><STRONG><a name="[377]"></a>rtos::Thread::Thread__sub_object(osPriority_t, unsigned, unsigned char*, const char*)</STRONG> (Thumb, 0 bytes, Stack size 32 bytes, main.o(i._ZN4rtos6ThreadC1E12osPriority_tjPhPKc), UNUSED)
 
 <P><STRONG><a name="[231]"></a>rtos::Semaphore::constructor(int, unsigned short)</STRONG> (Thumb, 68 bytes, Stack size 16 bytes, semaphore.o(i._ZN4rtos9Semaphore11constructorEit))
 <BR><BR>[Stack]<UL><LI>Max Depth = 352 + Unknown Stack Size
@@ -3421,7 +3421,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[1ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rtos::Thread::Thread(osPriority_t, unsigned, unsigned char*, const char*)
 </UL>
 
-<P><STRONG><a name="[379]"></a>rtos::Semaphore::Semaphore__sub_object(int)</STRONG> (Thumb, 0 bytes, Stack size 16 bytes, semaphore.o(i._ZN4rtos9SemaphoreC1Ei), UNUSED)
+<P><STRONG><a name="[378]"></a>rtos::Semaphore::Semaphore__sub_object(int)</STRONG> (Thumb, 0 bytes, Stack size 16 bytes, semaphore.o(i._ZN4rtos9SemaphoreC1Ei), UNUSED)
 
 <P><STRONG><a name="[222]"></a>operator delete[] (void*)</STRONG> (Thumb, 14 bytes, Stack size 8 bytes, mbed_retarget.o(i._ZdaPv))
 <BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = operator delete[] (void*) &rArr; free &rArr; _free_internal &rArr; _mutex_release &rArr; os_kernel_is_active &rArr; osKernelGetState &rArr; svcRtxKernelGetState
@@ -3443,7 +3443,7 @@ Global Symbols
 <LI><a href="#[1d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rtos::Thread::start(mbed::Callback&lang;void()&rang;)
 </UL>
 
-<P><STRONG><a name="[1c3]"></a>operator new(unsigned)</STRONG> (Thumb, 24 bytes, Stack size 16 bytes, mbed_retarget.o(i._Znwj))
+<P><STRONG><a name="[1c1]"></a>operator new(unsigned)</STRONG> (Thumb, 24 bytes, Stack size 16 bytes, mbed_retarget.o(i._Znwj))
 <BR><BR>[Stack]<UL><LI>Max Depth = 384 + Unknown Stack Size
 <LI>Call Chain = operator new(unsigned) &rArr; error &rArr; exit &rArr; mbed_die &rArr; core_util_critical_section_enter &rArr; mbed_assert_internal &rArr;  core_util_critical_section_enter (Cycle)
 </UL>
@@ -3460,8 +3460,8 @@ Global Symbols
 <P><STRONG><a name="[152]"></a>__ARM_fpclassify</STRONG> (Thumb, 48 bytes, Stack size 8 bytes, fpclassify.o(i.__ARM_fpclassify))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = __ARM_fpclassify
 </UL>
-<BR>[Called By]<UL><LI><a href="#[151]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_fp_dec_real
-<LI><a href="#[154]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_fp_hex_real
+<BR>[Called By]<UL><LI><a href="#[154]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_fp_hex_real
+<LI><a href="#[151]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_fp_dec_real
 </UL>
 
 <P><STRONG><a name="[23a]"></a>__aeabi_atexit</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, mbed_retarget.o(i.__aeabi_atexit))
@@ -3487,12 +3487,12 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 400 + Unknown Stack Size
 <LI>Call Chain = __rt_entry &rArr; mbed_start_main &rArr; error &rArr; exit &rArr; mbed_die &rArr; core_util_critical_section_enter &rArr; mbed_assert_internal &rArr;  core_util_critical_section_enter (Cycle)
 </UL>
-<BR>[Calls]<UL><LI><a href="#[237]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed_sdk_init
-<LI><a href="#[238]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_platform_post_stackheap_init
+<BR>[Calls]<UL><LI><a href="#[238]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_platform_post_stackheap_init
 <LI><a href="#[234]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__user_setup_stackheap
 <LI><a href="#[239]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed_start_main
 <LI><a href="#[235]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed_set_stack_heap
 <LI><a href="#[236]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed_cpy_nvic
+<LI><a href="#[237]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed_sdk_init
 </UL>
 <BR>[Called By]<UL><LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__main
 <LI><a href="#[d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__scatterload_rt2
@@ -3502,8 +3502,8 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = __user_perthread_libspace &rArr; os_kernel_is_active &rArr; osKernelGetState &rArr; svcRtxKernelGetState
 </UL>
 <BR>[Calls]<UL><LI><a href="#[23d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osThreadGetId
-<LI><a href="#[23e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxErrorNotify
 <LI><a href="#[23c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;os_kernel_is_active
+<LI><a href="#[23e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxErrorNotify
 </UL>
 <BR>[Called By]<UL><LI><a href="#[108]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_errno_addr
 </UL>
@@ -3524,15 +3524,15 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[225]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osMutexAcquire
 <LI><a href="#[23c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;os_kernel_is_active
 </UL>
-<BR>[Called By]<UL><LI><a href="#[148]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_terminateio
-<LI><a href="#[146]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setvbuf
-<LI><a href="#[12b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;fopen
+<BR>[Called By]<UL><LI><a href="#[12b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;fopen
 <LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;freopen
 <LI><a href="#[128]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_freopen_locked
 <LI><a href="#[127]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;fflush
 <LI><a href="#[125]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_do_fflush
 <LI><a href="#[10f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_free_internal
 <LI><a href="#[10a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_malloc_internal
+<LI><a href="#[148]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_terminateio
+<LI><a href="#[146]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setvbuf
 </UL>
 
 <P><STRONG><a name="[cc]"></a>_mutex_free</STRONG> (Thumb, 12 bytes, Stack size 8 bytes, rtx_lib.o(i._mutex_free), UNUSED, KEPT)
@@ -3551,9 +3551,9 @@ Global Symbols
 <LI><a href="#[23e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxErrorNotify
 <LI><a href="#[10d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;malloc
 </UL>
-<BR>[Called By]<UL><LI><a href="#[fe]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_initio
-<LI><a href="#[137]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__Heap_Initialize
+<BR>[Called By]<UL><LI><a href="#[137]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__Heap_Initialize
 <LI><a href="#[12b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;fopen
+<LI><a href="#[fe]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_initio
 </UL>
 
 <P><STRONG><a name="[cd]"></a>_mutex_release</STRONG> (Thumb, 18 bytes, Stack size 8 bytes, rtx_lib.o(i._mutex_release))
@@ -3562,15 +3562,15 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[226]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osMutexRelease
 <LI><a href="#[23c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;os_kernel_is_active
 </UL>
-<BR>[Called By]<UL><LI><a href="#[148]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_terminateio
-<LI><a href="#[146]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setvbuf
-<LI><a href="#[12b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;fopen
+<BR>[Called By]<UL><LI><a href="#[12b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;fopen
 <LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;freopen
 <LI><a href="#[128]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_freopen_locked
 <LI><a href="#[127]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;fflush
 <LI><a href="#[125]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_do_fflush
 <LI><a href="#[10f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_free_internal
 <LI><a href="#[10a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_malloc_internal
+<LI><a href="#[148]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_terminateio
+<LI><a href="#[146]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setvbuf
 </UL>
 
 <P><STRONG><a name="[238]"></a>_platform_post_stackheap_init</STRONG> (Thumb, 8 bytes, Stack size 8 bytes, rtx_lib.o(i._platform_post_stackheap_init))
@@ -3637,8 +3637,8 @@ Global Symbols
 <P><STRONG><a name="[144]"></a>_sys_write</STRONG> (Thumb, 108 bytes, Stack size 32 bytes, mbed_retarget.o(i._sys_write))
 <BR><BR>[Stack]<UL><LI>Max Depth = 184<LI>Call Chain = _sys_write &rArr; init_serial() &rArr; serial_init &rArr;  mbed_assert_internal (Cycle)
 </UL>
-<BR>[Calls]<UL><LI><a href="#[1ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init_serial()
-<LI><a href="#[1fd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;serial_putc
+<BR>[Calls]<UL><LI><a href="#[1fd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;serial_putc
+<LI><a href="#[1ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init_serial()
 <LI><a href="#[108]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_errno_addr
 </UL>
 <BR>[Called By]<UL><LI><a href="#[142]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_writebuf
@@ -3691,7 +3691,7 @@ Global Symbols
 </UL>
 <BR>[Called By]<UL><LI><a href="#[266]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pinmap_pinout
 <LI><a href="#[264]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pinmap_peripheral
-<LI><a href="#[1c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;operator new(unsigned)
+<LI><a href="#[1c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;operator new(unsigned)
 <LI><a href="#[265]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pinmap_merge
 <LI><a href="#[221]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;operator new[] (unsigned)
 <LI><a href="#[251]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;handle_interrupt_in
@@ -3970,15 +3970,15 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[1b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;error
 <LI><a href="#[195]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_UART_Init
 </UL>
-<BR>[Called By]<UL><LI><a href="#[1bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;serial_baud
-<LI><a href="#[1bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;serial_init
+<BR>[Called By]<UL><LI><a href="#[1bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;serial_init
+<LI><a href="#[1bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;serial_baud
 </UL>
 
 <P><STRONG><a name="[165]"></a>$Super$$main</STRONG> (Thumb, 68 bytes, Stack size 16 bytes, main.o(i.main))
-<BR><BR>[Stack]<UL><LI>Max Depth = 760 + Unknown Stack Size
+<BR><BR>[Stack]<UL><LI>Max Depth = 744 + Unknown Stack Size
 <LI>Call Chain = $Super$$main &rArr; test_MPR121() &rArr; TouchManager::TouchManager(PinName, PinName, PinName, unsigned char) &rArr; MPR121_CapTouch::MPR121_CapTouch(PinName, PinName, PinName, unsigned char) &rArr; MPR121_CapTouch::setThresholds(unsigned char, unsigned char) &rArr; mbed::I2C::write(int, const char*, int, bool) &rArr; i2c_write &rArr; i2c_init &rArr; i2c_frequency &rArr; mbed_assert_internal &rArr;  core_util_critical_section_enter (Cycle)
 </UL>
-<BR>[Calls]<UL><LI><a href="#[1c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;operator new(unsigned)
+<BR>[Calls]<UL><LI><a href="#[1c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;operator new(unsigned)
 <LI><a href="#[1c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::RawSerial::printf(const char*, ...)
 <LI><a href="#[1d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SerialTerminal::SerialTerminal(PinName, PinName, unsigned short, int, SerialTerminal::Receiver_mode)
 <LI><a href="#[1bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;test_MPR121()
@@ -4100,8 +4100,8 @@ Global Symbols
 <LI><a href="#[286]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__get_BASEPRI
 <LI><a href="#[287]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxKernelGetState
 </UL>
-<BR>[Called By]<UL><LI><a href="#[280]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osKernelStart
-<LI><a href="#[23c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;os_kernel_is_active
+<BR>[Called By]<UL><LI><a href="#[23c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;os_kernel_is_active
+<LI><a href="#[280]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osKernelStart
 </UL>
 
 <P><STRONG><a name="[245]"></a>osKernelInitialize</STRONG> (Thumb, 94 bytes, Stack size 8 bytes, rtx_kernel.o(i.osKernelInitialize))
@@ -4230,8 +4230,8 @@ Global Symbols
 <LI><a href="#[23d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osThreadGetId
 <LI><a href="#[29d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osThreadGetName
 </UL>
-<BR>[Called By]<UL><LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_mutex_initialize
-<LI><a href="#[109]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__user_perthread_libspace
+<BR>[Called By]<UL><LI><a href="#[109]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__user_perthread_libspace
+<LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_mutex_initialize
 <LI><a href="#[271]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxPostProcess
 <LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxTimerTick
 <LI><a href="#[2cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadStackCheck
@@ -4352,8 +4352,8 @@ Global Symbols
 <P><STRONG><a name="[271]"></a>osRtxPostProcess</STRONG> (Thumb, 50 bytes, Stack size 8 bytes, rtx_system.o(i.osRtxPostProcess))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = osRtxPostProcess &rArr; isr_queue_put
 </UL>
-<BR>[Calls]<UL><LI><a href="#[23e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxErrorNotify
-<LI><a href="#[27a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;isr_queue_put
+<BR>[Calls]<UL><LI><a href="#[27a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;isr_queue_put
+<LI><a href="#[23e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxErrorNotify
 </UL>
 <BR>[Called By]<UL><LI><a href="#[233]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osSemaphoreRelease
 <LI><a href="#[273]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;isrRtxMessageQueuePut
@@ -4428,11 +4428,11 @@ Global Symbols
 <LI><a href="#[2c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadListRemove
 <LI><a href="#[2c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadBlock
 </UL>
-<BR>[Called By]<UL><LI><a href="#[106]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxTick_Handler
-<LI><a href="#[105]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxPendSV_Handler
-<LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;svcRtxMutexRelease
+<BR>[Called By]<UL><LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;svcRtxMutexRelease
 <LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;svcRtxMutexDelete
 <LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;svcRtxThreadNew
+<LI><a href="#[106]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxTick_Handler
+<LI><a href="#[105]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxPendSV_Handler
 <LI><a href="#[2af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadWaitExit
 </UL>
 
@@ -4461,9 +4461,9 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[2c2]"></a>osRtxThreadListRemove</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, rtx_thread.o(i.osRtxThreadListRemove))
-<BR><BR>[Called By]<UL><LI><a href="#[106]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxTick_Handler
-<LI><a href="#[2c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadListSort
+<BR><BR>[Called By]<UL><LI><a href="#[2c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadListSort
 <LI><a href="#[2b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadDelayTick
+<LI><a href="#[106]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxTick_Handler
 <LI><a href="#[2ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadWaitEnter
 <LI><a href="#[2b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadDispatch
 <LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;svcRtxThreadYield
@@ -4497,8 +4497,8 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[2ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadListPut
 </UL>
-<BR>[Called By]<UL><LI><a href="#[106]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxTick_Handler
-<LI><a href="#[2b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadDelayTick
+<BR>[Called By]<UL><LI><a href="#[2b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadDelayTick
+<LI><a href="#[106]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxTick_Handler
 <LI><a href="#[2af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadWaitExit
 <LI><a href="#[2b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadDispatch
 <LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;svcRtxThreadYield
@@ -4515,8 +4515,8 @@ Global Symbols
 <P><STRONG><a name="[2cc]"></a>osRtxThreadStackCheck</STRONG> (Thumb, 38 bytes, Stack size 8 bytes, rtx_thread.o(i.osRtxThreadStackCheck))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = osRtxThreadStackCheck &rArr; osRtxErrorNotify &rArr;  error (Cycle)
 </UL>
-<BR>[Calls]<UL><LI><a href="#[23e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxErrorNotify
-<LI><a href="#[2c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadGetRunning
+<BR>[Calls]<UL><LI><a href="#[2c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadGetRunning
+<LI><a href="#[23e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxErrorNotify
 </UL>
 <BR>[Called By]<UL><LI><a href="#[2c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadSwitch
 </UL>
@@ -4527,8 +4527,8 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[2cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxThreadSwitch
 <LI><a href="#[2cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadStackCheck
 </UL>
-<BR>[Called By]<UL><LI><a href="#[106]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxTick_Handler
-<LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;svcRtxKernelStart
+<BR>[Called By]<UL><LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;svcRtxKernelStart
+<LI><a href="#[106]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxTick_Handler
 <LI><a href="#[2ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadWaitEnter
 <LI><a href="#[2b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadDispatch
 <LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;svcRtxThreadYield
@@ -4671,8 +4671,8 @@ Global Symbols
 <LI><a href="#[2e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__get_BASEPRI
 <LI><a href="#[2e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxThreadGetId
 </UL>
-<BR>[Called By]<UL><LI><a href="#[23e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxErrorNotify
-<LI><a href="#[109]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__user_perthread_libspace
+<BR>[Called By]<UL><LI><a href="#[109]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__user_perthread_libspace
+<LI><a href="#[23e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxErrorNotify
 </UL>
 
 <P><STRONG><a name="[29d]"></a>osThreadGetName</STRONG> (Thumb, 48 bytes, Stack size 8 bytes, rtx_thread.o(i.osThreadGetName))
@@ -4774,7 +4774,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[79]"></a>pre_main</STRONG> (Thumb, 62 bytes, Stack size 24 bytes, mbed_boot.o(i.pre_main))
-<BR><BR>[Stack]<UL><LI>Max Depth = 792 + Unknown Stack Size
+<BR><BR>[Stack]<UL><LI>Max Depth = 776 + Unknown Stack Size
 <LI>Call Chain = pre_main &rArr; main &rArr; $Super$$main &rArr; test_MPR121() &rArr; TouchManager::TouchManager(PinName, PinName, PinName, unsigned char) &rArr; MPR121_CapTouch::MPR121_CapTouch(PinName, PinName, PinName, unsigned char) &rArr; MPR121_CapTouch::setThresholds(unsigned char, unsigned char) &rArr; mbed::I2C::write(int, const char*, int, bool) &rArr; i2c_write &rArr; i2c_init &rArr; i2c_frequency &rArr; mbed_assert_internal &rArr;  core_util_critical_section_enter (Cycle)
 </UL>
 <BR>[Calls]<UL><LI><a href="#[224]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osMutexNew
@@ -4808,8 +4808,8 @@ Global Symbols
 <LI><a href="#[269]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init_uart
 <LI><a href="#[12e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy4
 </UL>
-<BR>[Called By]<UL><LI><a href="#[1ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init_serial()
-<LI><a href="#[24a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed_error_vfprintf
+<BR>[Called By]<UL><LI><a href="#[24a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed_error_vfprintf
+<LI><a href="#[1ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init_serial()
 <LI><a href="#[201]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::SerialBase::SerialBase(PinName, PinName, int)
 </UL>
 
@@ -4830,8 +4830,8 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[2ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;serial_writable
 </UL>
-<BR>[Called By]<UL><LI><a href="#[144]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sys_write
-<LI><a href="#[24a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed_error_vfprintf
+<BR>[Called By]<UL><LI><a href="#[24a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed_error_vfprintf
+<LI><a href="#[144]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sys_write
 <LI><a href="#[1fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::SerialBase::_base_putc(int)
 </UL>
 
@@ -5163,8 +5163,8 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 96<LI>Call Chain = wait_us &rArr; us_ticker_read &rArr; us_ticker_init &rArr; HAL_InitTick &rArr; HAL_TIM_OC_Start &rArr; TIM_CCxChannelCmd
 </UL>
 <BR>[Calls]<UL><LI><a href="#[248]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;core_util_are_interrupts_enabled
-<LI><a href="#[22a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rtos::Thread::wait(unsigned)
 <LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;us_ticker_read
+<LI><a href="#[22a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rtos::Thread::wait(unsigned)
 </UL>
 <BR>[Called By]<UL><LI><a href="#[215]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;i2c_write
 <LI><a href="#[214]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;i2c_read
@@ -5208,9 +5208,9 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[306]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SingletonPtr&lang;rtos::Mutex&rang;::get()
 </UL>
 <BR>[Called By]<UL><LI><a href="#[218]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::FileBase::lookup(const char*, unsigned)
-<LI><a href="#[129]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sys_open
 <LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::I2C::unlock()
 <LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::I2C::lock()
+<LI><a href="#[129]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sys_open
 </UL>
 
 <P><STRONG><a name="[1f0]"></a>List&lang;MQ::Topic&rang;::getNextItem()</STRONG> (Thumb, 30 bytes, Stack size 0 bytes, main.o(t._ZN4ListIN2MQ5TopicEE11getNextItemEv))
@@ -5239,7 +5239,7 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[1be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MQ::MQBroker::start(const char**, unsigned, unsigned char)
 </UL>
 
-<P><STRONG><a name="[37a]"></a>List&lang;MQ::Topic&rang;::List__sub_object()</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, main.o(t._ZN4ListIN2MQ5TopicEEC1Ev), UNUSED)
+<P><STRONG><a name="[379]"></a>List&lang;MQ::Topic&rang;::List__sub_object()</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, main.o(t._ZN4ListIN2MQ5TopicEEC1Ev), UNUSED)
 
 <P><STRONG><a name="[1f3]"></a>List&lang;mbed::Callback&lang;void(const char*, void*, unsigned short)&rang;&rang;::searchItem(mbed::Callback&lang;void(const char*, void*, unsigned short)&rang;*)</STRONG> (Thumb, 56 bytes, Stack size 16 bytes, main.o(t._ZN4ListIN4mbed8CallbackIFvPKcPvtEEEE10searchItemEPS6_))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = List&lang;mbed::Callback&lang;void(const char*, void*, unsigned short)&rang;&rang;::searchItem(mbed::Callback&lang;void(const char*, void*, unsigned short)&rang;*)
@@ -5272,7 +5272,7 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[1f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MQ::MQBroker::subscribeReq(const char*, mbed::Callback&lang;void(const char*, void*, unsigned short)&rang;*)
 </UL>
 
-<P><STRONG><a name="[37b]"></a>List&lang;mbed::Callback&lang;void(const char*, void*, unsigned short)&rang;&rang;::List__sub_object()</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, main.o(t._ZN4ListIN4mbed8CallbackIFvPKcPvtEEEEC1Ev), UNUSED)
+<P><STRONG><a name="[37a]"></a>List&lang;mbed::Callback&lang;void(const char*, void*, unsigned short)&rang;&rang;::List__sub_object()</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, main.o(t._ZN4ListIN4mbed8CallbackIFvPKcPvtEEEEC1Ev), UNUSED)
 
 <P><STRONG><a name="[6d]"></a>mbed::Transaction&lang;mbed::SPI&rang;::Transaction()</STRONG> (Thumb, 28 bytes, Stack size 8 bytes, spi.o(t._ZN4mbed11TransactionINS_3SPIEEC1Ev))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = mbed::Transaction&lang;mbed::SPI&rang;::Transaction() &rArr; mbed::transaction_t::transaction_t() &rArr; mbed::Callback&lang;void(int)&rang;::Callback(void(*)(int))
@@ -5282,7 +5282,7 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> spi.o(i.__sti___7_SPI_cpp_ab1f1164)
 </UL>
-<P><STRONG><a name="[37c]"></a>mbed::Transaction&lang;mbed::SPI&rang;::Transaction__sub_object()</STRONG> (Thumb, 0 bytes, Stack size 8 bytes, spi.o(t._ZN4mbed11TransactionINS_3SPIEEC1Ev), UNUSED)
+<P><STRONG><a name="[37b]"></a>mbed::Transaction&lang;mbed::SPI&rang;::Transaction__sub_object()</STRONG> (Thumb, 0 bytes, Stack size 8 bytes, spi.o(t._ZN4mbed11TransactionINS_3SPIEEC1Ev), UNUSED)
 
 <P><STRONG><a name="[97]"></a>mbed::Transaction&lang;mbed::SPI&rang;::~Transaction()</STRONG> (Thumb, 16 bytes, Stack size 8 bytes, spi.o(t._ZN4mbed11TransactionINS_3SPIEED1Ev))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = mbed::Transaction&lang;mbed::SPI&rang;::~Transaction() &rArr; mbed::transaction_t::~transaction_t() &rArr; mbed::Callback&lang;void(int)&rang;::~Callback()
@@ -5291,7 +5291,7 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> spi.o(t._ZN4mbed14CircularBufferINS_11TransactionINS_3SPIEEELj2EjED1Ev)
 </UL>
-<P><STRONG><a name="[37d]"></a>mbed::Transaction&lang;mbed::SPI&rang;::~Transaction__sub_object()</STRONG> (Thumb, 0 bytes, Stack size 8 bytes, spi.o(t._ZN4mbed11TransactionINS_3SPIEED1Ev), UNUSED)
+<P><STRONG><a name="[37c]"></a>mbed::Transaction&lang;mbed::SPI&rang;::~Transaction__sub_object()</STRONG> (Thumb, 0 bytes, Stack size 8 bytes, spi.o(t._ZN4mbed11TransactionINS_3SPIEED1Ev), UNUSED)
 
 <P><STRONG><a name="[6e]"></a>mbed::CircularBuffer&lang;mbed::Transaction&lang;mbed::SPI&rang;, (unsigned)2, unsigned&rang;::~CircularBuffer()</STRONG> (Thumb, 20 bytes, Stack size 8 bytes, spi.o(t._ZN4mbed14CircularBufferINS_11TransactionINS_3SPIEEELj2EjED1Ev))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = mbed::CircularBuffer&lang;mbed::Transaction&lang;mbed::SPI&rang;, (unsigned)2, unsigned&rang;::~CircularBuffer() &rArr; __aeabi_vec_dtor
@@ -5300,7 +5300,7 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> spi.o(i.__sti___7_SPI_cpp_ab1f1164)
 </UL>
-<P><STRONG><a name="[37e]"></a>mbed::CircularBuffer&lang;mbed::Transaction&lang;mbed::SPI&rang;, (unsigned)2, unsigned&rang;::~CircularBuffer__sub_object()</STRONG> (Thumb, 0 bytes, Stack size 8 bytes, spi.o(t._ZN4mbed14CircularBufferINS_11TransactionINS_3SPIEEELj2EjED1Ev), UNUSED)
+<P><STRONG><a name="[37d]"></a>mbed::CircularBuffer&lang;mbed::Transaction&lang;mbed::SPI&rang;, (unsigned)2, unsigned&rang;::~CircularBuffer__sub_object()</STRONG> (Thumb, 0 bytes, Stack size 8 bytes, spi.o(t._ZN4mbed14CircularBufferINS_11TransactionINS_3SPIEEELj2EjED1Ev), UNUSED)
 
 <P><STRONG><a name="[ac]"></a>bool mbed::Callback&lang;bool(unsigned char*, unsigned short)&rang;::function_call&lang;bool(*)(unsigned char*, unsigned short)&rang;(const void*, unsigned char*, unsigned short)</STRONG> (Thumb, 18 bytes, Stack size 16 bytes, serialterminal.o(t._ZN4mbed8CallbackIFbPhtEE13function_callIPS2_EEbPKvS1_t))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = bool mbed::Callback&lang;bool(unsigned char*, unsigned short)&rang;::function_call&lang;bool(*)(unsigned char*, unsigned short)&rang;(const void*, unsigned char*, unsigned short)
@@ -5320,7 +5320,7 @@ Global Symbols
 <LI><a href="#[1df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::Callback&lang;T1(T2, T3)&rang; mbed::callback&lang;bool, unsigned char*, unsigned short&rang;(T1(*)(T2, T3))
 </UL>
 
-<P><STRONG><a name="[37f]"></a>mbed::Callback&lang;bool(unsigned char*, unsigned short)&rang;::Callback__sub_object(bool(*)(unsigned char*, unsigned short))</STRONG> (Thumb, 0 bytes, Stack size 8 bytes, serialterminal.o(t._ZN4mbed8CallbackIFbPhtEEC1EPS2_), UNUSED)
+<P><STRONG><a name="[37e]"></a>mbed::Callback&lang;bool(unsigned char*, unsigned short)&rang;::Callback__sub_object(bool(*)(unsigned char*, unsigned short))</STRONG> (Thumb, 0 bytes, Stack size 8 bytes, serialterminal.o(t._ZN4mbed8CallbackIFbPhtEEC1EPS2_), UNUSED)
 
 <P><STRONG><a name="[1e0]"></a>mbed::Callback&lang;bool(unsigned char*, unsigned short)&rang;::~Callback()</STRONG> (Thumb, 20 bytes, Stack size 8 bytes, serialterminal.o(t._ZN4mbed8CallbackIFbPhtEED1Ev))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = mbed::Callback&lang;bool(unsigned char*, unsigned short)&rang;::~Callback()
@@ -5328,7 +5328,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[1d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SerialTerminal::SerialTerminal(PinName, PinName, unsigned short, int, SerialTerminal::Receiver_mode)
 </UL>
 
-<P><STRONG><a name="[380]"></a>mbed::Callback&lang;bool(unsigned char*, unsigned short)&rang;::~Callback__sub_object()</STRONG> (Thumb, 0 bytes, Stack size 8 bytes, serialterminal.o(t._ZN4mbed8CallbackIFbPhtEED1Ev), UNUSED)
+<P><STRONG><a name="[37f]"></a>mbed::Callback&lang;bool(unsigned char*, unsigned short)&rang;::~Callback__sub_object()</STRONG> (Thumb, 0 bytes, Stack size 8 bytes, serialterminal.o(t._ZN4mbed8CallbackIFbPhtEED1Ev), UNUSED)
 
 <P><STRONG><a name="[af]"></a>void mbed::Callback&lang;void(const char*, void*, unsigned short)&rang;::function_call&lang;void(*)(const char*, void*, unsigned short)&rang;(const void*, const char*, void*, unsigned short)</STRONG> (Thumb, 26 bytes, Stack size 24 bytes, main.o(t._ZN4mbed8CallbackIFvPKcPvtEE13function_callIPS4_EEvPKvS2_S3_t))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = void mbed::Callback&lang;void(const char*, void*, unsigned short)&rang;::function_call&lang;void(*)(const char*, void*, unsigned short)&rang;(const void*, const char*, void*, unsigned short)
@@ -5341,13 +5341,13 @@ Global Symbols
 <P><STRONG><a name="[b0]"></a>void mbed::Callback&lang;void(const char*, void*, unsigned short)&rang;::function_move&lang;void(*)(const char*, void*, unsigned short)&rang;(void*, const void*)</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, main.o(t._ZN4mbed8CallbackIFvPKcPvtEE13function_moveIPS4_EEvS3_PKv))
 <BR>[Address Reference Count : 1]<UL><LI> main.o(.constdata__ZZN4mbed8CallbackIFvPKcPvtEE8generateIPS4_EEvRKT_E3ops)
 </UL>
-<P><STRONG><a name="[308]"></a>mbed::Callback&lang;void(const char*, void*, unsigned short)&rang;::Callback(void(*)(const char*, void*, unsigned short))</STRONG> (Thumb, 34 bytes, Stack size 8 bytes, main.o(t._ZN4mbed8CallbackIFvPKcPvtEEC1EPS4_))
+<P><STRONG><a name="[1c2]"></a>mbed::Callback&lang;void(const char*, void*, unsigned short)&rang;::Callback(void(*)(const char*, void*, unsigned short))</STRONG> (Thumb, 34 bytes, Stack size 8 bytes, main.o(t._ZN4mbed8CallbackIFvPKcPvtEEC1EPS4_))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = mbed::Callback&lang;void(const char*, void*, unsigned short)&rang;::Callback(void(*)(const char*, void*, unsigned short))
 </UL>
-<BR>[Called By]<UL><LI><a href="#[1c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::Callback&lang;T1(T2, T3, T4)&rang; mbed::callback&lang;void, const char*, void*, unsigned short&rang;(T1(*)(T2, T3, T4))
+<BR>[Called By]<UL><LI><a href="#[1bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;test_MPR121()
 </UL>
 
-<P><STRONG><a name="[381]"></a>mbed::Callback&lang;void(const char*, void*, unsigned short)&rang;::Callback__sub_object(void(*)(const char*, void*, unsigned short))</STRONG> (Thumb, 0 bytes, Stack size 8 bytes, main.o(t._ZN4mbed8CallbackIFvPKcPvtEEC1EPS4_), UNUSED)
+<P><STRONG><a name="[380]"></a>mbed::Callback&lang;void(const char*, void*, unsigned short)&rang;::Callback__sub_object(void(*)(const char*, void*, unsigned short))</STRONG> (Thumb, 0 bytes, Stack size 8 bytes, main.o(t._ZN4mbed8CallbackIFvPKcPvtEEC1EPS4_), UNUSED)
 
 <P><STRONG><a name="[b2]"></a>void mbed::Callback&lang;void(const char*, int)&rang;::function_call&lang;mbed::Callback&lang;void(const char*, int)&rang;::method_context&lang;TouchManager, void(TouchManager::*)(const char*, int)&rang;&rang;(const void*, const char*, int)</STRONG> (Thumb, 64 bytes, Stack size 40 bytes, touchmanager.o(t._ZN4mbed8CallbackIFvPKciEE13function_callINS4_14method_contextI12TouchManagerMS7_FvS2_iEEEEEvPKvS2_i))
 <BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = void mbed::Callback&lang;void(const char*, int)&rang;::function_call&lang;mbed::Callback&lang;void(const char*, int)&rang;::method_context&lang;TouchManager, void(TouchManager::*)(const char*, int)&rang;&rang;(const void*, const char*, int)
@@ -5379,7 +5379,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[1c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TouchManager::TouchManager(PinName, PinName, PinName, unsigned char)
 </UL>
 
-<P><STRONG><a name="[382]"></a>mbed::Callback&lang;void(const char*, int)&rang;::~Callback__sub_object()</STRONG> (Thumb, 0 bytes, Stack size 8 bytes, touchmanager.o(t._ZN4mbed8CallbackIFvPKciEED1Ev), UNUSED)
+<P><STRONG><a name="[381]"></a>mbed::Callback&lang;void(const char*, int)&rang;::~Callback__sub_object()</STRONG> (Thumb, 0 bytes, Stack size 8 bytes, touchmanager.o(t._ZN4mbed8CallbackIFvPKciEED1Ev), UNUSED)
 
 <P><STRONG><a name="[b8]"></a>void mbed::Callback&lang;void(TouchManager::TouchMsg*)&rang;::function_call&lang;void(*)(TouchManager::TouchMsg*)&rang;(const void*, TouchManager::TouchMsg*)</STRONG> (Thumb, 14 bytes, Stack size 16 bytes, main.o(t._ZN4mbed8CallbackIFvPN12TouchManager8TouchMsgEEE13function_callIPS4_EEvPKvS3_))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = void mbed::Callback&lang;void(TouchManager::TouchMsg*)&rang;::function_call&lang;void(*)(TouchManager::TouchMsg*)&rang;(const void*, TouchManager::TouchMsg*)
@@ -5399,7 +5399,7 @@ Global Symbols
 <LI><a href="#[1c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::Callback&lang;T1(T2)&rang; mbed::callback&lang;void, TouchManager::TouchMsg*&rang;(T1(*)(T2))
 </UL>
 
-<P><STRONG><a name="[383]"></a>mbed::Callback&lang;void(TouchManager::TouchMsg*)&rang;::Callback__sub_object(void(*)(TouchManager::TouchMsg*))</STRONG> (Thumb, 0 bytes, Stack size 8 bytes, touchmanager.o(t._ZN4mbed8CallbackIFvPN12TouchManager8TouchMsgEEEC1EPS4_), UNUSED)
+<P><STRONG><a name="[382]"></a>mbed::Callback&lang;void(TouchManager::TouchMsg*)&rang;::Callback__sub_object(void(*)(TouchManager::TouchMsg*))</STRONG> (Thumb, 0 bytes, Stack size 8 bytes, touchmanager.o(t._ZN4mbed8CallbackIFvPN12TouchManager8TouchMsgEEEC1EPS4_), UNUSED)
 
 <P><STRONG><a name="[1c6]"></a>mbed::Callback&lang;void(TouchManager::TouchMsg*)&rang;::~Callback()</STRONG> (Thumb, 20 bytes, Stack size 8 bytes, main.o(t._ZN4mbed8CallbackIFvPN12TouchManager8TouchMsgEEED1Ev))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = mbed::Callback&lang;void(TouchManager::TouchMsg*)&rang;::~Callback()
@@ -5408,7 +5408,7 @@ Global Symbols
 <LI><a href="#[1bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;test_MPR121()
 </UL>
 
-<P><STRONG><a name="[384]"></a>mbed::Callback&lang;void(TouchManager::TouchMsg*)&rang;::~Callback__sub_object()</STRONG> (Thumb, 0 bytes, Stack size 8 bytes, main.o(t._ZN4mbed8CallbackIFvPN12TouchManager8TouchMsgEEED1Ev), UNUSED)
+<P><STRONG><a name="[383]"></a>mbed::Callback&lang;void(TouchManager::TouchMsg*)&rang;::~Callback__sub_object()</STRONG> (Thumb, 0 bytes, Stack size 8 bytes, main.o(t._ZN4mbed8CallbackIFvPN12TouchManager8TouchMsgEEED1Ev), UNUSED)
 
 <P><STRONG><a name="[bb]"></a>void mbed::Callback&lang;void(int)&rang;::function_call&lang;void(*)(int)&rang;(const void*, int)</STRONG> (Thumb, 14 bytes, Stack size 16 bytes, eventqueue.o(t._ZN4mbed8CallbackIFviEE13function_callIPS1_EEvPKvi))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = void mbed::Callback&lang;void(int)&rang;::function_call&lang;void(*)(int)&rang;(const void*, int)
@@ -5427,7 +5427,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[20d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::transaction_t::transaction_t()
 </UL>
 
-<P><STRONG><a name="[385]"></a>mbed::Callback&lang;void(int)&rang;::Callback__sub_object(void(*)(int))</STRONG> (Thumb, 0 bytes, Stack size 8 bytes, spi.o(t._ZN4mbed8CallbackIFviEEC1EPS1_), UNUSED)
+<P><STRONG><a name="[384]"></a>mbed::Callback&lang;void(int)&rang;::Callback__sub_object(void(*)(int))</STRONG> (Thumb, 0 bytes, Stack size 8 bytes, spi.o(t._ZN4mbed8CallbackIFviEEC1EPS1_), UNUSED)
 
 <P><STRONG><a name="[210]"></a>mbed::Callback&lang;void(int)&rang;::~Callback()</STRONG> (Thumb, 20 bytes, Stack size 8 bytes, eventqueue.o(t._ZN4mbed8CallbackIFviEED1Ev))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = mbed::Callback&lang;void(int)&rang;::~Callback()
@@ -5435,7 +5435,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[20f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::transaction_t::~transaction_t()
 </UL>
 
-<P><STRONG><a name="[386]"></a>mbed::Callback&lang;void(int)&rang;::~Callback__sub_object()</STRONG> (Thumb, 0 bytes, Stack size 8 bytes, eventqueue.o(t._ZN4mbed8CallbackIFviEED1Ev), UNUSED)
+<P><STRONG><a name="[385]"></a>mbed::Callback&lang;void(int)&rang;::~Callback__sub_object()</STRONG> (Thumb, 0 bytes, Stack size 8 bytes, eventqueue.o(t._ZN4mbed8CallbackIFviEED1Ev), UNUSED)
 
 <P><STRONG><a name="[be]"></a>void mbed::Callback&lang;void()&rang;::function_call&lang;mbed::Callback&lang;void()&rang;::method_context&lang;TouchManager, void(TouchManager::*)()&rang;&rang;(const void*)</STRONG> (Thumb, 48 bytes, Stack size 24 bytes, touchmanager.o(t._ZN4mbed8CallbackIFvvEE13function_callINS2_14method_contextI12TouchManagerMS5_FvvEEEEEvPKv))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = void mbed::Callback&lang;void()&rang;::function_call&lang;mbed::Callback&lang;void()&rang;::method_context&lang;TouchManager, void(TouchManager::*)()&rang;&rang;(const void*)
@@ -5488,7 +5488,7 @@ Global Symbols
 <LI><a href="#[1cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MPR121_CapTouch::MPR121_CapTouch(PinName, PinName, PinName, unsigned char)
 </UL>
 
-<P><STRONG><a name="[387]"></a>mbed::Callback&lang;void()&rang;::Callback__sub_object(void(*)())</STRONG> (Thumb, 0 bytes, Stack size 8 bytes, can.o(t._ZN4mbed8CallbackIFvvEEC1EPS1_), UNUSED)
+<P><STRONG><a name="[386]"></a>mbed::Callback&lang;void()&rang;::Callback__sub_object(void(*)())</STRONG> (Thumb, 0 bytes, Stack size 8 bytes, can.o(t._ZN4mbed8CallbackIFvvEEC1EPS1_), UNUSED)
 
 <P><STRONG><a name="[22c]"></a>mbed::Callback&lang;void()&rang;::Callback(const mbed::Callback&lang;void()&rang;&)</STRONG> (Thumb, 28 bytes, Stack size 16 bytes, socket.o(t._ZN4mbed8CallbackIFvvEEC1ERKS2_))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = mbed::Callback&lang;void()&rang;::Callback(const mbed::Callback&lang;void()&rang;&)
@@ -5497,7 +5497,7 @@ Global Symbols
 <LI><a href="#[1d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rtos::Thread::start(mbed::Callback&lang;void()&rang;)
 </UL>
 
-<P><STRONG><a name="[388]"></a>mbed::Callback&lang;void()&rang;::Callback__sub_object(const mbed::Callback&lang;void()&rang;&)</STRONG> (Thumb, 0 bytes, Stack size 16 bytes, socket.o(t._ZN4mbed8CallbackIFvvEEC1ERKS2_), UNUSED)
+<P><STRONG><a name="[387]"></a>mbed::Callback&lang;void()&rang;::Callback__sub_object(const mbed::Callback&lang;void()&rang;&)</STRONG> (Thumb, 0 bytes, Stack size 16 bytes, socket.o(t._ZN4mbed8CallbackIFvvEEC1ERKS2_), UNUSED)
 
 <P><STRONG><a name="[1dc]"></a>mbed::Callback&lang;void()&rang;::~Callback()</STRONG> (Thumb, 20 bytes, Stack size 8 bytes, can.o(t._ZN4mbed8CallbackIFvvEED1Ev))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = mbed::Callback&lang;void()&rang;::~Callback()
@@ -5513,7 +5513,7 @@ Global Symbols
 <LI><a href="#[1cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MPR121_CapTouch::MPR121_CapTouch(PinName, PinName, PinName, unsigned char)
 </UL>
 
-<P><STRONG><a name="[389]"></a>mbed::Callback&lang;void()&rang;::~Callback__sub_object()</STRONG> (Thumb, 0 bytes, Stack size 8 bytes, can.o(t._ZN4mbed8CallbackIFvvEED1Ev), UNUSED)
+<P><STRONG><a name="[388]"></a>mbed::Callback&lang;void()&rang;::~Callback__sub_object()</STRONG> (Thumb, 0 bytes, Stack size 8 bytes, can.o(t._ZN4mbed8CallbackIFvvEED1Ev), UNUSED)
 
 <P><STRONG><a name="[1de]"></a>mbed::Callback&lang;void()&rang;::operator =(const mbed::Callback&lang;void()&rang;&)</STRONG> (Thumb, 38 bytes, Stack size 16 bytes, socket.o(t._ZN4mbed8CallbackIFvvEEaSERKS2_))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = mbed::Callback&lang;void()&rang;::operator =(const mbed::Callback&lang;void()&rang;&) &rArr; mbed::Callback&lang;void()&rang;::Callback(const mbed::Callback&lang;void()&rang;&)
@@ -5564,14 +5564,6 @@ Global Symbols
 <LI><a href="#[1cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MPR121_CapTouch::MPR121_CapTouch(PinName, PinName, PinName, unsigned char)
 </UL>
 
-<P><STRONG><a name="[1c1]"></a>mbed::Callback&lang;T1(T2, T3, T4)&rang; mbed::callback&lang;void, const char*, void*, unsigned short&rang;(T1(*)(T2, T3, T4))</STRONG> (Thumb, 18 bytes, Stack size 16 bytes, main.o(t._ZN4mbed8callbackIvPKcPvtEENS_8CallbackIFT_T0_T1_T2_EEEPS9_))
-<BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = mbed::Callback&lang;T1(T2, T3, T4)&rang; mbed::callback&lang;void, const char*, void*, unsigned short&rang;(T1(*)(T2, T3, T4)) &rArr; mbed::Callback&lang;void(const char*, void*, unsigned short)&rang;::Callback(void(*)(const char*, void*, unsigned short))
-</UL>
-<BR>[Calls]<UL><LI><a href="#[308]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::Callback&lang;void(const char*, void*, unsigned short)&rang;::Callback(void(*)(const char*, void*, unsigned short))
-</UL>
-<BR>[Called By]<UL><LI><a href="#[1bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;test_MPR121()
-</UL>
-
 <P><STRONG><a name="[1c5]"></a>mbed::Callback&lang;T1(T2)&rang; mbed::callback&lang;void, TouchManager::TouchMsg*&rang;(T1(*)(T2))</STRONG> (Thumb, 18 bytes, Stack size 16 bytes, touchmanager.o(t._ZN4mbed8callbackIvPN12TouchManager8TouchMsgEEENS_8CallbackIFT_T0_EEEPS7_))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = mbed::Callback&lang;T1(T2)&rang; mbed::callback&lang;void, TouchManager::TouchMsg*&rang;(T1(*)(T2)) &rArr; mbed::Callback&lang;void(TouchManager::TouchMsg*)&rang;::Callback(void(*)(TouchManager::TouchMsg*))
 </UL>
@@ -5610,9 +5602,9 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_lib_init_fp_1
 </UL>
 
-<P><STRONG><a name="[38a]"></a>__fplib_config_fpu_vfp</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, fpinit.o(x$fpl$fpinit), UNUSED)
+<P><STRONG><a name="[389]"></a>__fplib_config_fpu_vfp</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, fpinit.o(x$fpl$fpinit), UNUSED)
 
-<P><STRONG><a name="[38b]"></a>__fplib_config_pureend_doubles</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, fpinit.o(x$fpl$fpinit), UNUSED)
+<P><STRONG><a name="[38a]"></a>__fplib_config_pureend_doubles</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, fpinit.o(x$fpl$fpinit), UNUSED)
 
 <P><STRONG><a name="[d7]"></a>_printf_fp_dec</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, printf1.o(x$fpl$printf1))
 <BR><BR>[Stack]<UL><LI>Max Depth = 320<LI>Call Chain = _printf_fp_dec &rArr; _printf_fp_dec_real &rArr; _fp_digits &rArr; _btod_etento &rArr; _btod_emul &rArr; _e2e
@@ -5813,8 +5805,8 @@ Local Symbols
 <P><STRONG><a name="[1ba]"></a>init_serial()</STRONG> (Thumb, 34 bytes, Stack size 8 bytes, mbed_retarget.o(i._Z11init_serialv))
 <BR><BR>[Stack]<UL><LI>Max Depth = 152<LI>Call Chain = init_serial() &rArr; serial_init &rArr;  mbed_assert_internal (Cycle)
 </UL>
-<BR>[Calls]<UL><LI><a href="#[1bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;serial_baud
-<LI><a href="#[1bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;serial_init
+<BR>[Calls]<UL><LI><a href="#[1bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;serial_init
+<LI><a href="#[1bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;serial_baud
 </UL>
 <BR>[Called By]<UL><LI><a href="#[144]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sys_write
 <LI><a href="#[129]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sys_open
@@ -5909,27 +5901,27 @@ Local Symbols
 </UL>
 
 <P><STRONG><a name="[286]"></a>__get_BASEPRI</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, rtx_kernel.o(i.__get_BASEPRI))
-<BR><BR>[Called By]<UL><LI><a href="#[280]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osKernelStart
-<LI><a href="#[245]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osKernelInitialize
+<BR><BR>[Called By]<UL><LI><a href="#[245]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osKernelInitialize
 <LI><a href="#[283]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osKernelGetState
+<LI><a href="#[280]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osKernelStart
 </UL>
 
 <P><STRONG><a name="[288]"></a>__get_CONTROL</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, rtx_kernel.o(i.__get_CONTROL))
-<BR><BR>[Called By]<UL><LI><a href="#[280]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osKernelStart
-<LI><a href="#[245]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osKernelInitialize
+<BR><BR>[Called By]<UL><LI><a href="#[245]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osKernelInitialize
 <LI><a href="#[283]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osKernelGetState
+<LI><a href="#[280]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osKernelStart
 </UL>
 
 <P><STRONG><a name="[284]"></a>__get_IPSR</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, rtx_kernel.o(i.__get_IPSR))
-<BR><BR>[Called By]<UL><LI><a href="#[280]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osKernelStart
-<LI><a href="#[245]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osKernelInitialize
+<BR><BR>[Called By]<UL><LI><a href="#[245]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osKernelInitialize
 <LI><a href="#[283]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osKernelGetState
+<LI><a href="#[280]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osKernelStart
 </UL>
 
 <P><STRONG><a name="[285]"></a>__get_PRIMASK</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, rtx_kernel.o(i.__get_PRIMASK))
-<BR><BR>[Called By]<UL><LI><a href="#[280]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osKernelStart
-<LI><a href="#[245]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osKernelInitialize
+<BR><BR>[Called By]<UL><LI><a href="#[245]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osKernelInitialize
 <LI><a href="#[283]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osKernelGetState
+<LI><a href="#[280]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osKernelStart
 </UL>
 
 <P><STRONG><a name="[23c]"></a>os_kernel_is_active</STRONG> (Thumb, 32 bytes, Stack size 8 bytes, rtx_lib.o(i.os_kernel_is_active))
@@ -6438,11 +6430,11 @@ Local Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 512 + Unknown Stack Size
 <LI>Call Chain = _freopen_locked &rArr; _sys_open &rArr; mbed::FilePath::FilePath(const char*) &rArr; mbed::FileBase::lookup(const char*, unsigned) &rArr; SingletonPtr&lang;rtos::Mutex&rang;::operator -&rang;() &rArr; SingletonPtr&lang;rtos::Mutex&rang;::get() &rArr; rtos::Mutex::Mutex() &rArr; rtos::Mutex::constructor(const char*) &rArr; mbed_assert_internal &rArr;  core_util_critical_section_enter (Cycle)
 </UL>
-<BR>[Calls]<UL><LI><a href="#[129]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sys_open
-<LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_mutex_release
+<BR>[Calls]<UL><LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_mutex_release
 <LI><a href="#[cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_mutex_acquire
-<LI><a href="#[126]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_fseek
+<LI><a href="#[129]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sys_open
 <LI><a href="#[121]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_fclose_internal
+<LI><a href="#[126]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_fseek
 </UL>
 <BR>[Called By]<UL><LI><a href="#[12b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;fopen
 <LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;freopen
@@ -6454,11 +6446,11 @@ Local Symbols
 <P><STRONG><a name="[14c]"></a>_fp_digits</STRONG> (Thumb, 428 bytes, Stack size 96 bytes, _printf_fp_dec.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 216<LI>Call Chain = _fp_digits &rArr; _btod_etento &rArr; _btod_emul &rArr; _e2e
 </UL>
-<BR>[Calls]<UL><LI><a href="#[13b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_ll_udiv10
-<LI><a href="#[150]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_btod_emul
+<BR>[Calls]<UL><LI><a href="#[150]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_btod_emul
 <LI><a href="#[14f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_btod_ediv
 <LI><a href="#[14e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_btod_d2e
 <LI><a href="#[14d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_btod_etento
+<LI><a href="#[13b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_ll_udiv10
 </UL>
 <BR>[Called By]<UL><LI><a href="#[151]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_fp_dec_real
 </UL>

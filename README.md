@@ -7,6 +7,13 @@ Proyecto plantilla para desarrollos con la tarjeta NUCLEO_L432KC de ST en mbed-o
 ## Changelog
 
 ----------------------------------------------------------------------------------------------
+##### 2.11.2017 ->commit:"Integro MQTT y ESP8266"
+- [x] Integrando módulos de comunicaciones wifi y mqtt
+- [ ] Nota: ATCmdParser me da un error. Voy a crear la rama dev para importar mbed-os a su última
+	  versión a ver si lo soluciono. De todas formas he hecho un backup de mbed-os en kk
+	  
+
+----------------------------------------------------------------------------------------------
 ##### 2.11.2017 ->commit:"Integrado driver MPR121 y TouchManager"
 - [x] Integrado driver de detectores táctiles MPR121 y módulo de gestión de alto nivel TouchManager.
 - [ ] Nota: Sería posible hacer que MQLib utilizara las callbacks directamente en lugar de punteros

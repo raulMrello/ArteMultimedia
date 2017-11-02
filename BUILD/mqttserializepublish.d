@@ -1,0 +1,10 @@
+.\build\mqttserializepublish.o: src\MQTT\MQTTPacket\MQTTSerializePublish.c
+.\build\mqttserializepublish.o: mbed_config.h
+.\build\mqttserializepublish.o: src\MQTT\MQTTPacket\MQTTPacket.h
+.\build\mqttserializepublish.o: src\MQTT\MQTTPacket\MQTTConnect.h
+.\build\mqttserializepublish.o: src\MQTT\MQTTPacket\MQTTPublish.h
+.\build\mqttserializepublish.o: src\MQTT\MQTTPacket\MQTTSubscribe.h
+.\build\mqttserializepublish.o: src\MQTT\MQTTPacket\MQTTUnsubscribe.h
+.\build\mqttserializepublish.o: src\MQTT\MQTTPacket\MQTTFormat.h
+.\build\mqttserializepublish.o: src\MQTT\MQTTPacket\StackTrace.h
+.\build\mqttserializepublish.o: src\MQTT\MQTTPacket\MQTTPacket.h

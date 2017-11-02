@@ -27,18 +27,26 @@ Project File Date:  11/02/2017
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 3 (build 300)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'mbed-os-example-blinky'
-compiling TouchManager.cpp...
-linking...
-Program Size: Code=53200 RO-data=3580 RW-data=2512 ZI-data=6744  
-FromELF: creating hex file...
-".\BUILD\mbed-os-example-blinky.axf" - 0 Error(s), 0 Warning(s).
+compiling ESP8266.cpp...
+src\easy-connect\esp8266-driver\ESP8266\ESP8266.cpp(278): error:  #135: class "mbed::ATCmdParser" has no member "process_oob"
+          if (!_parser.process_oob()) {
+src\easy-connect\esp8266-driver\ESP8266\ESP8266.cpp(322): warning:  #181-D: argument is incompatible with corresponding format string conversion
+                              &ap->bssid[5], &ap->channel);
+src\easy-connect\esp8266-driver\ESP8266\ESP8266.cpp: 1 warning, 1 error
+compiling ESP8266Interface.cpp...
+compiling main.cpp...
+.\src\MQTT\MQTTLogging.h(41): warning:  #1-D: last line of file ends without a newline
+      
+main.cpp: 1 warning, 0 errors
+".\BUILD\mbed-os-example-blinky.axf" - 1 Error(s), 2 Warning(s).
 
 <h2>Collection of Component include folders:</h2>
   C:\Users\raulm\workspace\mbed\mbed-os-l432kc\RTE
   C:\Keil_v5\ARM\PACK\Keil\STM32L4xx_DFP\1.2.0\Device\Include
 
 <h2>Collection of Component Files used:</h2>
-Build Time Elapsed:  00:00:06
+Target not created.
+Build Time Elapsed:  00:00:08
 </pre>
 </body>
 </html>

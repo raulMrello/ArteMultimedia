@@ -1,0 +1,10 @@
+.\build\mqttunsubscribeserver.o: src\MQTT\MQTTPacket\MQTTUnsubscribeServer.c
+.\build\mqttunsubscribeserver.o: mbed_config.h
+.\build\mqttunsubscribeserver.o: src\MQTT\MQTTPacket\MQTTPacket.h
+.\build\mqttunsubscribeserver.o: src\MQTT\MQTTPacket\MQTTConnect.h
+.\build\mqttunsubscribeserver.o: src\MQTT\MQTTPacket\MQTTPublish.h
+.\build\mqttunsubscribeserver.o: src\MQTT\MQTTPacket\MQTTSubscribe.h
+.\build\mqttunsubscribeserver.o: src\MQTT\MQTTPacket\MQTTUnsubscribe.h
+.\build\mqttunsubscribeserver.o: src\MQTT\MQTTPacket\MQTTFormat.h
+.\build\mqttunsubscribeserver.o: src\MQTT\MQTTPacket\StackTrace.h
+.\build\mqttunsubscribeserver.o: src\MQTT\MQTTPacket\MQTTPacket.h

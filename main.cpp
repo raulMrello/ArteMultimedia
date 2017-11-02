@@ -371,45 +371,147 @@ int test_MQlib(){
 // **************************************************************************
 // *********** TEST MPR121 *************************************************
 // **************************************************************************
-#include "TouchManager.h"
-TouchManager* touch;
+//#include "TouchManager.h"
+//TouchManager* touch;
 
-/** Procesa eventos touch mediante callback dedicada */
-void onTouchEvent(TouchManager::TouchMsg* msg){
-    DEBUG_TRACE("\r\nTouchEvt elec=%d, evt=%d", msg->elec, msg->evt);
+///** Procesa eventos touch mediante callback dedicada */
+//void onTouchEvent(TouchManager::TouchMsg* msg){
+//    DEBUG_TRACE("\r\nTouchEvt elec=%d, evt=%d", msg->elec, msg->evt);
+//}
+
+///** Procesa eventos touch mediante suscripción al topic "touch" */
+//void onTouchTopic(const char* topic, void* msg, uint16_t msg_len){    
+//    DEBUG_TRACE("\r\nTouchMsg elec=%d, evt=%d", ((TouchManager::TouchMsg*)msg)->elec, ((TouchManager::TouchMsg*)msg)->evt);
+//}
+
+//void test_MPR121(){
+//    // Arranca el broker con la siguiente configuración:
+//    //  - Lista de tokens predefinida
+//    //  - Número máximo de caracteres para los topics: 64 caracteres incluyendo fin de cadena '\0'
+//    //  - Espera a que esté operativo
+//    MQ::MQBroker::start(token_list, SizeOfArray(token_list), 64);
+//    while(!MQ::MQBroker::ready()){
+//        Thread::yield();
+//    }
+//    
+//    // Crea suscripción a mensajes del topic "touch"
+//    MQ::MQClient::subscribe("touch", new MQ::SubscribeCallback(onTouchTopic));
+//    
+//    // Crea el manejador del driver MPR121 de alto nivel e instala callback y publicación de topics
+//    touch = new TouchManager(PB_7, PB_6, PB_0);
+//    touch->attachCallback(callback(onTouchEvent));
+//    touch->attachTopics("touch");
+//    
+//    // Espero eventos...
+//    DEBUG_TRACE("\r\nEsperando eventos ...");
+//    for(;;){
+//        Thread::yield();
+//    }
+//}
+
+
+
+
+
+
+// **************************************************************************
+// *********** TEST ESP8266MQTT *********************************************
+// **************************************************************************
+
+
+#define logMessage printf
+#define MQTTCLIENT_QOS2 1
+
+#include "easy-connect.h"
+#include "MQTTNetwork.h"
+#include "MQTTmbed.h"
+#include "MQTTClient.h"
+
+int arrivedcount = 0;
+
+void messageArrived(MQTT::MessageData& md){
+    MQTT::Message &message = md.message;
+    logMessage("Message arrived: qos %d, retained %d, dup %d, packetid %d\r\n", message.qos, message.retained, message.dup, message.id);
+    logMessage("Payload %.*s\r\n", message.payloadlen, (char*)message.payload);
+    ++arrivedcount;
 }
 
-/** Procesa eventos touch mediante suscripción al topic "touch" */
-void onTouchTopic(const char* topic, void* msg, uint16_t msg_len){    
-    DEBUG_TRACE("\r\nTouchMsg elec=%d, evt=%d", ((TouchManager::TouchMsg*)msg)->elec, ((TouchManager::TouchMsg*)msg)->evt);
-}
 
-void test_MPR121(){
-    // Arranca el broker con la siguiente configuración:
-    //  - Lista de tokens predefinida
-    //  - Número máximo de caracteres para los topics: 64 caracteres incluyendo fin de cadena '\0'
-    //  - Espera a que esté operativo
-    MQ::MQBroker::start(token_list, SizeOfArray(token_list), 64);
-    while(!MQ::MQBroker::ready()){
-        Thread::yield();
+int test_ESP8266MQTT(){
+    float version = 0.6;
+    char* topic = "mbed-sample";
+
+    logMessage("HelloMQTT: version is %.2f\r\n", version);
+
+    NetworkInterface* network = easy_connect(true);
+    if (!network) {
+        return -1;
     }
-    
-    // Crea suscripción a mensajes del topic "touch"
-    MQ::SubscribeCallback   _subscriptionCb = callback(onTouchTopic);
-    MQ::MQClient::subscribe("touch", &_subscriptionCb);
-    
-    // Crea el manejador del driver MPR121 de alto nivel e instala callback y publicación de topics
-    touch = new TouchManager(PB_7, PB_6, PB_0);
-    touch->attachCallback(callback(onTouchEvent));
-    touch->attachTopics("touch");
-    
-    // Espero eventos...
-    DEBUG_TRACE("\r\nEsperando eventos ...");
-    for(;;){
-        Thread::yield();
-    }
-}
 
+    MQTTNetwork mqttNetwork(network);
+
+    MQTT::Client<MQTTNetwork, Countdown> client(mqttNetwork);
+
+    const char* hostname = "m2m.eclipse.org";
+    int port = 1883;
+    logMessage("Connecting to %s:%d\r\n", hostname, port);
+    int rc = mqttNetwork.connect(hostname, port);
+    if (rc != 0)
+        logMessage("rc from TCP connect is %d\r\n", rc);
+
+    MQTTPacket_connectData data = MQTTPacket_connectData_initializer;
+    data.MQTTVersion = 3;
+    data.clientID.cstring = "mbed-sample";
+    data.username.cstring = "testuser";
+    data.password.cstring = "testpassword";
+    if ((rc = client.connect(data)) != 0)
+        logMessage("rc from MQTT connect is %d\r\n", rc);
+
+    if ((rc = client.subscribe(topic, MQTT::QOS2, messageArrived)) != 0)
+        logMessage("rc from MQTT subscribe is %d\r\n", rc);
+
+    MQTT::Message message;
+
+    // QoS 0
+    char buf[100];
+    sprintf(buf, "Hello World!  QoS 0 message from app version %f\r\n", version);
+    message.qos = MQTT::QOS0;
+    message.retained = false;
+    message.dup = false;
+    message.payload = (void*)buf;
+    message.payloadlen = strlen(buf)+1;
+    rc = client.publish(topic, message);
+    while (arrivedcount < 1)
+        client.yield(100);
+
+    // QoS 1
+    sprintf(buf, "Hello World!  QoS 1 message from app version %f\r\n", version);
+    message.qos = MQTT::QOS1;
+    message.payloadlen = strlen(buf)+1;
+    rc = client.publish(topic, message);
+    while (arrivedcount < 2)
+        client.yield(100);
+
+    // QoS 2
+    sprintf(buf, "Hello World!  QoS 2 message from app version %f\r\n", version);
+    message.qos = MQTT::QOS2;
+    message.payloadlen = strlen(buf)+1;
+    rc = client.publish(topic, message);
+    while (arrivedcount < 3)
+        client.yield(100);
+
+    if ((rc = client.unsubscribe(topic)) != 0)
+        logMessage("rc from unsubscribe was %d\r\n", rc);
+
+    if ((rc = client.disconnect()) != 0)
+        logMessage("rc from disconnect was %d\r\n", rc);
+
+    mqttNetwork.disconnect();
+
+    logMessage("Version %.2f: finish %d msgs\r\n", version, arrivedcount);
+
+    return 0;
+}
 
 
 // **************************************************************************
@@ -427,7 +529,8 @@ int main() {
 //    test_WS281xLedStrip();
 //    test_HCSR04();
 //    test_PCA9685();
-    test_MPR121();
+//    test_MPR121();
+    test_ESP8266MQTT();
 }
 
 

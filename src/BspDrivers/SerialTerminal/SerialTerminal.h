@@ -48,7 +48,8 @@ public:
      */
     enum Receiver_mode{
         ReceiveWithEofCharacter,
-        ReceiveWithDedicatedHandling
+        ReceiveWithDedicatedHandling,
+        ReceiveAfterBreakTime,
     };
     
     /** SerialTerminal()
@@ -67,11 +68,11 @@ public:
      *  @param rx_done Callback a invocar tras la recepción completa
      *  @param rx_timeout Callback a invocar tras un fallo por timeout
      *  @param rx_ovf Callback a invocar tras un fallo por overflow en el buffer de recepción
-     *  @param millis Tiempo en ms para recibir la trama antes de notificar un error por timeout
+     *  @param us_timeout Tiempo en us para recibir la trama antes de notificar un error por timeout o por fin de trama
      *  @param eof Caracter de fin de trama (end_of_file)
      *  @return Flag para indicar si la configuración es correcta (True) o incorrecta (False)
      */
-    bool config(Callback<void()> rx_done, Callback <void()> rx_timeout, Callback <void()> rx_ovf, uint32_t millis, char eof = 0);
+    bool config(Callback<void()> rx_done, Callback <void()> rx_timeout, Callback <void()> rx_ovf, uint32_t us_timeout, char eof = 0);
 
     /** dedicatedHandling()
      *  Configura la callbacks de procesamiento dedicado
@@ -102,6 +103,13 @@ public:
      *  datos en modo interrupción
      */
     void stopTransmitter(){ stopManaged(true, false); }    
+
+    /** busy()
+     *  Informa si el transmisor está ocupado o no
+     *  @return True: ocupado, False: listo para enviar
+     */
+    bool busy(){ return((_tosend > 0)? true : false);}    
+    
     
     /** send()
      *  Prepara para una nueva transimisión gestionada por interrupciones. El final de transmisión 
@@ -111,7 +119,7 @@ public:
      *  @param cb_data_sent Callback a invocar al finalizar el envío
      *  @return Indica si la transferencia se ha iniciado (true) o no (false)
      */
-    bool send(uint8_t* data, uint16_t size, Callback<void()> tx_done);    
+    bool send(void* data, uint16_t size, Callback<void()> tx_done);    
 
     /** recv()
      *  Lee el contenido del buffer de recepción hasta un máximo de maxsize bytes
@@ -121,7 +129,7 @@ public:
      *         de devolver los datos leídos. Por defecto, está activado.
      *  @return Número de bytes copiados
      */
-    uint16_t recv(char* buf, uint16_t maxsize, bool enable_receiver = true);
+    uint16_t recv(void* buf, uint16_t maxsize, bool enable_receiver = true);
 
     /** isTxManaged()
      *  Comprueba si el transmisor con gestión de interrupciones está habilitado

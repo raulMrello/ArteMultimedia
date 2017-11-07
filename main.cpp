@@ -4,7 +4,8 @@
 
 DigitalOut led1(LED3);
 Logger* logger;
-#define DEBUG_TRACE(format, ...)    if(logger){logger->printf(format, ##__VA_ARGS__);}
+//#define DEBUG_TRACE(format, ...)    if(logger){logger->printf(format, ##__VA_ARGS__);}
+#define DEBUG_TRACE(format, ...)    if(logger){Thread::wait(100); logger->printf(format, ##__VA_ARGS__);}
 
 
 // **************************************************************************
@@ -28,6 +29,7 @@ static MQ::Token token_list[] = {
     "topic0",
     "topic1",
     "touch",
+    "mqserialbridge",
 };
 
 //-----------------------------------------------------------------------------
@@ -414,104 +416,104 @@ int test_MQlib(){
 
 
 
-// **************************************************************************
-// *********** TEST ESP8266MQTT *********************************************
-// **************************************************************************
+//// **************************************************************************
+//// *********** TEST ESP8266MQTT *********************************************
+//// **************************************************************************
 
 
-#define logMessage printf
-#define MQTTCLIENT_QOS2 1
+//#define logMessage printf
+//#define MQTTCLIENT_QOS2 1
 
-#include "easy-connect.h"
-#include "MQTTNetwork.h"
-#include "MQTTmbed.h"
-#include "MQTTClient.h"
+//#include "easy-connect.h"
+//#include "MQTTNetwork.h"
+//#include "MQTTmbed.h"
+//#include "MQTTClient.h"
 
-int arrivedcount = 0;
+//int arrivedcount = 0;
 
-void messageArrived(MQTT::MessageData& md){
-    MQTT::Message &message = md.message;
-    logMessage("Message arrived: qos %d, retained %d, dup %d, packetid %d\r\n", message.qos, message.retained, message.dup, message.id);
-    logMessage("Payload %.*s\r\n", message.payloadlen, (char*)message.payload);
-    ++arrivedcount;
-}
+//void messageArrived(MQTT::MessageData& md){
+//    MQTT::Message &message = md.message;
+//    logMessage("Message arrived: qos %d, retained %d, dup %d, packetid %d\r\n", message.qos, message.retained, message.dup, message.id);
+//    logMessage("Payload %.*s\r\n", message.payloadlen, (char*)message.payload);
+//    ++arrivedcount;
+//}
 
 
-int test_ESP8266MQTT(){
-    float version = 0.6;
-    char* topic = "mbed-sample";
+//int test_ESP8266MQTT(){
+//    float version = 0.6;
+//    char* topic = "mbed-sample";
 
-    logMessage("HelloMQTT: version is %.2f\r\n", version);
+//    logMessage("HelloMQTT: version is %.2f\r\n", version);
 
-    NetworkInterface* network = easy_connect(true);
-    if (!network) {
-        return -1;
-    }
+//    NetworkInterface* network = easy_connect(true);
+//    if (!network) {
+//        return -1;
+//    }
 
-    MQTTNetwork mqttNetwork(network);
+//    MQTTNetwork mqttNetwork(network);
 
-    MQTT::Client<MQTTNetwork, Countdown> client(mqttNetwork);
+//    MQTT::Client<MQTTNetwork, Countdown> client(mqttNetwork);
 
-    const char* hostname = "m2m.eclipse.org";
-    int port = 1883;
-    logMessage("Connecting to %s:%d\r\n", hostname, port);
-    int rc = mqttNetwork.connect(hostname, port);
-    if (rc != 0)
-        logMessage("rc from TCP connect is %d\r\n", rc);
+//    const char* hostname = "m2m.eclipse.org";
+//    int port = 1883;
+//    logMessage("Connecting to %s:%d\r\n", hostname, port);
+//    int rc = mqttNetwork.connect(hostname, port);
+//    if (rc != 0)
+//        logMessage("rc from TCP connect is %d\r\n", rc);
 
-    MQTTPacket_connectData data = MQTTPacket_connectData_initializer;
-    data.MQTTVersion = 3;
-    data.clientID.cstring = "mbed-sample";
-    data.username.cstring = "testuser";
-    data.password.cstring = "testpassword";
-    if ((rc = client.connect(data)) != 0)
-        logMessage("rc from MQTT connect is %d\r\n", rc);
+//    MQTTPacket_connectData data = MQTTPacket_connectData_initializer;
+//    data.MQTTVersion = 3;
+//    data.clientID.cstring = "mbed-sample";
+//    data.username.cstring = "testuser";
+//    data.password.cstring = "testpassword";
+//    if ((rc = client.connect(data)) != 0)
+//        logMessage("rc from MQTT connect is %d\r\n", rc);
 
-    if ((rc = client.subscribe(topic, MQTT::QOS2, messageArrived)) != 0)
-        logMessage("rc from MQTT subscribe is %d\r\n", rc);
+//    if ((rc = client.subscribe(topic, MQTT::QOS2, messageArrived)) != 0)
+//        logMessage("rc from MQTT subscribe is %d\r\n", rc);
 
-    MQTT::Message message;
+//    MQTT::Message message;
 
-    // QoS 0
-    char buf[100];
-    sprintf(buf, "Hello World!  QoS 0 message from app version %f\r\n", version);
-    message.qos = MQTT::QOS0;
-    message.retained = false;
-    message.dup = false;
-    message.payload = (void*)buf;
-    message.payloadlen = strlen(buf)+1;
-    rc = client.publish(topic, message);
-    while (arrivedcount < 1)
-        client.yield(100);
+//    // QoS 0
+//    char buf[100];
+//    sprintf(buf, "Hello World!  QoS 0 message from app version %f\r\n", version);
+//    message.qos = MQTT::QOS0;
+//    message.retained = false;
+//    message.dup = false;
+//    message.payload = (void*)buf;
+//    message.payloadlen = strlen(buf)+1;
+//    rc = client.publish(topic, message);
+//    while (arrivedcount < 1)
+//        client.yield(100);
 
-    // QoS 1
-    sprintf(buf, "Hello World!  QoS 1 message from app version %f\r\n", version);
-    message.qos = MQTT::QOS1;
-    message.payloadlen = strlen(buf)+1;
-    rc = client.publish(topic, message);
-    while (arrivedcount < 2)
-        client.yield(100);
+//    // QoS 1
+//    sprintf(buf, "Hello World!  QoS 1 message from app version %f\r\n", version);
+//    message.qos = MQTT::QOS1;
+//    message.payloadlen = strlen(buf)+1;
+//    rc = client.publish(topic, message);
+//    while (arrivedcount < 2)
+//        client.yield(100);
 
-    // QoS 2
-    sprintf(buf, "Hello World!  QoS 2 message from app version %f\r\n", version);
-    message.qos = MQTT::QOS2;
-    message.payloadlen = strlen(buf)+1;
-    rc = client.publish(topic, message);
-    while (arrivedcount < 3)
-        client.yield(100);
+//    // QoS 2
+//    sprintf(buf, "Hello World!  QoS 2 message from app version %f\r\n", version);
+//    message.qos = MQTT::QOS2;
+//    message.payloadlen = strlen(buf)+1;
+//    rc = client.publish(topic, message);
+//    while (arrivedcount < 3)
+//        client.yield(100);
 
-    if ((rc = client.unsubscribe(topic)) != 0)
-        logMessage("rc from unsubscribe was %d\r\n", rc);
+//    if ((rc = client.unsubscribe(topic)) != 0)
+//        logMessage("rc from unsubscribe was %d\r\n", rc);
 
-    if ((rc = client.disconnect()) != 0)
-        logMessage("rc from disconnect was %d\r\n", rc);
+//    if ((rc = client.disconnect()) != 0)
+//        logMessage("rc from disconnect was %d\r\n", rc);
 
-    mqttNetwork.disconnect();
+//    mqttNetwork.disconnect();
 
-    logMessage("Version %.2f: finish %d msgs\r\n", version, arrivedcount);
+//    logMessage("Version %.2f: finish %d msgs\r\n", version, arrivedcount);
 
-    return 0;
-}
+//    return 0;
+//}
 
 
 
@@ -523,83 +525,139 @@ int test_ESP8266MQTT(){
 // *********** TEST StateMachine ********************************************
 // **************************************************************************
 
-#include "StateMachine.h"
+//#include "StateMachine.h"
 
-class MySM : public StateMachine{
-public:    
-    MySM() : StateMachine(){
-        _stInit.setHandler(callback(this, &MySM::Init_EventHandler));
-        _stNext.setHandler(callback(this, &MySM::Next_EventHandler));        
+//class MySM : public StateMachine{
+//public:    
+//    MySM() : StateMachine(){
+//        _stInit.setHandler(callback(this, &MySM::Init_EventHandler));
+//        _stNext.setHandler(callback(this, &MySM::Next_EventHandler));        
+//    }
+//    
+//    void start(){
+//        initState(&_stInit, Thread::gettid());        
+//        // Ejecuta máquinas de estados
+//        for(;;){
+//            osEvent oe = Thread::signal_wait(0, osWaitForever);        
+//            run(&oe);
+//        }
+//    }
+
+//protected:
+//    State _stInit;
+//    State::StateResult Init_EventHandler(State::StateEvent* se){
+//        switch(se->evt){          
+//            case State::EV_ENTRY:{
+//                DEBUG_TRACE("\r\nInit ENTRY");
+//                Thread::wait(1000);
+//                raiseEvent(State::EV_RESERVED_USER, Thread::gettid());
+//                raiseEvent((State::EV_RESERVED_USER+1), Thread::gettid());
+//                return State::HANDLED;                
+//            }
+//            case State::EV_RESERVED_USER:{
+//                DEBUG_TRACE("\r\nEvt USER_0");
+//                return State::HANDLED;                
+//            }
+//            case (State::EV_RESERVED_USER+1):{
+//                DEBUG_TRACE("\r\nEvt USER_1");
+//                Thread::wait(1000);
+//                // Conmuta a modo Next
+//                tranState(&_stNext, Thread::gettid());
+//                return State::HANDLED;                
+//            }
+//            case State::EV_EXIT:{
+//                DEBUG_TRACE("\r\nInit EXIT");
+//                nextState();
+//                return State::HANDLED;
+//            }
+//        }
+//        return State::IGNORED; 
+//    }
+
+//    State _stNext;
+//    State::StateResult Next_EventHandler(State::StateEvent* se){
+//        switch(se->evt){          
+//            case State::EV_ENTRY:{
+//                DEBUG_TRACE("\r\nNext ENTRY");
+//                // Conmuta a modo Init
+//                tranState(&_stInit, Thread::gettid());
+//                return State::HANDLED;                
+//            }
+//            
+//            case State::EV_EXIT:{
+//                DEBUG_TRACE("\r\nNext EXIT");
+//                nextState();
+//                return State::HANDLED;
+//            }
+//        }
+//        return State::IGNORED; 
+//    }      
+//};
+
+//void test_StateMachine(){
+//    MySM* sm = new MySM();
+//    sm->start();
+//    for(;;){
+//        Thread::yield();
+//    }
+//}
+
+
+
+
+// **************************************************************************
+// *********** TEST MQSerialBridge ******************************************
+// **************************************************************************
+
+#include "MQSerialBridge.h"
+MQSerialBridge* qserial;
+
+static MQ::SubscribeCallback _sc;
+static MQ::PublishCallback _pc;
+
+static void pubCb(const char* topic, int32_t result){
+    DEBUG_TRACE("\r\nPublicado en %s", topic);
+}
+static void subscCb(const char* topic, void* msg, uint16_t msg_len){
+    if(strncmp(topic, "topic0", strlen("topic0"))==0){
+        MQ::MQClient::publish("topic1", msg, msg_len, &_pc);
+    }
+    if(strncmp(topic, "topic1", strlen("topic1"))==0){
+        MQ::MQClient::publish("topic0", msg, msg_len, &_pc);
+    }
+}
+
+static void test_MQSerialBridge(){
+    
+    
+    // Arranca el broker con la siguiente configuración:
+    //  - Lista de tokens predefinida
+    //  - Número máximo de caracteres para los topics: 64 caracteres incluyendo fin de cadena '\0'
+    //  - Espera a que esté operativo
+    MQ::MQBroker::start(token_list, SizeOfArray(token_list), 64);
+    while(!MQ::MQBroker::ready()){
+        Thread::yield();
     }
     
-    void start(){
-        initState(&_stInit, Thread::gettid());        
-        // Ejecuta máquinas de estados
-        for(;;){
-            osEvent oe = Thread::signal_wait(0, osWaitForever);        
-            run(&oe);
-        }
-    }
+    _sc = callback(subscCb);
+    _pc = callback(pubCb);
+    qserial = new MQSerialBridge(USBTX, USBRX, 115200, 256);
+    logger = (Logger*)qserial;
+    
+    DEBUG_TRACE("\r\nIniciando test...\r\n");
 
-protected:
-    State _stInit;
-    State::StateResult Init_EventHandler(State::StateEvent* se){
-        switch(se->evt){          
-            case State::EV_ENTRY:{
-                DEBUG_TRACE("\r\nInit ENTRY");
-                Thread::wait(1000);
-                raiseEvent(State::EV_RESERVED_USER, Thread::gettid());
-                raiseEvent((State::EV_RESERVED_USER+1), Thread::gettid());
-                return State::HANDLED;                
-            }
-            case State::EV_RESERVED_USER:{
-                DEBUG_TRACE("\r\nEvt USER_0");
-                return State::HANDLED;                
-            }
-            case (State::EV_RESERVED_USER+1):{
-                DEBUG_TRACE("\r\nEvt USER_1");
-                Thread::wait(1000);
-                // Conmuta a modo Next
-                tranState(&_stNext, Thread::gettid());
-                return State::HANDLED;                
-            }
-            case State::EV_EXIT:{
-                DEBUG_TRACE("\r\nInit EXIT");
-                nextState();
-                return State::HANDLED;
-            }
-        }
-        return State::IGNORED; 
-    }
-
-    State _stNext;
-    State::StateResult Next_EventHandler(State::StateEvent* se){
-        switch(se->evt){          
-            case State::EV_ENTRY:{
-                DEBUG_TRACE("\r\nNext ENTRY");
-                // Conmuta a modo Init
-                tranState(&_stInit, Thread::gettid());
-                return State::HANDLED;                
-            }
-            
-            case State::EV_EXIT:{
-                DEBUG_TRACE("\r\nNext EXIT");
-                nextState();
-                return State::HANDLED;
-            }
-        }
-        return State::IGNORED; 
-    }      
-};
-
-void test_StateMachine(){
-    MySM* sm = new MySM();
-    sm->start();
+    
+    DEBUG_TRACE("\r\nMQBroker listo!");
+    
+    // se suscribe a los topics "topic0" en los que publicará a topic1
+    MQ::MQClient::subscribe("topic0", &_sc);
+    
+    DEBUG_TRACE("\r\nSuscripciones hechas!");
+    
     for(;;){
         Thread::yield();
     }
 }
-
 
 // **************************************************************************
 // **************************************************************************
@@ -608,8 +666,7 @@ void test_StateMachine(){
 
 // main() runs in its own thread in the OS
 int main() {
-    logger = new Logger(USBTX, USBRX);
-    DEBUG_TRACE("\r\nIniciando test...\r\n");
+    
 //    test_MQlib();
 //    test_SpiDma();
 //    test_DMA_PwmOut();
@@ -618,7 +675,8 @@ int main() {
 //    test_PCA9685();
 //    test_MPR121();
 //    test_ESP8266MQTT();
-    test_StateMachine();
+//    test_StateMachine();
+    test_MQSerialBridge();
     for(;;){
         Thread::yield();
     }

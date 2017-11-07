@@ -50,7 +50,7 @@ void SerialTerminal::onTxData(){
             putc(_tbuf[_sent++]);
         }
         else if(_sent){
-            _tosend = 0;
+            stopTransmitter();
             _cb_tx.call();
             _cb_tx = callback(unhandled_callback);
         }
@@ -83,9 +83,11 @@ void SerialTerminal::onRxData(){
             attach(0, (SerialBase::IrqType)RxIrq);
             _cb_rx.call();
         }
-        // si es el primer byte, inicia el timer
-        else if(_recv == 1){
-            _tmr.attach_us(callback(this, &SerialTerminal::onRxTimeout), _us_timeout);
+        // si es el primer byte en modo distinto de breaktime, o en cada byte en modo break_time, inicia el timer
+        else if(_mode == ReceiveAfterBreakTime || (_mode != ReceiveAfterBreakTime && _recv == 1)){
+            if(_us_timeout > 0){
+                _tmr.attach_us(callback(this, &SerialTerminal::onRxTimeout), _us_timeout);
+            }
         }
     }
 }
@@ -94,6 +96,12 @@ void SerialTerminal::onRxData(){
 void SerialTerminal::onRxTimeout(){
     _tmr.detach();
     attach(0, (SerialBase::IrqType)RxIrq);
+    // si es modo break_time, notifica fin de trama
+    if(_mode == ReceiveAfterBreakTime){
+        _cb_rx.call();
+        return;
+    }
+    // en caso contrario, notifica error de timeout
     _cb_rx_tmr.call();
 }
 
@@ -106,6 +114,7 @@ void SerialTerminal::onRxTimeout(){
 SerialTerminal::SerialTerminal(PinName tx, PinName rx, uint16_t maxbufsize, int baud, Receiver_mode mode) : RawSerial(tx, rx, baud){
     attach(0, (SerialBase::IrqType)RxIrq);
     attach(0, (SerialBase::IrqType)TxIrq);
+    _us_timeout = 0;
     _mode = mode;
     _recv = 0;
     _eof = 0;
@@ -124,12 +133,12 @@ SerialTerminal::SerialTerminal(PinName tx, PinName rx, uint16_t maxbufsize, int 
 }
 
 //---------------------------------------------------------------------------------
-bool SerialTerminal::config(Callback<void()> rx_done, Callback <void()> rx_timeout, Callback <void()> rx_ovf, uint32_t millis, char eof){
+bool SerialTerminal::config(Callback<void()> rx_done, Callback <void()> rx_timeout, Callback <void()> rx_ovf, uint32_t us_timeout, char eof){
     _cb_rx = rx_done;
     _cb_rx_tmr = rx_timeout;
     _cb_rx_ovf = rx_ovf;
     _eof = eof;
-    _us_timeout = 1000 * millis;
+    _us_timeout = us_timeout;
     return (_databuf && _bufsize)? true : false;
 }
 
@@ -138,7 +147,6 @@ void SerialTerminal::startManaged(bool transmitter, bool receiver){
     if(transmitter){
         tx_managed = true;
         _sent = 0;
-        _tosend = 0;
         attach(callback(this, &SerialTerminal::onTxData), (SerialBase::IrqType)TxIrq);
     }
     if(receiver){
@@ -151,36 +159,35 @@ void SerialTerminal::startManaged(bool transmitter, bool receiver){
 //---------------------------------------------------------------------------------
 void SerialTerminal::stopManaged(bool transmitter, bool receiver){
     if(transmitter){
-        tx_managed = false;
-        _sent = 0;
-        _tosend = 0;
         attach(0, (SerialBase::IrqType)TxIrq);
+        tx_managed = false;
+        _tosend = 0;
     }
     if(receiver){
+        attach(0, (SerialBase::IrqType)RxIrq);
         rx_managed = false;
         _recv = 0;
-        attach(0, (SerialBase::IrqType)RxIrq);
     }
 }
 
 //---------------------------------------------------------------------------------
-bool SerialTerminal::send(uint8_t* data, uint16_t size, Callback<void()> tx_done){    
-    if(data && size){
-        _sent = 0;
+bool SerialTerminal::send(void* data, uint16_t size, Callback<void()> tx_done){  
+    
+    if(_tosend == 0 && (uint8_t*)data && size){
         _tosend = size;
         _cb_tx = tx_done;
-        _tbuf = data;
-        putc(_tbuf[_sent++]);
+        _tbuf = (uint8_t*)data;
+        startTransmitter();
         return true;
     }
     return false;
 }
 
 //---------------------------------------------------------------------------------
-uint16_t SerialTerminal::recv(char* buf, uint16_t maxsize, bool enable_receiver){
+uint16_t SerialTerminal::recv(void* buf, uint16_t maxsize, bool enable_receiver){
     uint16_t nb = (_recv > maxsize)? maxsize : _recv;
-    if(nb && buf){
-        memcpy(buf, _databuf, nb);
+    if(nb && (char*)buf){
+        memcpy((char*)buf, _databuf, nb);
     }
     if(enable_receiver){
         startReceiver();

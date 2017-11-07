@@ -312,6 +312,7 @@
 ".\build\xtea.o"
 ".\build\main.o"
 ".\build\mqlib.o"
+".\build\mqserialbridge.o"
 ".\build\mqttconnectclient.o"
 ".\build\mqttconnectserver.o"
 ".\build\mqttdeserializepublish.o"

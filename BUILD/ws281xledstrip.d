@@ -221,4 +221,4 @@
 .\build\ws281xledstrip.o: mbed-os/./platform/DeepSleepLock.h
 .\build\ws281xledstrip.o: .\src\BspDrivers\DMA\DMA_PwmOut\DMA_PwmOut.h
 .\build\ws281xledstrip.o: .\src\BspDrivers\DMA\DMA.h
-.\build\ws281xledstrip.o: .\src\MQLib\Heap.h
+.\build\ws281xledstrip.o: .\src\Middleware\MQLib\Heap.h

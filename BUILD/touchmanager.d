@@ -219,10 +219,10 @@
 .\build\touchmanager.o: mbed-os/./platform/ATCmdParser.h
 .\build\touchmanager.o: mbed-os/./platform/CriticalSectionLock.h
 .\build\touchmanager.o: mbed-os/./platform/DeepSleepLock.h
-.\build\touchmanager.o: .\src\MQLib\MQLib.h
-.\build\touchmanager.o: .\src\MQLib\List.h
-.\build\touchmanager.o: .\src\MQLib\List_tpp.h
-.\build\touchmanager.o: .\src\MQLib\Heap.h
+.\build\touchmanager.o: .\src\Middleware\MQLib\MQLib.h
+.\build\touchmanager.o: .\src\Middleware\MQLib\List.h
+.\build\touchmanager.o: .\src\Middleware\MQLib\List_tpp.h
+.\build\touchmanager.o: .\src\Middleware\MQLib\Heap.h
 .\build\touchmanager.o: .\src\BspDrivers\SerialTerminal\Logger.h
 .\build\touchmanager.o: .\src\BspDrivers\SerialTerminal\SerialTerminal.h
 .\build\touchmanager.o: .\src\BspDrivers\MPR121\MPR121_CapTouch.h

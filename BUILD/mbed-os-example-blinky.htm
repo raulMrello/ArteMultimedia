@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\BUILD\mbed-os-example-blinky.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\BUILD\mbed-os-example-blinky.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060300: Last Updated: Tue Nov 07 14:23:48 2017
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060300: Last Updated: Tue Nov 07 15:00:54 2017
 <BR><P>
 <H3>Maximum Stack Usage =        676 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -17,9 +17,9 @@ Mutually Recursive functions
  <LI><a href="#[19f]">Set_GPIO_Clock</a>&nbsp;&nbsp;&nbsp;&rArr;&nbsp;&nbsp;&nbsp;<a href="#[1a0]">error</a><BR>
  <LI><a href="#[246]">pin_function</a>&nbsp;&nbsp;&nbsp;&rArr;&nbsp;&nbsp;&nbsp;<a href="#[1db]">mbed_assert_internal</a><BR>
  <LI><a href="#[243]">gpio_set</a>&nbsp;&nbsp;&nbsp;&rArr;&nbsp;&nbsp;&nbsp;<a href="#[1db]">mbed_assert_internal</a><BR>
- <LI><a href="#[1ae]">sleep_manager_unlock_deep_sleep</a>&nbsp;&nbsp;&nbsp;&rArr;&nbsp;&nbsp;&nbsp;<a href="#[1af]">core_util_critical_section_exit</a><BR>
+ <LI><a href="#[1ae]">sleep_manager_unlock_deep_sleep</a>&nbsp;&nbsp;&nbsp;&rArr;&nbsp;&nbsp;&nbsp;<a href="#[1a0]">error</a><BR>
  <LI><a href="#[23c]">core_util_atomic_decr_u16</a>&nbsp;&nbsp;&nbsp;&rArr;&nbsp;&nbsp;&nbsp;<a href="#[1af]">core_util_critical_section_exit</a><BR>
- <LI><a href="#[1ac]">sleep_manager_lock_deep_sleep</a>&nbsp;&nbsp;&nbsp;&rArr;&nbsp;&nbsp;&nbsp;<a href="#[1af]">core_util_critical_section_exit</a><BR>
+ <LI><a href="#[1ac]">sleep_manager_lock_deep_sleep</a>&nbsp;&nbsp;&nbsp;&rArr;&nbsp;&nbsp;&nbsp;<a href="#[1a0]">error</a><BR>
  <LI><a href="#[23d]">core_util_atomic_incr_u16</a>&nbsp;&nbsp;&nbsp;&rArr;&nbsp;&nbsp;&nbsp;<a href="#[1af]">core_util_critical_section_exit</a><BR>
  <LI><a href="#[2d2]">pinmap_pinout</a>&nbsp;&nbsp;&nbsp;&rArr;&nbsp;&nbsp;&nbsp;<a href="#[1a0]">error</a><BR>
  <LI><a href="#[2d0]">pinmap_peripheral</a>&nbsp;&nbsp;&nbsp;&rArr;&nbsp;&nbsp;&nbsp;<a href="#[1a0]">error</a><BR>
@@ -161,25 +161,25 @@ Function Pointers
  <LI><a href="#[bc]">void mbed::Callback&lang;void(int)&rang;::function_move&lang;void(*)(int)&rang;(void*, const void*)</a> from .\build\eventqueue.o(t._ZN4mbed8CallbackIFviEE13function_moveIPS1_EEvPvPKv) referenced from .\build\eventqueue.o(.constdata__ZZN4mbed8CallbackIFviEE8generateIPS1_EEvRKT_E3ops)
  <LI><a href="#[be]">void mbed::Callback&lang;void()&rang;::function_call&lang;mbed::Callback&lang;void()&rang;::method_context&lang;MQSerialBridge, void(MQSerialBridge::*)()&rang;&rang;(const void*)</a> from .\build\mqserialbridge.o(t._ZN4mbed8CallbackIFvvEE13function_callINS2_14method_contextI14MQSerialBridgeMS5_FvvEEEEEvPKv) referenced from .\build\mqserialbridge.o(.constdata__ZZN4mbed8CallbackIFvvEE8generateINS2_14method_contextI14MQSerialBridgeMS5_FvvEEEEEvRKT_E3ops)
  <LI><a href="#[c1]">void mbed::Callback&lang;void()&rang;::function_call&lang;mbed::Callback&lang;void()&rang;::method_context&lang;SerialTerminal, void(SerialTerminal::*)()&rang;&rang;(const void*)</a> from .\build\serialterminal.o(t._ZN4mbed8CallbackIFvvEE13function_callINS2_14method_contextI14SerialTerminalMS5_FvvEEEEEvPKv) referenced from .\build\serialterminal.o(.constdata__ZZN4mbed8CallbackIFvvEE8generateINS2_14method_contextI14SerialTerminalMS5_FvvEEEEEvRKT_E3ops)
- <LI><a href="#[c4]">void mbed::Callback&lang;void()&rang;::function_call&lang;void(*)()&rang;(const void*)</a> from .\build\atcmdparser.o(t._ZN4mbed8CallbackIFvvEE13function_callIPS1_EEvPKv) referenced from .\build\atcmdparser.o(.constdata__ZZN4mbed8CallbackIFvvEE8generateIPS1_EEvRKT_E3ops)
+ <LI><a href="#[c4]">void mbed::Callback&lang;void()&rang;::function_call&lang;void(*)()&rang;(const void*)</a> from .\build\main.o(t._ZN4mbed8CallbackIFvvEE13function_callIPS1_EEvPKv) referenced from .\build\main.o(.constdata__ZZN4mbed8CallbackIFvvEE8generateIPS1_EEvRKT_E3ops)
  <LI><a href="#[c0]">void mbed::Callback&lang;void()&rang;::function_dtor&lang;mbed::Callback&lang;void()&rang;::method_context&lang;MQSerialBridge, void(MQSerialBridge::*)()&rang;&rang;(void*)</a> from .\build\mqserialbridge.o(t._ZN4mbed8CallbackIFvvEE13function_dtorINS2_14method_contextI14MQSerialBridgeMS5_FvvEEEEEvPv) referenced from .\build\mqserialbridge.o(.constdata__ZZN4mbed8CallbackIFvvEE8generateINS2_14method_contextI14MQSerialBridgeMS5_FvvEEEEEvRKT_E3ops)
  <LI><a href="#[c3]">void mbed::Callback&lang;void()&rang;::function_dtor&lang;mbed::Callback&lang;void()&rang;::method_context&lang;SerialTerminal, void(SerialTerminal::*)()&rang;&rang;(void*)</a> from .\build\serialterminal.o(t._ZN4mbed8CallbackIFvvEE13function_dtorINS2_14method_contextI14SerialTerminalMS5_FvvEEEEEvPv) referenced from .\build\serialterminal.o(.constdata__ZZN4mbed8CallbackIFvvEE8generateINS2_14method_contextI14SerialTerminalMS5_FvvEEEEEvRKT_E3ops)
- <LI><a href="#[c6]">void mbed::Callback&lang;void()&rang;::function_dtor&lang;void(*)()&rang;(void*)</a> from .\build\atcmdparser.o(t._ZN4mbed8CallbackIFvvEE13function_dtorIPS1_EEvPv) referenced from .\build\atcmdparser.o(.constdata__ZZN4mbed8CallbackIFvvEE8generateIPS1_EEvRKT_E3ops)
+ <LI><a href="#[c6]">void mbed::Callback&lang;void()&rang;::function_dtor&lang;void(*)()&rang;(void*)</a> from .\build\main.o(t._ZN4mbed8CallbackIFvvEE13function_dtorIPS1_EEvPv) referenced from .\build\main.o(.constdata__ZZN4mbed8CallbackIFvvEE8generateIPS1_EEvRKT_E3ops)
  <LI><a href="#[bf]">void mbed::Callback&lang;void()&rang;::function_move&lang;mbed::Callback&lang;void()&rang;::method_context&lang;MQSerialBridge, void(MQSerialBridge::*)()&rang;&rang;(void*, const void*)</a> from .\build\mqserialbridge.o(t._ZN4mbed8CallbackIFvvEE13function_moveINS2_14method_contextI14MQSerialBridgeMS5_FvvEEEEEvPvPKv) referenced from .\build\mqserialbridge.o(.constdata__ZZN4mbed8CallbackIFvvEE8generateINS2_14method_contextI14MQSerialBridgeMS5_FvvEEEEEvRKT_E3ops)
  <LI><a href="#[c2]">void mbed::Callback&lang;void()&rang;::function_move&lang;mbed::Callback&lang;void()&rang;::method_context&lang;SerialTerminal, void(SerialTerminal::*)()&rang;&rang;(void*, const void*)</a> from .\build\serialterminal.o(t._ZN4mbed8CallbackIFvvEE13function_moveINS2_14method_contextI14SerialTerminalMS5_FvvEEEEEvPvPKv) referenced from .\build\serialterminal.o(.constdata__ZZN4mbed8CallbackIFvvEE8generateINS2_14method_contextI14SerialTerminalMS5_FvvEEEEEvRKT_E3ops)
- <LI><a href="#[c5]">void mbed::Callback&lang;void()&rang;::function_move&lang;void(*)()&rang;(void*, const void*)</a> from .\build\atcmdparser.o(t._ZN4mbed8CallbackIFvvEE13function_moveIPS1_EEvPvPKv) referenced from .\build\atcmdparser.o(.constdata__ZZN4mbed8CallbackIFvvEE8generateIPS1_EEvRKT_E3ops)
+ <LI><a href="#[c5]">void mbed::Callback&lang;void()&rang;::function_move&lang;void(*)()&rang;(void*, const void*)</a> from .\build\main.o(t._ZN4mbed8CallbackIFvvEE13function_moveIPS1_EEvPvPKv) referenced from .\build\main.o(.constdata__ZZN4mbed8CallbackIFvvEE8generateIPS1_EEvRKT_E3ops)
  <LI><a href="#[aa]">mbed::RawSerial::lock()</a> from .\build\rawserial.o(i._ZN4mbed9RawSerial4lockEv) referenced from .\build\rawserial.o(.constdata__ZTVN4mbed9RawSerialE)
  <LI><a href="#[ab]">mbed::RawSerial::unlock()</a> from .\build\rawserial.o(i._ZN4mbed9RawSerial6unlockEv) referenced from .\build\rawserial.o(.constdata__ZTVN4mbed9RawSerialE)
- <LI><a href="#[74]">rtos::Mutex::~Mutex()</a> from .\build\mutex.o(i._ZN4rtos5MutexD1Ev) referenced from .\build\mqlib.o(i.__sti___9_MQLib_cpp_cf225734)
+ <LI><a href="#[74]">rtos::Mutex::~Mutex()</a> from .\build\mutex.o(i._ZN4rtos5MutexD1Ev) referenced from .\build\mqlib_1.o(i.__sti___9_MQLib_cpp_cf225734)
  <LI><a href="#[6e]">rtos::Thread::_thunk(void*)</a> from .\build\thread.o(i._ZN4rtos6Thread6_thunkEPv) referenced from .\build\thread.o(i._ZN4rtos6Thread5startEN4mbed8CallbackIFvvEEE)
  <LI><a href="#[a8]">__cxa_pure_virtual</a> from C:\Keil_v5\ARM\ARMCC\Bin\..\lib\cpplib\cpprt_w.l(pure_virt.o)(i.__cxa_pure_virtual) referenced from .\build\timerevent.o(.constdata__ZTVN4mbed10TimerEventE)
  <LI><a href="#[cd]">__main</a> from C:\Keil_v5\ARM\ARMCC\Bin\..\lib\armlib\c_w.l(__main.o)(!!!main) referenced from .\build\startup_stm32l432xx.o(.text)
  <LI><a href="#[cb]">__sti___10_locale_cpp_ff99fc7b</a> from C:\Keil_v5\ARM\ARMCC\Bin\..\lib\cpplib\cpp_ws.l(locale.o)(i.__sti___10_locale_cpp_ff99fc7b) referenced from C:\Keil_v5\ARM\ARMCC\Bin\..\lib\cpplib\cpp_ws.l(locale.o)(.init_array)
  <LI><a href="#[cc]">__sti___10_rwcats_cpp_64e8068e</a> from C:\Keil_v5\ARM\ARMCC\Bin\..\lib\cpplib\cpp_ws.l(rwcats.o)(i.__sti___10_rwcats_cpp_64e8068e) referenced from C:\Keil_v5\ARM\ARMCC\Bin\..\lib\cpplib\cpp_ws.l(rwcats.o)(.init_array)
- <LI><a href="#[c7]">__sti___7_SPI_cpp_ab1f1164</a> from .\build\spi.o(i.__sti___7_SPI_cpp_ab1f1164) referenced from .\build\spi.o(.init_array)
+ <LI><a href="#[c8]">__sti___7_SPI_cpp_ab1f1164</a> from .\build\spi.o(i.__sti___7_SPI_cpp_ab1f1164) referenced from .\build\spi.o(.init_array)
  <LI><a href="#[ca]">__sti___8_char_cpp_a3dc957a</a> from C:\Keil_v5\ARM\ARMCC\Bin\..\lib\cpplib\cpp_ws.l(char.o)(i.__sti___8_char_cpp_a3dc957a) referenced from C:\Keil_v5\ARM\ARMCC\Bin\..\lib\cpplib\cpp_ws.l(char.o)(.init_array)
- <LI><a href="#[c8]">__sti___8_main_cpp_led1</a> from .\build\main.o(i.__sti___8_main_cpp_led1) referenced from .\build\main.o(.init_array)
- <LI><a href="#[c9]">__sti___9_MQLib_cpp_cf225734</a> from .\build\mqlib.o(i.__sti___9_MQLib_cpp_cf225734) referenced from .\build\mqlib.o(.init_array)
+ <LI><a href="#[c7]">__sti___8_main_cpp_led1</a> from .\build\main.o(i.__sti___8_main_cpp_led1) referenced from .\build\main.o(.init_array)
+ <LI><a href="#[c9]">__sti___9_MQLib_cpp_cf225734</a> from .\build\mqlib_1.o(i.__sti___9_MQLib_cpp_cf225734) referenced from .\build\mqlib_1.o(.init_array)
  <LI><a href="#[62]">_get_lc_ctype</a> from C:\Keil_v5\ARM\ARMCC\Bin\..\lib\armlib\c_w.l(lc_ctype_c.o)(locale$$code) referenced from C:\Keil_v5\ARM\ARMCC\Bin\..\lib\armlib\c_w.l(rt_ctype_table.o)(.text)
  <LI><a href="#[65]">_printf_input_char</a> from C:\Keil_v5\ARM\ARMCC\Bin\..\lib\armlib\c_w.l(_printf_char_common.o)(.text) referenced from C:\Keil_v5\ARM\ARMCC\Bin\..\lib\armlib\c_w.l(_printf_char_common.o)(.text)
  <LI><a href="#[63]">_snputc</a> from C:\Keil_v5\ARM\ARMCC\Bin\..\lib\armlib\c_w.l(_snputc.o)(.text) referenced 2 times from C:\Keil_v5\ARM\ARMCC\Bin\..\lib\armlib\c_w.l(vsnprintf.o)(.text)
@@ -885,17 +885,17 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[10c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__user_perthread_libspace
 </UL>
-<BR>[Called By]<UL><LI><a href="#[14a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sys_write
+<BR>[Called By]<UL><LI><a href="#[1b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;handle_open_errors(int, unsigned)
+<LI><a href="#[14a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sys_write
 <LI><a href="#[149]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sys_seek
 <LI><a href="#[12d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sys_open
 <LI><a href="#[144]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sys_istty
 <LI><a href="#[146]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sys_flen
 <LI><a href="#[127]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sys_close
-<LI><a href="#[1b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;handle_open_errors(int, unsigned)
+<LI><a href="#[123]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;atoi
 <LI><a href="#[145]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_ftell_internal
 <LI><a href="#[143]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_strtoul
 <LI><a href="#[124]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strtol
-<LI><a href="#[123]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;atoi
 </UL>
 
 <P><STRONG><a name="[343]"></a>__errno$twolibspace</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, C:\Keil_v5\ARM\ARMCC\Bin\..\lib\armlib\c_w.l(rt_errno_addr_twolibspace.o)(.text), UNUSED)
@@ -919,11 +919,11 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[10d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_malloc_internal
 <LI><a href="#[111]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_heap_descriptor
 </UL>
-<BR>[Called By]<UL><LI><a href="#[214]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;operator new[] (unsigned)
+<BR>[Called By]<UL><LI><a href="#[1c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Heap::memAlloc(unsigned)
 <LI><a href="#[1b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;operator new(unsigned)
+<LI><a href="#[214]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;operator new[] (unsigned)
 <LI><a href="#[130]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_mutex_initialize
 <LI><a href="#[1cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SerialTerminal::SerialTerminal(PinName, PinName, unsigned short, int, SerialTerminal::Receiver_mode)
-<LI><a href="#[1c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Heap::memAlloc(unsigned)
 <LI><a href="#[12f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;fopen
 </UL>
 
@@ -945,8 +945,8 @@ Global Symbols
 </UL>
 <BR>[Called By]<UL><LI><a href="#[215]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;operator delete[] (void*)
 <LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MQSerialBridge::task()
-<LI><a href="#[14e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_terminateio
 <LI><a href="#[125]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_fclose_internal
+<LI><a href="#[14e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_terminateio
 </UL>
 
 <P><STRONG><a name="[1a7]"></a>__aeabi_uldivmod</STRONG> (Thumb, 0 bytes, Stack size 48 bytes, C:\Keil_v5\ARM\ARMCC\Bin\..\lib\armlib\c_w.l(lludivv7m.o)(.text))
@@ -1001,23 +1001,23 @@ Global Symbols
 <P><STRONG><a name="[11a]"></a>_printf_pre_padding</STRONG> (Thumb, 44 bytes, Stack size 16 bytes, C:\Keil_v5\ARM\ARMCC\Bin\..\lib\armlib\c_w.l(_printf_pad.o)(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = _printf_pre_padding
 </UL>
-<BR>[Called By]<UL><LI><a href="#[119]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_str
-<LI><a href="#[15c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_fp_hex_real
-<LI><a href="#[159]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_fp_dec_real
+<BR>[Called By]<UL><LI><a href="#[15b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_fp_infnan
+<LI><a href="#[119]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_str
 <LI><a href="#[13f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_wctomb
 <LI><a href="#[11e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_int_common
-<LI><a href="#[15b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_fp_infnan
+<LI><a href="#[15c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_fp_hex_real
+<LI><a href="#[159]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_fp_dec_real
 </UL>
 
 <P><STRONG><a name="[11b]"></a>_printf_post_padding</STRONG> (Thumb, 34 bytes, Stack size 16 bytes, C:\Keil_v5\ARM\ARMCC\Bin\..\lib\armlib\c_w.l(_printf_pad.o)(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = _printf_post_padding
 </UL>
-<BR>[Called By]<UL><LI><a href="#[119]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_str
-<LI><a href="#[15c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_fp_hex_real
-<LI><a href="#[159]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_fp_dec_real
+<BR>[Called By]<UL><LI><a href="#[15b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_fp_infnan
+<LI><a href="#[119]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_str
 <LI><a href="#[13f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_wctomb
 <LI><a href="#[11e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_int_common
-<LI><a href="#[15b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_fp_infnan
+<LI><a href="#[15c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_fp_hex_real
+<LI><a href="#[159]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_fp_dec_real
 </UL>
 
 <P><STRONG><a name="[119]"></a>_printf_str</STRONG> (Thumb, 82 bytes, Stack size 16 bytes, C:\Keil_v5\ARM\ARMCC\Bin\..\lib\armlib\c_w.l(_printf_str.o)(.text))
@@ -1036,9 +1036,9 @@ Global Symbols
 <LI><a href="#[11d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_truncate_unsigned
 <LI><a href="#[11c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_truncate_signed
 </UL>
-<BR>[Called By]<UL><LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_i
-<LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_u
+<BR>[Called By]<UL><LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_u
 <LI><a href="#[e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_d
+<LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_i
 </UL>
 
 <P><STRONG><a name="[11f]"></a>_printf_longlong_hex</STRONG> (Thumb, 86 bytes, Stack size 16 bytes, C:\Keil_v5\ARM\ARMCC\Bin\..\lib\armlib\c_w.l(_printf_hex_int_ll_ptr.o)(.text))
@@ -1092,8 +1092,8 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[10b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_errno_addr
 <LI><a href="#[124]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strtol
 </UL>
-<BR>[Called By]<UL><LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MQSerialBridge::task()
-<LI><a href="#[1e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MQ::MQBroker::createTopicId(MQ::topic_t*, const char*)
+<BR>[Called By]<UL><LI><a href="#[1e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MQ::MQBroker::createTopicId(MQ::topic_t*, const char*)
+<LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MQSerialBridge::task()
 </UL>
 
 <P><STRONG><a name="[346]"></a>_fclose$unlocked</STRONG> (Thumb, 0 bytes, Stack size 32 bytes, C:\Keil_v5\ARM\ARMCC\Bin\..\lib\armlib\c_w.l(fclose.o)(.text), UNUSED)
@@ -1103,11 +1103,11 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[127]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sys_close
 <LI><a href="#[113]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;free
-<LI><a href="#[126]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_fflush
 <LI><a href="#[128]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
+<LI><a href="#[126]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_fflush
 </UL>
-<BR>[Called By]<UL><LI><a href="#[14e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_terminateio
-<LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_freopen_locked
+<BR>[Called By]<UL><LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_freopen_locked
+<LI><a href="#[14e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_terminateio
 </UL>
 
 <P><STRONG><a name="[129]"></a>_do_fflush</STRONG> (Thumb, 74 bytes, Stack size 24 bytes, C:\Keil_v5\ARM\ARMCC\Bin\..\lib\armlib\c_w.l(fflush_locked.o)(.text))
@@ -1151,7 +1151,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[131]"></a>strtok</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, C:\Keil_v5\ARM\ARMCC\Bin\..\lib\armlib\c_w.l(strtok.o)(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 36<LI>Call Chain = strtok &rArr; __strtok_internal &rArr; strspn
+<BR><BR>[Stack]<UL><LI>Max Depth = 36<LI>Call Chain = strtok &rArr; __strtok_internal &rArr; strcspn
 </UL>
 <BR>[Calls]<UL><LI><a href="#[132]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__strtok_internal
 </UL>
@@ -1174,21 +1174,21 @@ Global Symbols
 <P><STRONG><a name="[1c0]"></a>strlen</STRONG> (Thumb, 62 bytes, Stack size 8 bytes, C:\Keil_v5\ARM\ARMCC\Bin\..\lib\armlib\c_w.l(strlen.o)(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = strlen
 </UL>
-<BR>[Called By]<UL><LI><a href="#[20b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::FileBase::lookup(const char*, unsigned)
+<BR>[Called By]<UL><LI><a href="#[1f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MQ::MQBroker::getNextDelimiter(const char*, unsigned char*, unsigned char*, bool*)
+<LI><a href="#[1ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MQ::MQBroker::subscribeReq(const char*, mbed::Callback&lang;void(const char*, void*, unsigned short)&rang;*)
+<LI><a href="#[20b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::FileBase::lookup(const char*, unsigned)
+<LI><a href="#[1ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MQ::MQBroker::publishReq(const char*, void*, unsigned, mbed::Callback&lang;void(const char*, int)&rang;*)
 <LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MQSerialBridge::task()
 <LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MQSerialBridge::subscriptionCb(const char*, void*, unsigned short)
-<LI><a href="#[1f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MQ::MQBroker::getNextDelimiter(const char*, unsigned char*, unsigned char*, bool*)
-<LI><a href="#[1ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MQ::MQBroker::subscribeReq(const char*, mbed::Callback&lang;void(const char*, void*, unsigned short)&rang;*)
-<LI><a href="#[1ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MQ::MQBroker::publishReq(const char*, void*, unsigned, mbed::Callback&lang;void(const char*, int)&rang;*)
 </UL>
 
 <P><STRONG><a name="[1bd]"></a>strncmp</STRONG> (Thumb, 150 bytes, Stack size 16 bytes, C:\Keil_v5\ARM\ARMCC\Bin\..\lib\armlib\c_w.l(strncmp.o)(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = strncmp
 </UL>
-<BR>[Called By]<UL><LI><a href="#[20b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::FileBase::lookup(const char*, unsigned)
-<LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;subscCb(const char*, void*, unsigned short)
-<LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MQSerialBridge::subscriptionCb(const char*, void*, unsigned short)
+<BR>[Called By]<UL><LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;subscCb(const char*, void*, unsigned short)
 <LI><a href="#[1e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MQ::MQBroker::createTopicId(MQ::topic_t*, const char*)
+<LI><a href="#[20b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::FileBase::lookup(const char*, unsigned)
+<LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MQSerialBridge::subscriptionCb(const char*, void*, unsigned short)
 </UL>
 
 <P><STRONG><a name="[1c2]"></a>__aeabi_memcpy</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, C:\Keil_v5\ARM\ARMCC\Bin\..\lib\armlib\c_w.l(rt_memcpy_v6.o)(.text))
@@ -1221,8 +1221,8 @@ Global Symbols
 <P><STRONG><a name="[34a]"></a>_memcpy_lastbytes_aligned</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, C:\Keil_v5\ARM\ARMCC\Bin\..\lib\armlib\c_w.l(rt_memcpy_w.o)(.text), UNUSED)
 
 <P><STRONG><a name="[138]"></a>__aeabi_memclr</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, C:\Keil_v5\ARM\ARMCC\Bin\..\lib\armlib\c_w.l(rt_memclr.o)(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;svcRtxMessageQueueNew
-<LI><a href="#[1b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MQSerialBridge::MQSerialBridge(PinName, PinName, unsigned, unsigned short, const char*, const char*)
+<BR><BR>[Called By]<UL><LI><a href="#[1b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MQSerialBridge::MQSerialBridge(PinName, PinName, unsigned, unsigned short, const char*, const char*)
+<LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;svcRtxMessageQueueNew
 <LI><a href="#[137]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strncpy
 </UL>
 
@@ -1235,17 +1235,17 @@ Global Symbols
 <P><STRONG><a name="[128]"></a>__aeabi_memclr4</STRONG> (Thumb, 0 bytes, Stack size 4 bytes, C:\Keil_v5\ARM\ARMCC\Bin\..\lib\armlib\c_w.l(rt_memclr_w.o)(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 4<LI>Call Chain = __aeabi_memclr4
 </UL>
-<BR>[Called By]<UL><LI><a href="#[1d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rtos::Thread::start(mbed::Callback&lang;void()&rang;)
+<BR>[Called By]<UL><LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__sti___8_main_cpp_led1
+<LI><a href="#[1d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rtos::Thread::start(mbed::Callback&lang;void()&rang;)
 <LI><a href="#[21c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rtos::Thread::constructor(osPriority_t, unsigned, unsigned char*, const char*)
 <LI><a href="#[216]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rtos::Mutex::constructor(const char*)
 <LI><a href="#[1fd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::SerialBase::SerialBase(PinName, PinName, int)
 <LI><a href="#[78]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;svcRtxKernelInitialize
 <LI><a href="#[70]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::Transaction&lang;mbed::SPI&rang;::Transaction()
 <LI><a href="#[19c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SetSysClock_PLL_MSI
-<LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__sti___8_main_cpp_led1
-<LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_initio
 <LI><a href="#[12f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;fopen
 <LI><a href="#[125]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_fclose_internal
+<LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_initio
 </UL>
 
 <P><STRONG><a name="[34c]"></a>__aeabi_memclr8</STRONG> (Thumb, 0 bytes, Stack size 4 bytes, C:\Keil_v5\ARM\ARMCC\Bin\..\lib\armlib\c_w.l(rt_memclr_w.o)(.text), UNUSED)
@@ -1265,10 +1265,10 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[1ed]"></a>strcmp</STRONG> (Thumb, 128 bytes, Stack size 0 bytes, C:\Keil_v5\ARM\ARMCC\Bin\..\lib\armlib\c_w.l(strcmpv7m.o)(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[12d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sys_open
-<LI><a href="#[1ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MQ::MQBroker::subscribeReq(const char*, mbed::Callback&lang;void(const char*, void*, unsigned short)&rang;*)
-<LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_get_lc_ctype
+<BR><BR>[Called By]<UL><LI><a href="#[1ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MQ::MQBroker::subscribeReq(const char*, mbed::Callback&lang;void(const char*, void*, unsigned short)&rang;*)
+<LI><a href="#[12d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sys_open
 <LI><a href="#[ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_get_lc_numeric
+<LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_get_lc_ctype
 </UL>
 
 <P><STRONG><a name="[34e]"></a>__use_two_region_memory</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, C:\Keil_v5\ARM\ARMCC\Bin\..\lib\armlib\c_w.l(heapauxi.o)(.text), UNUSED)
@@ -1301,10 +1301,10 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[139]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__user_perproc_libspace
 </UL>
-<BR>[Called By]<UL><LI><a href="#[113]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;free
+<BR>[Called By]<UL><LI><a href="#[163]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_terminate_alloc
+<LI><a href="#[113]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;free
 <LI><a href="#[110]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;malloc
 <LI><a href="#[fa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_init_alloc
-<LI><a href="#[163]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_terminate_alloc
 </UL>
 
 <P><STRONG><a name="[fc]"></a>__rt_locale</STRONG> (Thumb, 10 bytes, Stack size 8 bytes, C:\Keil_v5\ARM\ARMCC\Bin\..\lib\armlib\c_w.l(rt_locale_twolibspace.o)(.text))
@@ -1340,10 +1340,10 @@ Global Symbols
 <P><STRONG><a name="[fa]"></a>_init_alloc</STRONG> (Thumb, 94 bytes, Stack size 24 bytes, C:\Keil_v5\ARM\ARMCC\Bin\..\lib\armlib\c_w.l(init_alloc.o)(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 152<LI>Call Chain = _init_alloc &rArr; __Heap_Initialize &rArr; _mutex_initialize &rArr; malloc &rArr; _malloc_internal &rArr; __Heap_Full &rArr; __Heap_ProvideMemory &rArr; _free_internal &rArr; _mutex_release &rArr; os_kernel_is_active &rArr; osKernelGetState &rArr; svcRtxKernelGetState
 </UL>
-<BR>[Calls]<UL><LI><a href="#[13c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_SIGRTMEM
-<LI><a href="#[13a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__Heap_ProvideMemory
-<LI><a href="#[13d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__Heap_Initialize
+<BR>[Calls]<UL><LI><a href="#[13d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__Heap_Initialize
 <LI><a href="#[111]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_heap_descriptor
+<LI><a href="#[13c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_SIGRTMEM
+<LI><a href="#[13a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__Heap_ProvideMemory
 </UL>
 <BR>[Called By]<UL><LI><a href="#[f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_lib_init_heap_2
 </UL>
@@ -1364,8 +1364,8 @@ Global Symbols
 
 <P><STRONG><a name="[11d]"></a>_printf_truncate_unsigned</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, C:\Keil_v5\ARM\ARMCC\Bin\..\lib\armlib\c_w.l(_printf_truncate.o)(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_int_dec
-<LI><a href="#[e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_int_oct
 <LI><a href="#[e6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_int_hex
+<LI><a href="#[e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_int_oct
 </UL>
 
 <P><STRONG><a name="[11e]"></a>_printf_int_common</STRONG> (Thumb, 178 bytes, Stack size 32 bytes, C:\Keil_v5\ARM\ARMCC\Bin\..\lib\armlib\c_w.l(_printf_intcommon.o)(.text))
@@ -1375,9 +1375,9 @@ Global Symbols
 <LI><a href="#[11a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_pre_padding
 </UL>
 <BR>[Called By]<UL><LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_int_dec
-<LI><a href="#[142]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_longlong_oct
 <LI><a href="#[e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_longlong_dec
 <LI><a href="#[11f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_longlong_hex
+<LI><a href="#[142]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_longlong_oct
 </UL>
 
 <P><STRONG><a name="[d6]"></a>_printf_charcount</STRONG> (Thumb, 40 bytes, Stack size 0 bytes, C:\Keil_v5\ARM\ARMCC\Bin\..\lib\armlib\c_w.l(_printf_charcount.o)(.text))
@@ -1447,8 +1447,8 @@ Global Symbols
 <P><STRONG><a name="[e8]"></a>_printf_longlong_dec</STRONG> (Thumb, 108 bytes, Stack size 24 bytes, C:\Keil_v5\ARM\ARMCC\Bin\..\lib\armlib\c_w.l(_printf_longlong_dec.o)(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 72<LI>Call Chain = _printf_longlong_dec &rArr; _printf_int_common &rArr; _printf_post_padding
 </UL>
-<BR>[Calls]<UL><LI><a href="#[141]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_ll_udiv10
-<LI><a href="#[11e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_int_common
+<BR>[Calls]<UL><LI><a href="#[11e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_int_common
+<LI><a href="#[141]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_ll_udiv10
 </UL>
 <BR>[Called By]<UL><LI><a href="#[ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_llu
 <LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_lld
@@ -1467,8 +1467,8 @@ Global Symbols
 <P><STRONG><a name="[e4]"></a>_printf_int_oct</STRONG> (Thumb, 24 bytes, Stack size 8 bytes, C:\Keil_v5\ARM\ARMCC\Bin\..\lib\armlib\c_w.l(_printf_oct_int_ll.o)(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = _printf_int_oct &rArr; _printf_longlong_oct &rArr; _printf_int_common &rArr; _printf_post_padding
 </UL>
-<BR>[Calls]<UL><LI><a href="#[142]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_longlong_oct
-<LI><a href="#[11d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_truncate_unsigned
+<BR>[Calls]<UL><LI><a href="#[11d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_truncate_unsigned
+<LI><a href="#[142]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_longlong_oct
 </UL>
 <BR>[Called By]<UL><LI><a href="#[e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_o
 </UL>
@@ -1529,9 +1529,9 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[148]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_writebuf
 </UL>
-<BR>[Called By]<UL><LI><a href="#[14b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_deferredlazyseek
-<LI><a href="#[129]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_do_fflush
+<BR>[Called By]<UL><LI><a href="#[129]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_do_fflush
 <LI><a href="#[125]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_fclose_internal
+<LI><a href="#[14b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_deferredlazyseek
 </UL>
 
 <P><STRONG><a name="[14b]"></a>_deferredlazyseek</STRONG> (Thumb, 60 bytes, Stack size 8 bytes, C:\Keil_v5\ARM\ARMCC\Bin\..\lib\armlib\c_w.l(stdio.o)(.text), UNUSED)
@@ -1551,10 +1551,10 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 420<LI>Call Chain = _initio &rArr; freopen &rArr; _freopen_locked &rArr; _fclose_internal &rArr; _fflush &rArr; _writebuf &rArr; _sys_write &rArr; init_serial() &rArr; serial_init &rArr; mbed_assert_internal &rArr; mbed_die &rArr; gpio_init_out &rArr; gpio_init_out_ex &rArr; _gpio_init_out &rArr; gpio_init &rArr; gpio_set &rArr;  mbed_assert_internal (Cycle)
 </UL>
 <BR>[Calls]<UL><LI><a href="#[130]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_mutex_initialize
-<LI><a href="#[14d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_SIGRTRED
-<LI><a href="#[14c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setvbuf
 <LI><a href="#[128]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
 <LI><a href="#[12e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;freopen
+<LI><a href="#[14d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_SIGRTRED
+<LI><a href="#[14c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setvbuf
 </UL>
 <BR>[Called By]<UL><LI><a href="#[100]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_lib_init_stdio_2
 </UL>
@@ -1577,10 +1577,10 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[132]"></a>__strtok_internal</STRONG> (Thumb, 64 bytes, Stack size 24 bytes, C:\Keil_v5\ARM\ARMCC\Bin\..\lib\armlib\c_w.l(strtok_int.o)(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 36<LI>Call Chain = __strtok_internal &rArr; strspn
+<BR><BR>[Stack]<UL><LI>Max Depth = 36<LI>Call Chain = __strtok_internal &rArr; strcspn
 </UL>
-<BR>[Calls]<UL><LI><a href="#[152]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strspn
-<LI><a href="#[153]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strcspn
+<BR>[Calls]<UL><LI><a href="#[153]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strcspn
+<LI><a href="#[152]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strspn
 </UL>
 <BR>[Called By]<UL><LI><a href="#[131]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strtok
 </UL>
@@ -1597,8 +1597,8 @@ Global Symbols
 <P><STRONG><a name="[141]"></a>_ll_udiv10</STRONG> (Thumb, 138 bytes, Stack size 12 bytes, C:\Keil_v5\ARM\ARMCC\Bin\..\lib\armlib\c_w.l(lludiv10.o)(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = _ll_udiv10
 </UL>
-<BR>[Called By]<UL><LI><a href="#[154]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_fp_digits
-<LI><a href="#[e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_longlong_dec
+<BR>[Called By]<UL><LI><a href="#[e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_longlong_dec
+<LI><a href="#[154]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_fp_digits
 </UL>
 
 <P><STRONG><a name="[353]"></a>__lib_sel_fp_printf</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, C:\Keil_v5\ARM\ARMCC\Bin\..\lib\armlib\c_w.l(_printf_fp_dec.o)(.text), UNUSED)
@@ -1606,12 +1606,12 @@ Global Symbols
 <P><STRONG><a name="[159]"></a>_printf_fp_dec_real</STRONG> (Thumb, 620 bytes, Stack size 104 bytes, C:\Keil_v5\ARM\ARMCC\Bin\..\lib\armlib\c_w.l(_printf_fp_dec.o)(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 320<LI>Call Chain = _printf_fp_dec_real &rArr; _fp_digits &rArr; _btod_etento &rArr; _btod_emul &rArr; _e2e
 </UL>
-<BR>[Calls]<UL><LI><a href="#[11b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_post_padding
-<LI><a href="#[11a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_pre_padding
-<LI><a href="#[154]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_fp_digits
-<LI><a href="#[fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_locale
-<LI><a href="#[15a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ARM_fpclassify
+<BR>[Calls]<UL><LI><a href="#[15a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ARM_fpclassify
 <LI><a href="#[15b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_fp_infnan
+<LI><a href="#[11b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_post_padding
+<LI><a href="#[11a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_pre_padding
+<LI><a href="#[fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_locale
+<LI><a href="#[154]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_fp_digits
 </UL>
 <BR>[Called By]<UL><LI><a href="#[da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_fp_dec
 </UL>
@@ -1619,10 +1619,10 @@ Global Symbols
 <P><STRONG><a name="[15c]"></a>_printf_fp_hex_real</STRONG> (Thumb, 756 bytes, Stack size 72 bytes, C:\Keil_v5\ARM\ARMCC\Bin\..\lib\armlib\c_w.l(_printf_fp_hex.o)(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 112<LI>Call Chain = _printf_fp_hex_real &rArr; _printf_fp_infnan &rArr; _printf_post_padding
 </UL>
-<BR>[Calls]<UL><LI><a href="#[11b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_post_padding
-<LI><a href="#[11a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_pre_padding
-<LI><a href="#[15a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ARM_fpclassify
+<BR>[Calls]<UL><LI><a href="#[15a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ARM_fpclassify
 <LI><a href="#[15b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_fp_infnan
+<LI><a href="#[11b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_post_padding
+<LI><a href="#[11a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_pre_padding
 </UL>
 <BR>[Called By]<UL><LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_fp_hex
 </UL>
@@ -1690,8 +1690,8 @@ Global Symbols
 <P><STRONG><a name="[14d]"></a>__rt_SIGRTRED</STRONG> (Thumb, 14 bytes, Stack size 8 bytes, C:\Keil_v5\ARM\ARMCC\Bin\..\lib\armlib\c_w.l(defsig_rtred_outer.o)(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = __rt_SIGRTRED &rArr; __rt_SIGRTRED_inner &rArr; __default_signal_display &rArr; _ttywrch
 </UL>
-<BR>[Calls]<UL><LI><a href="#[151]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__sig_exit
-<LI><a href="#[160]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_SIGRTRED_inner
+<BR>[Calls]<UL><LI><a href="#[160]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_SIGRTRED_inner
+<LI><a href="#[151]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__sig_exit
 </UL>
 <BR>[Called By]<UL><LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_initio
 </UL>
@@ -1699,8 +1699,8 @@ Global Symbols
 <P><STRONG><a name="[13c]"></a>__rt_SIGRTMEM</STRONG> (Thumb, 14 bytes, Stack size 8 bytes, C:\Keil_v5\ARM\ARMCC\Bin\..\lib\armlib\c_w.l(defsig_rtmem_outer.o)(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = __rt_SIGRTMEM &rArr; __rt_SIGRTMEM_inner &rArr; __default_signal_display &rArr; _ttywrch
 </UL>
-<BR>[Calls]<UL><LI><a href="#[151]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__sig_exit
-<LI><a href="#[161]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_SIGRTMEM_inner
+<BR>[Calls]<UL><LI><a href="#[161]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_SIGRTMEM_inner
+<LI><a href="#[151]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__sig_exit
 </UL>
 <BR>[Called By]<UL><LI><a href="#[fa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_init_alloc
 <LI><a href="#[13b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__Heap_Broken
@@ -1725,8 +1725,8 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[163]"></a>_terminate_alloc</STRONG> (Thumb, 16 bytes, Stack size 8 bytes, C:\Keil_v5\ARM\ARMCC\Bin\..\lib\armlib\c_w.l(term_alloc.o)(.text), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[111]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_heap_descriptor
-<LI><a href="#[164]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__Heap_Finalize
+<BR><BR>[Calls]<UL><LI><a href="#[164]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__Heap_Finalize
+<LI><a href="#[111]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_heap_descriptor
 </UL>
 
 <P><STRONG><a name="[15b]"></a>_printf_fp_infnan</STRONG> (Thumb, 112 bytes, Stack size 24 bytes, C:\Keil_v5\ARM\ARMCC\Bin\..\lib\armlib\c_w.l(_printf_fp_infnan.o)(.text))
@@ -1753,9 +1753,9 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[165]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_ttywrch
 </UL>
-<BR>[Called By]<UL><LI><a href="#[150]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_SIGPVFN_inner
-<LI><a href="#[161]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_SIGRTMEM_inner
+<BR>[Called By]<UL><LI><a href="#[161]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_SIGRTMEM_inner
 <LI><a href="#[160]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_SIGRTRED_inner
+<LI><a href="#[150]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_SIGPVFN_inner
 </UL>
 
 <P><STRONG><a name="[160]"></a>__rt_SIGRTRED_inner</STRONG> (Thumb, 14 bytes, Stack size 8 bytes, C:\Keil_v5\ARM\ARMCC\Bin\..\lib\armlib\c_w.l(defsig_rtred_inner.o)(.text))
@@ -1827,8 +1827,8 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[169]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_e2e
 <LI><a href="#[168]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__btod_div_common
 </UL>
-<BR>[Called By]<UL><LI><a href="#[154]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_fp_digits
-<LI><a href="#[155]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_btod_etento
+<BR>[Called By]<UL><LI><a href="#[155]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_btod_etento
+<LI><a href="#[154]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_fp_digits
 </UL>
 
 <P><STRONG><a name="[158]"></a>_btod_emul</STRONG> (Thumb, 40 bytes, Stack size 24 bytes, C:\Keil_v5\ARM\ARMCC\Bin\..\lib\armlib\c_w.l(btod.o)(CL$$btod_emul))
@@ -1837,8 +1837,8 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[16a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__btod_mult_common
 <LI><a href="#[169]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_e2e
 </UL>
-<BR>[Called By]<UL><LI><a href="#[154]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_fp_digits
-<LI><a href="#[155]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_btod_etento
+<BR>[Called By]<UL><LI><a href="#[155]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_btod_etento
+<LI><a href="#[154]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_fp_digits
 </UL>
 
 <P><STRONG><a name="[16a]"></a>__btod_mult_common</STRONG> (Thumb, 580 bytes, Stack size 16 bytes, C:\Keil_v5\ARM\ARMCC\Bin\..\lib\armlib\c_w.l(btod.o)(CL$$btod_mult_common))
@@ -2103,14 +2103,14 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[27d]"></a>EvrRtxMutexError</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, .\build\rtx_evr.o(i.EvrRtxMutexError))
-<BR><BR>[Called By]<UL><LI><a href="#[219]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osMutexRelease
-<LI><a href="#[218]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osMutexAcquire
-<LI><a href="#[217]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osMutexNew
-<LI><a href="#[21a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osMutexDelete
-<LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;svcRtxMutexRelease
+<BR><BR>[Called By]<UL><LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;svcRtxMutexRelease
 <LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;svcRtxMutexNew
 <LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;svcRtxMutexDelete
 <LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;svcRtxMutexAcquire
+<LI><a href="#[217]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osMutexNew
+<LI><a href="#[219]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osMutexRelease
+<LI><a href="#[218]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osMutexAcquire
+<LI><a href="#[21a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osMutexDelete
 </UL>
 
 <P><STRONG><a name="[27f]"></a>EvrRtxMutexNew</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, .\build\rtx_evr.o(i.EvrRtxMutexNew))
@@ -2144,10 +2144,10 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[2be]"></a>EvrRtxSemaphoreError</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, .\build\rtx_evr.o(i.EvrRtxSemaphoreError))
-<BR><BR>[Called By]<UL><LI><a href="#[225]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osSemaphoreNew
-<LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;svcRtxSemaphoreRelease
+<BR><BR>[Called By]<UL><LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;svcRtxSemaphoreRelease
 <LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;svcRtxSemaphoreNew
 <LI><a href="#[226]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osSemaphoreRelease
+<LI><a href="#[225]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osSemaphoreNew
 </UL>
 
 <P><STRONG><a name="[2ba]"></a>EvrRtxSemaphoreNew</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, .\build\rtx_evr.o(i.EvrRtxSemaphoreNew))
@@ -2184,13 +2184,13 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[266]"></a>EvrRtxThreadError</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, .\build\rtx_evr.o(i.EvrRtxThreadError))
-<BR><BR>[Called By]<UL><LI><a href="#[21d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osThreadFlagsWait
-<LI><a href="#[21b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osThreadFlagsSet
-<LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;svcRtxThreadFlagsWait
+<BR><BR>[Called By]<UL><LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;svcRtxThreadFlagsWait
 <LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;svcRtxThreadFlagsSet
 <LI><a href="#[222]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osThreadYield
 <LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osThreadExit
 <LI><a href="#[2c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osThreadContextNew
+<LI><a href="#[21d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osThreadFlagsWait
+<LI><a href="#[21b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osThreadFlagsSet
 <LI><a href="#[21e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osDelay
 <LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;svcRtxThreadNew
 </UL>
@@ -2209,8 +2209,8 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[2c7]"></a>EvrRtxThreadFlagsSetDone</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, .\build\rtx_evr.o(i.EvrRtxThreadFlagsSetDone))
-<BR><BR>[Called By]<UL><LI><a href="#[21b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osThreadFlagsSet
-<LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;svcRtxThreadFlagsSet
+<BR><BR>[Called By]<UL><LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;svcRtxThreadFlagsSet
+<LI><a href="#[21b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osThreadFlagsSet
 </UL>
 
 <P><STRONG><a name="[2c8]"></a>EvrRtxThreadFlagsWait</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, .\build\rtx_evr.o(i.EvrRtxThreadFlagsWait))
@@ -2236,8 +2236,8 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[2c9]"></a>EvrRtxThreadGetId</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, .\build\rtx_evr.o(i.EvrRtxThreadGetId))
-<BR><BR>[Called By]<UL><LI><a href="#[172]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osThreadGetId
-<LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;svcRtxThreadGetId
+<BR><BR>[Called By]<UL><LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;svcRtxThreadGetId
+<LI><a href="#[172]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osThreadGetId
 </UL>
 
 <P><STRONG><a name="[2ca]"></a>EvrRtxThreadGetName</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, .\build\rtx_evr.o(i.EvrRtxThreadGetName))
@@ -2285,10 +2285,10 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[188]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_RTC_WaitForSynchro
 <LI><a href="#[186]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_RCC_OscConfig
 <LI><a href="#[17f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_RCCEx_PeriphCLKConfig
-<LI><a href="#[1a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART_WaitOnFlagUntilTimeout
-<LI><a href="#[190]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART_CheckIdleState
 <LI><a href="#[180]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCCEx_PLLSAI1_Config
 <LI><a href="#[182]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_RCC_ClockConfig
+<LI><a href="#[1a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART_WaitOnFlagUntilTimeout
+<LI><a href="#[190]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART_CheckIdleState
 </UL>
 
 <P><STRONG><a name="[2ed]"></a>HAL_IncTick</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, .\build\stm32l4xx_hal.o(i.HAL_IncTick))
@@ -2410,8 +2410,8 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = HAL_RCC_GetSysClockFreq
 </UL>
 <BR>[Called By]<UL><LI><a href="#[186]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_RCC_OscConfig
-<LI><a href="#[18e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART_SetConfig
 <LI><a href="#[182]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_RCC_ClockConfig
+<LI><a href="#[18e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART_SetConfig
 </UL>
 
 <P><STRONG><a name="[186]"></a>HAL_RCC_OscConfig</STRONG> (Thumb, 1712 bytes, Stack size 24 bytes, .\build\stm32l4xx_hal_rcc.o(i.HAL_RCC_OscConfig))
@@ -2467,10 +2467,10 @@ Global Symbols
 <P><STRONG><a name="[18c]"></a>HAL_UART_Init</STRONG> (Thumb, 120 bytes, Stack size 8 bytes, .\build\stm32l4xx_hal_uart.o(i.HAL_UART_Init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 96<LI>Call Chain = HAL_UART_Init &rArr; UART_SetConfig &rArr; __aeabi_uldivmod
 </UL>
-<BR>[Calls]<UL><LI><a href="#[18d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_UART_MspInit
-<LI><a href="#[18e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART_SetConfig
+<BR>[Calls]<UL><LI><a href="#[18e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART_SetConfig
 <LI><a href="#[190]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART_CheckIdleState
 <LI><a href="#[18f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART_AdvFeatureConfig
+<LI><a href="#[18d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_UART_MspInit
 </UL>
 <BR>[Called By]<UL><LI><a href="#[24d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init_uart
 </UL>
@@ -2493,9 +2493,9 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[186]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_RCC_OscConfig
 <LI><a href="#[17f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_RCCEx_PeriphCLKConfig
+<LI><a href="#[182]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_RCC_ClockConfig
 <LI><a href="#[19e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_RCCEx_EnableMSIPLLMode
 <LI><a href="#[19d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_RCCEx_DisableLSECSS
-<LI><a href="#[182]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_RCC_ClockConfig
 <LI><a href="#[128]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
 </UL>
 <BR>[Called By]<UL><LI><a href="#[19b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SetSysClock
@@ -2508,8 +2508,8 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[1a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;error
 </UL>
 <BR>[Called By]<UL><LI><a href="#[246]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pin_function
-<LI><a href="#[235]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gpio_init
 <LI><a href="#[245]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pin_mode
+<LI><a href="#[235]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gpio_init
 </UL>
 
 <P><STRONG><a name="[263]"></a>SystemCoreClockUpdate</STRONG> (Thumb, 212 bytes, Stack size 20 bytes, .\build\system_stm32l4xx.o(i.SystemCoreClockUpdate))
@@ -2584,11 +2584,11 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 540 + Unknown Stack Size
 <LI>Call Chain = MQSerialBridge::subscriptionCb(const char*, void*, unsigned short) &rArr; MQ::MQClient::subscribe(const char*, mbed::Callback&lang;void(const char*, void*, unsigned short)&rang;*) &rArr; MQ::MQBroker::subscribeReq(const char*, mbed::Callback&lang;void(const char*, void*, unsigned short)&rang;*) &rArr; operator new(unsigned) &rArr; error &rArr; mbed_error_vfprintf &rArr; serial_init &rArr; mbed_assert_internal &rArr; mbed_die &rArr; gpio_init_out &rArr; gpio_init_out_ex &rArr; _gpio_init_out &rArr; gpio_init &rArr; gpio_set &rArr;  mbed_assert_internal (Cycle)
 </UL>
-<BR>[Calls]<UL><LI><a href="#[1c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::Callback&lang;void()&rang;::~Callback()
+<BR>[Calls]<UL><LI><a href="#[1bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MQ::MQClient::subscribe(const char*, mbed::Callback&lang;void(const char*, void*, unsigned short)&rang;*)
 <LI><a href="#[1b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rtos::Thread::yield()
+<LI><a href="#[1c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::Callback&lang;void()&rang;::~Callback()
 <LI><a href="#[1c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SerialTerminal::send(void*, unsigned short, mbed::Callback&lang;void()&rang;)
 <LI><a href="#[1c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getCRC(void*, unsigned)
-<LI><a href="#[1bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MQ::MQClient::subscribe(const char*, mbed::Callback&lang;void(const char*, void*, unsigned short)&rang;*)
 <LI><a href="#[118]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
 <LI><a href="#[1c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy
 <LI><a href="#[1bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strncmp
@@ -2602,15 +2602,15 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 500 + Unknown Stack Size
 <LI>Call Chain = MQSerialBridge::task() &rArr; MQ::MQClient::subscribe(const char*, mbed::Callback&lang;void(const char*, void*, unsigned short)&rang;*) &rArr; MQ::MQBroker::subscribeReq(const char*, mbed::Callback&lang;void(const char*, void*, unsigned short)&rang;*) &rArr; operator new(unsigned) &rArr; error &rArr; mbed_error_vfprintf &rArr; serial_init &rArr; mbed_assert_internal &rArr; mbed_die &rArr; gpio_init_out &rArr; gpio_init_out_ex &rArr; _gpio_init_out &rArr; gpio_init &rArr; gpio_set &rArr;  mbed_assert_internal (Cycle)
 </UL>
-<BR>[Calls]<UL><LI><a href="#[1c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rtos::Thread::signal_wait(int, unsigned)
+<BR>[Calls]<UL><LI><a href="#[1c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Heap::memAlloc(unsigned)
+<LI><a href="#[1bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MQ::MQClient::subscribe(const char*, mbed::Callback&lang;void(const char*, void*, unsigned short)&rang;*)
+<LI><a href="#[1c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rtos::Thread::signal_wait(int, unsigned)
+<LI><a href="#[1ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MQ::MQBroker::publishReq(const char*, void*, unsigned, mbed::Callback&lang;void(const char*, int)&rang;*)
 <LI><a href="#[1c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SerialTerminal::recv(void*, unsigned short, bool)
 <LI><a href="#[1c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SerialTerminal::startManaged(bool, bool)
 <LI><a href="#[1c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getCRC(void*, unsigned)
-<LI><a href="#[1c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Heap::memAlloc(unsigned)
-<LI><a href="#[1bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MQ::MQClient::subscribe(const char*, mbed::Callback&lang;void(const char*, void*, unsigned short)&rang;*)
 <LI><a href="#[118]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
 <LI><a href="#[113]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;free
-<LI><a href="#[1ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MQ::MQBroker::publishReq(const char*, void*, unsigned, mbed::Callback&lang;void(const char*, int)&rang;*)
 <LI><a href="#[1c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen
 <LI><a href="#[131]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strtok
 <LI><a href="#[123]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;atoi
@@ -2628,17 +2628,17 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 596 + Unknown Stack Size
 <LI>Call Chain = MQSerialBridge::MQSerialBridge(PinName, PinName, unsigned, unsigned short, const char*, const char*) &rArr; rtos::Thread::start(mbed::Callback&lang;void()&rang;) &rArr; operator new[] (unsigned) &rArr; error &rArr; mbed_error_vfprintf &rArr; serial_init &rArr; mbed_assert_internal &rArr; mbed_die &rArr; gpio_init_out &rArr; gpio_init_out_ex &rArr; _gpio_init_out &rArr; gpio_init &rArr; gpio_set &rArr;  mbed_assert_internal (Cycle)
 </UL>
-<BR>[Calls]<UL><LI><a href="#[1c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::Callback&lang;void()&rang;::~Callback()
+<BR>[Calls]<UL><LI><a href="#[73]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::Callback&lang;void(const char*, int)&rang;::~Callback()
+<LI><a href="#[72]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::Callback&lang;void(const char*, void*, unsigned short)&rang;::~Callback()
 <LI><a href="#[1cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rtos::Thread::Thread(osPriority_t, unsigned, unsigned char*, const char*)
+<LI><a href="#[1c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Heap::memAlloc(unsigned)
 <LI><a href="#[1d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rtos::Thread::start(mbed::Callback&lang;void()&rang;)
+<LI><a href="#[1c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::Callback&lang;void()&rang;::~Callback()
 <LI><a href="#[1ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::Callback&lang;T3(T4, T5)&rang; mbed::callback&lang;MQSerialBridge, MQSerialBridge, void, const char*, int&rang;(T2*, T3(T1::*)(T4, T5))
 <LI><a href="#[1cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::Callback&lang;T3(T4, T5, T6)&rang; mbed::callback&lang;MQSerialBridge, MQSerialBridge, void, const char*, void*, unsigned short&rang;(T2*, T3(T1::*)(T4, T5, T6))
 <LI><a href="#[1cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::Callback&lang;T3()&rang; mbed::callback&lang;MQSerialBridge, MQSerialBridge, void&rang;(T2*, T3(T1::*)())
 <LI><a href="#[1cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SerialTerminal::SerialTerminal(PinName, PinName, unsigned short, int, SerialTerminal::Receiver_mode)
 <LI><a href="#[1d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SerialTerminal::config(mbed::Callback&lang;void()&rang;, mbed::Callback&lang;void()&rang;, mbed::Callback&lang;void()&rang;, unsigned, char)
-<LI><a href="#[73]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::Callback&lang;void(const char*, int)&rang;::~Callback()
-<LI><a href="#[72]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::Callback&lang;void(const char*, void*, unsigned short)&rang;::~Callback()
-<LI><a href="#[1c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Heap::memAlloc(unsigned)
 <LI><a href="#[138]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;test_MQSerialBridge()
@@ -2652,8 +2652,8 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[1c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::Callback&lang;void()&rang;::~Callback()
 <LI><a href="#[16e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::Callback&lang;void()&rang;::Callback(void(*)())
 <LI><a href="#[1d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::SerialBase::attach(mbed::Callback&lang;void()&rang;, mbed::SerialBase::IrqType)
-<LI><a href="#[1d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::Callback&lang;void()&rang;::call() const
 <LI><a href="#[1d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::Ticker::detach()
+<LI><a href="#[1d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::Callback&lang;void()&rang;::call() const
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> serialterminal.o(.constdata)
 </UL>
@@ -2724,9 +2724,9 @@ Global Symbols
 <P><STRONG><a name="[a3]"></a>SerialTerminal::onRxData()</STRONG> (Thumb, 386 bytes, Stack size 48 bytes, .\build\serialterminal.o(i._ZN14SerialTerminal8onRxDataEv))
 <BR><BR>[Stack]<UL><LI>Max Depth = 340<LI>Call Chain = SerialTerminal::onRxData() &rArr; mbed::Ticker::setup(unsigned long long) &rArr; mbed::TimerEvent::insert_absolute(unsigned long long) &rArr; ticker_insert_event_us &rArr; core_util_critical_section_exit &rArr; mbed_assert_internal &rArr; mbed_die &rArr; gpio_init_out &rArr; gpio_init_out_ex &rArr; _gpio_init_out &rArr; gpio_init &rArr; gpio_set &rArr;  mbed_assert_internal (Cycle)
 </UL>
-<BR>[Calls]<UL><LI><a href="#[1af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;core_util_critical_section_exit
+<BR>[Calls]<UL><LI><a href="#[1db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed_assert_internal
+<LI><a href="#[1af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;core_util_critical_section_exit
 <LI><a href="#[1ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;core_util_critical_section_enter
-<LI><a href="#[1db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed_assert_internal
 <LI><a href="#[1c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::Callback&lang;void()&rang;::~Callback()
 <LI><a href="#[16e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::Callback&lang;void()&rang;::Callback(void(*)())
 <LI><a href="#[1ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sleep_manager_lock_deep_sleep
@@ -2735,8 +2735,8 @@ Global Symbols
 <LI><a href="#[1dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::SerialBase::readable()
 <LI><a href="#[1d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::SerialBase::attach(mbed::Callback&lang;void()&rang;, mbed::SerialBase::IrqType)
 <LI><a href="#[1d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::Callback&lang;void()&rang;::operator =(const mbed::Callback&lang;void()&rang;&)
-<LI><a href="#[1d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::Callback&lang;void()&rang;::call() const
 <LI><a href="#[1d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::Ticker::detach()
+<LI><a href="#[1d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::Callback&lang;void()&rang;::call() const
 <LI><a href="#[1d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::Callback&lang;T3()&rang; mbed::callback&lang;SerialTerminal, SerialTerminal, void&rang;(T2*, T3(T1::*)())
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> serialterminal.o(.constdata)
@@ -2749,8 +2749,8 @@ Global Symbols
 <LI><a href="#[1de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::SerialBase::writeable()
 <LI><a href="#[1d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::Callback&lang;void()&rang;::operator =(const mbed::Callback&lang;void()&rang;&)
 <LI><a href="#[1d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::Callback&lang;void()&rang;::call() const
-<LI><a href="#[1d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SerialTerminal::stopManaged(bool, bool)
 <LI><a href="#[1e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::Callback&lang;T1()&rang; mbed::callback&lang;void&rang;(T1(*)())
+<LI><a href="#[1d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SerialTerminal::stopManaged(bool, bool)
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> serialterminal.o(.constdata)
 </UL>
@@ -2764,11 +2764,11 @@ Global Symbols
 <LI><a href="#[1e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::RawSerial::RawSerial(PinName, PinName, int)
 <LI><a href="#[1d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::SerialBase::attach(mbed::Callback&lang;void()&rang;, mbed::SerialBase::IrqType)
 <LI><a href="#[1d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::Callback&lang;void()&rang;::operator =(const mbed::Callback&lang;void()&rang;&)
+<LI><a href="#[1e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::Callback&lang;T1()&rang; mbed::callback&lang;void&rang;(T1(*)())
 <LI><a href="#[110]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;malloc
 <LI><a href="#[1e5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::Callback&lang;T1(T2, T3)&rang; mbed::callback&lang;bool, unsigned char*, unsigned short&rang;(T1(*)(T2, T3))
 <LI><a href="#[1e6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::Callback&lang;bool(unsigned char*, unsigned short)&rang;::~Callback()
 <LI><a href="#[1e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::Callback&lang;bool(unsigned char*, unsigned short)&rang;::Callback(bool(*)(unsigned char*, unsigned short))
-<LI><a href="#[1e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::Callback&lang;T1()&rang; mbed::callback&lang;void&rang;(T1(*)())
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MQSerialBridge::MQSerialBridge(PinName, PinName, unsigned, unsigned short, const char*, const char*)
 </UL>
@@ -2778,28 +2778,25 @@ Global Symbols
 <P><STRONG><a name="[1ca]"></a>MQ::MQBroker::publishReq(const char*, void*, unsigned, mbed::Callback&lang;void(const char*, int)&rang;*)</STRONG> (Thumb, 272 bytes, Stack size 72 bytes, .\build\touchmanager.o(i._ZN2MQ8MQBroker10publishReqEPKcPvjPN4mbed8CallbackIFvS2_iEEE))
 <BR><BR>[Stack]<UL><LI>Max Depth = 276<LI>Call Chain = MQ::MQBroker::publishReq(const char*, void*, unsigned, mbed::Callback&lang;void(const char*, int)&rang;*) &rArr; mbed_assert_internal &rArr; mbed_die &rArr; gpio_init_out &rArr; gpio_init_out_ex &rArr; _gpio_init_out &rArr; gpio_init &rArr; gpio_set &rArr;  mbed_assert_internal (Cycle)
 </UL>
-<BR>[Calls]<UL><LI><a href="#[1d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rtos::Mutex::unlock()
-<LI><a href="#[1d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rtos::Mutex::lock(unsigned)
-<LI><a href="#[1db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed_assert_internal
-<LI><a href="#[1e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;List&lang;mbed::Callback&lang;void(const char*, void*, unsigned short)&rang;&rang;::getFirstItem()
+<BR>[Calls]<UL><LI><a href="#[1e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;List&lang;mbed::Callback&lang;void(const char*, void*, unsigned short)&rang;&rang;::getFirstItem()
 <LI><a href="#[1ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;List&lang;mbed::Callback&lang;void(const char*, void*, unsigned short)&rang;&rang;::getNextItem()
 <LI><a href="#[1e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;List&lang;MQ::Topic&rang;::getFirstItem()
 <LI><a href="#[1eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;List&lang;MQ::Topic&rang;::getNextItem()
 <LI><a href="#[1e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MQ::MQBroker::createTopicId(MQ::topic_t*, const char*)
+<LI><a href="#[1db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed_assert_internal
+<LI><a href="#[1d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rtos::Mutex::unlock()
+<LI><a href="#[1d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rtos::Mutex::lock(unsigned)
 <LI><a href="#[1c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen
 </UL>
-<BR>[Called By]<UL><LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MQSerialBridge::task()
-<LI><a href="#[1be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MQ::MQClient::publish(const char*, void*, unsigned, mbed::Callback&lang;void(const char*, int)&rang;*)
+<BR>[Called By]<UL><LI><a href="#[1be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MQ::MQClient::publish(const char*, void*, unsigned, mbed::Callback&lang;void(const char*, int)&rang;*)
+<LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MQSerialBridge::task()
 </UL>
 
 <P><STRONG><a name="[1ec]"></a>MQ::MQBroker::subscribeReq(const char*, mbed::Callback&lang;void(const char*, void*, unsigned short)&rang;*)</STRONG> (Thumb, 252 bytes, Stack size 32 bytes, .\build\main.o(i._ZN2MQ8MQBroker12subscribeReqEPKcPN4mbed8CallbackIFvS2_PvtEEE))
 <BR><BR>[Stack]<UL><LI>Max Depth = 460 + Unknown Stack Size
 <LI>Call Chain = MQ::MQBroker::subscribeReq(const char*, mbed::Callback&lang;void(const char*, void*, unsigned short)&rang;*) &rArr; operator new(unsigned) &rArr; error &rArr; mbed_error_vfprintf &rArr; serial_init &rArr; mbed_assert_internal &rArr; mbed_die &rArr; gpio_init_out &rArr; gpio_init_out_ex &rArr; _gpio_init_out &rArr; gpio_init &rArr; gpio_set &rArr;  mbed_assert_internal (Cycle)
 </UL>
-<BR>[Calls]<UL><LI><a href="#[1d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rtos::Mutex::unlock()
-<LI><a href="#[1d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rtos::Mutex::lock(unsigned)
-<LI><a href="#[1b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;operator new(unsigned)
-<LI><a href="#[1f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;List&lang;mbed::Callback&lang;void(const char*, void*, unsigned short)&rang;&rang;::List()
+<BR>[Calls]<UL><LI><a href="#[1f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;List&lang;mbed::Callback&lang;void(const char*, void*, unsigned short)&rang;&rang;::List()
 <LI><a href="#[1ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;List&lang;mbed::Callback&lang;void(const char*, void*, unsigned short)&rang;&rang;::addItem(mbed::Callback&lang;void(const char*, void*, unsigned short)&rang;*)
 <LI><a href="#[1ee]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;List&lang;mbed::Callback&lang;void(const char*, void*, unsigned short)&rang;&rang;::searchItem(mbed::Callback&lang;void(const char*, void*, unsigned short)&rang;*)
 <LI><a href="#[1f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;List&lang;MQ::Topic&rang;::addItem(MQ::Topic*)
@@ -2807,6 +2804,9 @@ Global Symbols
 <LI><a href="#[1eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;List&lang;MQ::Topic&rang;::getNextItem()
 <LI><a href="#[1c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Heap::memAlloc(unsigned)
 <LI><a href="#[1e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MQ::MQBroker::createTopicId(MQ::topic_t*, const char*)
+<LI><a href="#[1b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;operator new(unsigned)
+<LI><a href="#[1d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rtos::Mutex::unlock()
+<LI><a href="#[1d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rtos::Mutex::lock(unsigned)
 <LI><a href="#[1ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strcmp
 <LI><a href="#[1c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen
 </UL>
@@ -2841,11 +2841,11 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 452 + Unknown Stack Size
 <LI>Call Chain = MQ::MQBroker::start(const char**, unsigned, unsigned char) &rArr; operator new(unsigned) &rArr; error &rArr; mbed_error_vfprintf &rArr; serial_init &rArr; mbed_assert_internal &rArr; mbed_die &rArr; gpio_init_out &rArr; gpio_init_out_ex &rArr; _gpio_init_out &rArr; gpio_init &rArr; gpio_set &rArr;  mbed_assert_internal (Cycle)
 </UL>
-<BR>[Calls]<UL><LI><a href="#[1d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rtos::Mutex::unlock()
-<LI><a href="#[1d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rtos::Mutex::lock(unsigned)
-<LI><a href="#[1b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;operator new(unsigned)
-<LI><a href="#[1f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;List&lang;MQ::Topic&rang;::List()
+<BR>[Calls]<UL><LI><a href="#[1f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;List&lang;MQ::Topic&rang;::List()
 <LI><a href="#[1f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;List&lang;MQ::Topic&rang;::setLimit(unsigned)
+<LI><a href="#[1b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;operator new(unsigned)
+<LI><a href="#[1d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rtos::Mutex::unlock()
+<LI><a href="#[1d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rtos::Mutex::lock(unsigned)
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;test_MQSerialBridge()
 </UL>
@@ -2874,11 +2874,11 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[110]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;malloc
 </UL>
-<BR>[Called By]<UL><LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MQSerialBridge::task()
-<LI><a href="#[1ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;List&lang;mbed::Callback&lang;void(const char*, void*, unsigned short)&rang;&rang;::addItem(mbed::Callback&lang;void(const char*, void*, unsigned short)&rang;*)
+<BR>[Called By]<UL><LI><a href="#[1ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;List&lang;mbed::Callback&lang;void(const char*, void*, unsigned short)&rang;&rang;::addItem(mbed::Callback&lang;void(const char*, void*, unsigned short)&rang;*)
 <LI><a href="#[1f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;List&lang;MQ::Topic&rang;::addItem(MQ::Topic*)
 <LI><a href="#[1ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MQ::MQBroker::subscribeReq(const char*, mbed::Callback&lang;void(const char*, void*, unsigned short)&rang;*)
 <LI><a href="#[1b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MQSerialBridge::MQSerialBridge(PinName, PinName, unsigned, unsigned short, const char*, const char*)
+<LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MQSerialBridge::task()
 </UL>
 
 <P><STRONG><a name="[1f5]"></a>mbed::SerialBase::_base_getc()</STRONG> (Thumb, 12 bytes, Stack size 8 bytes, .\build\serialbase.o(i._ZN4mbed10SerialBase10_base_getcEv))
@@ -2952,9 +2952,9 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[1c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::Callback&lang;void()&rang;::~Callback()
 <LI><a href="#[16e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::Callback&lang;void()&rang;::Callback(void(*)())
-<LI><a href="#[1ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;serial_irq_handler
 <LI><a href="#[1a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;serial_init
 <LI><a href="#[1aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;serial_baud
+<LI><a href="#[1ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;serial_irq_handler
 <LI><a href="#[1d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::Callback&lang;void()&rang;::operator =(const mbed::Callback&lang;void()&rang;&)
 <LI><a href="#[1fe]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_vec_ctor_nocookie_nodtor
 <LI><a href="#[128]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
@@ -3189,14 +3189,14 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[218]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osMutexAcquire
 </UL>
-<BR>[Called By]<UL><LI><a href="#[20b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::FileBase::lookup(const char*, unsigned)
-<LI><a href="#[12d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sys_open
-<LI><a href="#[1d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rtos::Thread::start(mbed::Callback&lang;void()&rang;)
-<LI><a href="#[6e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rtos::Thread::_thunk(void*)
-<LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SerialTerminal::lock()
-<LI><a href="#[1b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MQ::MQBroker::start(const char**, unsigned, unsigned char)
+<BR>[Called By]<UL><LI><a href="#[1b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MQ::MQBroker::start(const char**, unsigned, unsigned char)
 <LI><a href="#[1ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MQ::MQBroker::subscribeReq(const char*, mbed::Callback&lang;void(const char*, void*, unsigned short)&rang;*)
+<LI><a href="#[1d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rtos::Thread::start(mbed::Callback&lang;void()&rang;)
+<LI><a href="#[20b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::FileBase::lookup(const char*, unsigned)
+<LI><a href="#[12d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sys_open
+<LI><a href="#[6e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rtos::Thread::_thunk(void*)
 <LI><a href="#[1ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MQ::MQBroker::publishReq(const char*, void*, unsigned, mbed::Callback&lang;void(const char*, int)&rang;*)
+<LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SerialTerminal::lock()
 </UL>
 
 <P><STRONG><a name="[1d9]"></a>rtos::Mutex::unlock()</STRONG> (Thumb, 12 bytes, Stack size 8 bytes, .\build\mutex.o(i._ZN4rtos5Mutex6unlockEv))
@@ -3204,13 +3204,13 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[219]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osMutexRelease
 </UL>
-<BR>[Called By]<UL><LI><a href="#[20b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::FileBase::lookup(const char*, unsigned)
-<LI><a href="#[12d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sys_open
-<LI><a href="#[1d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rtos::Thread::start(mbed::Callback&lang;void()&rang;)
-<LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SerialTerminal::unlock()
-<LI><a href="#[1b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MQ::MQBroker::start(const char**, unsigned, unsigned char)
+<BR>[Called By]<UL><LI><a href="#[1b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MQ::MQBroker::start(const char**, unsigned, unsigned char)
 <LI><a href="#[1ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MQ::MQBroker::subscribeReq(const char*, mbed::Callback&lang;void(const char*, void*, unsigned short)&rang;*)
+<LI><a href="#[1d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rtos::Thread::start(mbed::Callback&lang;void()&rang;)
+<LI><a href="#[20b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::FileBase::lookup(const char*, unsigned)
+<LI><a href="#[12d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sys_open
 <LI><a href="#[1ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MQ::MQBroker::publishReq(const char*, void*, unsigned, mbed::Callback&lang;void(const char*, int)&rang;*)
+<LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SerialTerminal::unlock()
 </UL>
 
 <P><STRONG><a name="[1e2]"></a>rtos::Mutex::Mutex()</STRONG> (Thumb, 22 bytes, Stack size 8 bytes, .\build\mutex.o(i._ZN4rtos5MutexC1Ev))
@@ -3218,8 +3218,8 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[216]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rtos::Mutex::constructor(const char*)
 </UL>
-<BR>[Called By]<UL><LI><a href="#[2f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SingletonPtr&lang;rtos::Mutex&rang;::get()
-<LI><a href="#[1cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rtos::Thread::Thread(osPriority_t, unsigned, unsigned char*, const char*)
+<BR>[Called By]<UL><LI><a href="#[1cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rtos::Thread::Thread(osPriority_t, unsigned, unsigned char*, const char*)
+<LI><a href="#[2f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SingletonPtr&lang;rtos::Mutex&rang;::get()
 <LI><a href="#[1cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SerialTerminal::SerialTerminal(PinName, PinName, unsigned short, int, SerialTerminal::Receiver_mode)
 <LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__sti___9_MQLib_cpp_cf225734
 </UL>
@@ -3231,7 +3231,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[21a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osMutexDelete
 </UL>
-<BR>[Address Reference Count : 1]<UL><LI> mqlib.o(i.__sti___9_MQLib_cpp_cf225734)
+<BR>[Address Reference Count : 1]<UL><LI> mqlib_1.o(i.__sti___9_MQLib_cpp_cf225734)
 </UL>
 <P><STRONG><a name="[360]"></a>rtos::Mutex::~Mutex__sub_object()</STRONG> (Thumb, 0 bytes, Stack size 8 bytes, .\build\mutex.o(i._ZN4rtos5MutexD1Ev), UNUSED)
 
@@ -3266,22 +3266,22 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[21e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osDelay
 </UL>
-<BR>[Called By]<UL><LI><a href="#[2ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wait_us
-<LI><a href="#[68]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pubCb(const char*, int)
+<BR>[Called By]<UL><LI><a href="#[68]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pubCb(const char*, int)
 <LI><a href="#[1b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;test_MQSerialBridge()
+<LI><a href="#[2ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wait_us
 </UL>
 
 <P><STRONG><a name="[1d1]"></a>rtos::Thread::start(mbed::Callback&lang;void()&rang;)</STRONG> (Thumb, 224 bytes, Stack size 24 bytes, .\build\thread.o(i._ZN4rtos6Thread5startEN4mbed8CallbackIFvvEEE))
 <BR><BR>[Stack]<UL><LI>Max Depth = 452 + Unknown Stack Size
 <LI>Call Chain = rtos::Thread::start(mbed::Callback&lang;void()&rang;) &rArr; operator new[] (unsigned) &rArr; error &rArr; mbed_error_vfprintf &rArr; serial_init &rArr; mbed_assert_internal &rArr; mbed_die &rArr; gpio_init_out &rArr; gpio_init_out_ex &rArr; _gpio_init_out &rArr; gpio_init &rArr; gpio_set &rArr;  mbed_assert_internal (Cycle)
 </UL>
-<BR>[Calls]<UL><LI><a href="#[1d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rtos::Mutex::unlock()
+<BR>[Calls]<UL><LI><a href="#[1db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed_assert_internal
+<LI><a href="#[1d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rtos::Mutex::unlock()
 <LI><a href="#[1d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rtos::Mutex::lock(unsigned)
-<LI><a href="#[1db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed_assert_internal
-<LI><a href="#[214]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;operator new[] (unsigned)
-<LI><a href="#[215]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;operator delete[] (void*)
 <LI><a href="#[1c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::Callback&lang;void()&rang;::~Callback()
 <LI><a href="#[220]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osThreadNew
+<LI><a href="#[214]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;operator new[] (unsigned)
+<LI><a href="#[215]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;operator delete[] (void*)
 <LI><a href="#[221]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rtos::Semaphore::release()
 <LI><a href="#[21f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::Callback&lang;void()&rang;::Callback(const mbed::Callback&lang;void()&rang;&)
 <LI><a href="#[128]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
@@ -3301,23 +3301,23 @@ Global Symbols
 <P><STRONG><a name="[6e]"></a>rtos::Thread::_thunk(void*)</STRONG> (Thumb, 82 bytes, Stack size 24 bytes, .\build\thread.o(i._ZN4rtos6Thread6_thunkEPv))
 <BR><BR>[Stack]<UL><LI>Max Depth = 228<LI>Call Chain = rtos::Thread::_thunk(void*) &rArr; mbed_assert_internal &rArr; mbed_die &rArr; gpio_init_out &rArr; gpio_init_out_ex &rArr; _gpio_init_out &rArr; gpio_init &rArr; gpio_set &rArr;  mbed_assert_internal (Cycle)
 </UL>
-<BR>[Calls]<UL><LI><a href="#[1d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rtos::Mutex::lock(unsigned)
-<LI><a href="#[1db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed_assert_internal
+<BR>[Calls]<UL><LI><a href="#[1db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed_assert_internal
+<LI><a href="#[1d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rtos::Mutex::lock(unsigned)
 <LI><a href="#[221]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rtos::Semaphore::release()
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> thread.o(i._ZN4rtos6Thread5startEN4mbed8CallbackIFvvEEE)
 </UL>
-<P><STRONG><a name="[1cc]"></a>rtos::Thread::Thread(osPriority_t, unsigned, unsigned char*, const char*)</STRONG> (Thumb, 138 bytes, Stack size 32 bytes, .\build\mbed_shared_queues.o(i._ZN4rtos6ThreadC1E12osPriority_tjPhPKc))
+<P><STRONG><a name="[1cc]"></a>rtos::Thread::Thread(osPriority_t, unsigned, unsigned char*, const char*)</STRONG> (Thumb, 138 bytes, Stack size 32 bytes, .\build\main.o(i._ZN4rtos6ThreadC1E12osPriority_tjPhPKc))
 <BR><BR>[Stack]<UL><LI>Max Depth = 268<LI>Call Chain = rtos::Thread::Thread(osPriority_t, unsigned, unsigned char*, const char*) &rArr; rtos::Semaphore::Semaphore(int) &rArr; rtos::Semaphore::constructor(int, unsigned short) &rArr; mbed_assert_internal &rArr; mbed_die &rArr; gpio_init_out &rArr; gpio_init_out_ex &rArr; _gpio_init_out &rArr; gpio_init &rArr; gpio_set &rArr;  mbed_assert_internal (Cycle)
 </UL>
-<BR>[Calls]<UL><LI><a href="#[1e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rtos::Mutex::Mutex()
-<LI><a href="#[223]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rtos::Semaphore::Semaphore(int)
+<BR>[Calls]<UL><LI><a href="#[223]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rtos::Semaphore::Semaphore(int)
 <LI><a href="#[21c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rtos::Thread::constructor(osPriority_t, unsigned, unsigned char*, const char*)
+<LI><a href="#[1e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rtos::Mutex::Mutex()
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MQSerialBridge::MQSerialBridge(PinName, PinName, unsigned, unsigned short, const char*, const char*)
 </UL>
 
-<P><STRONG><a name="[361]"></a>rtos::Thread::Thread__sub_object(osPriority_t, unsigned, unsigned char*, const char*)</STRONG> (Thumb, 0 bytes, Stack size 32 bytes, .\build\mbed_shared_queues.o(i._ZN4rtos6ThreadC1E12osPriority_tjPhPKc), UNUSED)
+<P><STRONG><a name="[361]"></a>rtos::Thread::Thread__sub_object(osPriority_t, unsigned, unsigned char*, const char*)</STRONG> (Thumb, 0 bytes, Stack size 32 bytes, .\build\main.o(i._ZN4rtos6ThreadC1E12osPriority_tjPhPKc), UNUSED)
 
 <P><STRONG><a name="[224]"></a>rtos::Semaphore::constructor(int, unsigned short)</STRONG> (Thumb, 68 bytes, Stack size 16 bytes, .\build\semaphore.o(i._ZN4rtos9Semaphore11constructorEit))
 <BR><BR>[Stack]<UL><LI>Max Depth = 220<LI>Call Chain = rtos::Semaphore::constructor(int, unsigned short) &rArr; mbed_assert_internal &rArr; mbed_die &rArr; gpio_init_out &rArr; gpio_init_out_ex &rArr; _gpio_init_out &rArr; gpio_init &rArr; gpio_set &rArr;  mbed_assert_internal (Cycle)
@@ -3389,8 +3389,8 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[22d]"></a>__aeabi_atexit</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, .\build\mbed_retarget.o(i.__aeabi_atexit))
-<BR><BR>[Called By]<UL><LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__sti___7_SPI_cpp_ab1f1164
-<LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__sti___8_main_cpp_led1
+<BR><BR>[Called By]<UL><LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__sti___8_main_cpp_led1
+<LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__sti___7_SPI_cpp_ab1f1164
 <LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__sti___9_MQLib_cpp_cf225734
 <LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__sti___10_rwcats_cpp_64e8068e
 </UL>
@@ -3399,7 +3399,7 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = __aeabi_vec_ctor_nocookie_nodtor
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1fd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::SerialBase::SerialBase(PinName, PinName, int)
-<LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__sti___7_SPI_cpp_ab1f1164
+<LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__sti___7_SPI_cpp_ab1f1164
 </UL>
 
 <P><STRONG><a name="[a8]"></a>__cxa_pure_virtual</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, C:\Keil_v5\ARM\ARMCC\Bin\..\lib\cpplib\cpprt_w.l(pure_virt.o)(i.__cxa_pure_virtual))
@@ -3413,15 +3413,15 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 444 + Unknown Stack Size
 <LI>Call Chain = __rt_entry &rArr; mbed_start_main &rArr; error &rArr; mbed_error_vfprintf &rArr; serial_init &rArr; mbed_assert_internal &rArr; mbed_die &rArr; gpio_init_out &rArr; gpio_init_out_ex &rArr; _gpio_init_out &rArr; gpio_init &rArr; gpio_set &rArr;  mbed_assert_internal (Cycle)
 </UL>
-<BR>[Calls]<UL><LI><a href="#[229]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed_cpy_nvic
-<LI><a href="#[22a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed_sdk_init
-<LI><a href="#[22b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_platform_post_stackheap_init
+<BR>[Calls]<UL><LI><a href="#[22b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_platform_post_stackheap_init
 <LI><a href="#[227]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__user_setup_stackheap
 <LI><a href="#[22c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed_start_main
 <LI><a href="#[228]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed_set_stack_heap
+<LI><a href="#[229]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed_cpy_nvic
+<LI><a href="#[22a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed_sdk_init
 </UL>
-<BR>[Called By]<UL><LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__main
-<LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__scatterload_rt2
+<BR>[Called By]<UL><LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__scatterload_rt2
+<LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__main
 </UL>
 
 <P><STRONG><a name="[10c]"></a>__user_perthread_libspace</STRONG> (Thumb, 98 bytes, Stack size 16 bytes, .\build\rtx_lib.o(i.__user_perthread_libspace))
@@ -3460,13 +3460,13 @@ Global Symbols
 </UL>
 <BR>[Called By]<UL><LI><a href="#[112]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_free_internal
 <LI><a href="#[10d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_malloc_internal
-<LI><a href="#[14e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_terminateio
-<LI><a href="#[14c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setvbuf
 <LI><a href="#[12f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;fopen
 <LI><a href="#[12e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;freopen
 <LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_freopen_locked
 <LI><a href="#[12b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;fflush
 <LI><a href="#[129]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_do_fflush
+<LI><a href="#[14e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_terminateio
+<LI><a href="#[14c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setvbuf
 </UL>
 
 <P><STRONG><a name="[cf]"></a>_mutex_free</STRONG> (Thumb, 12 bytes, Stack size 8 bytes, .\build\rtx_lib.o(i._mutex_free), UNUSED, KEPT)
@@ -3474,8 +3474,8 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[21a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osMutexDelete
 </UL>
-<BR>[Called By]<UL><LI><a href="#[14e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_terminateio
-<LI><a href="#[164]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__Heap_Finalize
+<BR>[Called By]<UL><LI><a href="#[164]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__Heap_Finalize
+<LI><a href="#[14e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_terminateio
 </UL>
 
 <P><STRONG><a name="[130]"></a>_mutex_initialize</STRONG> (Thumb, 96 bytes, Stack size 24 bytes, .\build\mbed_boot.o(i._mutex_initialize))
@@ -3485,9 +3485,9 @@ Global Symbols
 <LI><a href="#[232]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxErrorNotify
 <LI><a href="#[110]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;malloc
 </UL>
-<BR>[Called By]<UL><LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_initio
-<LI><a href="#[13d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__Heap_Initialize
+<BR>[Called By]<UL><LI><a href="#[13d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__Heap_Initialize
 <LI><a href="#[12f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;fopen
+<LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_initio
 </UL>
 
 <P><STRONG><a name="[d0]"></a>_mutex_release</STRONG> (Thumb, 18 bytes, Stack size 8 bytes, .\build\rtx_lib.o(i._mutex_release))
@@ -3498,13 +3498,13 @@ Global Symbols
 </UL>
 <BR>[Called By]<UL><LI><a href="#[112]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_free_internal
 <LI><a href="#[10d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_malloc_internal
-<LI><a href="#[14e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_terminateio
-<LI><a href="#[14c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setvbuf
 <LI><a href="#[12f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;fopen
 <LI><a href="#[12e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;freopen
 <LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_freopen_locked
 <LI><a href="#[12b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;fflush
 <LI><a href="#[129]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_do_fflush
+<LI><a href="#[14e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_terminateio
+<LI><a href="#[14c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setvbuf
 </UL>
 
 <P><STRONG><a name="[22b]"></a>_platform_post_stackheap_init</STRONG> (Thumb, 8 bytes, Stack size 8 bytes, .\build\rtx_lib.o(i._platform_post_stackheap_init))
@@ -3614,17 +3614,17 @@ Global Symbols
 <LI><a href="#[1ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sleep_manager_unlock_deep_sleep
 <LI><a href="#[1ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sleep_manager_lock_deep_sleep
 <LI><a href="#[1dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::Ticker::setup(unsigned long long)
-<LI><a href="#[1d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::SerialBase::attach(mbed::Callback&lang;void()&rang;, mbed::SerialBase::IrqType)
 <LI><a href="#[23f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed_error_vfprintf
 <LI><a href="#[241]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed_die
 <LI><a href="#[23d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;core_util_atomic_incr_u16
 <LI><a href="#[23c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;core_util_atomic_decr_u16
+<LI><a href="#[1ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sleep_manager_sleep_auto
 <LI><a href="#[19]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;default_idle_hook()
 <LI><a href="#[203]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ticker_remove_event
 <LI><a href="#[201]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ticker_insert_event_us
 <LI><a href="#[24c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_sleep
 <LI><a href="#[247]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_deepsleep
-<LI><a href="#[1ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sleep_manager_sleep_auto
+<LI><a href="#[1d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::SerialBase::attach(mbed::Callback&lang;void()&rang;, mbed::SerialBase::IrqType)
 <LI><a href="#[1d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::Ticker::detach()
 <LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SerialTerminal::onRxData()
 </UL>
@@ -3638,16 +3638,16 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[1ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sleep_manager_unlock_deep_sleep
 <LI><a href="#[1ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sleep_manager_lock_deep_sleep
 <LI><a href="#[1dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::Ticker::setup(unsigned long long)
-<LI><a href="#[1d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::SerialBase::attach(mbed::Callback&lang;void()&rang;, mbed::SerialBase::IrqType)
 <LI><a href="#[23f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed_error_vfprintf
 <LI><a href="#[23d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;core_util_atomic_incr_u16
 <LI><a href="#[23c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;core_util_atomic_decr_u16
+<LI><a href="#[1ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sleep_manager_sleep_auto
 <LI><a href="#[19]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;default_idle_hook()
 <LI><a href="#[203]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ticker_remove_event
 <LI><a href="#[201]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ticker_insert_event_us
 <LI><a href="#[24c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_sleep
 <LI><a href="#[247]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_deepsleep
-<LI><a href="#[1ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sleep_manager_sleep_auto
+<LI><a href="#[1d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::SerialBase::attach(mbed::Callback&lang;void()&rang;, mbed::SerialBase::IrqType)
 <LI><a href="#[1d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::Ticker::detach()
 <LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SerialTerminal::onRxData()
 </UL>
@@ -3661,15 +3661,15 @@ Global Symbols
 </UL>
 <BR>[Called By]<UL><LI><a href="#[2d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pinmap_pinout
 <LI><a href="#[2d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pinmap_peripheral
-<LI><a href="#[214]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;operator new[] (unsigned)
-<LI><a href="#[19f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Set_GPIO_Clock
 <LI><a href="#[1b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;operator new(unsigned)
 <LI><a href="#[2cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pinmap_merge
 <LI><a href="#[1ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sleep_manager_unlock_deep_sleep
 <LI><a href="#[1ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sleep_manager_lock_deep_sleep
-<LI><a href="#[24d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init_uart
+<LI><a href="#[214]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;operator new[] (unsigned)
+<LI><a href="#[19f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Set_GPIO_Clock
 <LI><a href="#[232]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxErrorNotify
 <LI><a href="#[22c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed_start_main
+<LI><a href="#[24d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init_uart
 </UL>
 
 <P><STRONG><a name="[240]"></a>exit</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, .\build\mbed_retarget.o(i.exit))
@@ -3708,8 +3708,8 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[244]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gpio_init_out_ex
 </UL>
-<BR>[Called By]<UL><LI><a href="#[241]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed_die
-<LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__sti___8_main_cpp_led1
+<BR>[Called By]<UL><LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__sti___8_main_cpp_led1
+<LI><a href="#[241]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed_die
 </UL>
 
 <P><STRONG><a name="[244]"></a>gpio_init_out_ex</STRONG> (Thumb, 22 bytes, Stack size 16 bytes, .\build\mbed_gpio.o(i.gpio_init_out_ex))
@@ -3794,20 +3794,20 @@ Global Symbols
 <LI><a href="#[260]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed_error_printf
 <LI><a href="#[241]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed_die
 </UL>
-<BR>[Called By]<UL><LI><a href="#[1af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;core_util_critical_section_exit
+<BR>[Called By]<UL><LI><a href="#[246]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pin_function
+<LI><a href="#[1d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rtos::Thread::start(mbed::Callback&lang;void()&rang;)
+<LI><a href="#[1af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;core_util_critical_section_exit
 <LI><a href="#[1ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;core_util_critical_section_enter
-<LI><a href="#[246]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pin_function
+<LI><a href="#[245]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pin_mode
 <LI><a href="#[2f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SingletonPtr&lang;rtos::Mutex&rang;::get()
 <LI><a href="#[243]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gpio_set
-<LI><a href="#[245]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pin_mode
+<LI><a href="#[1a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;serial_init
+<LI><a href="#[216]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rtos::Mutex::constructor(const char*)
 <LI><a href="#[6c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::SerialBase::_irq_handler(unsigned, SerialIrq)
 <LI><a href="#[224]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rtos::Semaphore::constructor(int, unsigned short)
-<LI><a href="#[1a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;serial_init
-<LI><a href="#[1d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rtos::Thread::start(mbed::Callback&lang;void()&rang;)
-<LI><a href="#[216]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rtos::Mutex::constructor(const char*)
-<LI><a href="#[1d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::Callback&lang;void()&rang;::call() const
-<LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::Ticker::handler()
 <LI><a href="#[6e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rtos::Thread::_thunk(void*)
+<LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::Ticker::handler()
+<LI><a href="#[1d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::Callback&lang;void()&rang;::call() const
 <LI><a href="#[1ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MQ::MQBroker::publishReq(const char*, void*, unsigned, mbed::Callback&lang;void(const char*, int)&rang;*)
 <LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SerialTerminal::onRxData()
 </UL>
@@ -3888,12 +3888,12 @@ Global Symbols
 <P><STRONG><a name="[267]"></a>osKernelGetState</STRONG> (Thumb, 62 bytes, Stack size 8 bytes, .\build\rtx_kernel.o(i.osKernelGetState))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = osKernelGetState &rArr; svcRtxKernelGetState
 </UL>
-<BR>[Calls]<UL><LI><a href="#[26b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxKernelGetState
-<LI><a href="#[77]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;svcRtxKernelGetState
-<LI><a href="#[269]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__get_PRIMASK
+<BR>[Calls]<UL><LI><a href="#[269]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__get_PRIMASK
 <LI><a href="#[268]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__get_IPSR
 <LI><a href="#[26c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__get_CONTROL
 <LI><a href="#[26a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__get_BASEPRI
+<LI><a href="#[26b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxKernelGetState
+<LI><a href="#[77]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;svcRtxKernelGetState
 </UL>
 <BR>[Called By]<UL><LI><a href="#[264]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osKernelStart
 <LI><a href="#[231]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;os_kernel_is_active
@@ -3902,12 +3902,12 @@ Global Symbols
 <P><STRONG><a name="[239]"></a>osKernelInitialize</STRONG> (Thumb, 94 bytes, Stack size 8 bytes, .\build\rtx_kernel.o(i.osKernelInitialize))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = osKernelInitialize
 </UL>
-<BR>[Calls]<UL><LI><a href="#[26d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxKernelInitialize
-<LI><a href="#[26e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxKernelError
-<LI><a href="#[269]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__get_PRIMASK
+<BR>[Calls]<UL><LI><a href="#[269]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__get_PRIMASK
 <LI><a href="#[268]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__get_IPSR
 <LI><a href="#[26c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__get_CONTROL
 <LI><a href="#[26a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__get_BASEPRI
+<LI><a href="#[26d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxKernelInitialize
+<LI><a href="#[26e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxKernelError
 </UL>
 <BR>[Called By]<UL><LI><a href="#[22b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_platform_post_stackheap_init
 </UL>
@@ -3915,13 +3915,13 @@ Global Symbols
 <P><STRONG><a name="[264]"></a>osKernelStart</STRONG> (Thumb, 124 bytes, Stack size 8 bytes, .\build\rtx_kernel.o(i.osKernelStart))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = osKernelStart &rArr; osKernelGetState &rArr; svcRtxKernelGetState
 </UL>
-<BR>[Calls]<UL><LI><a href="#[26f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxKernelStart
-<LI><a href="#[26e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxKernelError
-<LI><a href="#[267]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osKernelGetState
-<LI><a href="#[269]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__get_PRIMASK
+<BR>[Calls]<UL><LI><a href="#[269]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__get_PRIMASK
 <LI><a href="#[268]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__get_IPSR
 <LI><a href="#[26c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__get_CONTROL
 <LI><a href="#[26a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__get_BASEPRI
+<LI><a href="#[26f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxKernelStart
+<LI><a href="#[26e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxKernelError
+<LI><a href="#[267]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osKernelGetState
 </UL>
 <BR>[Called By]<UL><LI><a href="#[22c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed_start_main
 </UL>
@@ -3929,11 +3929,11 @@ Global Symbols
 <P><STRONG><a name="[270]"></a>osMessageQueueGet</STRONG> (Thumb, 78 bytes, Stack size 24 bytes, .\build\rtx_msgqueue.o(i.osMessageQueueGet))
 <BR><BR>[Stack]<UL><LI>Max Depth = 88<LI>Call Chain = osMessageQueueGet &rArr; isrRtxMessageQueueGet &rArr; osRtxPostProcess &rArr; isr_queue_put
 </UL>
-<BR>[Calls]<UL><LI><a href="#[251]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;isrRtxMessageQueueGet
+<BR>[Calls]<UL><LI><a href="#[271]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxMessageQueueGet
+<LI><a href="#[251]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;isrRtxMessageQueueGet
 <LI><a href="#[273]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__get_PRIMASK
 <LI><a href="#[272]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__get_IPSR
 <LI><a href="#[274]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__get_BASEPRI
-<LI><a href="#[271]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxMessageQueueGet
 </UL>
 <BR>[Called By]<UL><LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxTimerThread
 </UL>
@@ -3941,11 +3941,11 @@ Global Symbols
 <P><STRONG><a name="[275]"></a>osMessageQueueNew</STRONG> (Thumb, 122 bytes, Stack size 32 bytes, .\build\rtx_msgqueue.o(i.osMessageQueueNew))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = osMessageQueueNew
 </UL>
-<BR>[Calls]<UL><LI><a href="#[273]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__get_PRIMASK
+<BR>[Calls]<UL><LI><a href="#[276]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxMessageQueueNew
+<LI><a href="#[252]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxMessageQueueError
+<LI><a href="#[273]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__get_PRIMASK
 <LI><a href="#[272]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__get_IPSR
 <LI><a href="#[274]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__get_BASEPRI
-<LI><a href="#[276]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxMessageQueueNew
-<LI><a href="#[252]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxMessageQueueError
 </UL>
 <BR>[Called By]<UL><LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxTimerThread
 </UL>
@@ -3953,11 +3953,11 @@ Global Symbols
 <P><STRONG><a name="[277]"></a>osMessageQueuePut</STRONG> (Thumb, 78 bytes, Stack size 24 bytes, .\build\rtx_msgqueue.o(i.osMessageQueuePut))
 <BR><BR>[Stack]<UL><LI>Max Depth = 88<LI>Call Chain = osMessageQueuePut &rArr; isrRtxMessageQueuePut &rArr; osRtxPostProcess &rArr; isr_queue_put
 </UL>
-<BR>[Calls]<UL><LI><a href="#[256]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;isrRtxMessageQueuePut
+<BR>[Calls]<UL><LI><a href="#[278]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxMessageQueuePut
+<LI><a href="#[256]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;isrRtxMessageQueuePut
 <LI><a href="#[273]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__get_PRIMASK
 <LI><a href="#[272]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__get_IPSR
 <LI><a href="#[274]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__get_BASEPRI
-<LI><a href="#[278]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxMessageQueuePut
 </UL>
 <BR>[Called By]<UL><LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxTimerTick
 </UL>
@@ -3965,11 +3965,11 @@ Global Symbols
 <P><STRONG><a name="[218]"></a>osMutexAcquire</STRONG> (Thumb, 64 bytes, Stack size 16 bytes, .\build\rtx_mutex.o(i.osMutexAcquire))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = osMutexAcquire
 </UL>
-<BR>[Calls]<UL><LI><a href="#[27b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__get_PRIMASK
+<BR>[Calls]<UL><LI><a href="#[27d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxMutexError
+<LI><a href="#[279]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxMutexAcquire
+<LI><a href="#[27b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__get_PRIMASK
 <LI><a href="#[27a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__get_IPSR
 <LI><a href="#[27c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__get_BASEPRI
-<LI><a href="#[27d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxMutexError
-<LI><a href="#[279]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxMutexAcquire
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rtos::Mutex::lock(unsigned)
 <LI><a href="#[2f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SingletonPtr&lang;rtos::Mutex&rang;::get()
@@ -3979,11 +3979,11 @@ Global Symbols
 <P><STRONG><a name="[21a]"></a>osMutexDelete</STRONG> (Thumb, 58 bytes, Stack size 8 bytes, .\build\rtx_mutex.o(i.osMutexDelete))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = osMutexDelete
 </UL>
-<BR>[Calls]<UL><LI><a href="#[27b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__get_PRIMASK
+<BR>[Calls]<UL><LI><a href="#[27d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxMutexError
+<LI><a href="#[27e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxMutexDelete
+<LI><a href="#[27b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__get_PRIMASK
 <LI><a href="#[27a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__get_IPSR
 <LI><a href="#[27c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__get_BASEPRI
-<LI><a href="#[27d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxMutexError
-<LI><a href="#[27e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxMutexDelete
 </UL>
 <BR>[Called By]<UL><LI><a href="#[74]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rtos::Mutex::~Mutex()
 <LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_mutex_free
@@ -3992,11 +3992,11 @@ Global Symbols
 <P><STRONG><a name="[217]"></a>osMutexNew</STRONG> (Thumb, 102 bytes, Stack size 16 bytes, .\build\rtx_mutex.o(i.osMutexNew))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = osMutexNew
 </UL>
-<BR>[Calls]<UL><LI><a href="#[27b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__get_PRIMASK
+<BR>[Calls]<UL><LI><a href="#[27f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxMutexNew
+<LI><a href="#[27d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxMutexError
+<LI><a href="#[27b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__get_PRIMASK
 <LI><a href="#[27a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__get_IPSR
 <LI><a href="#[27c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__get_BASEPRI
-<LI><a href="#[27f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxMutexNew
-<LI><a href="#[27d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxMutexError
 </UL>
 <BR>[Called By]<UL><LI><a href="#[75]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pre_main
 <LI><a href="#[130]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_mutex_initialize
@@ -4006,11 +4006,11 @@ Global Symbols
 <P><STRONG><a name="[219]"></a>osMutexRelease</STRONG> (Thumb, 58 bytes, Stack size 8 bytes, .\build\rtx_mutex.o(i.osMutexRelease))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = osMutexRelease
 </UL>
-<BR>[Calls]<UL><LI><a href="#[27b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__get_PRIMASK
+<BR>[Calls]<UL><LI><a href="#[280]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxMutexRelease
+<LI><a href="#[27d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxMutexError
+<LI><a href="#[27b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__get_PRIMASK
 <LI><a href="#[27a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__get_IPSR
 <LI><a href="#[27c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__get_BASEPRI
-<LI><a href="#[280]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxMutexRelease
-<LI><a href="#[27d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxMutexError
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rtos::Mutex::unlock()
 <LI><a href="#[2f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SingletonPtr&lang;rtos::Mutex&rang;::get()
@@ -4025,11 +4025,11 @@ Global Symbols
 <LI><a href="#[172]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osThreadGetId
 <LI><a href="#[281]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osThreadGetName
 </UL>
-<BR>[Called By]<UL><LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxTimerTick
-<LI><a href="#[2b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadStackCheck
+<BR>[Called By]<UL><LI><a href="#[2b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadStackCheck
 <LI><a href="#[130]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_mutex_initialize
 <LI><a href="#[254]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxPostProcess
 <LI><a href="#[10c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__user_perthread_libspace
+<LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxTimerTick
 </UL>
 
 <P><STRONG><a name="[8e]"></a>osRtxIdleThread</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, .\build\mbed_rtx_handlers.o(i.osRtxIdleThread))
@@ -4111,15 +4111,15 @@ Global Symbols
 <P><STRONG><a name="[90]"></a>osRtxMessageQueuePostProcess</STRONG> (Thumb, 274 bytes, Stack size 24 bytes, .\build\rtx_msgqueue.o(i.osRtxMessageQueuePostProcess))
 <BR><BR>[Stack]<UL><LI>Max Depth = 88<LI>Call Chain = osRtxMessageQueuePostProcess &rArr; osRtxThreadWaitExit &rArr; osRtxThreadDispatch &rArr; osRtxThreadSwitch &rArr; osRtxThreadStackCheck &rArr; osRtxErrorNotify &rArr;  error (Cycle)
 </UL>
-<BR>[Calls]<UL><LI><a href="#[293]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadWaitExit
+<BR>[Calls]<UL><LI><a href="#[253]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxMessageQueueRetrieved
+<LI><a href="#[295]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxMessageQueueInserted
+<LI><a href="#[293]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadWaitExit
 <LI><a href="#[292]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadListGet
 <LI><a href="#[28c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxMemoryPoolFree
 <LI><a href="#[257]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxMemoryPoolAlloc
 <LI><a href="#[294]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadRegPtr
 <LI><a href="#[291]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MessageQueueRemove
 <LI><a href="#[194]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MessageQueuePut
-<LI><a href="#[253]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxMessageQueueRetrieved
-<LI><a href="#[295]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxMessageQueueInserted
 <LI><a href="#[1c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> rtx_msgqueue.o(i.svcRtxMessageQueueNew)
@@ -4127,10 +4127,10 @@ Global Symbols
 <P><STRONG><a name="[296]"></a>osRtxMutexOwnerRelease</STRONG> (Thumb, 84 bytes, Stack size 16 bytes, .\build\rtx_mutex.o(i.osRtxMutexOwnerRelease))
 <BR><BR>[Stack]<UL><LI>Max Depth = 80<LI>Call Chain = osRtxMutexOwnerRelease &rArr; osRtxThreadWaitExit &rArr; osRtxThreadDispatch &rArr; osRtxThreadSwitch &rArr; osRtxThreadStackCheck &rArr; osRtxErrorNotify &rArr;  error (Cycle)
 </UL>
-<BR>[Calls]<UL><LI><a href="#[293]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadWaitExit
-<LI><a href="#[292]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadListGet
-<LI><a href="#[297]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxMutexReleased
+<BR>[Calls]<UL><LI><a href="#[297]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxMutexReleased
 <LI><a href="#[298]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxMutexAcquired
+<LI><a href="#[293]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadWaitExit
+<LI><a href="#[292]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadListGet
 </UL>
 <BR>[Called By]<UL><LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;svcRtxThreadExit
 </UL>
@@ -4138,8 +4138,8 @@ Global Symbols
 <P><STRONG><a name="[108]"></a>osRtxPendSV_Handler</STRONG> (Thumb, 96 bytes, Stack size 8 bytes, .\build\rtx_system.o(i.osRtxPendSV_Handler))
 <BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = osRtxPendSV_Handler &rArr; osRtxThreadDispatch &rArr; osRtxThreadSwitch &rArr; osRtxThreadStackCheck &rArr; osRtxErrorNotify &rArr;  error (Cycle)
 </UL>
-<BR>[Calls]<UL><LI><a href="#[299]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadDispatch
-<LI><a href="#[25a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;isr_queue_get
+<BR>[Calls]<UL><LI><a href="#[25a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;isr_queue_get
+<LI><a href="#[299]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadDispatch
 </UL>
 <BR>[Called By]<UL><LI><a href="#[22]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PendSV_Handler
 </UL>
@@ -4147,11 +4147,11 @@ Global Symbols
 <P><STRONG><a name="[254]"></a>osRtxPostProcess</STRONG> (Thumb, 50 bytes, Stack size 8 bytes, .\build\rtx_system.o(i.osRtxPostProcess))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = osRtxPostProcess &rArr; isr_queue_put
 </UL>
-<BR>[Calls]<UL><LI><a href="#[232]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxErrorNotify
-<LI><a href="#[25d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;isr_queue_put
+<BR>[Calls]<UL><LI><a href="#[25d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;isr_queue_put
+<LI><a href="#[232]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxErrorNotify
 </UL>
-<BR>[Called By]<UL><LI><a href="#[21b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osThreadFlagsSet
-<LI><a href="#[226]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osSemaphoreRelease
+<BR>[Called By]<UL><LI><a href="#[226]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osSemaphoreRelease
+<LI><a href="#[21b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osThreadFlagsSet
 <LI><a href="#[256]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;isrRtxMessageQueuePut
 <LI><a href="#[251]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;isrRtxMessageQueueGet
 </UL>
@@ -4159,10 +4159,10 @@ Global Symbols
 <P><STRONG><a name="[91]"></a>osRtxSemaphorePostProcess</STRONG> (Thumb, 50 bytes, Stack size 16 bytes, .\build\rtx_semaphore.o(i.osRtxSemaphorePostProcess))
 <BR><BR>[Stack]<UL><LI>Max Depth = 80<LI>Call Chain = osRtxSemaphorePostProcess &rArr; osRtxThreadWaitExit &rArr; osRtxThreadDispatch &rArr; osRtxThreadSwitch &rArr; osRtxThreadStackCheck &rArr; osRtxErrorNotify &rArr;  error (Cycle)
 </UL>
-<BR>[Calls]<UL><LI><a href="#[293]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadWaitExit
-<LI><a href="#[292]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadListGet
+<BR>[Calls]<UL><LI><a href="#[29a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxSemaphoreAcquired
 <LI><a href="#[197]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SemaphoreTokenDecrement
-<LI><a href="#[29a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxSemaphoreAcquired
+<LI><a href="#[293]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadWaitExit
+<LI><a href="#[292]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadListGet
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> rtx_semaphore.o(i.svcRtxSemaphoreNew)
 </UL>
@@ -4197,19 +4197,19 @@ Global Symbols
 <P><STRONG><a name="[29b]"></a>osRtxThreadDelayTick</STRONG> (Thumb, 216 bytes, Stack size 16 bytes, .\build\rtx_thread.o(i.osRtxThreadDelayTick))
 <BR><BR>[Stack]<UL><LI>Max Depth = 36<LI>Call Chain = osRtxThreadDelayTick &rArr; osRtxThreadReadyPut &rArr; osRtxThreadListPut
 </UL>
-<BR>[Calls]<UL><LI><a href="#[29e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadListRoot
-<LI><a href="#[2a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadListRemove
-<LI><a href="#[2a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadReadyPut
-<LI><a href="#[294]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadRegPtr
-<LI><a href="#[2a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxMemoryPoolAllocTimeout
-<LI><a href="#[29f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxEventFlagsWaitTimeout
-<LI><a href="#[2a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxThreadUnblocked
+<BR>[Calls]<UL><LI><a href="#[2a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxThreadUnblocked
 <LI><a href="#[29d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxThreadFlagsWaitTimeout
 <LI><a href="#[29c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxThreadDelayCompleted
 <LI><a href="#[2a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxSemaphoreAcquireTimeout
 <LI><a href="#[2a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxMutexAcquireTimeout
 <LI><a href="#[2a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxMessageQueuePutTimeout
 <LI><a href="#[2a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxMessageQueueGetTimeout
+<LI><a href="#[2a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxMemoryPoolAllocTimeout
+<LI><a href="#[29f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxEventFlagsWaitTimeout
+<LI><a href="#[29e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadListRoot
+<LI><a href="#[2a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadReadyPut
+<LI><a href="#[2a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadListRemove
+<LI><a href="#[294]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadRegPtr
 </UL>
 <BR>[Called By]<UL><LI><a href="#[109]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxTick_Handler
 </UL>
@@ -4218,28 +4218,28 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = osRtxThreadDispatch &rArr; osRtxThreadSwitch &rArr; osRtxThreadStackCheck &rArr; osRtxErrorNotify &rArr;  error (Cycle)
 </UL>
 <BR>[Calls]<UL><LI><a href="#[2aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadBlock
-<LI><a href="#[2a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadListRemove
 <LI><a href="#[2a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadGetRunning
 <LI><a href="#[2a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxKernelGetState
 <LI><a href="#[2a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadReadyPut
+<LI><a href="#[2a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadListRemove
 <LI><a href="#[2ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadSwitch
 </UL>
-<BR>[Called By]<UL><LI><a href="#[109]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxTick_Handler
+<BR>[Called By]<UL><LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;svcRtxMutexRelease
+<LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;svcRtxMutexDelete
+<LI><a href="#[109]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxTick_Handler
 <LI><a href="#[108]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxPendSV_Handler
 <LI><a href="#[293]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadWaitExit
-<LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;svcRtxMutexRelease
-<LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;svcRtxMutexDelete
 <LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;svcRtxThreadNew
 </UL>
 
 <P><STRONG><a name="[292]"></a>osRtxThreadListGet</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, .\build\rtx_thread.o(i.osRtxThreadListGet))
 <BR><BR>[Called By]<UL><LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;svcRtxThreadExit
-<LI><a href="#[2b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadWaitEnter
 <LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;svcRtxSemaphoreRelease
 <LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxSemaphorePostProcess
 <LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;svcRtxMutexRelease
 <LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;svcRtxMutexDelete
 <LI><a href="#[296]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxMutexOwnerRelease
+<LI><a href="#[2b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadWaitEnter
 <LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;svcRtxMessageQueuePut
 <LI><a href="#[7a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;svcRtxMessageQueueGet
 <LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxMessageQueuePostProcess
@@ -4258,10 +4258,10 @@ Global Symbols
 
 <P><STRONG><a name="[2a6]"></a>osRtxThreadListRemove</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, .\build\rtx_thread.o(i.osRtxThreadListRemove))
 <BR><BR>[Called By]<UL><LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;svcRtxThreadYield
+<LI><a href="#[2ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadListSort
 <LI><a href="#[109]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxTick_Handler
 <LI><a href="#[299]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadDispatch
 <LI><a href="#[2b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadWaitEnter
-<LI><a href="#[2ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadListSort
 <LI><a href="#[29b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadDelayTick
 </UL>
 
@@ -4282,9 +4282,9 @@ Global Symbols
 <P><STRONG><a name="[93]"></a>osRtxThreadPostProcess</STRONG> (Thumb, 64 bytes, Stack size 16 bytes, .\build\rtx_thread.o(i.osRtxThreadPostProcess))
 <BR><BR>[Stack]<UL><LI>Max Depth = 80<LI>Call Chain = osRtxThreadPostProcess &rArr; osRtxThreadWaitExit &rArr; osRtxThreadDispatch &rArr; osRtxThreadSwitch &rArr; osRtxThreadStackCheck &rArr; osRtxErrorNotify &rArr;  error (Cycle)
 </UL>
-<BR>[Calls]<UL><LI><a href="#[293]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadWaitExit
+<BR>[Calls]<UL><LI><a href="#[2af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxThreadFlagsWaitCompleted
 <LI><a href="#[1a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ThreadFlagsCheck
-<LI><a href="#[2af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxThreadFlagsWaitCompleted
+<LI><a href="#[293]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadWaitExit
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> rtx_thread.o(i.svcRtxThreadNew)
 </UL>
@@ -4311,8 +4311,8 @@ Global Symbols
 <P><STRONG><a name="[2b0]"></a>osRtxThreadStackCheck</STRONG> (Thumb, 38 bytes, Stack size 8 bytes, .\build\rtx_thread.o(i.osRtxThreadStackCheck))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = osRtxThreadStackCheck &rArr; osRtxErrorNotify &rArr;  error (Cycle)
 </UL>
-<BR>[Calls]<UL><LI><a href="#[232]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxErrorNotify
-<LI><a href="#[2a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadGetRunning
+<BR>[Calls]<UL><LI><a href="#[2a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadGetRunning
+<LI><a href="#[232]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxErrorNotify
 </UL>
 <BR>[Called By]<UL><LI><a href="#[2ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadSwitch
 </UL>
@@ -4320,8 +4320,8 @@ Global Symbols
 <P><STRONG><a name="[2ab]"></a>osRtxThreadSwitch</STRONG> (Thumb, 24 bytes, Stack size 8 bytes, .\build\rtx_thread.o(i.osRtxThreadSwitch))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = osRtxThreadSwitch &rArr; osRtxThreadStackCheck &rArr; osRtxErrorNotify &rArr;  error (Cycle)
 </UL>
-<BR>[Calls]<UL><LI><a href="#[2b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadStackCheck
-<LI><a href="#[2b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxThreadSwitch
+<BR>[Calls]<UL><LI><a href="#[2b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxThreadSwitch
+<LI><a href="#[2b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadStackCheck
 </UL>
 <BR>[Called By]<UL><LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;svcRtxThreadYield
 <LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;svcRtxThreadExit
@@ -4334,17 +4334,17 @@ Global Symbols
 <P><STRONG><a name="[2b2]"></a>osRtxThreadWaitEnter</STRONG> (Thumb, 84 bytes, Stack size 16 bytes, .\build\rtx_thread.o(i.osRtxThreadWaitEnter))
 <BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = osRtxThreadWaitEnter &rArr; osRtxThreadSwitch &rArr; osRtxThreadStackCheck &rArr; osRtxErrorNotify &rArr;  error (Cycle)
 </UL>
-<BR>[Calls]<UL><LI><a href="#[2b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadDelayInsert
-<LI><a href="#[2a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadListRemove
-<LI><a href="#[292]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadListGet
+<BR>[Calls]<UL><LI><a href="#[2b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxThreadBlocked
+<LI><a href="#[2b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadDelayInsert
 <LI><a href="#[2a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadGetRunning
 <LI><a href="#[2a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxKernelGetState
+<LI><a href="#[2a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadListRemove
+<LI><a href="#[292]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadListGet
 <LI><a href="#[2ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadSwitch
-<LI><a href="#[2b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxThreadBlocked
 </UL>
 <BR>[Called By]<UL><LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;svcRtxThreadFlagsWait
-<LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;svcRtxDelay
 <LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;svcRtxMutexAcquire
+<LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;svcRtxDelay
 <LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;svcRtxMessageQueuePut
 <LI><a href="#[7a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;svcRtxMessageQueueGet
 </UL>
@@ -4352,11 +4352,11 @@ Global Symbols
 <P><STRONG><a name="[293]"></a>osRtxThreadWaitExit</STRONG> (Thumb, 54 bytes, Stack size 24 bytes, .\build\rtx_thread.o(i.osRtxThreadWaitExit))
 <BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = osRtxThreadWaitExit &rArr; osRtxThreadDispatch &rArr; osRtxThreadSwitch &rArr; osRtxThreadStackCheck &rArr; osRtxErrorNotify &rArr;  error (Cycle)
 </UL>
-<BR>[Calls]<UL><LI><a href="#[2b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadDelayRemove
-<LI><a href="#[299]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadDispatch
+<BR>[Calls]<UL><LI><a href="#[2a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxThreadUnblocked
+<LI><a href="#[2b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadDelayRemove
 <LI><a href="#[2a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadReadyPut
+<LI><a href="#[299]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadDispatch
 <LI><a href="#[294]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadRegPtr
-<LI><a href="#[2a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxThreadUnblocked
 </UL>
 <BR>[Called By]<UL><LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;svcRtxThreadFlagsSet
 <LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;svcRtxThreadExit
@@ -4374,10 +4374,10 @@ Global Symbols
 <P><STRONG><a name="[109]"></a>osRtxTick_Handler</STRONG> (Thumb, 154 bytes, Stack size 8 bytes, .\build\rtx_system.o(i.osRtxTick_Handler))
 <BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = osRtxTick_Handler &rArr; osRtxThreadDispatch &rArr; osRtxThreadSwitch &rArr; osRtxThreadStackCheck &rArr; osRtxErrorNotify &rArr;  error (Cycle)
 </UL>
-<BR>[Calls]<UL><LI><a href="#[2a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadListRemove
-<LI><a href="#[299]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadDispatch
-<LI><a href="#[2b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxSysTimerAckIRQ
+<BR>[Calls]<UL><LI><a href="#[2b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxSysTimerAckIRQ
 <LI><a href="#[2a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadReadyPut
+<LI><a href="#[2a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadListRemove
+<LI><a href="#[299]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadDispatch
 <LI><a href="#[2ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadSwitch
 <LI><a href="#[29b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadDelayTick
 </UL>
@@ -4387,18 +4387,18 @@ Global Symbols
 <P><STRONG><a name="[8f]"></a>osRtxTimerThread</STRONG> (Thumb, 74 bytes, Stack size 24 bytes, .\build\rtx_timer.o(i.osRtxTimerThread))
 <BR><BR>[Stack]<UL><LI>Max Depth = 112<LI>Call Chain = osRtxTimerThread &rArr; osMessageQueueGet &rArr; isrRtxMessageQueueGet &rArr; osRtxPostProcess &rArr; isr_queue_put
 </UL>
-<BR>[Calls]<UL><LI><a href="#[275]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osMessageQueueNew
+<BR>[Calls]<UL><LI><a href="#[2b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxTimerCallback
+<LI><a href="#[275]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osMessageQueueNew
 <LI><a href="#[270]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osMessageQueueGet
-<LI><a href="#[2b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxTimerCallback
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> rtx_kernel.o(i.svcRtxKernelStart)
 </UL>
 <P><STRONG><a name="[81]"></a>osRtxTimerTick</STRONG> (Thumb, 88 bytes, Stack size 16 bytes, .\build\rtx_timer.o(i.osRtxTimerTick))
 <BR><BR>[Stack]<UL><LI>Max Depth = 104<LI>Call Chain = osRtxTimerTick &rArr; osMessageQueuePut &rArr; isrRtxMessageQueuePut &rArr; osRtxPostProcess &rArr; isr_queue_put
 </UL>
-<BR>[Calls]<UL><LI><a href="#[277]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osMessageQueuePut
-<LI><a href="#[2b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TimerUnlink
+<BR>[Calls]<UL><LI><a href="#[2b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TimerUnlink
 <LI><a href="#[2b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TimerInsert
+<LI><a href="#[277]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osMessageQueuePut
 <LI><a href="#[232]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxErrorNotify
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> rtx_timer.o(i.osRtxTimerThread)
@@ -4406,11 +4406,11 @@ Global Symbols
 <P><STRONG><a name="[225]"></a>osSemaphoreNew</STRONG> (Thumb, 122 bytes, Stack size 32 bytes, .\build\rtx_semaphore.o(i.osSemaphoreNew))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = osSemaphoreNew
 </UL>
-<BR>[Calls]<UL><LI><a href="#[2bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__get_PRIMASK
+<BR>[Calls]<UL><LI><a href="#[2ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxSemaphoreNew
+<LI><a href="#[2be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxSemaphoreError
+<LI><a href="#[2bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__get_PRIMASK
 <LI><a href="#[2bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__get_IPSR
 <LI><a href="#[2bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__get_BASEPRI
-<LI><a href="#[2ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxSemaphoreNew
-<LI><a href="#[2be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxSemaphoreError
 </UL>
 <BR>[Called By]<UL><LI><a href="#[224]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rtos::Semaphore::constructor(int, unsigned short)
 </UL>
@@ -4418,14 +4418,14 @@ Global Symbols
 <P><STRONG><a name="[226]"></a>osSemaphoreRelease</STRONG> (Thumb, 132 bytes, Stack size 16 bytes, .\build\rtx_semaphore.o(i.osSemaphoreRelease))
 <BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = osSemaphoreRelease &rArr; osRtxPostProcess &rArr; isr_queue_put
 </UL>
-<BR>[Calls]<UL><LI><a href="#[254]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxPostProcess
+<BR>[Calls]<UL><LI><a href="#[2c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxSemaphoreReleased
+<LI><a href="#[2bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxSemaphoreRelease
+<LI><a href="#[2be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxSemaphoreError
 <LI><a href="#[2bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__get_PRIMASK
 <LI><a href="#[2bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__get_IPSR
 <LI><a href="#[2bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__get_BASEPRI
 <LI><a href="#[199]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SemaphoreTokenIncrement
-<LI><a href="#[2c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxSemaphoreReleased
-<LI><a href="#[2bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxSemaphoreRelease
-<LI><a href="#[2be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxSemaphoreError
+<LI><a href="#[254]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxPostProcess
 </UL>
 <BR>[Called By]<UL><LI><a href="#[221]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rtos::Semaphore::release()
 </UL>
@@ -4433,11 +4433,11 @@ Global Symbols
 <P><STRONG><a name="[2c1]"></a>osThreadContextNew</STRONG> (Thumb, 128 bytes, Stack size 40 bytes, .\build\rtx_thread.o(i.osThreadContextNew))
 <BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = osThreadContextNew
 </UL>
-<BR>[Calls]<UL><LI><a href="#[266]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxThreadError
+<BR>[Calls]<UL><LI><a href="#[2c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxThreadNew
 <LI><a href="#[2c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__get_PRIMASK
 <LI><a href="#[2c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__get_IPSR
 <LI><a href="#[2c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__get_BASEPRI
-<LI><a href="#[2c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxThreadNew
+<LI><a href="#[266]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxThreadError
 </UL>
 <BR>[Called By]<UL><LI><a href="#[220]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osThreadNew
 </UL>
@@ -4453,14 +4453,14 @@ Global Symbols
 <P><STRONG><a name="[21b]"></a>osThreadFlagsSet</STRONG> (Thumb, 142 bytes, Stack size 32 bytes, .\build\rtx_thread.o(i.osThreadFlagsSet))
 <BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = osThreadFlagsSet &rArr; osRtxPostProcess &rArr; isr_queue_put
 </UL>
-<BR>[Calls]<UL><LI><a href="#[254]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxPostProcess
-<LI><a href="#[266]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxThreadError
+<BR>[Calls]<UL><LI><a href="#[2c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxThreadFlagsSetDone
+<LI><a href="#[2c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxThreadFlagsSet
 <LI><a href="#[2c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__get_PRIMASK
 <LI><a href="#[2c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__get_IPSR
 <LI><a href="#[2c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__get_BASEPRI
 <LI><a href="#[1a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ThreadFlagsSet
-<LI><a href="#[2c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxThreadFlagsSetDone
-<LI><a href="#[2c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxThreadFlagsSet
+<LI><a href="#[254]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxPostProcess
+<LI><a href="#[266]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxThreadError
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rtos::Thread::signal_set(int)
 </UL>
@@ -4468,11 +4468,11 @@ Global Symbols
 <P><STRONG><a name="[21d]"></a>osThreadFlagsWait</STRONG> (Thumb, 70 bytes, Stack size 16 bytes, .\build\rtx_thread.o(i.osThreadFlagsWait))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = osThreadFlagsWait
 </UL>
-<BR>[Calls]<UL><LI><a href="#[266]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxThreadError
+<BR>[Calls]<UL><LI><a href="#[2c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxThreadFlagsWait
 <LI><a href="#[2c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__get_PRIMASK
 <LI><a href="#[2c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__get_IPSR
 <LI><a href="#[2c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__get_BASEPRI
-<LI><a href="#[2c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxThreadFlagsWait
+<LI><a href="#[266]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxThreadError
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rtos::Thread::signal_wait(int, unsigned)
 </UL>
@@ -4480,10 +4480,10 @@ Global Symbols
 <P><STRONG><a name="[172]"></a>osThreadGetId</STRONG> (Thumb, 42 bytes, Stack size 8 bytes, .\build\rtx_thread.o(i.osThreadGetId))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = osThreadGetId
 </UL>
-<BR>[Calls]<UL><LI><a href="#[2c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__get_PRIMASK
+<BR>[Calls]<UL><LI><a href="#[2c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxThreadGetId
+<LI><a href="#[2c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__get_PRIMASK
 <LI><a href="#[2c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__get_IPSR
 <LI><a href="#[2c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__get_BASEPRI
-<LI><a href="#[2c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxThreadGetId
 </UL>
 <BR>[Called By]<UL><LI><a href="#[232]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxErrorNotify
 <LI><a href="#[171]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxThreadExit
@@ -4493,10 +4493,10 @@ Global Symbols
 <P><STRONG><a name="[281]"></a>osThreadGetName</STRONG> (Thumb, 48 bytes, Stack size 8 bytes, .\build\rtx_thread.o(i.osThreadGetName))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = osThreadGetName
 </UL>
-<BR>[Calls]<UL><LI><a href="#[2c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__get_PRIMASK
+<BR>[Calls]<UL><LI><a href="#[2ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxThreadGetName
+<LI><a href="#[2c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__get_PRIMASK
 <LI><a href="#[2c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__get_IPSR
 <LI><a href="#[2c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__get_BASEPRI
-<LI><a href="#[2ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxThreadGetName
 </UL>
 <BR>[Called By]<UL><LI><a href="#[232]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxErrorNotify
 </UL>
@@ -4506,18 +4506,18 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[2c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osThreadContextNew
 </UL>
-<BR>[Called By]<UL><LI><a href="#[22c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed_start_main
-<LI><a href="#[1d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rtos::Thread::start(mbed::Callback&lang;void()&rang;)
+<BR>[Called By]<UL><LI><a href="#[1d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rtos::Thread::start(mbed::Callback&lang;void()&rang;)
+<LI><a href="#[22c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed_start_main
 </UL>
 
 <P><STRONG><a name="[222]"></a>osThreadYield</STRONG> (Thumb, 52 bytes, Stack size 8 bytes, .\build\rtx_thread.o(i.osThreadYield))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = osThreadYield
 </UL>
-<BR>[Calls]<UL><LI><a href="#[266]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxThreadError
+<BR>[Calls]<UL><LI><a href="#[2cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxThreadYield
 <LI><a href="#[2c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__get_PRIMASK
 <LI><a href="#[2c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__get_IPSR
 <LI><a href="#[2c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__get_BASEPRI
-<LI><a href="#[2cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxThreadYield
+<LI><a href="#[266]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxThreadError
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rtos::Thread::yield()
 </UL>
@@ -4545,8 +4545,8 @@ Global Symbols
 <LI><a href="#[2ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stm_pin_PullConfig
 <LI><a href="#[2cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LL_GPIO_SetPinOutputType
 </UL>
-<BR>[Called By]<UL><LI><a href="#[238]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gpio_mode
-<LI><a href="#[2d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pinmap_pinout
+<BR>[Called By]<UL><LI><a href="#[2d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pinmap_pinout
+<LI><a href="#[238]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gpio_mode
 <LI><a href="#[1a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;serial_init
 </UL>
 
@@ -4664,15 +4664,15 @@ Global Symbols
 <P><STRONG><a name="[1fb]"></a>serial_readable</STRONG> (Thumb, 44 bytes, Stack size 8 bytes, .\build\serial_api.o(i.serial_readable))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = serial_readable
 </UL>
-<BR>[Called By]<UL><LI><a href="#[1dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::SerialBase::readable()
-<LI><a href="#[1f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;serial_getc
+<BR>[Called By]<UL><LI><a href="#[1f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;serial_getc
+<LI><a href="#[1dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::SerialBase::readable()
 </UL>
 
 <P><STRONG><a name="[1fc]"></a>serial_writable</STRONG> (Thumb, 28 bytes, Stack size 8 bytes, .\build\serial_api.o(i.serial_writable))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = serial_writable
 </UL>
-<BR>[Called By]<UL><LI><a href="#[1de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::SerialBase::writeable()
-<LI><a href="#[1f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;serial_putc
+<BR>[Called By]<UL><LI><a href="#[1f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;serial_putc
+<LI><a href="#[1de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::SerialBase::writeable()
 </UL>
 
 <P><STRONG><a name="[2d4]"></a>sleep_manager_can_deep_sleep</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, .\build\mbed_sleep_manager.o(i.sleep_manager_can_deep_sleep))
@@ -4681,16 +4681,16 @@ Global Symbols
 
 <P><STRONG><a name="[1ac]"></a>sleep_manager_lock_deep_sleep</STRONG> (Thumb, 42 bytes, Stack size 8 bytes, .\build\mbed_sleep_manager.o(i.sleep_manager_lock_deep_sleep))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32 + In Cycle
-<LI>Call Chain = sleep_manager_lock_deep_sleep &rArr;  core_util_critical_section_exit (Cycle)
+<LI>Call Chain = sleep_manager_lock_deep_sleep &rArr;  error (Cycle)
 </UL>
-<BR>[Calls]<UL><LI><a href="#[1af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;core_util_critical_section_exit
+<BR>[Calls]<UL><LI><a href="#[1a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;error
+<LI><a href="#[1af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;core_util_critical_section_exit
 <LI><a href="#[1ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;core_util_critical_section_enter
-<LI><a href="#[1a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;error
 <LI><a href="#[23d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;core_util_atomic_incr_u16
 </UL>
-<BR>[Called By]<UL><LI><a href="#[1d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::SerialBase::attach(mbed::Callback&lang;void()&rang;, mbed::SerialBase::IrqType)
-<LI><a href="#[2ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wait_us
+<BR>[Called By]<UL><LI><a href="#[2ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wait_us
 <LI><a href="#[19]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;default_idle_hook()
+<LI><a href="#[1d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::SerialBase::attach(mbed::Callback&lang;void()&rang;, mbed::SerialBase::IrqType)
 <LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SerialTerminal::onRxData()
 </UL>
 
@@ -4708,16 +4708,16 @@ Global Symbols
 
 <P><STRONG><a name="[1ae]"></a>sleep_manager_unlock_deep_sleep</STRONG> (Thumb, 36 bytes, Stack size 8 bytes, .\build\mbed_sleep_manager.o(i.sleep_manager_unlock_deep_sleep))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32 + In Cycle
-<LI>Call Chain = sleep_manager_unlock_deep_sleep &rArr;  core_util_critical_section_exit (Cycle)
+<LI>Call Chain = sleep_manager_unlock_deep_sleep &rArr;  error (Cycle)
 </UL>
-<BR>[Calls]<UL><LI><a href="#[1af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;core_util_critical_section_exit
+<BR>[Calls]<UL><LI><a href="#[1a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;error
+<LI><a href="#[1af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;core_util_critical_section_exit
 <LI><a href="#[1ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;core_util_critical_section_enter
-<LI><a href="#[1a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;error
 <LI><a href="#[23c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;core_util_atomic_decr_u16
 </UL>
-<BR>[Called By]<UL><LI><a href="#[1d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::SerialBase::attach(mbed::Callback&lang;void()&rang;, mbed::SerialBase::IrqType)
-<LI><a href="#[2ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wait_us
+<BR>[Called By]<UL><LI><a href="#[2ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wait_us
 <LI><a href="#[19]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;default_idle_hook()
+<LI><a href="#[1d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::SerialBase::attach(mbed::Callback&lang;void()&rang;, mbed::SerialBase::IrqType)
 <LI><a href="#[1d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::Ticker::detach()
 </UL>
 
@@ -4751,21 +4751,26 @@ Global Symbols
 <P><STRONG><a name="[79]"></a>svcRtxKernelStart</STRONG> (Thumb, 240 bytes, Stack size 8 bytes, .\build\rtx_kernel.o(i.svcRtxKernelStart))
 <BR><BR>[Stack]<UL><LI>Max Depth = 112<LI>Call Chain = svcRtxKernelStart &rArr; svcRtxThreadNew &rArr; osRtxThreadDispatch &rArr; osRtxThreadSwitch &rArr; osRtxThreadStackCheck &rArr; osRtxErrorNotify &rArr;  error (Cycle)
 </UL>
-<BR>[Calls]<UL><LI><a href="#[292]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadListGet
+<BR>[Calls]<UL><LI><a href="#[2d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ExtTick_EnableIRQ
 <LI><a href="#[2da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxKernelStarted
 <LI><a href="#[26e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxKernelError
+<LI><a href="#[292]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadListGet
 <LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;svcRtxThreadNew
 <LI><a href="#[2ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadSwitch
 <LI><a href="#[2d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxSysTimerSetup
 <LI><a href="#[2d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxSysTimerEnable
-<LI><a href="#[2d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ExtTick_EnableIRQ
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> rtx_kernel.o(i.osKernelStart)
 </UL>
 <P><STRONG><a name="[7a]"></a>svcRtxMessageQueueGet</STRONG> (Thumb, 300 bytes, Stack size 40 bytes, .\build\rtx_msgqueue.o(i.svcRtxMessageQueueGet))
 <BR><BR>[Stack]<UL><LI>Max Depth = 104<LI>Call Chain = svcRtxMessageQueueGet &rArr; osRtxThreadWaitExit &rArr; osRtxThreadDispatch &rArr; osRtxThreadSwitch &rArr; osRtxThreadStackCheck &rArr; osRtxErrorNotify &rArr;  error (Cycle)
 </UL>
-<BR>[Calls]<UL><LI><a href="#[293]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadWaitExit
+<BR>[Calls]<UL><LI><a href="#[253]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxMessageQueueRetrieved
+<LI><a href="#[255]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxMessageQueueNotRetrieved
+<LI><a href="#[295]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxMessageQueueInserted
+<LI><a href="#[2db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxMessageQueueGetPending
+<LI><a href="#[252]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxMessageQueueError
+<LI><a href="#[293]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadWaitExit
 <LI><a href="#[2ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadListPut
 <LI><a href="#[292]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadListGet
 <LI><a href="#[28c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxMemoryPoolFree
@@ -4775,11 +4780,6 @@ Global Symbols
 <LI><a href="#[291]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MessageQueueRemove
 <LI><a href="#[194]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MessageQueuePut
 <LI><a href="#[191]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MessageQueueGet
-<LI><a href="#[253]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxMessageQueueRetrieved
-<LI><a href="#[255]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxMessageQueueNotRetrieved
-<LI><a href="#[295]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxMessageQueueInserted
-<LI><a href="#[2db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxMessageQueueGetPending
-<LI><a href="#[252]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxMessageQueueError
 <LI><a href="#[1c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> rtx_msgqueue.o(i.osMessageQueueGet)
@@ -4787,13 +4787,13 @@ Global Symbols
 <P><STRONG><a name="[7b]"></a>svcRtxMessageQueueNew</STRONG> (Thumb, 410 bytes, Stack size 48 bytes, .\build\rtx_msgqueue.o(i.svcRtxMessageQueueNew))
 <BR><BR>[Stack]<UL><LI>Max Depth = 80<LI>Call Chain = svcRtxMessageQueueNew &rArr; osRtxMemoryAlloc
 </UL>
-<BR>[Calls]<UL><LI><a href="#[28c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxMemoryPoolFree
+<BR>[Calls]<UL><LI><a href="#[252]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxMessageQueueError
+<LI><a href="#[2dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxMessageQueueCreated
+<LI><a href="#[28c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxMemoryPoolFree
 <LI><a href="#[257]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxMemoryPoolAlloc
 <LI><a href="#[285]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxMemoryFree
 <LI><a href="#[283]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxMemoryAlloc
-<LI><a href="#[2dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxMessageQueueCreated
 <LI><a href="#[28f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxMemoryPoolInit
-<LI><a href="#[252]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxMessageQueueError
 <LI><a href="#[138]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> rtx_msgqueue.o(i.osMessageQueueNew)
@@ -4801,18 +4801,18 @@ Global Symbols
 <P><STRONG><a name="[7c]"></a>svcRtxMessageQueuePut</STRONG> (Thumb, 276 bytes, Stack size 40 bytes, .\build\rtx_msgqueue.o(i.svcRtxMessageQueuePut))
 <BR><BR>[Stack]<UL><LI>Max Depth = 104<LI>Call Chain = svcRtxMessageQueuePut &rArr; osRtxThreadWaitExit &rArr; osRtxThreadDispatch &rArr; osRtxThreadSwitch &rArr; osRtxThreadStackCheck &rArr; osRtxErrorNotify &rArr;  error (Cycle)
 </UL>
-<BR>[Calls]<UL><LI><a href="#[293]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadWaitExit
+<BR>[Calls]<UL><LI><a href="#[253]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxMessageQueueRetrieved
+<LI><a href="#[2dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxMessageQueuePutPending
+<LI><a href="#[258]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxMessageQueueNotInserted
+<LI><a href="#[295]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxMessageQueueInserted
+<LI><a href="#[252]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxMessageQueueError
+<LI><a href="#[293]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadWaitExit
 <LI><a href="#[2ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadListPut
 <LI><a href="#[292]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadListGet
 <LI><a href="#[257]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxMemoryPoolAlloc
 <LI><a href="#[2b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadWaitEnter
 <LI><a href="#[294]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadRegPtr
 <LI><a href="#[194]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MessageQueuePut
-<LI><a href="#[253]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxMessageQueueRetrieved
-<LI><a href="#[2dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxMessageQueuePutPending
-<LI><a href="#[258]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxMessageQueueNotInserted
-<LI><a href="#[295]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxMessageQueueInserted
-<LI><a href="#[252]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxMessageQueueError
 <LI><a href="#[1c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> rtx_msgqueue.o(i.osMessageQueuePut)
@@ -4820,120 +4820,120 @@ Global Symbols
 <P><STRONG><a name="[7d]"></a>svcRtxMutexAcquire</STRONG> (Thumb, 258 bytes, Stack size 24 bytes, .\build\rtx_mutex.o(i.svcRtxMutexAcquire))
 <BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = svcRtxMutexAcquire &rArr; osRtxThreadWaitEnter &rArr; osRtxThreadSwitch &rArr; osRtxThreadStackCheck &rArr; osRtxErrorNotify &rArr;  error (Cycle)
 </UL>
-<BR>[Calls]<UL><LI><a href="#[2ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadListPut
-<LI><a href="#[2b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadWaitEnter
-<LI><a href="#[2ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadListSort
-<LI><a href="#[2df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxMutexNotAcquired
+<BR>[Calls]<UL><LI><a href="#[2df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxMutexNotAcquired
 <LI><a href="#[27d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxMutexError
 <LI><a href="#[298]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxMutexAcquired
 <LI><a href="#[2de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxMutexAcquirePending
+<LI><a href="#[2ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadListSort
+<LI><a href="#[2ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadListPut
+<LI><a href="#[2b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadWaitEnter
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> rtx_mutex.o(i.osMutexAcquire)
 </UL>
 <P><STRONG><a name="[7e]"></a>svcRtxMutexDelete</STRONG> (Thumb, 240 bytes, Stack size 24 bytes, .\build\rtx_mutex.o(i.svcRtxMutexDelete))
 <BR><BR>[Stack]<UL><LI>Max Depth = 88<LI>Call Chain = svcRtxMutexDelete &rArr; osRtxThreadWaitExit &rArr; osRtxThreadDispatch &rArr; osRtxThreadSwitch &rArr; osRtxThreadStackCheck &rArr; osRtxErrorNotify &rArr;  error (Cycle)
 </UL>
-<BR>[Calls]<UL><LI><a href="#[293]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadWaitExit
+<BR>[Calls]<UL><LI><a href="#[27d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxMutexError
+<LI><a href="#[2e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxMutexDestroyed
+<LI><a href="#[2ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadListSort
+<LI><a href="#[293]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadWaitExit
 <LI><a href="#[292]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadListGet
 <LI><a href="#[299]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadDispatch
 <LI><a href="#[28c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxMemoryPoolFree
 <LI><a href="#[285]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxMemoryFree
-<LI><a href="#[2ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadListSort
-<LI><a href="#[27d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxMutexError
-<LI><a href="#[2e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxMutexDestroyed
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> rtx_mutex.o(i.osMutexDelete)
 </UL>
 <P><STRONG><a name="[7f]"></a>svcRtxMutexNew</STRONG> (Thumb, 172 bytes, Stack size 24 bytes, .\build\rtx_mutex.o(i.svcRtxMutexNew))
 <BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = svcRtxMutexNew &rArr; osRtxMemoryAlloc
 </UL>
-<BR>[Calls]<UL><LI><a href="#[257]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxMemoryPoolAlloc
-<LI><a href="#[283]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxMemoryAlloc
-<LI><a href="#[27d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxMutexError
+<BR>[Calls]<UL><LI><a href="#[27d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxMutexError
 <LI><a href="#[2e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxMutexCreated
+<LI><a href="#[257]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxMemoryPoolAlloc
+<LI><a href="#[283]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxMemoryAlloc
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> rtx_mutex.o(i.osMutexNew)
 </UL>
 <P><STRONG><a name="[80]"></a>svcRtxMutexRelease</STRONG> (Thumb, 272 bytes, Stack size 32 bytes, .\build\rtx_mutex.o(i.svcRtxMutexRelease))
 <BR><BR>[Stack]<UL><LI>Max Depth = 96<LI>Call Chain = svcRtxMutexRelease &rArr; osRtxThreadWaitExit &rArr; osRtxThreadDispatch &rArr; osRtxThreadSwitch &rArr; osRtxThreadStackCheck &rArr; osRtxErrorNotify &rArr;  error (Cycle)
 </UL>
-<BR>[Calls]<UL><LI><a href="#[293]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadWaitExit
-<LI><a href="#[292]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadListGet
-<LI><a href="#[299]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadDispatch
-<LI><a href="#[297]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxMutexReleased
+<BR>[Calls]<UL><LI><a href="#[297]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxMutexReleased
 <LI><a href="#[27d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxMutexError
 <LI><a href="#[298]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxMutexAcquired
+<LI><a href="#[293]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadWaitExit
+<LI><a href="#[292]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadListGet
+<LI><a href="#[299]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadDispatch
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> rtx_mutex.o(i.osMutexRelease)
 </UL>
 <P><STRONG><a name="[82]"></a>svcRtxSemaphoreNew</STRONG> (Thumb, 204 bytes, Stack size 32 bytes, .\build\rtx_semaphore.o(i.svcRtxSemaphoreNew))
 <BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = svcRtxSemaphoreNew &rArr; osRtxMemoryAlloc
 </UL>
-<BR>[Calls]<UL><LI><a href="#[257]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxMemoryPoolAlloc
-<LI><a href="#[283]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxMemoryAlloc
-<LI><a href="#[2be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxSemaphoreError
+<BR>[Calls]<UL><LI><a href="#[2be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxSemaphoreError
 <LI><a href="#[2e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxSemaphoreCreated
+<LI><a href="#[257]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxMemoryPoolAlloc
+<LI><a href="#[283]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxMemoryAlloc
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> rtx_semaphore.o(i.osSemaphoreNew)
 </UL>
 <P><STRONG><a name="[83]"></a>svcRtxSemaphoreRelease</STRONG> (Thumb, 120 bytes, Stack size 16 bytes, .\build\rtx_semaphore.o(i.svcRtxSemaphoreRelease))
 <BR><BR>[Stack]<UL><LI>Max Depth = 80<LI>Call Chain = svcRtxSemaphoreRelease &rArr; osRtxThreadWaitExit &rArr; osRtxThreadDispatch &rArr; osRtxThreadSwitch &rArr; osRtxThreadStackCheck &rArr; osRtxErrorNotify &rArr;  error (Cycle)
 </UL>
-<BR>[Calls]<UL><LI><a href="#[293]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadWaitExit
-<LI><a href="#[292]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadListGet
-<LI><a href="#[199]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SemaphoreTokenIncrement
-<LI><a href="#[2c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxSemaphoreReleased
+<BR>[Calls]<UL><LI><a href="#[2c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxSemaphoreReleased
 <LI><a href="#[2be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxSemaphoreError
 <LI><a href="#[29a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxSemaphoreAcquired
+<LI><a href="#[199]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SemaphoreTokenIncrement
+<LI><a href="#[293]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadWaitExit
+<LI><a href="#[292]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadListGet
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> rtx_semaphore.o(i.osSemaphoreRelease)
 </UL>
 <P><STRONG><a name="[85]"></a>svcRtxThreadExit</STRONG> (Thumb, 142 bytes, Stack size 16 bytes, .\build\rtx_thread.o(i.svcRtxThreadExit))
 <BR><BR>[Stack]<UL><LI>Max Depth = 96<LI>Call Chain = svcRtxThreadExit &rArr; osRtxMutexOwnerRelease &rArr; osRtxThreadWaitExit &rArr; osRtxThreadDispatch &rArr; osRtxThreadSwitch &rArr; osRtxThreadStackCheck &rArr; osRtxErrorNotify &rArr;  error (Cycle)
 </UL>
-<BR>[Calls]<UL><LI><a href="#[293]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadWaitExit
-<LI><a href="#[292]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadListGet
+<BR>[Calls]<UL><LI><a href="#[2e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxThreadJoined
+<LI><a href="#[2e5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxThreadDestroyed
 <LI><a href="#[2e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadSetRunning
 <LI><a href="#[2a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadGetRunning
 <LI><a href="#[2ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadFree
 <LI><a href="#[2a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxKernelGetState
 <LI><a href="#[296]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxMutexOwnerRelease
+<LI><a href="#[293]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadWaitExit
+<LI><a href="#[292]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadListGet
 <LI><a href="#[2ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadSwitch
-<LI><a href="#[2e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxThreadJoined
-<LI><a href="#[2e5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxThreadDestroyed
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> rtx_thread.o(i.osThreadExit)
 </UL>
 <P><STRONG><a name="[86]"></a>svcRtxThreadFlagsSet</STRONG> (Thumb, 154 bytes, Stack size 24 bytes, .\build\rtx_thread.o(i.svcRtxThreadFlagsSet))
 <BR><BR>[Stack]<UL><LI>Max Depth = 88<LI>Call Chain = svcRtxThreadFlagsSet &rArr; osRtxThreadWaitExit &rArr; osRtxThreadDispatch &rArr; osRtxThreadSwitch &rArr; osRtxThreadStackCheck &rArr; osRtxErrorNotify &rArr;  error (Cycle)
 </UL>
-<BR>[Calls]<UL><LI><a href="#[293]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadWaitExit
-<LI><a href="#[266]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxThreadError
+<BR>[Calls]<UL><LI><a href="#[2af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxThreadFlagsWaitCompleted
+<LI><a href="#[2c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxThreadFlagsSetDone
 <LI><a href="#[1a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ThreadFlagsSet
 <LI><a href="#[1a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ThreadFlagsCheck
-<LI><a href="#[2af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxThreadFlagsWaitCompleted
-<LI><a href="#[2c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxThreadFlagsSetDone
+<LI><a href="#[293]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadWaitExit
+<LI><a href="#[266]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxThreadError
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> rtx_thread.o(i.osThreadFlagsSet)
 </UL>
 <P><STRONG><a name="[87]"></a>svcRtxThreadFlagsWait</STRONG> (Thumb, 136 bytes, Stack size 24 bytes, .\build\rtx_thread.o(i.svcRtxThreadFlagsWait))
 <BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = svcRtxThreadFlagsWait &rArr; osRtxThreadWaitEnter &rArr; osRtxThreadSwitch &rArr; osRtxThreadStackCheck &rArr; osRtxErrorNotify &rArr;  error (Cycle)
 </UL>
-<BR>[Calls]<UL><LI><a href="#[2b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadWaitEnter
-<LI><a href="#[266]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxThreadError
-<LI><a href="#[2a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadGetRunning
-<LI><a href="#[1a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ThreadFlagsCheck
-<LI><a href="#[2e6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxThreadFlagsWaitPending
+<BR>[Calls]<UL><LI><a href="#[2e6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxThreadFlagsWaitPending
 <LI><a href="#[2e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxThreadFlagsWaitNotCompleted
 <LI><a href="#[2af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxThreadFlagsWaitCompleted
+<LI><a href="#[2a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadGetRunning
+<LI><a href="#[1a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ThreadFlagsCheck
+<LI><a href="#[2b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadWaitEnter
+<LI><a href="#[266]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxThreadError
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> rtx_thread.o(i.osThreadFlagsWait)
 </UL>
 <P><STRONG><a name="[88]"></a>svcRtxThreadGetId</STRONG> (Thumb, 18 bytes, Stack size 8 bytes, .\build\rtx_thread.o(i.svcRtxThreadGetId))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = svcRtxThreadGetId
 </UL>
-<BR>[Calls]<UL><LI><a href="#[2a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadGetRunning
-<LI><a href="#[2c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxThreadGetId
+<BR>[Calls]<UL><LI><a href="#[2c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxThreadGetId
+<LI><a href="#[2a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadGetRunning
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> rtx_thread.o(i.osThreadGetId)
 </UL>
@@ -4947,13 +4947,13 @@ Global Symbols
 <P><STRONG><a name="[84]"></a>svcRtxThreadNew</STRONG> (Thumb, 632 bytes, Stack size 64 bytes, .\build\rtx_thread.o(i.svcRtxThreadNew))
 <BR><BR>[Stack]<UL><LI>Max Depth = 104<LI>Call Chain = svcRtxThreadNew &rArr; osRtxThreadDispatch &rArr; osRtxThreadSwitch &rArr; osRtxThreadStackCheck &rArr; osRtxErrorNotify &rArr;  error (Cycle)
 </UL>
-<BR>[Calls]<UL><LI><a href="#[299]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadDispatch
+<BR>[Calls]<UL><LI><a href="#[2e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxThreadCreated
+<LI><a href="#[299]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadDispatch
 <LI><a href="#[28c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxMemoryPoolFree
 <LI><a href="#[257]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxMemoryPoolAlloc
 <LI><a href="#[285]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxMemoryFree
 <LI><a href="#[283]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxMemoryAlloc
 <LI><a href="#[266]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxThreadError
-<LI><a href="#[2e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxThreadCreated
 </UL>
 <BR>[Called By]<UL><LI><a href="#[79]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;svcRtxKernelStart
 </UL>
@@ -4962,10 +4962,10 @@ Global Symbols
 <P><STRONG><a name="[8a]"></a>svcRtxThreadYield</STRONG> (Thumb, 60 bytes, Stack size 16 bytes, .\build\rtx_thread.o(i.svcRtxThreadYield))
 <BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = svcRtxThreadYield &rArr; osRtxThreadSwitch &rArr; osRtxThreadStackCheck &rArr; osRtxErrorNotify &rArr;  error (Cycle)
 </UL>
-<BR>[Calls]<UL><LI><a href="#[2a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadListRemove
-<LI><a href="#[2a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadGetRunning
+<BR>[Calls]<UL><LI><a href="#[2a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadGetRunning
 <LI><a href="#[2a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxKernelGetState
 <LI><a href="#[2a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadReadyPut
+<LI><a href="#[2a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadListRemove
 <LI><a href="#[2ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxThreadSwitch
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> rtx_thread.o(i.osThreadYield)
@@ -5080,12 +5080,12 @@ Global Symbols
 <P><STRONG><a name="[2ef]"></a>wait_us</STRONG> (Thumb, 70 bytes, Stack size 24 bytes, .\build\mbed_wait_api_rtos.o(i.wait_us))
 <BR><BR>[Stack]<UL><LI>Max Depth = 144<LI>Call Chain = wait_us &rArr; ticker_read &rArr; ticker_read_us &rArr; initialize &rArr; schedule_interrupt &rArr; update_present_time &rArr; convert_timestamp
 </UL>
-<BR>[Calls]<UL><LI><a href="#[1ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sleep_manager_unlock_deep_sleep
+<BR>[Calls]<UL><LI><a href="#[1ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rtos::Thread::wait(unsigned)
+<LI><a href="#[1ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sleep_manager_unlock_deep_sleep
 <LI><a href="#[1ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sleep_manager_lock_deep_sleep
 <LI><a href="#[23e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;core_util_are_interrupts_enabled
 <LI><a href="#[2ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ticker_read
 <LI><a href="#[204]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_us_ticker_data
-<LI><a href="#[1ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rtos::Thread::wait(unsigned)
 </UL>
 <BR>[Called By]<UL><LI><a href="#[262]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wait_ms
 </UL>
@@ -5110,8 +5110,8 @@ Global Symbols
 <P><STRONG><a name="[2f0]"></a>SingletonPtr&lang;rtos::Mutex&rang;::get()</STRONG> (Thumb, 88 bytes, Stack size 16 bytes, .\build\fatfilesystem.o(t._ZN12SingletonPtrIN4rtos5MutexEE3getEv))
 <BR><BR>[Stack]<UL><LI>Max Depth = 244<LI>Call Chain = SingletonPtr&lang;rtos::Mutex&rang;::get() &rArr; rtos::Mutex::Mutex() &rArr; rtos::Mutex::constructor(const char*) &rArr; mbed_assert_internal &rArr; mbed_die &rArr; gpio_init_out &rArr; gpio_init_out_ex &rArr; _gpio_init_out &rArr; gpio_init &rArr; gpio_set &rArr;  mbed_assert_internal (Cycle)
 </UL>
-<BR>[Calls]<UL><LI><a href="#[1e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rtos::Mutex::Mutex()
-<LI><a href="#[1db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed_assert_internal
+<BR>[Calls]<UL><LI><a href="#[1db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed_assert_internal
+<LI><a href="#[1e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rtos::Mutex::Mutex()
 <LI><a href="#[219]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osMutexRelease
 <LI><a href="#[218]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osMutexAcquire
 </UL>
@@ -5280,7 +5280,7 @@ Global Symbols
 <P><STRONG><a name="[22f]"></a>mbed::Callback&lang;void(const char*, void*, unsigned short)&rang;::Callback(void(*)(const char*, void*, unsigned short))</STRONG> (Thumb, 50 bytes, Stack size 8 bytes, .\build\main.o(t._ZN4mbed8CallbackIFvPKcPvtEEC1EPS4_))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = mbed::Callback&lang;void(const char*, void*, unsigned short)&rang;::Callback(void(*)(const char*, void*, unsigned short))
 </UL>
-<BR>[Called By]<UL><LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__sti___8_main_cpp_led1
+<BR>[Called By]<UL><LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__sti___8_main_cpp_led1
 <LI><a href="#[1b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::Callback&lang;T1(T2, T3, T4)&rang; mbed::callback&lang;void, const char*, void*, unsigned short&rang;(T1(*)(T2, T3, T4))
 </UL>
 
@@ -5340,7 +5340,7 @@ Global Symbols
 <P><STRONG><a name="[230]"></a>mbed::Callback&lang;void(const char*, int)&rang;::Callback(void(*)(const char*, int))</STRONG> (Thumb, 50 bytes, Stack size 8 bytes, .\build\main.o(t._ZN4mbed8CallbackIFvPKciEEC1EPS3_))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = mbed::Callback&lang;void(const char*, int)&rang;::Callback(void(*)(const char*, int))
 </UL>
-<BR>[Called By]<UL><LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__sti___8_main_cpp_led1
+<BR>[Called By]<UL><LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__sti___8_main_cpp_led1
 <LI><a href="#[1b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::Callback&lang;T1(T2, T3)&rang; mbed::callback&lang;void, const char*, int&rang;(T1(*)(T2, T3))
 </UL>
 
@@ -5401,10 +5401,10 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> serialterminal.o(.constdata__ZZN4mbed8CallbackIFvvEE8generateINS2_14method_contextI14SerialTerminalMS5_FvvEEEEEvRKT_E3ops)
 </UL>
-<P><STRONG><a name="[c4]"></a>void mbed::Callback&lang;void()&rang;::function_call&lang;void(*)()&rang;(const void*)</STRONG> (Thumb, 10 bytes, Stack size 8 bytes, .\build\atcmdparser.o(t._ZN4mbed8CallbackIFvvEE13function_callIPS1_EEvPKv))
+<P><STRONG><a name="[c4]"></a>void mbed::Callback&lang;void()&rang;::function_call&lang;void(*)()&rang;(const void*)</STRONG> (Thumb, 10 bytes, Stack size 8 bytes, .\build\main.o(t._ZN4mbed8CallbackIFvvEE13function_callIPS1_EEvPKv))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = void mbed::Callback&lang;void()&rang;::function_call&lang;void(*)()&rang;(const void*)
 </UL>
-<BR>[Address Reference Count : 1]<UL><LI> atcmdparser.o(.constdata__ZZN4mbed8CallbackIFvvEE8generateIPS1_EEvRKT_E3ops)
+<BR>[Address Reference Count : 1]<UL><LI> main.o(.constdata__ZZN4mbed8CallbackIFvvEE8generateIPS1_EEvRKT_E3ops)
 </UL>
 <P><STRONG><a name="[c0]"></a>void mbed::Callback&lang;void()&rang;::function_dtor&lang;mbed::Callback&lang;void()&rang;::method_context&lang;MQSerialBridge, void(MQSerialBridge::*)()&rang;&rang;(void*)</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, .\build\mqserialbridge.o(t._ZN4mbed8CallbackIFvvEE13function_dtorINS2_14method_contextI14MQSerialBridgeMS5_FvvEEEEEvPv))
 <BR>[Address Reference Count : 1]<UL><LI> mqserialbridge.o(.constdata__ZZN4mbed8CallbackIFvvEE8generateINS2_14method_contextI14MQSerialBridgeMS5_FvvEEEEEvRKT_E3ops)
@@ -5412,8 +5412,8 @@ Global Symbols
 <P><STRONG><a name="[c3]"></a>void mbed::Callback&lang;void()&rang;::function_dtor&lang;mbed::Callback&lang;void()&rang;::method_context&lang;SerialTerminal, void(SerialTerminal::*)()&rang;&rang;(void*)</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, .\build\serialterminal.o(t._ZN4mbed8CallbackIFvvEE13function_dtorINS2_14method_contextI14SerialTerminalMS5_FvvEEEEEvPv))
 <BR>[Address Reference Count : 1]<UL><LI> serialterminal.o(.constdata__ZZN4mbed8CallbackIFvvEE8generateINS2_14method_contextI14SerialTerminalMS5_FvvEEEEEvRKT_E3ops)
 </UL>
-<P><STRONG><a name="[c6]"></a>void mbed::Callback&lang;void()&rang;::function_dtor&lang;void(*)()&rang;(void*)</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, .\build\atcmdparser.o(t._ZN4mbed8CallbackIFvvEE13function_dtorIPS1_EEvPv))
-<BR>[Address Reference Count : 1]<UL><LI> atcmdparser.o(.constdata__ZZN4mbed8CallbackIFvvEE8generateIPS1_EEvRKT_E3ops)
+<P><STRONG><a name="[c6]"></a>void mbed::Callback&lang;void()&rang;::function_dtor&lang;void(*)()&rang;(void*)</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, .\build\main.o(t._ZN4mbed8CallbackIFvvEE13function_dtorIPS1_EEvPv))
+<BR>[Address Reference Count : 1]<UL><LI> main.o(.constdata__ZZN4mbed8CallbackIFvvEE8generateIPS1_EEvRKT_E3ops)
 </UL>
 <P><STRONG><a name="[bf]"></a>void mbed::Callback&lang;void()&rang;::function_move&lang;mbed::Callback&lang;void()&rang;::method_context&lang;MQSerialBridge, void(MQSerialBridge::*)()&rang;&rang;(void*, const void*)</STRONG> (Thumb, 20 bytes, Stack size 12 bytes, .\build\mqserialbridge.o(t._ZN4mbed8CallbackIFvvEE13function_moveINS2_14method_contextI14MQSerialBridgeMS5_FvvEEEEEvPvPKv))
 <BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = void mbed::Callback&lang;void()&rang;::function_move&lang;mbed::Callback&lang;void()&rang;::method_context&lang;MQSerialBridge, void(MQSerialBridge::*)()&rang;&rang;(void*, const void*)
@@ -5425,20 +5425,20 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> serialterminal.o(.constdata__ZZN4mbed8CallbackIFvvEE8generateINS2_14method_contextI14SerialTerminalMS5_FvvEEEEEvRKT_E3ops)
 </UL>
-<P><STRONG><a name="[c5]"></a>void mbed::Callback&lang;void()&rang;::function_move&lang;void(*)()&rang;(void*, const void*)</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, .\build\atcmdparser.o(t._ZN4mbed8CallbackIFvvEE13function_moveIPS1_EEvPvPKv))
-<BR>[Address Reference Count : 1]<UL><LI> atcmdparser.o(.constdata__ZZN4mbed8CallbackIFvvEE8generateIPS1_EEvRKT_E3ops)
+<P><STRONG><a name="[c5]"></a>void mbed::Callback&lang;void()&rang;::function_move&lang;void(*)()&rang;(void*, const void*)</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, .\build\main.o(t._ZN4mbed8CallbackIFvvEE13function_moveIPS1_EEvPvPKv))
+<BR>[Address Reference Count : 1]<UL><LI> main.o(.constdata__ZZN4mbed8CallbackIFvvEE8generateIPS1_EEvRKT_E3ops)
 </UL>
 <P><STRONG><a name="[16e]"></a>mbed::Callback&lang;void()&rang;::Callback(void(*)())</STRONG> (Thumb, 50 bytes, Stack size 8 bytes, .\build\can.o(t._ZN4mbed8CallbackIFvvEEC1EPS1_))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = mbed::Callback&lang;void()&rang;::Callback(void(*)())
 </UL>
-<BR>[Called By]<UL><LI><a href="#[1d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::SerialBase::attach(mbed::Callback&lang;void()&rang;, mbed::SerialBase::IrqType)
+<BR>[Called By]<UL><LI><a href="#[1fd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::SerialBase::SerialBase(PinName, PinName, int)
+<LI><a href="#[1d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::SerialBase::attach(mbed::Callback&lang;void()&rang;, mbed::SerialBase::IrqType)
 <LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;&lang;Func2&rang;
-<LI><a href="#[1fd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::SerialBase::SerialBase(PinName, PinName, int)
+<LI><a href="#[1e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::Callback&lang;T1()&rang; mbed::callback&lang;void&rang;(T1(*)())
 <LI><a href="#[1cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SerialTerminal::SerialTerminal(PinName, PinName, unsigned short, int, SerialTerminal::Receiver_mode)
 <LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SerialTerminal::onRxData()
 <LI><a href="#[1d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SerialTerminal::stopManaged(bool, bool)
 <LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SerialTerminal::onRxTimeout()
-<LI><a href="#[1e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::Callback&lang;T1()&rang; mbed::callback&lang;void&rang;(T1(*)())
 </UL>
 
 <P><STRONG><a name="[373]"></a>mbed::Callback&lang;void()&rang;::Callback__sub_object(void(*)())</STRONG> (Thumb, 0 bytes, Stack size 8 bytes, .\build\can.o(t._ZN4mbed8CallbackIFvvEEC1EPS1_), UNUSED)
@@ -5471,15 +5471,15 @@ Global Symbols
 <P><STRONG><a name="[1c4]"></a>mbed::Callback&lang;void()&rang;::~Callback()</STRONG> (Thumb, 20 bytes, Stack size 8 bytes, .\build\can.o(t._ZN4mbed8CallbackIFvvEED1Ev))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = mbed::Callback&lang;void()&rang;::~Callback()
 </UL>
-<BR>[Called By]<UL><LI><a href="#[1d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::SerialBase::attach(mbed::Callback&lang;void()&rang;, mbed::SerialBase::IrqType)
-<LI><a href="#[1d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rtos::Thread::start(mbed::Callback&lang;void()&rang;)
+<BR>[Called By]<UL><LI><a href="#[1d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rtos::Thread::start(mbed::Callback&lang;void()&rang;)
+<LI><a href="#[1b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MQSerialBridge::MQSerialBridge(PinName, PinName, unsigned, unsigned short, const char*, const char*)
 <LI><a href="#[1fd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::SerialBase::SerialBase(PinName, PinName, int)
+<LI><a href="#[1d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::SerialBase::attach(mbed::Callback&lang;void()&rang;, mbed::SerialBase::IrqType)
 <LI><a href="#[1d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::Callback&lang;void()&rang;::operator =(const mbed::Callback&lang;void()&rang;&)
 <LI><a href="#[1d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::Ticker::detach()
 <LI><a href="#[1cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SerialTerminal::SerialTerminal(PinName, PinName, unsigned short, int, SerialTerminal::Receiver_mode)
 <LI><a href="#[1c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SerialTerminal::startManaged(bool, bool)
 <LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MQSerialBridge::subscriptionCb(const char*, void*, unsigned short)
-<LI><a href="#[1b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MQSerialBridge::MQSerialBridge(PinName, PinName, unsigned, unsigned short, const char*, const char*)
 <LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SerialTerminal::onTxData()
 <LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SerialTerminal::onRxData()
 <LI><a href="#[1d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SerialTerminal::stopManaged(bool, bool)
@@ -5494,8 +5494,8 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[1c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::Callback&lang;void()&rang;::~Callback()
 <LI><a href="#[21f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::Callback&lang;void()&rang;::Callback(const mbed::Callback&lang;void()&rang;&)
 </UL>
-<BR>[Called By]<UL><LI><a href="#[1d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::SerialBase::attach(mbed::Callback&lang;void()&rang;, mbed::SerialBase::IrqType)
-<LI><a href="#[1fd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::SerialBase::SerialBase(PinName, PinName, int)
+<BR>[Called By]<UL><LI><a href="#[1fd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::SerialBase::SerialBase(PinName, PinName, int)
+<LI><a href="#[1d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::SerialBase::attach(mbed::Callback&lang;void()&rang;, mbed::SerialBase::IrqType)
 <LI><a href="#[1cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SerialTerminal::SerialTerminal(PinName, PinName, unsigned short, int, SerialTerminal::Receiver_mode)
 <LI><a href="#[1d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SerialTerminal::config(mbed::Callback&lang;void()&rang;, mbed::Callback&lang;void()&rang;, mbed::Callback&lang;void()&rang;, unsigned, char)
 <LI><a href="#[1c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SerialTerminal::send(void*, unsigned short, mbed::Callback&lang;void()&rang;)
@@ -5544,7 +5544,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[1cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SerialTerminal::SerialTerminal(PinName, PinName, unsigned short, int, SerialTerminal::Receiver_mode)
 </UL>
 
-<P><STRONG><a name="[1e0]"></a>mbed::Callback&lang;T1()&rang; mbed::callback&lang;void&rang;(T1(*)())</STRONG> (Thumb, 18 bytes, Stack size 16 bytes, .\build\hcsr04.o(t._ZN4mbed8callbackIvEENS_8CallbackIFT_vEEEPS3_))
+<P><STRONG><a name="[1e0]"></a>mbed::Callback&lang;T1()&rang; mbed::callback&lang;void&rang;(T1(*)())</STRONG> (Thumb, 18 bytes, Stack size 16 bytes, .\build\mpr121_captouch.o(t._ZN4mbed8callbackIvEENS_8CallbackIFT_vEEEPS3_))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = mbed::Callback&lang;T1()&rang; mbed::callback&lang;void&rang;(T1(*)()) &rArr; mbed::Callback&lang;void()&rang;::Callback(void(*)())
 </UL>
 <BR>[Calls]<UL><LI><a href="#[16e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::Callback&lang;void()&rang;::Callback(void(*)())
@@ -5615,6 +5615,55 @@ Global Symbols
 <H3>
 Local Symbols
 </H3>
+<P><STRONG><a name="[1b1]"></a>test_MQSerialBridge()</STRONG> (Thumb, 266 bytes, Stack size 48 bytes, .\build\main.o(i._Z19test_MQSerialBridgev))
+<BR><BR>[Stack]<UL><LI>Max Depth = 644 + Unknown Stack Size
+<LI>Call Chain = test_MQSerialBridge() &rArr; MQSerialBridge::MQSerialBridge(PinName, PinName, unsigned, unsigned short, const char*, const char*) &rArr; rtos::Thread::start(mbed::Callback&lang;void()&rang;) &rArr; operator new[] (unsigned) &rArr; error &rArr; mbed_error_vfprintf &rArr; serial_init &rArr; mbed_assert_internal &rArr; mbed_die &rArr; gpio_init_out &rArr; gpio_init_out_ex &rArr; _gpio_init_out &rArr; gpio_init &rArr; gpio_set &rArr;  mbed_assert_internal (Cycle)
+</UL>
+<BR>[Calls]<UL><LI><a href="#[1b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::Callback&lang;T1(T2, T3)&rang; mbed::callback&lang;void, const char*, int&rang;(T1(*)(T2, T3))
+<LI><a href="#[1b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::Callback&lang;T1(T2, T3, T4)&rang; mbed::callback&lang;void, const char*, void*, unsigned short&rang;(T1(*)(T2, T3, T4))
+<LI><a href="#[73]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::Callback&lang;void(const char*, int)&rang;::~Callback()
+<LI><a href="#[1b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::Callback&lang;void(const char*, void*, unsigned short)&rang;::operator =(const mbed::Callback&lang;void(const char*, void*, unsigned short)&rang;&)
+<LI><a href="#[72]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::Callback&lang;void(const char*, void*, unsigned short)&rang;::~Callback()
+<LI><a href="#[1bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MQ::MQClient::subscribe(const char*, mbed::Callback&lang;void(const char*, void*, unsigned short)&rang;*)
+<LI><a href="#[1b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MQ::MQBroker::start(const char**, unsigned, unsigned char)
+<LI><a href="#[1b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MQ::MQBroker::ready()
+<LI><a href="#[1b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;operator new(unsigned)
+<LI><a href="#[1b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rtos::Thread::yield()
+<LI><a href="#[1ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rtos::Thread::wait(unsigned)
+<LI><a href="#[1bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::RawSerial::printf(const char*, ...)
+<LI><a href="#[1b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MQSerialBridge::MQSerialBridge(PinName, PinName, unsigned, unsigned short, const char*, const char*)
+</UL>
+<BR>[Called By]<UL><LI><a href="#[16d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;$Super$$main
+</UL>
+
+<P><STRONG><a name="[68]"></a>pubCb(const char*, int)</STRONG> (Thumb, 32 bytes, Stack size 16 bytes, .\build\main.o(i._Z5pubCbPKci))
+<BR><BR>[Stack]<UL><LI>Max Depth = 604 + Unknown Stack Size
+<LI>Call Chain = pubCb(const char*, int) &rArr; mbed::RawSerial::printf(const char*, ...) &rArr; operator new[] (unsigned) &rArr; error &rArr; mbed_error_vfprintf &rArr; serial_init &rArr; mbed_assert_internal &rArr; mbed_die &rArr; gpio_init_out &rArr; gpio_init_out_ex &rArr; _gpio_init_out &rArr; gpio_init &rArr; gpio_set &rArr;  mbed_assert_internal (Cycle)
+</UL>
+<BR>[Calls]<UL><LI><a href="#[1ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rtos::Thread::wait(unsigned)
+<LI><a href="#[1bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::RawSerial::printf(const char*, ...)
+</UL>
+<BR>[Address Reference Count : 1]<UL><LI> main.o(i._Z19test_MQSerialBridgev)
+</UL>
+<P><STRONG><a name="[67]"></a>subscCb(const char*, void*, unsigned short)</STRONG> (Thumb, 58 bytes, Stack size 16 bytes, .\build\main.o(i._Z7subscCbPKcPvt))
+<BR><BR>[Stack]<UL><LI>Max Depth = 316<LI>Call Chain = subscCb(const char*, void*, unsigned short) &rArr; MQ::MQClient::publish(const char*, void*, unsigned, mbed::Callback&lang;void(const char*, int)&rang;*) &rArr; MQ::MQBroker::publishReq(const char*, void*, unsigned, mbed::Callback&lang;void(const char*, int)&rang;*) &rArr; mbed_assert_internal &rArr; mbed_die &rArr; gpio_init_out &rArr; gpio_init_out_ex &rArr; _gpio_init_out &rArr; gpio_init &rArr; gpio_set &rArr;  mbed_assert_internal (Cycle)
+</UL>
+<BR>[Calls]<UL><LI><a href="#[1be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MQ::MQClient::publish(const char*, void*, unsigned, mbed::Callback&lang;void(const char*, int)&rang;*)
+<LI><a href="#[1bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strncmp
+</UL>
+<BR>[Address Reference Count : 1]<UL><LI> main.o(i._Z19test_MQSerialBridgev)
+</UL>
+<P><STRONG><a name="[c7]"></a>__sti___8_main_cpp_led1</STRONG> (Thumb, 62 bytes, Stack size 16 bytes, .\build\main.o(i.__sti___8_main_cpp_led1))
+<BR><BR>[Stack]<UL><LI>Max Depth = 172<LI>Call Chain = __sti___8_main_cpp_led1 &rArr; gpio_init_out &rArr; gpio_init_out_ex &rArr; _gpio_init_out &rArr; gpio_init &rArr; gpio_set &rArr;  mbed_assert_internal (Cycle)
+</UL>
+<BR>[Calls]<UL><LI><a href="#[230]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::Callback&lang;void(const char*, int)&rang;::Callback(void(*)(const char*, int))
+<LI><a href="#[22f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::Callback&lang;void(const char*, void*, unsigned short)&rang;::Callback(void(*)(const char*, void*, unsigned short))
+<LI><a href="#[22e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gpio_init_out
+<LI><a href="#[22d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_atexit
+<LI><a href="#[128]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
+</UL>
+<BR>[Address Reference Count : 1]<UL><LI> main.o(.init_array)
+</UL>
 <P><STRONG><a name="[16f]"></a>can_irq</STRONG> (Thumb, 296 bytes, Stack size 88 bytes, .\build\can_api.o(i.can_irq))
 <BR><BR>[Stack]<UL><LI>Max Depth = 88<LI>Call Chain = can_irq
 </UL>
@@ -5836,11 +5885,11 @@ Local Symbols
 <P><STRONG><a name="[251]"></a>isrRtxMessageQueueGet</STRONG> (Thumb, 144 bytes, Stack size 32 bytes, .\build\rtx_msgqueue.o(i.isrRtxMessageQueueGet))
 <BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = isrRtxMessageQueueGet &rArr; osRtxPostProcess &rArr; isr_queue_put
 </UL>
-<BR>[Calls]<UL><LI><a href="#[254]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxPostProcess
-<LI><a href="#[191]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MessageQueueGet
-<LI><a href="#[253]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxMessageQueueRetrieved
+<BR>[Calls]<UL><LI><a href="#[253]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxMessageQueueRetrieved
 <LI><a href="#[255]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxMessageQueueNotRetrieved
 <LI><a href="#[252]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxMessageQueueError
+<LI><a href="#[254]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxPostProcess
+<LI><a href="#[191]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MessageQueueGet
 <LI><a href="#[1c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy
 </UL>
 <BR>[Called By]<UL><LI><a href="#[270]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osMessageQueueGet
@@ -5849,34 +5898,34 @@ Local Symbols
 <P><STRONG><a name="[256]"></a>isrRtxMessageQueuePut</STRONG> (Thumb, 158 bytes, Stack size 32 bytes, .\build\rtx_msgqueue.o(i.isrRtxMessageQueuePut))
 <BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = isrRtxMessageQueuePut &rArr; osRtxPostProcess &rArr; isr_queue_put
 </UL>
-<BR>[Calls]<UL><LI><a href="#[254]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxPostProcess
-<LI><a href="#[257]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxMemoryPoolAlloc
-<LI><a href="#[258]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxMessageQueueNotInserted
+<BR>[Calls]<UL><LI><a href="#[258]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxMessageQueueNotInserted
 <LI><a href="#[259]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxMessageQueueInsertPending
 <LI><a href="#[252]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EvrRtxMessageQueueError
+<LI><a href="#[254]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxPostProcess
+<LI><a href="#[257]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osRtxMemoryPoolAlloc
 <LI><a href="#[1c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy
 </UL>
 <BR>[Called By]<UL><LI><a href="#[277]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osMessageQueuePut
 </UL>
 
 <P><STRONG><a name="[27c]"></a>__get_BASEPRI</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, .\build\rtx_mutex.o(i.__get_BASEPRI))
-<BR><BR>[Called By]<UL><LI><a href="#[219]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osMutexRelease
+<BR><BR>[Called By]<UL><LI><a href="#[217]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osMutexNew
+<LI><a href="#[219]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osMutexRelease
 <LI><a href="#[218]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osMutexAcquire
-<LI><a href="#[217]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osMutexNew
 <LI><a href="#[21a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osMutexDelete
 </UL>
 
 <P><STRONG><a name="[27a]"></a>__get_IPSR</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, .\build\rtx_mutex.o(i.__get_IPSR))
-<BR><BR>[Called By]<UL><LI><a href="#[219]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osMutexRelease
+<BR><BR>[Called By]<UL><LI><a href="#[217]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osMutexNew
+<LI><a href="#[219]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osMutexRelease
 <LI><a href="#[218]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osMutexAcquire
-<LI><a href="#[217]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osMutexNew
 <LI><a href="#[21a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osMutexDelete
 </UL>
 
 <P><STRONG><a name="[27b]"></a>__get_PRIMASK</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, .\build\rtx_mutex.o(i.__get_PRIMASK))
-<BR><BR>[Called By]<UL><LI><a href="#[219]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osMutexRelease
+<BR><BR>[Called By]<UL><LI><a href="#[217]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osMutexNew
+<LI><a href="#[219]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osMutexRelease
 <LI><a href="#[218]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osMutexAcquire
-<LI><a href="#[217]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osMutexNew
 <LI><a href="#[21a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osMutexDelete
 </UL>
 
@@ -5898,18 +5947,18 @@ Local Symbols
 </UL>
 
 <P><STRONG><a name="[2bd]"></a>__get_BASEPRI</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, .\build\rtx_semaphore.o(i.__get_BASEPRI))
-<BR><BR>[Called By]<UL><LI><a href="#[225]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osSemaphoreNew
-<LI><a href="#[226]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osSemaphoreRelease
+<BR><BR>[Called By]<UL><LI><a href="#[226]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osSemaphoreRelease
+<LI><a href="#[225]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osSemaphoreNew
 </UL>
 
 <P><STRONG><a name="[2bb]"></a>__get_IPSR</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, .\build\rtx_semaphore.o(i.__get_IPSR))
-<BR><BR>[Called By]<UL><LI><a href="#[225]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osSemaphoreNew
-<LI><a href="#[226]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osSemaphoreRelease
+<BR><BR>[Called By]<UL><LI><a href="#[226]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osSemaphoreRelease
+<LI><a href="#[225]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osSemaphoreNew
 </UL>
 
 <P><STRONG><a name="[2bc]"></a>__get_PRIMASK</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, .\build\rtx_semaphore.o(i.__get_PRIMASK))
-<BR><BR>[Called By]<UL><LI><a href="#[225]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osSemaphoreNew
-<LI><a href="#[226]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osSemaphoreRelease
+<BR><BR>[Called By]<UL><LI><a href="#[226]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osSemaphoreRelease
+<LI><a href="#[225]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osSemaphoreNew
 </UL>
 
 <P><STRONG><a name="[25a]"></a>isr_queue_get</STRONG> (Thumb, 44 bytes, Stack size 16 bytes, .\build\rtx_system.o(i.isr_queue_get))
@@ -5946,34 +5995,34 @@ Local Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[1a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__asm___12_rtx_thread_c_add96be5__atomic_set32
 </UL>
-<BR>[Called By]<UL><LI><a href="#[21b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osThreadFlagsSet
-<LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;svcRtxThreadFlagsSet
+<BR>[Called By]<UL><LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;svcRtxThreadFlagsSet
+<LI><a href="#[21b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osThreadFlagsSet
 </UL>
 
 <P><STRONG><a name="[2c5]"></a>__get_BASEPRI</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, .\build\rtx_thread.o(i.__get_BASEPRI))
-<BR><BR>[Called By]<UL><LI><a href="#[172]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osThreadGetId
+<BR><BR>[Called By]<UL><LI><a href="#[222]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osThreadYield
+<LI><a href="#[2c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osThreadContextNew
+<LI><a href="#[172]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osThreadGetId
 <LI><a href="#[21d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osThreadFlagsWait
 <LI><a href="#[21b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osThreadFlagsSet
-<LI><a href="#[222]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osThreadYield
-<LI><a href="#[2c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osThreadContextNew
 <LI><a href="#[281]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osThreadGetName
 </UL>
 
 <P><STRONG><a name="[2c3]"></a>__get_IPSR</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, .\build\rtx_thread.o(i.__get_IPSR))
-<BR><BR>[Called By]<UL><LI><a href="#[172]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osThreadGetId
+<BR><BR>[Called By]<UL><LI><a href="#[222]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osThreadYield
+<LI><a href="#[2c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osThreadContextNew
+<LI><a href="#[172]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osThreadGetId
 <LI><a href="#[21d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osThreadFlagsWait
 <LI><a href="#[21b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osThreadFlagsSet
-<LI><a href="#[222]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osThreadYield
-<LI><a href="#[2c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osThreadContextNew
 <LI><a href="#[281]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osThreadGetName
 </UL>
 
 <P><STRONG><a name="[2c4]"></a>__get_PRIMASK</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, .\build\rtx_thread.o(i.__get_PRIMASK))
-<BR><BR>[Called By]<UL><LI><a href="#[172]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osThreadGetId
+<BR><BR>[Called By]<UL><LI><a href="#[222]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osThreadYield
+<LI><a href="#[2c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osThreadContextNew
+<LI><a href="#[172]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osThreadGetId
 <LI><a href="#[21d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osThreadFlagsWait
 <LI><a href="#[21b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osThreadFlagsSet
-<LI><a href="#[222]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osThreadYield
-<LI><a href="#[2c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osThreadContextNew
 <LI><a href="#[281]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osThreadGetName
 </UL>
 
@@ -6053,7 +6102,7 @@ Local Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> serialbase.o(i._ZN4mbed10SerialBaseC1E7PinNameS1_i)
 </UL>
-<P><STRONG><a name="[c7]"></a>__sti___7_SPI_cpp_ab1f1164</STRONG> (Thumb, 44 bytes, Stack size 16 bytes, .\build\spi.o(i.__sti___7_SPI_cpp_ab1f1164))
+<P><STRONG><a name="[c8]"></a>__sti___7_SPI_cpp_ab1f1164</STRONG> (Thumb, 44 bytes, Stack size 16 bytes, .\build\spi.o(i.__sti___7_SPI_cpp_ab1f1164))
 <BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = __sti___7_SPI_cpp_ab1f1164 &rArr; __aeabi_vec_ctor_nocookie_nodtor
 </UL>
 <BR>[Calls]<UL><LI><a href="#[22d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_atexit
@@ -6077,62 +6126,13 @@ Local Symbols
 <BR>[Called By]<UL><LI><a href="#[17f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_RCCEx_PeriphCLKConfig
 </UL>
 
-<P><STRONG><a name="[1b1]"></a>test_MQSerialBridge()</STRONG> (Thumb, 266 bytes, Stack size 48 bytes, .\build\main.o(i._Z19test_MQSerialBridgev))
-<BR><BR>[Stack]<UL><LI>Max Depth = 644 + Unknown Stack Size
-<LI>Call Chain = test_MQSerialBridge() &rArr; MQSerialBridge::MQSerialBridge(PinName, PinName, unsigned, unsigned short, const char*, const char*) &rArr; rtos::Thread::start(mbed::Callback&lang;void()&rang;) &rArr; operator new[] (unsigned) &rArr; error &rArr; mbed_error_vfprintf &rArr; serial_init &rArr; mbed_assert_internal &rArr; mbed_die &rArr; gpio_init_out &rArr; gpio_init_out_ex &rArr; _gpio_init_out &rArr; gpio_init &rArr; gpio_set &rArr;  mbed_assert_internal (Cycle)
-</UL>
-<BR>[Calls]<UL><LI><a href="#[1b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;operator new(unsigned)
-<LI><a href="#[1ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rtos::Thread::wait(unsigned)
-<LI><a href="#[1bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::RawSerial::printf(const char*, ...)
-<LI><a href="#[1b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rtos::Thread::yield()
-<LI><a href="#[1b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::Callback&lang;T1(T2, T3)&rang; mbed::callback&lang;void, const char*, int&rang;(T1(*)(T2, T3))
-<LI><a href="#[1b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::Callback&lang;T1(T2, T3, T4)&rang; mbed::callback&lang;void, const char*, void*, unsigned short&rang;(T1(*)(T2, T3, T4))
-<LI><a href="#[73]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::Callback&lang;void(const char*, int)&rang;::~Callback()
-<LI><a href="#[1b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::Callback&lang;void(const char*, void*, unsigned short)&rang;::operator =(const mbed::Callback&lang;void(const char*, void*, unsigned short)&rang;&)
-<LI><a href="#[72]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::Callback&lang;void(const char*, void*, unsigned short)&rang;::~Callback()
-<LI><a href="#[1bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MQ::MQClient::subscribe(const char*, mbed::Callback&lang;void(const char*, void*, unsigned short)&rang;*)
-<LI><a href="#[1b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MQ::MQBroker::start(const char**, unsigned, unsigned char)
-<LI><a href="#[1b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MQ::MQBroker::ready()
-<LI><a href="#[1b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MQSerialBridge::MQSerialBridge(PinName, PinName, unsigned, unsigned short, const char*, const char*)
-</UL>
-<BR>[Called By]<UL><LI><a href="#[16d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;$Super$$main
-</UL>
-
-<P><STRONG><a name="[68]"></a>pubCb(const char*, int)</STRONG> (Thumb, 32 bytes, Stack size 16 bytes, .\build\main.o(i._Z5pubCbPKci))
-<BR><BR>[Stack]<UL><LI>Max Depth = 604 + Unknown Stack Size
-<LI>Call Chain = pubCb(const char*, int) &rArr; mbed::RawSerial::printf(const char*, ...) &rArr; operator new[] (unsigned) &rArr; error &rArr; mbed_error_vfprintf &rArr; serial_init &rArr; mbed_assert_internal &rArr; mbed_die &rArr; gpio_init_out &rArr; gpio_init_out_ex &rArr; _gpio_init_out &rArr; gpio_init &rArr; gpio_set &rArr;  mbed_assert_internal (Cycle)
-</UL>
-<BR>[Calls]<UL><LI><a href="#[1ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rtos::Thread::wait(unsigned)
-<LI><a href="#[1bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::RawSerial::printf(const char*, ...)
-</UL>
-<BR>[Address Reference Count : 1]<UL><LI> main.o(i._Z19test_MQSerialBridgev)
-</UL>
-<P><STRONG><a name="[67]"></a>subscCb(const char*, void*, unsigned short)</STRONG> (Thumb, 58 bytes, Stack size 16 bytes, .\build\main.o(i._Z7subscCbPKcPvt))
-<BR><BR>[Stack]<UL><LI>Max Depth = 316<LI>Call Chain = subscCb(const char*, void*, unsigned short) &rArr; MQ::MQClient::publish(const char*, void*, unsigned, mbed::Callback&lang;void(const char*, int)&rang;*) &rArr; MQ::MQBroker::publishReq(const char*, void*, unsigned, mbed::Callback&lang;void(const char*, int)&rang;*) &rArr; mbed_assert_internal &rArr; mbed_die &rArr; gpio_init_out &rArr; gpio_init_out_ex &rArr; _gpio_init_out &rArr; gpio_init &rArr; gpio_set &rArr;  mbed_assert_internal (Cycle)
-</UL>
-<BR>[Calls]<UL><LI><a href="#[1be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MQ::MQClient::publish(const char*, void*, unsigned, mbed::Callback&lang;void(const char*, int)&rang;*)
-<LI><a href="#[1bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strncmp
-</UL>
-<BR>[Address Reference Count : 1]<UL><LI> main.o(i._Z19test_MQSerialBridgev)
-</UL>
-<P><STRONG><a name="[c8]"></a>__sti___8_main_cpp_led1</STRONG> (Thumb, 62 bytes, Stack size 16 bytes, .\build\main.o(i.__sti___8_main_cpp_led1))
-<BR><BR>[Stack]<UL><LI>Max Depth = 172<LI>Call Chain = __sti___8_main_cpp_led1 &rArr; gpio_init_out &rArr; gpio_init_out_ex &rArr; _gpio_init_out &rArr; gpio_init &rArr; gpio_set &rArr;  mbed_assert_internal (Cycle)
-</UL>
-<BR>[Calls]<UL><LI><a href="#[22e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gpio_init_out
-<LI><a href="#[22d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_atexit
-<LI><a href="#[230]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::Callback&lang;void(const char*, int)&rang;::Callback(void(*)(const char*, int))
-<LI><a href="#[22f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mbed::Callback&lang;void(const char*, void*, unsigned short)&rang;::Callback(void(*)(const char*, void*, unsigned short))
-<LI><a href="#[128]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
-</UL>
-<BR>[Address Reference Count : 1]<UL><LI> main.o(.init_array)
-</UL>
-<P><STRONG><a name="[c9]"></a>__sti___9_MQLib_cpp_cf225734</STRONG> (Thumb, 20 bytes, Stack size 8 bytes, .\build\mqlib.o(i.__sti___9_MQLib_cpp_cf225734))
+<P><STRONG><a name="[c9]"></a>__sti___9_MQLib_cpp_cf225734</STRONG> (Thumb, 20 bytes, Stack size 8 bytes, .\build\mqlib_1.o(i.__sti___9_MQLib_cpp_cf225734))
 <BR><BR>[Stack]<UL><LI>Max Depth = 236<LI>Call Chain = __sti___9_MQLib_cpp_cf225734 &rArr; rtos::Mutex::Mutex() &rArr; rtos::Mutex::constructor(const char*) &rArr; mbed_assert_internal &rArr; mbed_die &rArr; gpio_init_out &rArr; gpio_init_out_ex &rArr; _gpio_init_out &rArr; gpio_init &rArr; gpio_set &rArr;  mbed_assert_internal (Cycle)
 </UL>
-<BR>[Calls]<UL><LI><a href="#[1e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rtos::Mutex::Mutex()
-<LI><a href="#[22d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_atexit
+<BR>[Calls]<UL><LI><a href="#[22d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_atexit
+<LI><a href="#[1e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rtos::Mutex::Mutex()
 </UL>
-<BR>[Address Reference Count : 1]<UL><LI> mqlib.o(.init_array)
+<BR>[Address Reference Count : 1]<UL><LI> mqlib_1.o(.init_array)
 </UL>
 <P><STRONG><a name="[1c1]"></a>getCRC(void*, unsigned)</STRONG> (Thumb, 46 bytes, Stack size 16 bytes, .\build\mqserialbridge.o(i._Z6getCRCPvj))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = getCRC(void*, unsigned)
@@ -6158,8 +6158,8 @@ Local Symbols
 <BR>[Calls]<UL><LI><a href="#[12d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sys_open
 <LI><a href="#[d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_mutex_release
 <LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_mutex_acquire
-<LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_fseek
 <LI><a href="#[125]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_fclose_internal
+<LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_fseek
 </UL>
 <BR>[Called By]<UL><LI><a href="#[12f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;fopen
 <LI><a href="#[12e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;freopen
@@ -6171,11 +6171,11 @@ Local Symbols
 <P><STRONG><a name="[154]"></a>_fp_digits</STRONG> (Thumb, 428 bytes, Stack size 96 bytes, C:\Keil_v5\ARM\ARMCC\Bin\..\lib\armlib\c_w.l(_printf_fp_dec.o)(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 216<LI>Call Chain = _fp_digits &rArr; _btod_etento &rArr; _btod_emul &rArr; _e2e
 </UL>
-<BR>[Calls]<UL><LI><a href="#[141]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_ll_udiv10
-<LI><a href="#[158]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_btod_emul
+<BR>[Calls]<UL><LI><a href="#[158]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_btod_emul
 <LI><a href="#[157]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_btod_ediv
 <LI><a href="#[156]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_btod_d2e
 <LI><a href="#[155]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_btod_etento
+<LI><a href="#[141]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_ll_udiv10
 </UL>
 <BR>[Called By]<UL><LI><a href="#[159]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_fp_dec_real
 </UL>
@@ -6190,8 +6190,8 @@ Local Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 444 + Unknown Stack Size
 <LI>Call Chain = __sti___10_rwcats_cpp_64e8068e &rArr; operator new[] (unsigned) &rArr; error &rArr; mbed_error_vfprintf &rArr; serial_init &rArr; mbed_assert_internal &rArr; mbed_die &rArr; gpio_init_out &rArr; gpio_init_out_ex &rArr; _gpio_init_out &rArr; gpio_init &rArr; gpio_set &rArr;  mbed_assert_internal (Cycle)
 </UL>
-<BR>[Calls]<UL><LI><a href="#[214]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;operator new[] (unsigned)
-<LI><a href="#[22d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_atexit
+<BR>[Calls]<UL><LI><a href="#[22d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_atexit
+<LI><a href="#[214]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;operator new[] (unsigned)
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> rwcats.o(.init_array)
 </UL><P>

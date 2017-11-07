@@ -7,6 +7,11 @@ Proyecto plantilla para desarrollos con la tarjeta NUCLEO_L432KC de ST en mbed-o
 ## Changelog
 
 ----------------------------------------------------------------------------------------------
+##### 07.11.2017 ->commit:"Reorganizo código en Middleware, Drivers y Managers"
+- [x] Reorganizo módulos de acuerdo a su repo.
+	  
+
+----------------------------------------------------------------------------------------------
 ##### 07.11.2017 ->commit:"Incluyo módulo MQSerialBridge en Middleware"
 - [x] Integrado módulo MQSerialBridge. Verificado funcionamiento!.
 - [x] Actualizo funcinamiento de SerialTerminal

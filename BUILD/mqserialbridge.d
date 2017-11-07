@@ -220,7 +220,7 @@
 .\build\mqserialbridge.o: mbed-os/./platform/CriticalSectionLock.h
 .\build\mqserialbridge.o: mbed-os/./platform/DeepSleepLock.h
 .\build\mqserialbridge.o: .\src\BspDrivers\SerialTerminal\SerialTerminal.h
-.\build\mqserialbridge.o: .\src\MQLib\MQLib.h
-.\build\mqserialbridge.o: .\src\MQLib\List.h
-.\build\mqserialbridge.o: .\src\MQLib\List_tpp.h
-.\build\mqserialbridge.o: .\src\MQLib\Heap.h
+.\build\mqserialbridge.o: .\src\Middleware\MQLib\MQLib.h
+.\build\mqserialbridge.o: .\src\Middleware\MQLib\List.h
+.\build\mqserialbridge.o: .\src\Middleware\MQLib\List_tpp.h
+.\build\mqserialbridge.o: .\src\Middleware\MQLib\Heap.h

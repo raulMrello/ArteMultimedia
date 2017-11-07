@@ -218,10 +218,10 @@
 .\build\main.o: mbed-os/./platform/ATCmdParser.h
 .\build\main.o: mbed-os/./platform/CriticalSectionLock.h
 .\build\main.o: mbed-os/./platform/DeepSleepLock.h
-.\build\main.o: .\src\MQLib\MQLib.h
-.\build\main.o: .\src\MQLib\List.h
-.\build\main.o: .\src\MQLib\List_tpp.h
-.\build\main.o: .\src\MQLib\Heap.h
+.\build\main.o: .\src\Middleware\MQLib\MQLib.h
+.\build\main.o: .\src\Middleware\MQLib\List.h
+.\build\main.o: .\src\Middleware\MQLib\List_tpp.h
+.\build\main.o: .\src\Middleware\MQLib\Heap.h
 .\build\main.o: .\src\BspDrivers\SerialTerminal\Logger.h
 .\build\main.o: .\src\BspDrivers\SerialTerminal\SerialTerminal.h
 .\build\main.o: .\src\Middleware\MQSerialBridge\MQSerialBridge.h

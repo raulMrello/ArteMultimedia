@@ -7,6 +7,11 @@ Proyecto plantilla para desarrollos con la tarjeta NUCLEO_L432KC de ST en mbed-o
 ## Changelog
 
 ----------------------------------------------------------------------------------------------
+##### 07.11.2017 ->commit:"Incluyo módulo StateMachine en Middleware"
+- [x] Integrado módulo StateMachine. Verificado funcionamiento!.
+	  
+
+----------------------------------------------------------------------------------------------
 ##### 2.11.2017 ->commit:"Creo rama dev y actualizo a mbed-os-5.6"
 - [x] Integrado módulos de comunicaciones wifi y mqtt, con actualización necesaria a mbed-os-5.6
 	  para solucionar compatibilidad con ATCmdParser.

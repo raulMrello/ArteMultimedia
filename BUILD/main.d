@@ -240,3 +240,4 @@
 .\build\main.o: .\src\MQTT\MQTTPacket\StackTrace.h
 .\build\main.o: .\src\MQTT\MQTTPacket\MQTTPacket.h
 .\build\main.o: .\src\MQTT\MQTTLogging.h
+.\build\main.o: .\src\Middleware\StateMachine\StateMachine.h

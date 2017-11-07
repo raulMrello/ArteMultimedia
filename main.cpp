@@ -514,6 +514,93 @@ int test_ESP8266MQTT(){
 }
 
 
+
+
+
+
+
+// **************************************************************************
+// *********** TEST StateMachine ********************************************
+// **************************************************************************
+
+#include "StateMachine.h"
+
+class MySM : public StateMachine{
+public:    
+    MySM() : StateMachine(){
+        _stInit.setHandler(callback(this, &MySM::Init_EventHandler));
+        _stNext.setHandler(callback(this, &MySM::Next_EventHandler));        
+    }
+    
+    void start(){
+        initState(&_stInit, Thread::gettid());        
+        // Ejecuta máquinas de estados
+        for(;;){
+            osEvent oe = Thread::signal_wait(0, osWaitForever);        
+            run(&oe);
+        }
+    }
+
+protected:
+    State _stInit;
+    State::StateResult Init_EventHandler(State::StateEvent* se){
+        switch(se->evt){          
+            case State::EV_ENTRY:{
+                DEBUG_TRACE("\r\nInit ENTRY");
+                Thread::wait(1000);
+                raiseEvent(State::EV_RESERVED_USER, Thread::gettid());
+                raiseEvent((State::EV_RESERVED_USER+1), Thread::gettid());
+                return State::HANDLED;                
+            }
+            case State::EV_RESERVED_USER:{
+                DEBUG_TRACE("\r\nEvt USER_0");
+                return State::HANDLED;                
+            }
+            case (State::EV_RESERVED_USER+1):{
+                DEBUG_TRACE("\r\nEvt USER_1");
+                Thread::wait(1000);
+                // Conmuta a modo Next
+                tranState(&_stNext, Thread::gettid());
+                return State::HANDLED;                
+            }
+            case State::EV_EXIT:{
+                DEBUG_TRACE("\r\nInit EXIT");
+                nextState();
+                return State::HANDLED;
+            }
+        }
+        return State::IGNORED; 
+    }
+
+    State _stNext;
+    State::StateResult Next_EventHandler(State::StateEvent* se){
+        switch(se->evt){          
+            case State::EV_ENTRY:{
+                DEBUG_TRACE("\r\nNext ENTRY");
+                // Conmuta a modo Init
+                tranState(&_stInit, Thread::gettid());
+                return State::HANDLED;                
+            }
+            
+            case State::EV_EXIT:{
+                DEBUG_TRACE("\r\nNext EXIT");
+                nextState();
+                return State::HANDLED;
+            }
+        }
+        return State::IGNORED; 
+    }      
+};
+
+void test_StateMachine(){
+    MySM* sm = new MySM();
+    sm->start();
+    for(;;){
+        Thread::yield();
+    }
+}
+
+
 // **************************************************************************
 // **************************************************************************
 // **************************************************************************
@@ -530,7 +617,8 @@ int main() {
 //    test_HCSR04();
 //    test_PCA9685();
 //    test_MPR121();
-    test_ESP8266MQTT();
+//    test_ESP8266MQTT();
+    test_StateMachine();
     for(;;){
         Thread::yield();
     }

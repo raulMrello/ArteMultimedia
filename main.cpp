@@ -1,76 +1,61 @@
 #include "mbed.h"
 #include "MQLib.h"
-#include "Logger.h"
 
-DigitalOut led1(LED3);
-Logger* logger;
-//#define DEBUG_TRACE(format, ...)    if(logger){logger->printf(format, ##__VA_ARGS__);}
-#define DEBUG_TRACE(format, ...)    if(logger){Thread::wait(100); logger->printf(format, ##__VA_ARGS__);}
 
 
 // **************************************************************************
-// *********** TEST MQLIB ***************************************************
+// *********** TESTS ********************************************************
+// **************************************************************************
+
+extern void test_PCA9685();
+
+typedef void(*TestCallback)();
+static TestCallback test_list[] = {
+    test_PCA9685, 
+    NULL};
+
+
+// **************************************************************************
+// *********** OBJETOS ******************************************************
 // **************************************************************************
 
 
-
-//-----------------------------------------------------------------------------
 /** Utilidad para conocer el tamaño en número de elementos de cualquier tipo de array */
-template <typename T, size_t N>
-inline
-size_t SizeOfArray( const T(&)[ N ] )
-{
-  return N;
-}
+template <typename T, size_t N> inline size_t SizeOfArray(const T(&)[N]) { return N; }
 
-//-----------------------------------------------------------------------------
-/** Lista de tokens proporcionados */
+/** Lista de tokens MQLib */
 static MQ::Token token_list[] = {
-    "topic0",
-    "topic1",
-    "touch",
     "mqserialbridge",
+    "info",
+    "test",
+    "servo_enable",
+    "servo0",
+    "servo1",
+    "servo2",
+    "servo3",
+    "servo4",
+    "servo5",
+    "servo6",
+    "servo7",
+    "servo8",
+    "servo9",
+    "servo10",
+    "servo11",
+    "deg",
+    "mov",
+    "cmd",
+    "sta",
 };
 
-//-----------------------------------------------------------------------------
-static void onPublished(const char* topic, int32_t result){
-    if(strchr(topic, '0') != 0){
-        led1 = 0;
-    }
-    if(strchr(topic, '1') != 0){
-        led1 = 1;
-    }
-}
 
-//-----------------------------------------------------------------------------
-class Test{
-public:
-	Test(){
-		strcpy(_topic, "");
-		_suscrCb = callback(this, &Test::subscriptionCb);		
-	}
-	void task(){
-        MQ::MQClient::subscribe("topic0", &_suscrCb);
-		MQ::MQClient::subscribe("topic1", &_suscrCb);
-	}
-	MQ::SubscribeCallback _suscrCb;
-	
-protected:
 
-	void subscriptionCb(const char* topic, void* msg, uint16_t msg_len){
-		strncpy(_topic, topic, 15);
-	}
-	char _topic[16];
-};
 
-//-----------------------------------------------------------------------------
-static Test* t;
+// **************************************************************************
+// *********** MAIN *********************************************************
+// **************************************************************************
 
-//-----------------------------------------------------------------------------
-int test_MQlib(){    
-	t = new Test();
-	Thread th;
-               
+int main() {
+    // --------------------------------------
     // Arranca el broker con la siguiente configuración:
     //  - Lista de tokens predefinida
     //  - Número máximo de caracteres para los topics: 64 caracteres incluyendo fin de cadena '\0'
@@ -79,24 +64,20 @@ int test_MQlib(){
     while(!MQ::MQBroker::ready()){
         Thread::yield();
     }
-
     
-	MQ::PublishCallback pc = callback(onPublished);
-		
-	// Inicia la tarea paralela
-	th.start(callback(t, &Test::task));
-	
-	Thread::wait(1000);
-	
-	char data = 0;
-	MQ::MQClient::publish("topic0", &data, sizeof(char), &pc);
-	data = 4;
-	while (true) {
-        led1 = !led1;
-        wait(0.5);
-        MQ::MQClient::publish("topic1", &data, sizeof(char), &pc);
+    // --------------------------------------
+    // Arranca los tests
+    int i=0;
+    while(test_list[i] != NULL){
+        test_list[i]();
+        i++;
     }
+    
+    for(;;){ Thread::yield(); }
 }
+
+
+
 
 
 // **************************************************************************
@@ -609,77 +590,55 @@ int test_MQlib(){
 // *********** TEST MQSerialBridge ******************************************
 // **************************************************************************
 
-#include "MQSerialBridge.h"
-MQSerialBridge* qserial;
+//#include "MQSerialBridge.h"
+//MQSerialBridge* qserial;
 
-static MQ::SubscribeCallback _sc;
-static MQ::PublishCallback _pc;
+//static MQ::SubscribeCallback _sc;
+//static MQ::PublishCallback _pc;
 
-static void pubCb(const char* topic, int32_t result){
-    DEBUG_TRACE("\r\nPublicado en %s", topic);
-}
-static void subscCb(const char* topic, void* msg, uint16_t msg_len){
-    if(strncmp(topic, "topic0", strlen("topic0"))==0){
-        MQ::MQClient::publish("topic1", msg, msg_len, &_pc);
-    }
-    if(strncmp(topic, "topic1", strlen("topic1"))==0){
-        MQ::MQClient::publish("topic0", msg, msg_len, &_pc);
-    }
-}
+//static void pubCb(const char* topic, int32_t result){
+//    DEBUG_TRACE("\r\nPublicado en %s", topic);
+//}
+//static void subscCb(const char* topic, void* msg, uint16_t msg_len){
+//    if(strncmp(topic, "topic0", strlen("topic0"))==0){
+//        MQ::MQClient::publish("topic1", msg, msg_len, &_pc);
+//    }
+//    if(strncmp(topic, "topic1", strlen("topic1"))==0){
+//        MQ::MQClient::publish("topic0", msg, msg_len, &_pc);
+//    }
+//}
 
-static void test_MQSerialBridge(){
-    
-    
-    // Arranca el broker con la siguiente configuración:
-    //  - Lista de tokens predefinida
-    //  - Número máximo de caracteres para los topics: 64 caracteres incluyendo fin de cadena '\0'
-    //  - Espera a que esté operativo
-    MQ::MQBroker::start(token_list, SizeOfArray(token_list), 64);
-    while(!MQ::MQBroker::ready()){
-        Thread::yield();
-    }
-    
-    _sc = callback(subscCb);
-    _pc = callback(pubCb);
-    qserial = new MQSerialBridge(USBTX, USBRX, 115200, 256);
-    logger = (Logger*)qserial;
-    
-    DEBUG_TRACE("\r\nIniciando test...\r\n");
+//static void test_MQSerialBridge(){
+//    
+//    
+//    // Arranca el broker con la siguiente configuración:
+//    //  - Lista de tokens predefinida
+//    //  - Número máximo de caracteres para los topics: 64 caracteres incluyendo fin de cadena '\0'
+//    //  - Espera a que esté operativo
+//    MQ::MQBroker::start(token_list, SizeOfArray(token_list), 64);
+//    while(!MQ::MQBroker::ready()){
+//        Thread::yield();
+//    }
+//    
+//    _sc = callback(subscCb);
+//    _pc = callback(pubCb);
+//    qserial = new MQSerialBridge(USBTX, USBRX, 115200, 256);
+//    logger = (Logger*)qserial;
+//    
+//    DEBUG_TRACE("\r\nIniciando test...\r\n");
 
-    
-    DEBUG_TRACE("\r\nMQBroker listo!");
-    
-    // se suscribe a los topics "topic0" en los que publicará a topic1
-    MQ::MQClient::subscribe("topic0", &_sc);
-    
-    DEBUG_TRACE("\r\nSuscripciones hechas!");
-    
-    for(;;){
-        Thread::yield();
-    }
-}
+//    
+//    DEBUG_TRACE("\r\nMQBroker listo!");
+//    
+//    // se suscribe a los topics "topic0" en los que publicará a topic1
+//    MQ::MQClient::subscribe("topic0", &_sc);
+//    
+//    DEBUG_TRACE("\r\nSuscripciones hechas!");
+//    
+//    for(;;){
+//        Thread::yield();
+//    }
+//}
 
-// **************************************************************************
-// **************************************************************************
-// **************************************************************************
-
-
-// main() runs in its own thread in the OS
-int main() {
-    
-//    test_MQlib();
-//    test_SpiDma();
-//    test_DMA_PwmOut();
-//    test_WS281xLedStrip();
-//    test_HCSR04();
-//    test_PCA9685();
-//    test_MPR121();
-//    test_ESP8266MQTT();
-//    test_StateMachine();
-    test_MQSerialBridge();
-    for(;;){
-        Thread::yield();
-    }
-}
 
 

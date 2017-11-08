@@ -132,7 +132,14 @@ class PCA9685_ServoDrv{
      * @return Código de error
      */    
     ErrorResult updateAll();  
-    
+
+
+    /** Obtiene el duty equivalente a un ángulo de giro dado para un servo en concreto
+     * @param servoId Identificador del servo
+     * @param angle Ángulo en grados
+     * @return Recibe el valor del pulso (0...4096)
+     */
+    uint16_t getDutyFromAngle(uint8_t servoId, uint8_t angle);    
     
   protected:
     int16_t     _minAngle[ServoCount];

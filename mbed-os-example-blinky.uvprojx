@@ -4346,6 +4346,16 @@
             </File>
           </Files>
         </Group>
+        <Group>
+          <GroupName>tests</GroupName>
+          <Files>
+            <File>
+              <FileName>test_PCA9685.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\BspDrivers\PCA9685\test\test_PCA9685.cpp</FilePath>
+            </File>
+          </Files>
+        </Group>
       </Groups>
     </Target>
   </Targets>

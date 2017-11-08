@@ -7,6 +7,14 @@ Proyecto plantilla para desarrollos con la tarjeta NUCLEO_L432KC de ST en mbed-o
 ## Changelog
 
 ----------------------------------------------------------------------------------------------
+##### 08.11.2017 ->commit:"Añado tests dedicados"
+- [x] Modifico MQSerialBridge para que acepte publicaciones de este estilo:
+	    "topic/0 55"
+- [x] Incluyo test dedicado para el Servo. QUIZAS HAYA QUE PENSAR EN USAR DMA PARA MOVIMIENTO
+	  REPETITIVO.
+	  
+
+----------------------------------------------------------------------------------------------
 ##### 07.11.2017 ->commit:"Reorganizo código en Middleware, Drivers y Managers"
 - [x] Reorganizo módulos de acuerdo a su repo.
 	  

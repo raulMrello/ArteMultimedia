@@ -330,6 +330,7 @@
 ".\build\mqttunsubscribeclient.o"
 ".\build\mqttunsubscribeserver.o"
 ".\build\touchmanager.o"
+".\build\servomanager.o"
 ".\build\mpr121_captouch.o"
 ".\build\dma.o"
 ".\build\dma_spi.o"
@@ -338,7 +339,7 @@
 ".\build\hcsr04.o"
 ".\build\serialterminal.o"
 ".\build\pca9685_servodrv.o"
-".\build\test_pca9685.o"
+".\build\test_servomanager.o"
 --scatter "mbed-os/targets/TARGET_STM/TARGET_STM32L4/TARGET_STM32L432xC/device/TOOLCHAIN_ARM_STD/stm32l432xx.sct"
 --show_full_path --summary_stderr --info summarysizes --map --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers

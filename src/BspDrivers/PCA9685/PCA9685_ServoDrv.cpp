@@ -349,7 +349,6 @@ uint16_t PCA9685_ServoDrv::getDutyFromAngle(uint8_t servoId, uint8_t angle){
     float step = (float)(_maxRange[servoId] - _minRange[servoId])/(_maxAngle[servoId] - _minAngle[servoId]);
     return((uint16_t)(_minRange[servoId] + (step * angle)));
 }
-    
 
 
 //------------------------------------------------------------------------------------

@@ -140,22 +140,22 @@ class PCA9685_ServoDrv{
      * @return Recibe el valor del pulso (0...4096)
      */
     uint16_t getDutyFromAngle(uint8_t servoId, uint8_t angle);    
+
     
   protected:
-    int16_t     _minAngle[ServoCount];
-    int16_t     _maxAngle[ServoCount];
-    uint16_t    _minRange[ServoCount];
-    uint16_t    _maxRange[ServoCount];
-    uint16_t    _dutyValue[ServoCount];
-    uint8_t     _addr;
-    uint32_t    _hz;
-    uint32_t    _period_us;
-    uint32_t    _freq;
-    I2C*        _i2c; 
-    DigitalOut* _oe;
-    Status       _stat;
-    uint8_t     _num_servos;
-  
+    int16_t     _minAngle[ServoCount];      /// Rango inferior en grados para cada servo
+    int16_t     _maxAngle[ServoCount];      /// Rango superior en grados por servo
+    uint16_t    _minRange[ServoCount];      /// Duty inferior por servo
+    uint16_t    _maxRange[ServoCount];      /// Duty superior por servo
+    uint16_t    _dutyValue[ServoCount];     /// Duty actual por servo
+    uint8_t     _addr;                      /// Dirección driver I2C
+    uint32_t    _hz;                        /// Frecuencia clock chip PCA
+    uint32_t    _period_us;                 /// Periodo pwm
+    uint32_t    _freq;                      /// Frecuencia
+    I2C*        _i2c;                       /// Driver i2c
+    DigitalOut* _oe;                        /// Salida /OE para el chip PCA
+    Status       _stat;                     /// Estado de funcionamiento
+    uint8_t     _num_servos;                /// Número de servos  
   
     /** Obtiene el valor de los duty en el chip y los copia a la variable _dutyValue
      * @return Código de error
@@ -167,6 +167,7 @@ class PCA9685_ServoDrv{
      * @returns error code <= 0
      */
     ErrorResult getDriverContent(void);    
+    
 };
 
 #endif

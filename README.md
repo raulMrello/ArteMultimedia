@@ -7,6 +7,11 @@ Proyecto plantilla para desarrollos con la tarjeta NUCLEO_L432KC de ST en mbed-o
 ## Changelog
 
 ----------------------------------------------------------------------------------------------
+##### 13.11.2017 ->commit:"Incluyo ServoManager"
+- [x] Modifico ServoManager y añado test dedicado para pruebas reales.
+	  
+
+----------------------------------------------------------------------------------------------
 ##### 08.11.2017 ->commit:"Añado tests dedicados"
 - [x] Modifico MQSerialBridge para que acepte publicaciones de este estilo:
 	    "topic/0 55"

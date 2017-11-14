@@ -106,6 +106,17 @@ class PCA9685_ServoDrv{
     ErrorResult setServoDuty(uint8_t servoId, uint16_t duty, bool update=false);    
     
     
+    /** Lee los rangos mínimo y máximo del pulso pwm en us para un canal pwm
+     * @param servoId Servo id (0 to 15)
+     * @param min_angle Mínimo ángulo
+     * @param max_angle Maximo ángulo
+     * @param min_duty Mínimo duty
+     * @param max_duty Maximo duty
+     * @return error code 
+     */
+    ErrorResult getServoRanges(uint8_t servoId, int16_t* min_angle, int16_t* max_angle, uint16_t* min_duty, uint16_t* max_duty);
+    
+    
     /** Obtiene el ángulo para un servo concreto
      * @param servoId Servo id (0 to 15)
      * @return angle Obtiene el Ángulo entre 0 y 180

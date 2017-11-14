@@ -7,10 +7,11 @@ Proyecto plantilla para desarrollos con la tarjeta NUCLEO_L432KC de ST en mbed-o
 ## Changelog
 
 ----------------------------------------------------------------------------------------------
-##### 14.11.2017 ->commit:"Mejoro funcionalidad ServoManager"
+##### 14.11.2017 ->commit:"Mejoro funcionalidad ServoManager y añado NVFlash"
 - [x] Añado nuevos casos de uso para activar a un duty, establecer rangos de calibración, etc...
 - [x] Añado funcionalidades al driver PCA9685.
-- [ ] Añadir middleware para guardar datos de backup en flash.
+- [x] Añado driver NVFlash que permite guardar datos de backup en flash. AUNQUE CON FUNCIONALIDAD
+	  LIMITADA, FUNCIONA.
 	  
 
 ----------------------------------------------------------------------------------------------

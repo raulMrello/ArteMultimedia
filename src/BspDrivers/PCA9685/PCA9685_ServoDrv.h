@@ -79,11 +79,11 @@ class PCA9685_ServoDrv{
      * @param servoId Servo id (0 to 15)
      * @param min_angle Mínimo ángulo
      * @param max_angle Maximo ángulo
-     * @param min_pulse_us Mínimo pulso en us
-     * @param max_pulse_us Maximo pulso en us
+     * @param min_duty Mínimo duty
+     * @param max_duty Maximo duty
      * @return error code 
      */
-    ErrorResult setServoRanges(uint8_t servoId, int16_t min_angle, int16_t max_angle, uint32_t min_pulse_us, uint32_t max_pulse_us);
+    ErrorResult setServoRanges(uint8_t servoId, int16_t min_angle, int16_t max_angle, uint16_t min_duty, uint16_t max_duty);
     
     
     
@@ -96,14 +96,6 @@ class PCA9685_ServoDrv{
      */
     ErrorResult setServoAngle(uint8_t servoId, uint8_t angle, bool update=false);
     
-    
-    /** Obtiene el ángulo para un servo concreto
-     * @param servoId Servo id (0 to 15)
-     * @return angle Obtiene el Ángulo entre 0 y 180
-     */
-    uint8_t getServoAngle(uint8_t servoId);
-    
-    
 
     /** Establece el pulso de un canal pwm
      * @param servoId Servo id (0 to 15)
@@ -111,7 +103,14 @@ class PCA9685_ServoDrv{
      * @param update True (escribe en chip), False (sólo actualiza variable)
      * @return error code 
      */
-    ErrorResult setServoDuty(uint8_t servoId, uint16_t duty, bool update=false);
+    ErrorResult setServoDuty(uint8_t servoId, uint16_t duty, bool update=false);    
+    
+    
+    /** Obtiene el ángulo para un servo concreto
+     * @param servoId Servo id (0 to 15)
+     * @return angle Obtiene el Ángulo entre 0 y 180
+     */
+    uint8_t getServoAngle(uint8_t servoId);
 
 
     /** Lee el pulso de un canal pwm
@@ -121,17 +120,18 @@ class PCA9685_ServoDrv{
     uint16_t getServoDuty(uint8_t servoId);
     
     
-    /** Establece la frecuencia pwm
-     * @param freq Frecuencia en Hz
-     * @returns error code <= 0
-     */
-    ErrorResult setOutputFrequency(uint32_t freq);
-    
-    
     /** Envía los pulsos en _dutyValue al chip i2c
      * @return Código de error
      */    
     ErrorResult updateAll();  
+    
+    
+    /** Lee del chip i2c, el valor real del duty correspondiente a un servo
+     *  @param servoId Servo 
+     *  @param duty Recibe el valor del duty leído
+     *  @return Código de error
+     */    
+    ErrorResult readServoDuty(uint8_t servoId, uint16_t* duty);
 
 
     /** Obtiene el duty equivalente a un ángulo de giro dado para un servo en concreto
@@ -141,21 +141,33 @@ class PCA9685_ServoDrv{
      */
     uint16_t getDutyFromAngle(uint8_t servoId, uint8_t angle);    
 
+
+    /** Obtiene el ángulo equivalente a un duty para un servo dado, cuyos rangos han sido ajustados
+     * @param servoId Identificador del servo
+     * @param duty Duty en número de cuentas
+     * @return Recibe el valor del ángulo (0..180)
+     */
+    uint16_t getAngleFromDuty(uint8_t servoId, uint16_t duty); 
+    
     
   protected:
-    int16_t     _minAngle[ServoCount];      /// Rango inferior en grados para cada servo
-    int16_t     _maxAngle[ServoCount];      /// Rango superior en grados por servo
-    uint16_t    _minRange[ServoCount];      /// Duty inferior por servo
-    uint16_t    _maxRange[ServoCount];      /// Duty superior por servo
-    uint16_t    _dutyValue[ServoCount];     /// Duty actual por servo
-    uint8_t     _addr;                      /// Dirección driver I2C
-    uint32_t    _hz;                        /// Frecuencia clock chip PCA
-    uint32_t    _period_us;                 /// Periodo pwm
-    uint32_t    _freq;                      /// Frecuencia
-    I2C*        _i2c;                       /// Driver i2c
-    DigitalOut* _oe;                        /// Salida /OE para el chip PCA
-    Status       _stat;                     /// Estado de funcionamiento
-    uint8_t     _num_servos;                /// Número de servos  
+    static const uint16_t MaxAllowedDuty = 4095;    /// Valor máximo del duty
+  
+    int16_t     _minAngle[ServoCount];          /// Rango inferior en grados para cada servo
+    int16_t     _maxAngle[ServoCount];          /// Rango superior en grados por servo
+    uint16_t    _minDuty[ServoCount];          /// Duty inferior por servo
+    uint16_t    _maxDuty[ServoCount];          /// Duty superior por servo
+    uint16_t    _dutyValue[ServoCount];         /// Duty actual por servo
+    uint16_t    _angleValue[ServoCount];        /// Ángulo actual por servo
+    uint8_t     _addr;                          /// Dirección driver I2C
+    uint32_t    _hz;                            /// Frecuencia clock chip PCA
+    uint32_t    _period_us;                     /// Periodo pwm
+    uint32_t    _freq;                          /// Frecuencia
+    I2C*        _i2c;                           /// Driver i2c
+    DigitalOut* _oe;                            /// Salida /OE para el chip PCA
+    Status       _stat;                         /// Estado de funcionamiento
+    uint8_t     _num_servos;                    /// Número de servos  
+  
   
     /** Obtiene el valor de los duty en el chip y los copia a la variable _dutyValue
      * @return Código de error

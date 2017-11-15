@@ -79,6 +79,7 @@ void ServoManager::stopMovement(){
     }
 }
 
+
 //------------------------------------------------------------------------------------
 void ServoManager::setSubscriptionBase(const char* sub_topic) {
     if(_sub_topic){
@@ -94,8 +95,7 @@ void ServoManager::setSubscriptionBase(const char* sub_topic) {
         sprintf(suscr, "%s/cmd/#", _sub_topic);
         MQ::MQClient::subscribe(suscr, &_subscrCb);
         DEBUG_TRACE("\r\nServoManager: Suscrito a %s/cmd/#\r\n", sub_topic);
-    }
-     
+    }     
 }   
 
 

@@ -7,6 +7,12 @@ Proyecto plantilla para desarrollos con la tarjeta NUCLEO_L432KC de ST en mbed-o
 ## Changelog
 
 ----------------------------------------------------------------------------------------------
+##### 15.11.2017 ->commit:"Incluyo ProximityManager"
+- [x] Verificando funcionamiento de ProximityManager. 
+- [x] Retoco driver HCSR04.
+	  
+
+----------------------------------------------------------------------------------------------
 ##### 14.11.2017 ->commit:"Mejoro funcionalidad ServoManager y añado NVFlash"
 - [x] Añado nuevos casos de uso para activar a un duty, establecer rangos de calibración, etc...
 - [x] Añado funcionalidades al driver PCA9685.

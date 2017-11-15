@@ -7,11 +7,18 @@
 // *********** TESTS ********************************************************
 // **************************************************************************
 
+extern void test_ProximityManager();
 extern void test_ServoManager();
+extern void test_HCSR04();
+extern void test_PCA9685();
 
 typedef void(*TestCallback)();
 static TestCallback test_list[] = {
-    test_ServoManager, 
+    test_ProximityManager,
+    NULL, /** A PARTIR DE AQUI NO SE EJECUTA NADA */   
+    test_ServoManager,    
+    test_HCSR04, 
+    test_PCA9685,
     NULL};
 
 
@@ -25,11 +32,20 @@ template <typename T, size_t N> inline size_t SizeOfArray(const T(&)[N]) { retur
 
 /** Lista de tokens MQLib */
 static MQ::Token token_list[] = {
-    "mqserialbridge",
+    "breathe",
     "cmd",
-    "sta",
+    "config",
+    "deg",
+    "dist",
+    "ERROR",
     "info",
-    "test",
+    "invalid",
+    "mov",
+    "move",
+    "mqserialbridge",
+    "prox",
+    "range",
+    "servo",
     "servo_enable",
     "servo0",
     "servo1",
@@ -43,13 +59,10 @@ static MQ::Token token_list[] = {
     "servo9",
     "servo10",
     "servo11",
-    "deg",
-    "mov",
-    "breathe",
-    "move",
-    "servo",
+    "sta",    
     "start",
     "stop",
+    "test",
 };
 
 

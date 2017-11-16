@@ -66,8 +66,8 @@ __packed struct Command{        /// Estructura de lectura/escritura por registro
 static void defaultCb(){}
 static const Command cmd_power_up[] = {
     {'W', MPR121_SOFTRESET, 0x63},      /// Reset por software
-    {'W', MPR121_ECR, 0},               /// Desactivación de electrodos
-    {'R', MPR121_CONFIG2, 0x24},        /// Lectura del filtro 2nd 
+    {'R', MPR121_ECR, 0},               /// Desactivación de electrodos
+    {'R', MPR121_CONFIG2, 0x00/*0x24*/},        /// Lectura del filtro 2nd 
     {'T', 0, 0},                        /// Ajuste de thresholds para eventos de pulsación-release
     {'W', MPR121_MHDR, 0x01},           /// Ajuste de parámetros de filtrado
     {'W', MPR121_NHDR, 0x01},
@@ -92,18 +92,29 @@ static const Command cmd_power_up[] = {
 //------------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------------
-MPR121_CapTouch::MPR121_CapTouch(PinName sda, PinName scl, PinName irq, uint8_t addr) {
+MPR121_CapTouch::MPR121_CapTouch(PinName sda, PinName scl, PinName irq, uint16_t elec_mask, uint8_t addr) {
     uint8_t id = 0;
     _i2c = new I2C(sda, scl);
+    _i2c->frequency(400000);
     _iin_irq = new InterruptIn(irq);
     _irq_cb = callback(defaultCb);
     _iin_irq->rise(callback(defaultCb));
-    _iin_irq->fall(callback(this, &MPR121_CapTouch::onIrqFallingEdge));
-    _addr = addr;
+    _iin_irq->fall(callback(defaultCb));
+    _addr = ((addr << 1)& 0xfe);
+    _elec_mask = (elec_mask & 0x0fff); // sólo permiten 12 electrodos (NO UTILIZA EL DE PROXIMIDAD)
     _stat = NotPresent;
     // ajusta thresholds por defecto
     _touch_thr = DefaultTouchThreshold;
     _release_thr = DefaultTouchThreshold;
+    
+    // Leo el registro de reset para ajustar la velocidad
+    Command rst_read = {'R', MPR121_SOFTRESET, 0x00};
+    if(_i2c->write(_addr, &rst_read.reg, 1) != 0){
+        return;
+    }
+    if(_i2c->read(_addr, &rst_read.value, 1) != 0){
+        return;
+    }   
     
     // soft reset
     if(_i2c->write(_addr, &cmd_power_up[id++].reg, 2) != 0){
@@ -150,6 +161,13 @@ MPR121_CapTouch::MPR121_CapTouch(PinName sda, PinName scl, PinName irq, uint8_t 
 }
 
 
+//------------------------------------------------------------------------------------
+void MPR121_CapTouch::attachIrqCb(Callback<void()> irq_cb) { 
+    _irq_cb = irq_cb;
+    _iin_irq->fall(callback(this, &MPR121_CapTouch::onIrqFallingEdge));   
+} 
+
+ 
 //------------------------------------------------------------------------------------
 MPR121_CapTouch::ErrorResult MPR121_CapTouch::setThresholds(uint8_t touch_th, uint8_t release_th) {
     Command cmd;
@@ -202,7 +220,7 @@ uint16_t MPR121_CapTouch::touched(void) {
     if(readRegister16(MPR121_TOUCHSTATUS_L, &value) != Success){
         return 0;
     }
-    return (value & 0x0FFF);
+    return (value & _elec_mask);
 }
     
 

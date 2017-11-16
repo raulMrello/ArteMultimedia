@@ -4395,19 +4395,29 @@
           <GroupName>tests</GroupName>
           <Files>
             <File>
-              <FileName>test_ServoManager.cpp</FileName>
+              <FileName>test_TouchManager.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>.\src\BspManagers\ServoManager\test\test_ServoManager.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>test_HCSR04.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\BspDrivers\HCSR04\test\test_HCSR04.cpp</FilePath>
+              <FilePath>.\src\BspManagers\TouchManager\test\test_TouchManager.cpp</FilePath>
             </File>
             <File>
               <FileName>test_ProximityManager.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\BspManagers\ProximityManager\test\test_ProximityManager.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>test_ServoManager.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\BspManagers\ServoManager\test\test_ServoManager.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>test_MPR121.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\BspDrivers\MPR121\test\test_MPR121.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>test_HCSR04.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\BspDrivers\HCSR04\test\test_HCSR04.cpp</FilePath>
             </File>
             <File>
               <FileName>test_PCA9685.cpp</FileName>

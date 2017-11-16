@@ -162,7 +162,7 @@
         <Mm>
           <WinNumber>1</WinNumber>
           <SubType>8</SubType>
-          <ItemText>msg</ItemText>
+          <ItemText>_msg</ItemText>
           <AccSizeX>0</AccSizeX>
         </Mm>
       </MemoryWindow1>
@@ -8942,7 +8942,7 @@
 
   <Group>
     <GroupName>Middleware/MQLib</GroupName>
-    <tvExp>1</tvExp>
+    <tvExp>0</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -9402,7 +9402,7 @@
 
   <Group>
     <GroupName>Managers/ServoManager</GroupName>
-    <tvExp>1</tvExp>
+    <tvExp>0</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -9434,7 +9434,7 @@
 
   <Group>
     <GroupName>Managers/ProximityManager</GroupName>
-    <tvExp>1</tvExp>
+    <tvExp>0</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -9626,7 +9626,7 @@
 
   <Group>
     <GroupName>Drivers/HCSR04</GroupName>
-    <tvExp>1</tvExp>
+    <tvExp>0</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -9766,7 +9766,7 @@
 
   <Group>
     <GroupName>tests</GroupName>
-    <tvExp>1</tvExp>
+    <tvExp>0</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -9777,26 +9777,14 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\src\BspManagers\ServoManager\test\test_ServoManager.cpp</PathWithFileName>
-      <FilenameWithoutPath>test_ServoManager.cpp</FilenameWithoutPath>
+      <PathWithFileName>.\src\BspManagers\TouchManager\test\test_TouchManager.cpp</PathWithFileName>
+      <FilenameWithoutPath>test_TouchManager.cpp</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
     <File>
       <GroupNumber>20</GroupNumber>
       <FileNumber>786</FileNumber>
-      <FileType>8</FileType>
-      <tvExp>0</tvExp>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <bDave2>0</bDave2>
-      <PathWithFileName>.\src\BspDrivers\HCSR04\test\test_HCSR04.cpp</PathWithFileName>
-      <FilenameWithoutPath>test_HCSR04.cpp</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-    <File>
-      <GroupNumber>20</GroupNumber>
-      <FileNumber>787</FileNumber>
       <FileType>8</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -9808,7 +9796,43 @@
     </File>
     <File>
       <GroupNumber>20</GroupNumber>
+      <FileNumber>787</FileNumber>
+      <FileType>8</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>.\src\BspManagers\ServoManager\test\test_ServoManager.cpp</PathWithFileName>
+      <FilenameWithoutPath>test_ServoManager.cpp</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+    <File>
+      <GroupNumber>20</GroupNumber>
       <FileNumber>788</FileNumber>
+      <FileType>8</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>.\src\BspDrivers\MPR121\test\test_MPR121.cpp</PathWithFileName>
+      <FilenameWithoutPath>test_MPR121.cpp</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+    <File>
+      <GroupNumber>20</GroupNumber>
+      <FileNumber>789</FileNumber>
+      <FileType>8</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>.\src\BspDrivers\HCSR04\test\test_HCSR04.cpp</PathWithFileName>
+      <FilenameWithoutPath>test_HCSR04.cpp</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+    <File>
+      <GroupNumber>20</GroupNumber>
+      <FileNumber>790</FileNumber>
       <FileType>8</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>

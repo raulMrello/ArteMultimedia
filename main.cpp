@@ -7,16 +7,21 @@
 // *********** TESTS ********************************************************
 // **************************************************************************
 
+extern void test_TouchManager();
 extern void test_ProximityManager();
 extern void test_ServoManager();
 extern void test_HCSR04();
 extern void test_PCA9685();
+extern void test_MPR121();
+
 
 typedef void(*TestCallback)();
 static TestCallback test_list[] = {
-    test_ProximityManager,
+    test_TouchManager,
     NULL, /** A PARTIR DE AQUI NO SE EJECUTA NADA */   
     test_ServoManager,    
+    test_ProximityManager,
+    test_MPR121,
     test_HCSR04, 
     test_PCA9685,
     NULL};
@@ -63,6 +68,7 @@ static MQ::Token token_list[] = {
     "start",
     "stop",
     "test",
+    "touch",
 };
 
 

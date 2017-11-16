@@ -7,6 +7,18 @@ Proyecto plantilla para desarrollos con la tarjeta NUCLEO_L432KC de ST en mbed-o
 ## Changelog
 
 ----------------------------------------------------------------------------------------------
+##### 16.11.2017 ->commit:"Actualizo TouchManager"
+- [x] Verificado funcionamiento de TouchManager.
+
+	  
+
+----------------------------------------------------------------------------------------------
+##### 16.11.2017 ->commit:"Actualizo driver MPR121"
+- [x] Verificado funcionamiento de driver MPR121.
+- [x] Falta implementar el TouchManager
+	  
+
+----------------------------------------------------------------------------------------------
 ##### 16.11.2017 ->commit:"Finalizado módulo ProximityManager"
 - [x] Verificado funcionamiento de ProximityManager y driver HCSR04.
 - [x] Genero directorio /hex con las versiones generadas.

@@ -63,15 +63,21 @@ class MPR121_CapTouch {
      * @param sda Línea sda del bus i2c
      * @param scl Línea scl del bus i2c
      * @param irq Entrada de interrupción
+     * @param elec_mask Máscara de bits indicando qué electrodos quedarán activos.
      * @param addr Dirección i2c, por defecto (5Ah)
      */
-    MPR121_CapTouch(PinName sda, PinName scl, PinName irq, uint8_t addr = DefaultAddress);
+    MPR121_CapTouch(PinName sda, PinName scl, PinName irq, uint16_t elec_mask, uint8_t addr = DefaultAddress);
     
+
+    /** Obtiene el estado del driver
+     * @return Estado de ejecución
+     */
+    Status getState(){ return _stat; }    
 
     /** Instala callback para la notificación de eventos hardware
      * @param irq_cb Callback a instalar en eventos pin IRQ
      */
-    void attachIrqCb(Callback<void()> irq_cb) { _irq_cb = irq_cb; }    
+    void attachIrqCb(Callback<void()> irq_cb);
 
     /** Ajusta los thresholds para la generación de eventos
      * @param touch_th Threshold de pulsación en num. cuentas
@@ -112,7 +118,8 @@ class MPR121_CapTouch {
     int8_t _i2caddr;
     Status _stat;                   /// Estado de ejecución
     uint8_t _touch_thr;             /// Threshold actual de pulsación
-    uint8_t _release_thr;           /// Threshold actual de liberación      
+    uint8_t _release_thr;           /// Threshold actual de liberación   
+    uint16_t _elec_mask;            /// Máscara de bits de los electrodos activos
     Callback<void()> _irq_cb;       /// Callback a invocar tras evento irq
       
 

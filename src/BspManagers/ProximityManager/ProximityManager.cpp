@@ -164,8 +164,12 @@ void ProximityManager::subscriptionCb(const char* name, void* msg, uint16_t msg_
             uint8_t filt_count = atoi(arg);
             arg = strtok(NULL, ",");
             uint16_t filt_range = atoi(arg);
+            arg = strtok(NULL, ",");
+            uint8_t endis_invalid_evts = atoi(arg);
+            arg = strtok(NULL, ",");
+            uint8_t endis_err_evts = atoi(arg);
             Heap::memFree(data);
-            HCSR04::config(max_dist, approach_dist, goaway_dist, filt_count, filt_range);
+            HCSR04::config(max_dist, approach_dist, goaway_dist, filt_count, filt_range, endis_invalid_evts, endis_err_evts);
         }
         return;
     }

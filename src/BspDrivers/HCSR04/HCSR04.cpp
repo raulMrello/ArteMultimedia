@@ -32,6 +32,8 @@ HCSR04::HCSR04(PinName trig, PinName echo){
     _stat = Stopped;
     _approach_dist_cm = DefaultDifDistance;
     _goaway_dist_cm = DefaultDifDistance;
+    _en_inv_evts = false;
+    _en_err_evts = false;
     _num_meas = 0;
     _lapse_us = 0;
     _last_event = NoEvents;
@@ -41,12 +43,14 @@ HCSR04::HCSR04(PinName trig, PinName echo){
 
 
 //------------------------------------------------------------------------------------
-void HCSR04::config(uint16_t max_dist, uint16_t approach_dist, uint16_t goaway_dist, uint8_t filt_count, uint16_t filt_range){
+void HCSR04::config(uint16_t max_dist, uint16_t approach_dist, uint16_t goaway_dist, uint8_t filt_count, uint16_t filt_range, uint8_t inv_evt, uint8_t err_evt){
     _max_dist_cm = (max_dist > MaxDetectableRange)? MaxDetectableRange : max_dist;
     _approach_dist_cm = approach_dist;
     _goaway_dist_cm = goaway_dist;
     _filter.count = (filt_count > MaxFilterSamples)? MaxFilterSamples : filt_count; 
     _filter.range = filt_range;
+    _en_inv_evts = (inv_evt)? true : false;
+    _en_err_evts = (err_evt)? true : false;
 }
 
 
@@ -104,7 +108,9 @@ void HCSR04::trigger(){
     if(_stat != WaitingTrigger){
         restart();
         _last_error = TriggerError;
-        _callback.call(MeasureError, _last_error);  
+        if(_en_err_evts){
+            _callback.call(MeasureError, _last_error);  
+        }
         return;
     }
     _tick_fail.attach_us(callback(this, &HCSR04::echoMissing), _timeout_us);
@@ -123,7 +129,9 @@ void HCSR04::echoStart(){
     if(_stat != WaitingEcho){
         restart();
         _last_error = EchoStartError;
-        _callback.call(MeasureError, _last_error);  
+        if(_en_err_evts){
+            _callback.call(MeasureError, _last_error);  
+        }
         return;
     }
     _echo_tmr.start();
@@ -136,7 +144,9 @@ void HCSR04::echoEnd(){
     if(_stat != WaitingEchoEnds){        
         restart();
         _last_error = EchoEndError;
-        _callback.call(MeasureError, _last_error);  
+        if(_en_err_evts){
+            _callback.call(MeasureError, _last_error);  
+        }
         return;
     }
     uint32_t flytime = _echo_tmr.read_us();
@@ -146,7 +156,8 @@ void HCSR04::echoEnd(){
     _iin_echo->rise(callback(defaultCb));
     _iin_echo->fall(callback(defaultCb));
     uint16_t distance_cm = (uint16_t)(flytime/58);
-    if(distance_cm < _max_dist_cm){
+    distance_cm = (distance_cm >= _max_dist_cm && distance_cm < MaxDetectableRange)? _max_dist_cm : distance_cm;
+    if(distance_cm <= _max_dist_cm){
         if(filtData(distance_cm)){
             if(distance_cm < (_last_dist_cm - _approach_dist_cm)){
                 _last_dist_cm = distance_cm;
@@ -159,7 +170,7 @@ void HCSR04::echoEnd(){
                 _callback.call(_last_event, _last_dist_cm);
             }
         }
-        else{
+        else if(_en_inv_evts){
             _callback.call(NoEvents, distance_cm);
         }
         _num_meas++;
@@ -172,7 +183,9 @@ void HCSR04::echoEnd(){
 void HCSR04::echoMissing(){
     restart();
     _last_error = EchoMissingError;
-    _callback.call(MeasureError, _last_error);  
+    if(_en_err_evts){
+        _callback.call(MeasureError, _last_error);  
+    }
         
 }
 

@@ -91,9 +91,11 @@ class HCSR04 {
      *  @param goaway_dist Diferencia de distancia al alejarse en cm
      *  @param filt_count Número de medidas para el filtro antiglitch (=0 filtro desactivado). El valor máximo no puede
      *  @param filt_range Rango en cm para considerar medidas del filtro como similares meas[1] = meas[0]+-filt_range
+     *  @param invalid_evt Flag para habilitar o no la publicación de eventos de medidas instantáneas
+     *  @param err_evt Flag para habilitar o no la publicación de eventos de errores en la medida
      *  superar el valor MaxFilterSamples, de lo contrario lo limitará a ese valor máximo.
      */
-    void config(uint16_t max_dist, uint16_t approach_dist, uint16_t goaway_dist, uint8_t filt_count=0, uint16_t filt_range = (uint16_t)MaxDetectableRange);
+    void config(uint16_t max_dist, uint16_t approach_dist, uint16_t goaway_dist, uint8_t filt_count=0, uint16_t filt_range = (uint16_t)MaxDetectableRange, uint8_t invaild_evt=0, uint8_t err_evt=0);
 	
         
     /** @fn start()
@@ -157,7 +159,9 @@ class HCSR04 {
     Ticker _tick_trig;                      /// Ticker para la generación de triggers
     Ticker _tick_fail;                      /// Ticker para la detección de errores
     Timer _echo_tmr;                        /// Timer para el cálculo del echo
-  
+    bool  _en_inv_evts;                     /// Flag para la notificación de eventos de medidas instantáneas
+    bool  _en_err_evts;                     /// Flag para la notificación de eventos de medidas con errores
+    
     DistanceEvent _last_event;              /// Último evento generado
     int16_t _last_dist_cm;                  /// Distancia anterior del objeto    
     uint32_t _num_meas;                     /// Número de medidas realizadas

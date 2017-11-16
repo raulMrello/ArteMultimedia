@@ -79,7 +79,7 @@ void test_ProximityManager(){
     // --------------------------------------
     // Arranca el test
     DEBUG_TRACE("\r\n...................INICIO DEL TEST.........................\r\n");    
-    DEBUG_TRACE("\r\n- Ajustar eventos: prox/cmd/config D,I,O,F,R");    
+    DEBUG_TRACE("\r\n- Ajustar eventos: prox/cmd/config D,I,O,F,R,Ei,Er");    
     DEBUG_TRACE("\r\n- Iniciar captura: prox/cmd/start T");    
     DEBUG_TRACE("\r\n- Detener captura: prox/cmd/stop 0\r\n");    
 }

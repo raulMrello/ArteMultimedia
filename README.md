@@ -7,6 +7,12 @@ Proyecto plantilla para desarrollos con la tarjeta NUCLEO_L432KC de ST en mbed-o
 ## Changelog
 
 ----------------------------------------------------------------------------------------------
+##### 16.11.2017 ->commit:"Finalizado módulo ProximityManager"
+- [x] Verificado funcionamiento de ProximityManager y driver HCSR04.
+- [x] Genero directorio /hex con las versiones generadas.
+	  
+
+----------------------------------------------------------------------------------------------
 ##### 15.11.2017 ->commit:"Incluyo ProximityManager"
 - [x] Verificando funcionamiento de ProximityManager. 
 - [x] Retoco driver HCSR04.

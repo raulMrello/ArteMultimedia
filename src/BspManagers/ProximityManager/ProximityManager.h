@@ -14,12 +14,18 @@
  *  en cuenta, las órdenes que acepta el módulo son las siguientes:
  *
  *  Suscripción:
- *      $(sub_topic)/cmd/config D,I,O,F,R
- *      Permite ajustar el rango de detección D(cm), la generación de eventos por diferencias de medida respecto de la última 
- *      adquirida. I(cm) establece la diferencia en cm para detectar un objeto acercarse. O(cm) idem pero para alejarse. Además 
- *      establece el número de muestras para el filtro antiglitch F y el rango R a partir del cual se considera una misma medida. 
+ *      $(sub_topic)/cmd/config D,I,O,F,R,Ei,Er
+ *      Permite ajustar los siguientes parámetros:
+ *      D: Rango de detección máxima en cm. Por encima de ese valor, no lo tendrá en cuenta.
+ *      I: Diferencia en cm entre medidas consecutivas para notificar event de acercamiento.
+ *      O: Diferencia en cm entre medidas consecutivas para notificar event de alejamiento.
+ *      F: Número de muestras acumuladas para el filtro anti-glitch.
+ *      R: Ventana en cm para que el filtro anti-glitch considere dos medidas como similares
+ *      Ei:Flag para habilitar o no los eventos de captura instantáneos.
+ *      Ei:Flag para habilitar o no los eventos de errores durante la captura.
  *      Por ejemplo, para detectar cambios superiores a 10cm al acercarse y 20cm al alejarse, con un filtro de 3 muestras, y 50cm 
- *      como rango para las muestras del filtro, se publicaría lo siguiente: $(sub_topic)/cmd/dist 10,20,3,50
+ *      como rango para las muestras del filtro,con todos los eventos activos, se publicaría lo siguiente: 
+ *                  $(sub_topic)/cmd/dist 10,20,3,50,1,1
  *
  *      $(sub_topic)/cmd/start T,t
  *      Permite iniciar la captura con una cadencia T(ms) y un timeout de medida de t(ms)
@@ -32,6 +38,9 @@
  *      Permite notificar eventos de estado indicando E(tipo de evento: 0 si se acerca, 1 si se aleja, 2 error en medida) y 
  *      D(distancia en cm), así para notificar que un objeto se aproxima y que está a 20cm se publicará: $(pub_topic)/stat/dist 0,20 
  *
+ *  NOTA: Esta es la configuración para una medida constante con resolución adecuada:
+ *  $/cmd/config 100,3,3,3,10,0,1 
+ *  $/cmd/start 200,150 
  */
  
  

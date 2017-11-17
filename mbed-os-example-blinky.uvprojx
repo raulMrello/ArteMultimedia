@@ -4410,6 +4410,11 @@
               <FilePath>.\src\BspManagers\ServoManager\test\test_ServoManager.cpp</FilePath>
             </File>
             <File>
+              <FileName>test_WS281x.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\BspDrivers\WS281xLedStrip\test\test_WS281x.cpp</FilePath>
+            </File>
+            <File>
               <FileName>test_MPR121.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\BspDrivers\MPR121\test\test_MPR121.cpp</FilePath>

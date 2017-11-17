@@ -9498,7 +9498,7 @@
 
   <Group>
     <GroupName>Drivers/DMA</GroupName>
-    <tvExp>0</tvExp>
+    <tvExp>1</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -9562,7 +9562,7 @@
 
   <Group>
     <GroupName>Drivers/DMA_PwmOut</GroupName>
-    <tvExp>0</tvExp>
+    <tvExp>1</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -9594,7 +9594,7 @@
 
   <Group>
     <GroupName>Drivers/WS281xLedStrip</GroupName>
-    <tvExp>0</tvExp>
+    <tvExp>1</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -9766,7 +9766,7 @@
 
   <Group>
     <GroupName>tests</GroupName>
-    <tvExp>0</tvExp>
+    <tvExp>1</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -9813,6 +9813,18 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
+      <PathWithFileName>.\src\BspDrivers\WS281xLedStrip\test\test_WS281x.cpp</PathWithFileName>
+      <FilenameWithoutPath>test_WS281x.cpp</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+    <File>
+      <GroupNumber>20</GroupNumber>
+      <FileNumber>789</FileNumber>
+      <FileType>8</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
       <PathWithFileName>.\src\BspDrivers\MPR121\test\test_MPR121.cpp</PathWithFileName>
       <FilenameWithoutPath>test_MPR121.cpp</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
@@ -9820,7 +9832,7 @@
     </File>
     <File>
       <GroupNumber>20</GroupNumber>
-      <FileNumber>789</FileNumber>
+      <FileNumber>790</FileNumber>
       <FileType>8</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -9832,7 +9844,7 @@
     </File>
     <File>
       <GroupNumber>20</GroupNumber>
-      <FileNumber>790</FileNumber>
+      <FileNumber>791</FileNumber>
       <FileType>8</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>

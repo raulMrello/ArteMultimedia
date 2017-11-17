@@ -7,6 +7,12 @@ Proyecto plantilla para desarrollos con la tarjeta NUCLEO_L432KC de ST en mbed-o
 ## Changelog
 
 ----------------------------------------------------------------------------------------------
+##### 17.11.2017 ->commit:"Corrjio bug en cálculo de buffer en WS281xLedStrip"
+- [x] Verificando funcionamiento
+
+	  
+
+----------------------------------------------------------------------------------------------
 ##### 17.11.2017 ->commit:"Realizando pruebas de test con driver WS281xLedStrip"
 - [x] Verificando funcionamiento
 

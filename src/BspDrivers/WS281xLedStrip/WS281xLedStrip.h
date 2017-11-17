@@ -64,7 +64,7 @@ class WS281xLedStrip : public DMA_PwmOut {
     /** @fn start()
      *  @brief Inicia la salida vía dma
      */
-    void start() { DMA_PwmOut::dmaStart(_color_buffer, _buffer_size); }
+    void start() { DMA_PwmOut::dmaStart(_color_buffer, _buffer_size/sizeof(uint32_t)); }
 
 	
     /** @fn stop()

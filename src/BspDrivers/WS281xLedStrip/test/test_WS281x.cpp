@@ -59,28 +59,31 @@ void test_WS281x(){
     leddrv = new WS281xLedStrip(PA_10, 800000, 3);
         
     // situo todos a 0º y doy la orden sincronizada
-    DEBUG_TRACE("\r\nAjustando color rojo... ");
+    DEBUG_TRACE("\r\nAjustando colores rojo, verde, azul... ");
     WS281xLedStrip::Color_t color;
     color.red = 255; color.green = 0; color.blue = 0;            
-    leddrv->setRange(0, 3, color);
-    
+    leddrv->setRange(0, 1, color);
+    color.red = 0; color.green = 255; color.blue = 0;            
+    leddrv->setRange(1, 2, color);
+    color.red = 0; color.green = 0; color.blue = 255;            
+    leddrv->setRange(2, 3, color);
     // inicio
     DEBUG_TRACE("\r\nSTART... ");
     leddrv->start();
     for(;;){
         // espero 5 segundos
-        Thread::wait(5000);
-        DEBUG_TRACE("\r\nCambio a verde... ");
-        color.red = 0; color.green = 255; color.blue = 0;
-        leddrv->setRange(0, 3, color);
-        Thread::wait(5000);
-        DEBUG_TRACE("\r\nCambio a azul... ");
-        color.red = 0; color.green = 0; color.blue = 255;
-        leddrv->setRange(0, 3, color);
-        Thread::wait(5000);
-        DEBUG_TRACE("\r\nCambio a rojo... ");
-        color.red = 255; color.green = 0; color.blue = 0;     
-        leddrv->setRange(0, 3, color);        
+//        Thread::wait(5000);
+//        DEBUG_TRACE("\r\nCambio a verde... ");
+//        color.red = 0; color.green = 255; color.blue = 0;
+//        leddrv->setRange(0, 3, color);
+//        Thread::wait(5000);
+//        DEBUG_TRACE("\r\nCambio a azul... ");
+//        color.red = 0; color.green = 0; color.blue = 255;
+//        leddrv->setRange(0, 3, color);
+//        Thread::wait(5000);
+//        DEBUG_TRACE("\r\nCambio a rojo... ");
+//        color.red = 255; color.green = 0; color.blue = 0;     
+//        leddrv->setRange(0, 3, color);        
     }    
 }
 

@@ -7,6 +7,7 @@
 // *********** TESTS ********************************************************
 // **************************************************************************
 
+extern void test_MQTT();
 extern void test_TouchManager();
 extern void test_ProximityManager();
 extern void test_ServoManager();
@@ -14,12 +15,14 @@ extern void test_WS281x();
 extern void test_HCSR04();
 extern void test_PCA9685();
 extern void test_MPR121();
-
+//extern void program_ESP8266();
 
 typedef void(*TestCallback)();
 static TestCallback test_list[] = {
-    test_WS281x,
+    test_MQTT,
     NULL, /** A PARTIR DE AQUI NO SE EJECUTA NADA */   
+//    program_ESP8266,
+    test_WS281x,
     test_TouchManager,
     test_ServoManager,    
     test_ProximityManager,
@@ -50,6 +53,7 @@ static MQ::Token token_list[] = {
     "mov",
     "move",
     "mqserialbridge",
+    "mqtt",
     "prox",
     "range",
     "servo",

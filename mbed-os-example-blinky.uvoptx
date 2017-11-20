@@ -158,14 +158,6 @@
           <ItemText>_last_dist_cm,0x0A</ItemText>
         </Ww>
       </WatchWindow1>
-      <MemoryWindow1>
-        <Mm>
-          <WinNumber>1</WinNumber>
-          <SubType>1</SubType>
-          <ItemText>_color_buffer</ItemText>
-          <AccSizeX>0</AccSizeX>
-        </Mm>
-      </MemoryWindow1>
       <Tracepoint>
         <THDelay>0</THDelay>
       </Tracepoint>
@@ -206,7 +198,7 @@
 
   <Group>
     <GroupName>main</GroupName>
-    <tvExp>0</tvExp>
+    <tvExp>1</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -9562,7 +9554,7 @@
 
   <Group>
     <GroupName>Drivers/DMA_PwmOut</GroupName>
-    <tvExp>1</tvExp>
+    <tvExp>0</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -9594,7 +9586,7 @@
 
   <Group>
     <GroupName>Drivers/WS281xLedStrip</GroupName>
-    <tvExp>1</tvExp>
+    <tvExp>0</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -9777,6 +9769,18 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
+      <PathWithFileName>.\src\Middleware\MQTT\test\test_MQTT.cpp</PathWithFileName>
+      <FilenameWithoutPath>test_MQTT.cpp</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+    <File>
+      <GroupNumber>20</GroupNumber>
+      <FileNumber>786</FileNumber>
+      <FileType>8</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
       <PathWithFileName>.\src\BspManagers\TouchManager\test\test_TouchManager.cpp</PathWithFileName>
       <FilenameWithoutPath>test_TouchManager.cpp</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
@@ -9784,7 +9788,7 @@
     </File>
     <File>
       <GroupNumber>20</GroupNumber>
-      <FileNumber>786</FileNumber>
+      <FileNumber>787</FileNumber>
       <FileType>8</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -9796,7 +9800,7 @@
     </File>
     <File>
       <GroupNumber>20</GroupNumber>
-      <FileNumber>787</FileNumber>
+      <FileNumber>788</FileNumber>
       <FileType>8</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -9808,7 +9812,7 @@
     </File>
     <File>
       <GroupNumber>20</GroupNumber>
-      <FileNumber>788</FileNumber>
+      <FileNumber>789</FileNumber>
       <FileType>8</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -9820,7 +9824,7 @@
     </File>
     <File>
       <GroupNumber>20</GroupNumber>
-      <FileNumber>789</FileNumber>
+      <FileNumber>790</FileNumber>
       <FileType>8</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -9832,7 +9836,7 @@
     </File>
     <File>
       <GroupNumber>20</GroupNumber>
-      <FileNumber>790</FileNumber>
+      <FileNumber>791</FileNumber>
       <FileType>8</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -9844,7 +9848,7 @@
     </File>
     <File>
       <GroupNumber>20</GroupNumber>
-      <FileNumber>791</FileNumber>
+      <FileNumber>792</FileNumber>
       <FileType>8</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>

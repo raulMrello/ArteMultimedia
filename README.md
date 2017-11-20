@@ -7,6 +7,16 @@ Proyecto plantilla para desarrollos con la tarjeta NUCLEO_L432KC de ST en mbed-o
 ## Changelog
 
 ----------------------------------------------------------------------------------------------
+##### 20.11.2017 ->commit:"Verifico funcionamiento MQTT-ESP8266"
+- [x] Añado test_MQTT para verificar el funcionamiento de las comunicaciones de red MQTT. 
+- [ ] FALTA integrar un manager que se encargue de las configuraciones y proporcione callbacks 
+      de envío y recepción de datos.
+- [x] Añado módulo "program_ESP8266" para volcar la última versión de firmware compatible con mbed.
+
+
+	  
+
+----------------------------------------------------------------------------------------------
 ##### 17.11.2017 ->commit:"Corrjio bug en cálculo de buffer en WS281xLedStrip"
 - [x] Verificando funcionamiento
 

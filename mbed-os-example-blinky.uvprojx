@@ -4395,6 +4395,11 @@
           <GroupName>tests</GroupName>
           <Files>
             <File>
+              <FileName>test_MQTT.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Middleware\MQTT\test\test_MQTT.cpp</FilePath>
+            </File>
+            <File>
               <FileName>test_TouchManager.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\BspManagers\TouchManager\test\test_TouchManager.cpp</FilePath>

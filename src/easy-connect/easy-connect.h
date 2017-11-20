@@ -17,8 +17,8 @@
 #define MBED_CONF_APP_ESP8266_TX            PA_9
 #define MBED_CONF_APP_ESP8266_RX            PA_10
 #define MBED_CONF_APP_ESP8266_DEBUG         true
-#define MBED_CONF_APP_ESP8266_SSID          "Invitado"
-#define MBED_CONF_APP_ESP8266_PASSWORD      "11FF00DECA"
+//#define MBED_CONF_APP_ESP8266_SSID          "Invitado"
+//#define MBED_CONF_APP_ESP8266_PASSWORD      "11FF00DECA"
 
 #if MBED_CONF_APP_NETWORK_INTERFACE == WIFI_ESP8266
 #include "ESP8266Interface.h"
@@ -92,10 +92,14 @@ NanostackRfPhyEfr32 rf_phy;
 
 #ifdef MBED_CONF_APP_ESP8266_SSID
 #define MBED_CONF_APP_WIFI_SSID MBED_CONF_APP_ESP8266_SSID
+#else
+extern char* MBED_CONF_APP_WIFI_SSID;
 #endif
 
 #ifdef MBED_CONF_APP_ESP8266_PASSWORD
 #define MBED_CONF_APP_WIFI_PASSWORD MBED_CONF_APP_ESP8266_PASSWORD
+#else
+extern char* MBED_CONF_APP_WIFI_PASSWORD;
 #endif
 
 /* \brief print_MAC - print_MAC  - helper function to print out MAC address

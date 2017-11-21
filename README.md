@@ -7,6 +7,15 @@ Proyecto plantilla para desarrollos con la tarjeta NUCLEO_L432KC de ST en mbed-o
 ## Changelog
 
 ----------------------------------------------------------------------------------------------
+##### 20.11.2017 ->commit:"Incluyo módulo MQNetBridge"
+- [x] Añado módulo MQNetBridge y ahora estoy realizando pruebas, que tengo problemas de suscripción,
+	  hay varios threads que intentan leer.
+- [ ] Actualizar repos paralelos.	  
+
+
+	  
+
+----------------------------------------------------------------------------------------------
 ##### 20.11.2017 ->commit:"Verifico funcionamiento MQTT-ESP8266"
 - [x] Añado test_MQTT para verificar el funcionamiento de las comunicaciones de red MQTT. 
 - [ ] FALTA integrar un manager que se encargue de las configuraciones y proporcione callbacks 

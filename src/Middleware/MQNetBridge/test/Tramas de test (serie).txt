@@ -1,0 +1,11 @@
+mqnetbridge/cmd/wifisetup cli,usr,pass,192.168.254.98,1883,Invitado,11FF00DECA $00
+
+mqnetbridge/cmd/remotesub sta $00
+
+mqnetbridge/cmd/remotesub mqnetbridge $00
+
+mqnetbridge/cmd/localsub stop $00
+
+mqnetbridge/cmd/disc 0 $00
+
+sta Holaaaaaa $00

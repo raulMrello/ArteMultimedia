@@ -131,7 +131,7 @@ void MQSerialBridge::task(){
                     // por último se publica el mensaje
                     // si sólo hay un dato asociado, se incluye de forma normal
                     if(num_arg == 1){
-                        MQ::MQClient::publish(topic, args[0], strlen(args[0]), &_publicationCb);
+                        MQ::MQClient::publish(topic, args[0], strlen(args[0])+1, &_publicationCb);
                     }
                     // si hay varios datos, se pasa como mensaje, la referencia al array (char**) y el número de elementos
                     else if(num_arg > 1){

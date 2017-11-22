@@ -7,6 +7,14 @@ Proyecto plantilla para desarrollos con la tarjeta NUCLEO_L432KC de ST en mbed-o
 ## Changelog
 
 ----------------------------------------------------------------------------------------------
+##### 22.11.2017 ->commit:"Corregido pub arg en MQSerialBridge"
+- [x] Corregido bug, al registrar el topic stop, se duplican los envíos mqtt ???	  
+- [ ] Actualizar todos los repos paralelos.	  
+
+
+	  
+
+----------------------------------------------------------------------------------------------
 ##### 22.11.2017 ->commit:"Mejoro módulo MQNetBridge"
 - [x] Mejoro funcionalidad módulo MQNetBridge, es más estable, pero sigo con algún problema a la hora de
 	  recibir los topics remotos, seguramente por el maldito yield, que no me funciona como espero. De todas

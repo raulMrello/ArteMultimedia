@@ -149,9 +149,9 @@
         <Bp>
           <Number>0</Number>
           <Type>0</Type>
-          <LineNumber>190</LineNumber>
+          <LineNumber>23</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>134270198</Address>
+          <Address>134266148</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
@@ -160,23 +160,7 @@
           <BreakIfRCount>1</BreakIfRCount>
           <Filename>.\src\Middleware\MQNetBridge\MQNetBridge.cpp</Filename>
           <ExecCommand></ExecCommand>
-          <Expression>\\mbed_os_example_blinky\src/Middleware/MQNetBridge/MQNetBridge.cpp\190</Expression>
-        </Bp>
-        <Bp>
-          <Number>1</Number>
-          <Type>0</Type>
-          <LineNumber>193</LineNumber>
-          <EnabledFlag>1</EnabledFlag>
-          <Address>134270216</Address>
-          <ByteObject>0</ByteObject>
-          <HtxType>0</HtxType>
-          <ManyObjects>0</ManyObjects>
-          <SizeOfObject>0</SizeOfObject>
-          <BreakByAccess>0</BreakByAccess>
-          <BreakIfRCount>1</BreakIfRCount>
-          <Filename>.\src\Middleware\MQNetBridge\MQNetBridge.cpp</Filename>
-          <ExecCommand></ExecCommand>
-          <Expression>\\mbed_os_example_blinky\src/Middleware/MQNetBridge/MQNetBridge.cpp\193</Expression>
+          <Expression>\\mbed_os_example_blinky\src/Middleware/MQNetBridge/MQNetBridge.cpp\23</Expression>
         </Bp>
       </Breakpoint>
       <WatchWindow1>
@@ -190,12 +174,22 @@
           <WinNumber>1</WinNumber>
           <ItemText>_last_dist_cm,0x0A</ItemText>
         </Ww>
+        <Ww>
+          <count>2</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>_timeout</ItemText>
+        </Ww>
+        <Ww>
+          <count>3</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>_topic_list</ItemText>
+        </Ww>
       </WatchWindow1>
       <MemoryWindow1>
         <Mm>
           <WinNumber>1</WinNumber>
-          <SubType>8</SubType>
-          <ItemText>topic</ItemText>
+          <SubType>0</SubType>
+          <ItemText>msg-&gt;data</ItemText>
           <AccSizeX>0</AccSizeX>
         </Mm>
       </MemoryWindow1>
@@ -271,7 +265,7 @@
 
   <Group>
     <GroupName>mbed-os</GroupName>
-    <tvExp>1</tvExp>
+    <tvExp>0</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -9043,7 +9037,7 @@
 
   <Group>
     <GroupName>Middleware/MQSerialBridge</GroupName>
-    <tvExp>0</tvExp>
+    <tvExp>1</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>

@@ -44,7 +44,7 @@ MQNetBridge::MQNetBridge(const char* base_topic) {
     _gw = 0;
     _network = 0;
     _net = 0;
-    _client = 0;
+    _client = 0;    
     
     _base_topic = (char*)Heap::memAlloc(strlen(base_topic)+1);
     if(_base_topic){
@@ -92,19 +92,114 @@ void MQNetBridge::task(){
     }
     
     _stat = Ready;
+    
+
+    for(;;){       
+        DEBUG_TRACE("\r\nNetBridge: Wating events... ");
+        // procesa solicitudes pendientes
+        osEvent evt = _queue.get(osWaitForever);
         
-    for(;;){        
-        // procesa ciclo de ejecución del cliente mqtt cada 100ms
-        if(_client && _stat == Connected){
-            _client->yield(100);
-            // si detecta un fallo de conexión, intenta reconectar
-            if(!_client->isConnected()){
-                DEBUG_TRACE("\r\nNetBridge: Reconectando...");
-                reconnect();
+//        // Cada 100ms, si está conectado, mantiene la conexión activa
+//        if(evt.status == osOK || osEventTimeout){
+//            if(_client && _client->isConnected()){
+//                DEBUG_TRACE("\r\nNetBridge: Yielding... ");
+//                _client->yield(100); 
+//            }
+//            else{
+//                Thread::yield();
+//            }
+//        }
+        
+        // Si hay que procesar un mensaje...
+        if(evt.status == osEventMessage){
+            RequestOperation_t* msg = (RequestOperation_t*)evt.value.p;
+            switch(msg->id){
+                               
+                // Si hay que conectar...
+                case ConnectSig:{
+                    DEBUG_TRACE("\r\nNetBridge: Conectando... ");
+                    reconnect();
+                    break;
+                }             
+            
+                
+                // Si hay que desconectar...
+                case DisconnectSig:{
+                    // asegura que esté conectado...
+                    DEBUG_TRACE("\r\nNetBridge: Desconectando... ");
+                    disconnect();                                
+                    break;
+                }             
+                
+                
+//                // Si hay que suscribirse a un topic...
+//                case RemoteSubscriptionSig:{
+//                    DEBUG_TRACE("\r\nNetBridge: Suscribiéndose a %s ... ", msg->data);
+//                    if (_client->subscribe(msg->data, MQTT::QOS0, remoteSubscriptionCb) != 0){
+//                        DEBUG_TRACE("ERROR");
+//                    }
+//                    else{
+//                        DEBUG_TRACE("OK!!!!");
+//                    }             
+//                    break;
+//                }  
+//                
+//                
+//                // Si hay que quitar la suscripción a un topic...
+//                case RemoteUnsubscriptionSig:{
+//                    DEBUG_TRACE("\r\nNetBridge: Quitando suscripción a %s ... ", msg->data);  
+//                    if(_client->unsubscribe(msg->data) != 0){
+//                        DEBUG_TRACE("ERROR");
+//                    }
+//                    else{
+//                        DEBUG_TRACE("OK!!!!");
+//                    }           
+//                    break;
+//                }         
+                
+                
+                // Si hay que publicar en un topic... 
+                case RemotePublishSig:
+                case RemoteSubscriptionSig:
+                case RemoteUnsubscriptionSig:{
+                    DEBUG_TRACE("OK!!!! \r\nYielding...");
+                    _client->yield(100);                            
+
+//                    char* topic = strtok(msg->data, ",");
+//                    char* msend = strtok(0, ",");                    
+//                    if(topic && msend){
+//                        MQTT::Message message;
+//                        message.qos = MQTT::QOS0;
+//                        message.retained = false;
+//                        message.dup = false;
+//                        message.payload = msend;
+//                        message.payloadlen = strlen(msend) + 1;
+//                        uint8_t err = 0;
+//                        DEBUG_TRACE("\r\nNetBridge: Publicando en topic %s ... ", topic);
+//                        if(_client->publish(topic, message) != 0){            
+//                            DEBUG_TRACE("ERROR=%d", err); 
+//                        }
+//                        else{
+//                            DEBUG_TRACE("OK!!!! \r\nYielding...");
+//                            _client->yield(100);                            
+//                        }
+//                    }                   
+                    break;
+                }             
+             }
+            
+            // Elimina la memoria asignada al mensaje
+            if(msg->data){
+                Heap::memFree(msg->data);
             }
+            Heap::memFree(msg);
+        }    
+        
+        // en caso de que haya habido un error y se haya cerrado la conexión, habrá que intentar reconectar
+        if(_client && _stat == Connected && !_client->isConnected()){
+            DEBUG_TRACE("\r\nNetBridge: Iniciando reconexión...");
+            reconnect(); 
         }
-        // permite el paso a otros hilos
-        Thread::yield();
     }
 }
 
@@ -114,7 +209,7 @@ void MQNetBridge::localSubscriptionCb(const char* topic, void* msg, uint16_t msg
     // en primer lugar chequea qué tipo de mensaje es
     
     // si es un mensaje para establecer la conexión con el servidor mqtt...
-    if(strstr(topic, "cmd/wifisetup") != 0){
+    if(strstr(topic, "cmd/conn") != 0){
         DEBUG_TRACE("\r\nNetBridge: Solicitando conexión...");
         // lee los parámetros esperados: ClientId,User,UserPass,Host,Port,ESSID, WifiPasswd
         char* cli = strtok((char*)msg, ",");
@@ -126,6 +221,12 @@ void MQNetBridge::localSubscriptionCb(const char* topic, void* msg, uint16_t msg
         char* passwd = strtok(0, ",");
         // si se leen correctamente...
         if(cli && usr && usrpass && host && port && essid && passwd){
+            // reserva espacio para el mensaje
+            RequestOperation_t* op = (RequestOperation_t*)Heap::memAlloc(sizeof(RequestOperation_t));
+            if(!op){
+                return;
+            }
+            
             // desecha los antiguos...
             if(_client_id){
                 Heap::memFree(_client_id);
@@ -162,15 +263,36 @@ void MQNetBridge::localSubscriptionCb(const char* topic, void* msg, uint16_t msg
             // ajusta parámetros de conexión para easy-connect de mbed...
             MBED_CONF_APP_WIFI_SSID = _essid;
             MBED_CONF_APP_WIFI_PASSWORD = _passwd;
-            
-            // desconecta si estaba previamente conectado e inicia la nueva conexión
+
+            DEBUG_TRACE("\r\nNetBridge: Conectando... ");
             reconnect();
+//            
+//            DEBUG_TRACE("\r\nNetBridge: Conexión solicitada...");              
+//            op->data = 0;
+//            op->id = ConnectSig;
+//            _queue.put(op);  
         }
         return;
     }    
+        
+    // si es un mensaje para desconectar...
+    if(strstr(topic, "cmd/disc") != 0){
+        DEBUG_TRACE("\r\nNetBridge: Desconectando... ");
+        disconnect();                                
+               
+//        RequestOperation_t* op = (RequestOperation_t*)Heap::memAlloc(sizeof(RequestOperation_t));
+//        if(!op){
+//            return;
+//        }
+//        DEBUG_TRACE("\r\nNetBridge: Desconexión solicitada..."); 
+//        op->data = 0;
+//        op->id = DisconnectSig;            
+//        _queue.put(op); 
+//        return;
+    }   
     
     // si es un mensaje para suscribirse a un topic local en MQLib...
-    if(strstr(topic, "cmd/localsub") != 0){
+    if(strstr(topic, "cmd/lsub") != 0){
         char* topic = (char*)Heap::memAlloc(msg_len);
         strcpy(topic, (char*)msg);
         MQ::MQClient::subscribe(topic, &_subscriptionCb);
@@ -179,75 +301,117 @@ void MQNetBridge::localSubscriptionCb(const char* topic, void* msg, uint16_t msg
     }    
     
     // si es un mensaje para suscribirse a un topic remoto en MQTT...
-    if(strstr(topic, "cmd/remotesub") != 0){
+    if(strstr(topic, "cmd/rsub") != 0){
         // sólo lo permite si está conectado
         if(_stat == Connected){
-            char* topic = (char*)Heap::memAlloc(msg_len);
-            if(topic){
-                strcpy(topic, (char*)msg);
-                DEBUG_TRACE("\r\nNetBridge: Suscripción remota a %s ", topic);  
-                if(_client->subscribe(topic, MQTT::QOS0, remoteSubscriptionCb) != 0){
-                    DEBUG_TRACE("ERROR");
-                }
-                else{
-                    DEBUG_TRACE("OK!");
-                }
-                Heap::memFree(topic);
-            }                         
+            DEBUG_TRACE("\r\nNetBridge: Suscribiéndose a %s ... ", (char*)msg);
+            if (_client->subscribe((char*)msg, MQTT::QOS0, remoteSubscriptionCb) != 0){
+                DEBUG_TRACE("ERROR");
+            }
+            else{
+                DEBUG_TRACE("OK!");
+            }                   
+//            RequestOperation_t* op = (RequestOperation_t*)Heap::memAlloc(sizeof(RequestOperation_t));
+//            if(!op){
+//                return;
+//            }
+//            op->data = 0;
+//            op->id = RemoteSubscriptionSig;
+//            _queue.put(op);    
+//            
+//            RequestOperation_t* op = (RequestOperation_t*)Heap::memAlloc(sizeof(RequestOperation_t));
+//            if(!op){
+//                return;
+//            }
+//            op->data = (char*)Heap::memAlloc(msg_len);
+//            if(!op->data){
+//                Heap::memFree(op);
+//                return;
+//            }
+//            strcpy(op->data, (char*)msg);
+//            op->id = RemoteSubscriptionSig;
+//            DEBUG_TRACE("\r\nNetBridge: Suscripción remota a %s solicitada...", op->data);  
+//            _queue.put(op);                                    
         }
         return;
     }    
     
     // si es un mensaje para cancelar una suscripción remota en MQTT...
-    if(strstr(topic, "cmd/remoteuns") != 0){
+    if(strstr(topic, "cmd/runs") != 0){
         // asegura que esté conectado
         if(_stat == Connected){
-            char* topic = (char*)Heap::memAlloc(msg_len);
-            if(topic){
-                strcpy(topic, (char*)msg);
-                DEBUG_TRACE("\r\nNetBridge: Unsuscripción remota de %s ", topic);  
-                if(_client->unsubscribe(topic) != 0){
-                    DEBUG_TRACE("ERROR");
-                }
-                else{
-                    DEBUG_TRACE("OK!");
-                }
-                Heap::memFree(topic);                
-            }                         
+            DEBUG_TRACE("\r\nNetBridge: Quitando suscripción a %s ... ", (char*)msg);  
+            if(_client->unsubscribe((char*)msg) != 0){
+                DEBUG_TRACE("ERROR");
+            }
+            else{
+                DEBUG_TRACE("OK!");
+            }                  
+//            RequestOperation_t* op = (RequestOperation_t*)Heap::memAlloc(sizeof(RequestOperation_t));
+//            if(!op){
+//                return;
+//            }
+//            op->data = 0;
+//            op->id = RemoteUnsubscriptionSig;
+//            _queue.put(op);    
+//            
+//            RequestOperation_t* op = (RequestOperation_t*)Heap::memAlloc(sizeof(RequestOperation_t));
+//            if(!op){
+//                return;
+//            }
+//            op->data = (char*)Heap::memAlloc(msg_len);
+//            if(!op->data){
+//                Heap::memFree(op);
+//                return;
+//            }
+//            strcpy(op->data, (char*)msg);
+//            op->id = RemoteUnsubscriptionSig;
+//            DEBUG_TRACE("\r\nNetBridge: Unsuscripción remota a %s solicitada...", op->data);
+//            _queue.put(op);                                    
         }
         return;
-    }  
+    }     
     
-    // si es un mensaje para desconectar...
-    if(strstr(topic, "cmd/disc") != 0){
-        DEBUG_TRACE("\r\nNetBridge: Desconexión solicitada..."); 
-        // asegura que esté conectado...
-        if(_stat == Connected){
-            disconnect();            
-        }
+    // en cualquier otro caso, redirecciona el mensaje local a mqtt siempre que esté conectado        
+    DEBUG_TRACE("\r\nNetBridge: Solicitando reenvío a MQTT topic %s msg %s... ", topic, (char*)msg); 
+    if(_stat != Connected){
+        DEBUG_TRACE("ERROR. No conectado!"); 
         return;
-    }      
-    
-    // en cualquier otro caso, redirecciona el mensaje local a mqtt
-    DEBUG_TRACE("\r\nNetBridge: Reenvío a MQTT topic %s msg %s... ", topic, msg); 
+    }
     MQTT::Message message;
     message.qos = MQTT::QOS0;
     message.retained = false;
     message.dup = false;
-    message.payload = msg;
+    message.payload = (char*)msg;
     message.payloadlen = msg_len;
     uint8_t err = 0;
-    int rc;
-    do{
-        if((rc = _client->publish(topic, message)) != 0){            
-            err++;
-            DEBUG_TRACE("ERROR %d\r\n", err); 
-            reconnect();
-        }
-    }while(rc != 0 && err < RetriesOnError);
-    if(rc != 0){
-        _stat = Disconnected;
-    }        
+    DEBUG_TRACE("\r\nNetBridge: Publicando en topic %s ... ", topic);
+    if(_client->publish(topic, message) != 0){            
+        DEBUG_TRACE("ERROR=%d", err); 
+    }
+    else{
+        DEBUG_TRACE("OK!"); 
+    }
+    RequestOperation_t* op = (RequestOperation_t*)Heap::memAlloc(sizeof(RequestOperation_t));
+    if(!op){
+        return;
+    }
+    op->data = 0;
+    op->id = RemotePublishSig;
+    _queue.put(op);    
+//        
+//    RequestOperation_t* op = (RequestOperation_t*)Heap::memAlloc(sizeof(RequestOperation_t));
+//    if(!op){
+//        return;
+//    }
+//    op->data = (char*)Heap::memAlloc(msg_len + strlen(topic) + 1);
+//    if(!op->data){
+//        Heap::memFree(op);
+//        return;
+//    }
+//    sprintf(op->data, "%s,%s", topic, (char*)msg);
+//    op->id = RemotePublishSig;
+    _queue.put(op);    
 }
 
 

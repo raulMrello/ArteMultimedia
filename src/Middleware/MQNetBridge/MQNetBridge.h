@@ -8,21 +8,33 @@
  *  Este módulo recibirá publicaciones a través del protocolo MQTT y las insertará como si las hubiera publicado su propio
  *  cliente. Por otro lado, los topics a los que esté suscrito, los replicará hacia el enlace mqtt.
  *
- *  Por defecto este módulo se registra en MQLib escuchando en el topic "mqnetbridge", de forma que pueda ser configurado.
- *  Las configuraciones básicas que permite son las siguientes:
+ *  Por defecto este módulo se registra en MQLib escuchando en el topic base $(base)="mqnetbridge", de forma que 
+ *  pueda ser configurado. Las configuraciones básicas que permite son las siguientes:
  *
- *  "mqnetbridge/cmd/wifisetup Cli,Usr,UsrPass,Host,Port,Essid,Passwd" Permite configurar la conexión al servidor MQTT remoto si no se ha realizado
- *  durante la puesta en marcha, por medio de una red wifi. Inicia el proceso de conexión
- *
- *  "mqnetbridge/cmd/localsub TOPIC" Permite suscribirse al topic local (MQLib) TOPIC y redirigir las actualizaciones 
- *  recibidas al mismo topic pero vía MQTT.
- *
- *  "mqnetbridge/cmd/remotesub TOPIC" Permite suscribirse al topic remoto (MQTT) TOPIC y redirigir las actualizaciones 
- *  recibidas al mismo topic pero vía MQLib para que otros módulos internos puedan hacer uso de ellas.
+ *  CONECTAR
+ *  $(base)/cmd/conn Cli,Usr,UsrPass,Host,Port,Essid,Passwd" 
+ *      Solicita la conexión, configurando los parámetros necesarios.
  * 
- *  "mqnetbridge/cmd/remoteuns TOPIC" Permite quitar la suscribirse al topic remoto (MQTT) TOPIC.
+ *  DESCONECTAR
+ *  $(base)/cmd/disc 0" 
+ *      Solicita la desconexión
+ *
+ *  SUSCRIPCION LOCAL (MQLIB)
+ *  $(base)/cmd/lsub TOPIC" 
+ *      Permite suscribirse al topic local (MQLib) TOPIC y redirigir las actualizaciones recibidas al mismo topic mqtt.
+ *
+ *  SUSCRIPCION REMOTA
+ *  $(base)/cmd/rsub TOPIC" 
+ *      Permite suscribirse al topic remoto (MQTT) TOPIC y redirigir las actualizaciones al mismo topic mqlib. 
  * 
- *  "mqnetbridge/cmd/disc 0" Permite desconectarse
+ *  QUITAR SUSCRIPCION REMOTA
+ *  $(base)/cmd/runs TOPIC" 
+ *      Permite quitar la suscribirse al topic remoto (MQTT) TOPIC.
+ *
+ *  ACTIVAR ESCUCHA MQTT
+ *  $(base)/cmd/listen 0" 
+ *      Permite suscribirse al topic remoto (MQTT) TOPIC y redirigir las actualizaciones al mismo topic mqlib. 
+ * 
  */
  
  
@@ -91,15 +103,24 @@ protected:
 
     /** Flags de tarea (asociados a la máquina de estados) */
     enum SigEventFlags{
-        RemoteTopicUpdateSignal = (1<<0),
-        LocalTopicUpdateSignal  = (1<<1),
-        ConnectionReqSignal     = (1<<2),
+        ConnectSig              = (1<<0),   /// Flag para solicitar un inicio de conexión o reconexión
+        DisconnectSig           = (1<<1),   /// Flag para solicitar una desconexión
+        RemoteSubscriptionSig   = (1<<2),   /// Flag para solicitar una suscripción a un topic mqtt
+        RemoteUnsubscriptionSig = (1<<3),   /// Flag para solicitar la no suscripción a un topic mqtt
+        RemotePublishSig        = (1<<4),   /// Flag para solicitar la publicación a un topic mqtt
+    };
+    
+    /** Estructura de datos de las solicitudes insertadas en la cola de proceso */
+    struct RequestOperation_t{
+        SigEventFlags id;                   /// Identificador de la operación a realizar
+        char* data;                         /// Datos asociados a la operación
     };
       
     
-    Thread  _th;                                    /// Manejador del thread
-    Status  _stat;                                  /// Estado del módulo
-    Logger* _debug;                                 /// Canal de depuración
+    Thread  _th;                                        /// Manejador del thread
+    Status  _stat;                                      /// Estado del módulo
+    Logger* _debug;                                     /// Canal de depuración
+    Queue<RequestOperation_t, MaxQueueEntries> _queue;  /// Request queue
     
     NetworkInterface* _network;
     MQTTNetwork *_net;                              /// Conexión MQTT

@@ -72,7 +72,7 @@ void test_MQNetBridge(){
     DEBUG_TRACE("OK!");    
         
     
-    DEBUG_TRACE("\r\nSuscripción a eventos start ...");
+    DEBUG_TRACE("\r\nSuscripción a eventos sta ...");
     MQ::MQClient::subscribe("sta", new MQ::SubscribeCallback(&staEvtSubscription));
     DEBUG_TRACE("OK!\r\n");
     

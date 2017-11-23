@@ -7,6 +7,14 @@ Proyecto plantilla para desarrollos con la tarjeta NUCLEO_L432KC de ST en mbed-o
 ## Changelog
 
 ----------------------------------------------------------------------------------------------
+##### 22.11.2017 ->commit:"Verificado driver led WS281xLedStrip"
+- [x] Verificado driver y cambio pin a PA_8 (D9).  
+- [ ] Actualizar todos los repos paralelos.	  
+
+
+	  
+
+----------------------------------------------------------------------------------------------
 ##### 22.11.2017 ->commit:"Corregido pub arg en MQSerialBridge"
 - [x] Corregido bug, al registrar el topic stop, se duplican los envíos mqtt ???	  
 - [ ] Actualizar todos los repos paralelos.	  

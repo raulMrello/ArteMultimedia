@@ -56,7 +56,7 @@ void test_WS281x(){
     //  - Dirección I2C = 0h
     //  - Número de servos controlables = 12 (0 al 11)    
     DEBUG_TRACE("\r\nCreando Driver WS281x...");    
-    leddrv = new WS281xLedStrip(PA_10, 800000, 3);
+    leddrv = new WS281xLedStrip(PA_8, 800000, 3);
         
     // situo todos a 0º y doy la orden sincronizada
     DEBUG_TRACE("\r\nAjustando colores rojo, verde, azul... ");
@@ -72,18 +72,18 @@ void test_WS281x(){
     leddrv->start();
     for(;;){
         // espero 5 segundos
-//        Thread::wait(5000);
-//        DEBUG_TRACE("\r\nCambio a verde... ");
-//        color.red = 0; color.green = 255; color.blue = 0;
-//        leddrv->setRange(0, 3, color);
-//        Thread::wait(5000);
-//        DEBUG_TRACE("\r\nCambio a azul... ");
-//        color.red = 0; color.green = 0; color.blue = 255;
-//        leddrv->setRange(0, 3, color);
-//        Thread::wait(5000);
-//        DEBUG_TRACE("\r\nCambio a rojo... ");
-//        color.red = 255; color.green = 0; color.blue = 0;     
-//        leddrv->setRange(0, 3, color);        
+        Thread::wait(5000);
+        DEBUG_TRACE("\r\nCambio a verde mínimo... ");
+        color.red = 0; color.green = 1; color.blue = 0;
+        leddrv->setRange(0, 3, color);
+        Thread::wait(5000);
+        DEBUG_TRACE("\r\nCambio a azul cuarto... ");
+        color.red = 0; color.green = 0; color.blue = 64;
+        leddrv->setRange(0, 3, color);
+        Thread::wait(5000);
+        DEBUG_TRACE("\r\nCambio a rojo medio... ");
+        color.red = 128; color.green = 0; color.blue = 0;     
+        leddrv->setRange(0, 3, color);        
     }    
 }
 

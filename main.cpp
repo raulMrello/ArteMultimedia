@@ -4,6 +4,13 @@
 
 
 // **************************************************************************
+// *********** APPS *********************************************************
+// **************************************************************************
+
+extern void app_Countdown();
+
+
+// **************************************************************************
 // *********** TESTS ********************************************************
 // **************************************************************************
 
@@ -17,11 +24,11 @@ extern void test_PCA9685();
 extern void test_MPR121();
 //extern void program_ESP8266();
 
-typedef void(*TestCallback)();
-static TestCallback test_list[] = {
-    test_WS281x,
+typedef void(*CapabilityCallback)();
+static CapabilityCallback capability_list[] = {
+    app_Countdown,
     NULL, /** A PARTIR DE AQUI NO SE EJECUTA NADA */   
-//    program_ESP8266,
+    test_WS281x,
     test_MQNetBridge,
     test_TouchManager,
     test_ServoManager,    
@@ -29,6 +36,7 @@ static TestCallback test_list[] = {
     test_MPR121,
     test_HCSR04, 
     test_PCA9685,
+//    program_ESP8266,
     NULL};
 
 
@@ -42,6 +50,8 @@ template <typename T, size_t N> inline size_t SizeOfArray(const T(&)[N]) { retur
 
 /** Lista de tokens MQLib */
 static MQ::Token token_list[] = {
+    "xrinst",
+    "countdown",
     "breathe",
     "cmd",
     "config",
@@ -105,10 +115,10 @@ int main() {
     }
     
     // --------------------------------------
-    // Arranca los tests
+    // Arranca los programas de la lista
     int i=0;
-    while(test_list[i] != NULL){
-        test_list[i]();
+    while(capability_list[i] != NULL){
+        capability_list[i]();
         i++;
     }
     

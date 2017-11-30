@@ -377,6 +377,16 @@
       </TargetOption>
       <Groups>
         <Group>
+          <GroupName>Apps</GroupName>
+          <Files>
+            <File>
+              <FileName>app_Countdown.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Apps\app_Countdown.cpp</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
           <GroupName>main</GroupName>
           <Files>
             <File>

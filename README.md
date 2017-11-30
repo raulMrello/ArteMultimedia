@@ -7,6 +7,16 @@ Proyecto plantilla para desarrollos con la tarjeta NUCLEO_L432KC de ST en mbed-o
 ## Changelog
 
 ----------------------------------------------------------------------------------------------
+##### 30.11.2017 ->commit:"Diseñando aplicación app_Countdown"
+- [x] Diseñando la aplicación Countdown.
+- [ ] Crear Manager que controle de forma sincronizada el driver servo y el driver led. Para
+	  crear animaciones, modos, transiciones, etc...
+- [ ] Actualizar todos los repos paralelos.	  
+
+
+	  
+
+----------------------------------------------------------------------------------------------
 ##### 22.11.2017 ->commit:"Verificado driver led WS281xLedStrip"
 - [x] Verificado driver y cambio pin a PA_8 (D9).  
 - [ ] Actualizar todos los repos paralelos.	  

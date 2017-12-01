@@ -14,6 +14,7 @@ extern void app_Countdown();
 // *********** TESTS ********************************************************
 // **************************************************************************
 
+extern void test_StateMachine();
 extern void test_MQNetBridge();
 extern void test_TouchManager();
 extern void test_ProximityManager();
@@ -28,6 +29,7 @@ typedef void(*CapabilityCallback)();
 static CapabilityCallback capability_list[] = {
     app_Countdown,
     NULL, /** A PARTIR DE AQUI NO SE EJECUTA NADA */   
+    test_StateMachine,
     test_WS281x,
     test_MQNetBridge,
     test_TouchManager,
@@ -92,6 +94,7 @@ static MQ::Token token_list[] = {
     "stop",
     "test",
     "touch",
+    "cyber_ribs",
 };
 
 

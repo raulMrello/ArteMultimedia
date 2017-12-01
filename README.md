@@ -7,6 +7,29 @@ Proyecto plantilla para desarrollos con la tarjeta NUCLEO_L432KC de ST en mbed-o
 ## Changelog
 
 ----------------------------------------------------------------------------------------------
+##### 01.12.2017 ->commit:"Integrando CyberRibs"
+- [x] Actualizo StateMachine para que sea capaz de utilizar únicamente señales o también poder
+	  ser utilizado con un Mail o un Queue en el objeto base, para ello proporciono callbacks
+	  de publicación de señales en ese tipo de objetos. FALTA ACTUALIZAR REPO PARALELO
+- [x] Diseñando la aplicación Countdown. Cambio ServoManager y DriverLed por el nuevo módulo 
+	  CyberRibs que permite controlar de forma sincronizada ambos drivers.	  
+- [ ] Hay que ver la forma de poder recuperar los datos de calibración en el módulo CyberRibs,
+	  lo mismo tiene que utilizar el ServoManager en lugar del PCAdriver.
+- [ ] Modificar app_Countdown, ya que CyberRibs es capaz de procesar mensajes en su topic cmd/mode
+	  que se corresponden con los que emitirá appXR, con lo que ya app_Countdown no necesita implementar
+	  la lógica de actuación, todo recaería en CyberRibs. Cuando lo haga, app_Countdown únicamente se
+	  encargará de arrancar y configurar los módulos necesarios y asociar los topics a los que responderá
+	  cada uno.
+- [ ] Hay que pensar la forma de conmutar la aplicación a modo de ejecución y a modo de calibración o test,
+	  o como opción alternativa, poder enviar los parámetros de calibración, desde un script en remoto via
+	  mqtt.
+- [ ] Añadir la lógica a los diferentes estados funcionales de CyberRibs.	  
+- [ ] Actualizar todos los repos paralelos.	  
+
+
+	  
+
+----------------------------------------------------------------------------------------------
 ##### 30.11.2017 ->commit:"Diseñando aplicación app_Countdown"
 - [x] Diseñando la aplicación Countdown.
 - [ ] Crear Manager que controle de forma sincronizada el driver servo y el driver led. Para

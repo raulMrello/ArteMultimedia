@@ -76,8 +76,7 @@
 #include "MQNetBridge.h"
 #include "TouchManager.h"
 #include "ProximityManager.h"
-#include "ServoManager.h"
-#include "WS281xLedStrip.h"
+#include "CyberRibs.h"
 
 
 
@@ -106,11 +105,9 @@ static TouchManager* touchm;
 /** Controlador de proximidad */
 static ProximityManager* proxm;
 
-/** Controlador de servos */
-static ServoManager* servom;
+/** Controlador del costillar */
+static CyberRibs* cybribs;
 
-/** Controlador tira led */
-static WS281xLedStrip* leddrv;
 
 /** Callback para las notificaciones de publicación */
 static MQ::PublishCallback publ_cb;
@@ -270,80 +267,65 @@ void app_Countdown(){
     DEBUG_TRACE("OK!");;
     
     
-    #warning TODO (obligatorio) Manager que controle sincronizadamente los drivers servo y leds
     
     // --------------------------------------
-    // Creo manager de control para los servos
-    //  - Dirección I2C = 0h
-    //  - Número de servos controlables = 3 (0 al 2)    
-    DEBUG_TRACE("\r\nCreando Controlador de servos...");    
+    // Creo manejador del costillar (Servos + Leds)
+    //  - Número de servos controlables = 3
+    //  - Número de leds por servo = 6
+    DEBUG_TRACE("\r\nCreando Costillar Cibernético...");    
     static const uint8_t SERVO_COUNT = 3;
-    servom = new ServoManager(PB_4, PA_7, SERVO_COUNT);
-    servom->setDebugChannel(logger);
+    static const uint8_t LEDS_x_RIB = 6;
+    cybribs = new CyberRibs(SERVO_COUNT, LEDS_x_RIB, PB_4, PA_7, PA_8, "cyber_ribs");
+    cybribs->setDebugChannel(logger);
     
     // espero a que esté listo
     DEBUG_TRACE("\r\n¿Listo?... ");
     do{
         Thread::yield();
-    }while(!servom->ready());
+    }while(!cybribs->ready());
     DEBUG_TRACE(" OK");
 
-    // recupera parámetros de calibración NV
-    DEBUG_TRACE("\r\nRecuperando parámetros de calibración de los servos... ");
-    uint32_t* caldata = (uint32_t*)Heap::memAlloc(NVFlash::getPageSize());
-    NVFlash::init();
-    NVFlash::readPage(0, caldata);
-    if(servom->setNVData(caldata) != 0){
-        DEBUG_TRACE("ERR_NVFLASH_READ, borrando...");
-        NVFlash::erasePage(0);
-        // establezco rangos de funcionamiento por defecto
-        DEBUG_TRACE("\r\nAjustando rangos por defecto... ");
-        for(uint8_t i=0;i<SERVO_COUNT;i++){
-            if(servom->setServoRanges(i, 0, 120, 180, 480) != PCA9685_ServoDrv::Success){
-                DEBUG_TRACE("ERR_servo_%d\r\n...", i);
-            }            
-        }
-        servom->getNVData(caldata);
-        NVFlash::writePage(0, caldata);
-        DEBUG_TRACE("OK");
-    }
-    else{
-        DEBUG_TRACE(" NVFLASH_RESTORE... OK!");
-    }
-    Heap::memFree(caldata);
-    
-    // situo todos a 0º y doy la orden sincronizada
-    DEBUG_TRACE("\r\nGirando servos a 0º... ");
-    for(uint8_t i=0;i<SERVO_COUNT;i++){
-        if(servom->setServoAngle(i, 0) != PCA9685_ServoDrv::Success){
-            DEBUG_TRACE("ERR_servo_%d\r\n...", i);
-        }               
-    }
-    if(servom->updateAll() != PCA9685_ServoDrv::Success){
-        DEBUG_TRACE("ERR_update");
-    }                   
-    DEBUG_TRACE("OK");
-    
-    // establezco topic base 'servo'
-    DEBUG_TRACE("\r\nEstablece topic base para los servos: servo"); 
-    servom->setSubscriptionBase("servo");
+//    // recupera parámetros de calibración NV
+//    DEBUG_TRACE("\r\nRecuperando parámetros de calibración de los servos... ");
+//    uint32_t* caldata = (uint32_t*)Heap::memAlloc(NVFlash::getPageSize());
+//    NVFlash::init();
+//    NVFlash::readPage(0, caldata);
+//    if(servom->setNVData(caldata) != 0){
+//        DEBUG_TRACE("ERR_NVFLASH_READ, borrando...");
+//        NVFlash::erasePage(0);
+//        // establezco rangos de funcionamiento por defecto
+//        DEBUG_TRACE("\r\nAjustando rangos por defecto... ");
+//        for(uint8_t i=0;i<SERVO_COUNT;i++){
+//            if(servom->setServoRanges(i, 0, 120, 180, 480) != PCA9685_ServoDrv::Success){
+//                DEBUG_TRACE("ERR_servo_%d\r\n...", i);
+//            }            
+//        }
+//        servom->getNVData(caldata);
+//        NVFlash::writePage(0, caldata);
+//        DEBUG_TRACE("OK");
+//    }
+//    else{
+//        DEBUG_TRACE(" NVFLASH_RESTORE... OK!");
+//    }
+//    Heap::memFree(caldata);
+//    
+//    // situo todos a 0º y doy la orden sincronizada
+//    DEBUG_TRACE("\r\nGirando servos a 0º... ");
+//    for(uint8_t i=0;i<SERVO_COUNT;i++){
+//        if(servom->setServoAngle(i, 0) != PCA9685_ServoDrv::Success){
+//            DEBUG_TRACE("ERR_servo_%d\r\n...", i);
+//        }               
+//    }
+//    if(servom->updateAll() != PCA9685_ServoDrv::Success){
+//        DEBUG_TRACE("ERR_update");
+//    }                   
+//    DEBUG_TRACE("OK");
+//    
+//    // establezco topic base 'servo'
+//    DEBUG_TRACE("\r\nEstablece topic base para los servos: servo"); 
+//    servom->setSubscriptionBase("servo");
 
-    
-    #warning TODO (opcional) Manager Led para crear animaciones
-    
-    // --------------------------------------
-    // Creo driver de control para la tira led
-    DEBUG_TRACE("\r\nCreando Controlador led...");    
-    leddrv = new WS281xLedStrip(PA_8, 800000, 3);
-        
-    // apago todo
-    DEBUG_TRACE("\r\nAjustando colores rojo, verde, azul... ");
-    WS281xLedStrip::Color_t color_off;
-    color_off.red = 0; color_off.green = 0; color_off.blue = 0;            
-    leddrv->setRange(0, 3, color_off);
-    // inicio
-    DEBUG_TRACE("\r\nSTART... ");
-    leddrv->start();
+   
 
     // --------------------------------------
     // --------------------------------------

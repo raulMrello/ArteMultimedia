@@ -16,6 +16,7 @@ extern void app_Countdown();
 
 extern void test_StateMachine();
 extern void test_MQNetBridge();
+extern void test_MQLib();
 extern void test_TouchManager();
 extern void test_ProximityManager();
 extern void test_ServoManager();
@@ -32,6 +33,7 @@ static CapabilityCallback capability_list[] = {
     test_StateMachine,
     test_WS281x,
     test_MQNetBridge,
+    test_MQLib,
     test_TouchManager,
     test_ServoManager,    
     test_ProximityManager,

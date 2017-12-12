@@ -64,7 +64,7 @@ void test_MQNetBridge(){
     // --------------------------------------
     // Creo módulo NetBridge MQTT
     DEBUG_TRACE("\r\nCreando NetBridge...");    
-    qnet = new MQNetBridge("mqnetbridge");
+    qnet = new MQNetBridge("mqnetbridge/cmd");
     qnet->setDebugChannel(logger);
     while(!qnet->getStatus() != MQNetBridge::Ready){
         Thread::yield();

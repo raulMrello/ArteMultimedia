@@ -209,7 +209,7 @@ void MQNetBridge::localSubscriptionCb(const char* topic, void* msg, uint16_t msg
     // en primer lugar chequea qué tipo de mensaje es
     
     // si es un mensaje para establecer la conexión con el servidor mqtt...
-    if(strstr(topic, "cmd/conn") != 0){
+    if(MQ::MQClient::isTopicToken(topic, "/conn")){
         DEBUG_TRACE("\r\nNetBridge: Solicitando conexión...");
         // lee los parámetros esperados: ClientId,User,UserPass,Host,Port,ESSID, WifiPasswd
         char* cli = strtok((char*)msg, ",");
@@ -276,7 +276,7 @@ void MQNetBridge::localSubscriptionCb(const char* topic, void* msg, uint16_t msg
     }    
         
     // si es un mensaje para desconectar...
-    if(strstr(topic, "cmd/disc") != 0){
+    if(MQ::MQClient::isTopicToken(topic, "/disc")){
         DEBUG_TRACE("\r\nNetBridge: Desconectando... ");
         disconnect();                                
                
@@ -292,7 +292,7 @@ void MQNetBridge::localSubscriptionCb(const char* topic, void* msg, uint16_t msg
     }   
     
     // si es un mensaje para suscribirse a un topic local en MQLib...
-    if(strstr(topic, "cmd/lsub") != 0){
+    if(MQ::MQClient::isTopicToken(topic, "/lsub")){
         char* topic = (char*)Heap::memAlloc(msg_len);
         strcpy(topic, (char*)msg);
         MQ::MQClient::subscribe(topic, &_subscriptionCb);
@@ -301,7 +301,7 @@ void MQNetBridge::localSubscriptionCb(const char* topic, void* msg, uint16_t msg
     }    
     
     // si es un mensaje para suscribirse a un topic remoto en MQTT...
-    if(strstr(topic, "cmd/rsub") != 0){
+    if(MQ::MQClient::isTopicToken(topic, "/rsub")){
         // sólo lo permite si está conectado
         if(_stat == Connected){
             DEBUG_TRACE("\r\nNetBridge: Suscribiéndose a %s ... ", (char*)msg);
@@ -337,7 +337,7 @@ void MQNetBridge::localSubscriptionCb(const char* topic, void* msg, uint16_t msg
     }    
     
     // si es un mensaje para cancelar una suscripción remota en MQTT...
-    if(strstr(topic, "cmd/runs") != 0){
+    if(MQ::MQClient::isTopicToken(topic, "/runs")){
         // asegura que esté conectado
         if(_stat == Connected){
             DEBUG_TRACE("\r\nNetBridge: Quitando suscripción a %s ... ", (char*)msg);  

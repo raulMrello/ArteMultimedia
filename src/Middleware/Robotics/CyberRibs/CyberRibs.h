@@ -15,7 +15,7 @@
  *  Utilizará la librería MQLib y esperará mensajes en su topic base $(base) de esta forma:
  *
  *  MODO
- *  $(base)/cmd/mode M" 
+ *  $(base)/mode M" 
  *      M indica uno de los posibles modos de funcionamiento:
  *      M=0 Estructura apagada, sin leds y sin movimiento. En su estado de reposo. Se desconecta la alimentación de los
  *          servos y de los leds. Se compone de dos estados: StGoingDown, StOff.
@@ -32,11 +32,28 @@
  *      y se denominan como StCondols0, StCondols1, StCondols2. Los juegos serán aleatorios, inconexos, lentos y apagados.
  * 
  *  CONFIGURACION
- *  $(base)/cmd/cfg E
+ *  $(base)/cfg E
  *      Ajusta diferentes parámetros de configuración:
  *      E (enable notifications) Permite activar notificaciones en cada cambio de estado, mediante la publicación en el
  *      topic $(base)/stat/mode M,N siendo M el modo en el que se encuentra y N el subestado. Por ejemplo para notificar
  *      que ha cambiado a modo Congratulations.Congrat2 enviará el mensaje: "$(base)/stat/mode 8,2"
+ *
+ *  AJUSTE Y CALIBRACIÓN DE LOS SERVOS
+  *  $(base)/servo/angle S,A
+ *      Mueve el servo S al ángulo A (limitado por rangos min,max)
+ *
+ *  $(base)/servo/duty S,D
+ *      Mueve el servo S al duty D (sin limitación por rango)
+ *
+ *   $(base)/servo/info S
+ *      Obtiene información sobre el servo S (rangos min max de ángulo y duty)
+ *
+ *   $(base)/servo/cal S,Ai,Af,Di,Df
+ *      Calibra los rangos del servo S, con ángulo minmax Ai,Af y duty minmax Di,Df.
+ *
+ *   $(base)/servo/save 0
+ *      Guarda los datos de calibración de todos los servos en NVFlash
+ *
  */
  
  
@@ -47,6 +64,7 @@
 #include "mbed.h"
 #include "Logger.h"
 #include "MQLib.h"
+#include "NVFlash.h"
 #include "WS281xLedStrip.h"
 #include "PCA9685_ServoDrv.h"
 #include "StateMachine.h"
@@ -69,9 +87,8 @@ public:
      *  @param sda_srv Pin SDA del bus i2c que controla el driver Servo
      *  @param scl_srv Pin SCL del bus i2c que controla el driver Servo
      *  @param pwm_led Pin PWM del controlador led
-     *  @param base_topic Topic base, utilizado para poder ser configurado
      */
-    CyberRibs(uint8_t num_ribs, uint8_t leds_per_rib, PinName sda_srv, PinName scl_srv, PinName pwm_led, const char* base_topic = "cyber_ribs");
+    CyberRibs(uint8_t num_ribs, uint8_t leds_per_rib, PinName sda_srv, PinName scl_srv, PinName pwm_led);
     
   
 	/** setDebugChannel()
@@ -85,7 +102,21 @@ public:
      *  @return Estado del controlador
      */
     bool ready() { return _ready; }   
-      
+    
+  
+	/** setSubscriptionBase()
+     *  Registra el topic base a los que se suscribirá el módulo
+     *  @param sub_topic Topic base para la suscripción
+     */
+    void setSubscriptionBase(const char* sub_topic);          
+    
+  
+	/** setPublicationBase()
+     *  Registra el topic base a los que publicará el módulo
+     *  @param pub_topic Topic base para la publicación
+     */
+    void setPublicationBase(const char* pub_topic);  
+    
 protected:
 
     /** Número de items para la cola de mensajes entrantes */
@@ -106,7 +137,9 @@ protected:
     bool    _ready;                             /// Flag de estado
     uint8_t _num_ribs;                          /// Número de costillas
     uint8_t _leds_per_rib;                      /// Número de leds por costilla
-    char*   _base_topic;                        /// Topic de configuración    
+    char*   _sub_topic;                         /// Topic base para la suscripción
+    char*   _pub_topic;                         /// Topic base para la publicación
+    char*   _pub_topic_unique;                  /// Topic para publicar
    
     PCA9685_ServoDrv* _servod;                  /// Driver servos
     WS281xLedStrip*   _ledd;                    /// Driver leds
@@ -116,6 +149,9 @@ protected:
       
 
     /** Estados y manejadores de eventos */
+    
+    uint8_t _mode;                              /// Identificador del modo
+    uint8_t _submode;                           /// Identificador del submodo
     
     // Estados para modo 0     
     State _stGoingDown;
@@ -179,6 +215,12 @@ protected:
      *  @param result Resultado de la publicación
      */    
      void publicationCb(const char* topic, int32_t result);
+    
+
+	/** notifyModeUpdate()
+     *  Notifica el cambio de modo, publicando en el topic correspondiente
+     */    
+     void notifyModeUpdate();
     
 
 

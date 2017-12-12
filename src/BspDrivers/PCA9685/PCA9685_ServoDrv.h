@@ -160,9 +160,40 @@ class PCA9685_ServoDrv{
      */
     uint16_t getAngleFromDuty(uint8_t servoId, uint16_t duty); 
     
+  
+	/** getNVDataSize()
+     *  Obtiene el tamaño de los datos NV
+     */
+    uint32_t getNVDataSize(){ return(sizeof(NVData_t)); }
+    
+  
+	/** setNVData()
+     *  Actualiza los datos NVData
+     *  @param data Datos de recuperación
+     *  @return 0 si es correcto, !=0 si los datos son incorrectos o inválidos
+     */
+    int setNVData(void* data);
+    
+  
+	/** getNVData()
+     *  Lee los datos NVData
+     *  @param data Recibe los datos NV de recuperación
+     */
+    void getNVData(uint32_t* data); 
+    
     
   protected:
     static const uint16_t MaxAllowedDuty = 4095;    /// Valor máximo del duty
+        
+    /** Estructura de datos con los parámetros de calibración */    
+    struct NVData_t{
+        int16_t minAngle[ServoCount];
+        int16_t maxAngle[ServoCount];
+        uint16_t minDuty[ServoCount];
+        uint16_t maxDuty[ServoCount];
+        uint32_t crc32;
+    };
+
   
     int16_t     _minAngle[ServoCount];          /// Rango inferior en grados para cada servo
     int16_t     _maxAngle[ServoCount];          /// Rango superior en grados por servo

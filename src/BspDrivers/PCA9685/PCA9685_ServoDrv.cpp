@@ -375,6 +375,41 @@ uint16_t PCA9685_ServoDrv::getAngleFromDuty(uint8_t servoId, uint16_t duty){
 }
 
 
+//------------------------------------------------------------------------------------
+int PCA9685_ServoDrv::setNVData(void* data) {
+    NVData_t* nvdata = (NVData_t*)data;
+    uint32_t crc = 0;
+    for(uint8_t i=0; i<PCA9685_ServoDrv::ServoCount; i++){
+        crc ^= nvdata->minAngle[i];
+        crc ^= nvdata->maxAngle[i];
+        crc ^= nvdata->minDuty[i];
+        crc ^= nvdata->maxDuty[i];
+    }
+    if(crc == nvdata->crc32 && crc != MBED_FLASH_INVALID_SIZE){
+        for(uint8_t i=0; i<PCA9685_ServoDrv::ServoCount; i++){
+            setServoRanges(i, nvdata->minAngle[i], nvdata->maxAngle[i], nvdata->minDuty[i], nvdata->maxDuty[i]);
+        }    
+        return 0;
+    }
+    return -1;
+}
+
+
+//------------------------------------------------------------------------------------
+void PCA9685_ServoDrv::getNVData(uint32_t* data) {    
+    NVData_t* nvdata = (NVData_t*)data;
+    uint32_t crc = 0;
+    for(uint8_t i=0; i<PCA9685_ServoDrv::ServoCount; i++){
+        getServoRanges(i, &nvdata->minAngle[i], &nvdata->maxAngle[i], &nvdata->minDuty[i], &nvdata->maxDuty[i]);
+        crc ^= nvdata->minAngle[i];
+        crc ^= nvdata->maxAngle[i];
+        crc ^= nvdata->minDuty[i];
+        crc ^= nvdata->maxDuty[i];
+    }  
+    nvdata->crc32 = crc;
+}    
+    
+
 
 //------------------------------------------------------------------------------------
 //- PROTECTED CLASS IMPL. ------------------------------------------------------------

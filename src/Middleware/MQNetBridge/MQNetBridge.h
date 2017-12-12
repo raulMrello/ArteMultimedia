@@ -12,27 +12,27 @@
  *  pueda ser configurado. Las configuraciones básicas que permite son las siguientes:
  *
  *  CONECTAR
- *  $(base)/cmd/conn Cli,Usr,UsrPass,Host,Port,Essid,Passwd" 
+ *  $(base)conn Cli,Usr,UsrPass,Host,Port,Essid,Passwd" 
  *      Solicita la conexión, configurando los parámetros necesarios.
  * 
  *  DESCONECTAR
- *  $(base)/cmd/disc 0" 
+ *  $(base)/disc 0" 
  *      Solicita la desconexión
  *
  *  SUSCRIPCION LOCAL (MQLIB)
- *  $(base)/cmd/lsub TOPIC" 
+ *  $(base)/lsub TOPIC" 
  *      Permite suscribirse al topic local (MQLib) TOPIC y redirigir las actualizaciones recibidas al mismo topic mqtt.
  *
  *  SUSCRIPCION REMOTA
- *  $(base)/cmd/rsub TOPIC" 
+ *  $(base)/rsub TOPIC" 
  *      Permite suscribirse al topic remoto (MQTT) TOPIC y redirigir las actualizaciones al mismo topic mqlib. 
  * 
  *  QUITAR SUSCRIPCION REMOTA
- *  $(base)/cmd/runs TOPIC" 
+ *  $(base)/runs TOPIC" 
  *      Permite quitar la suscribirse al topic remoto (MQTT) TOPIC.
  *
  *  ACTIVAR ESCUCHA MQTT
- *  $(base)/cmd/listen 0" 
+ *  $(base)/listen 0" 
  *      Permite suscribirse al topic remoto (MQTT) TOPIC y redirigir las actualizaciones al mismo topic mqlib. 
  * 
  */
@@ -71,7 +71,7 @@ public:
      *  Crea el objeto asignando un puerto serie para la interfaz con el equipo digital
      *  @param base_topic Topic base, utilizado para poder ser configurado
      */
-    MQNetBridge(const char* base_topic = "mqnetbridge");
+    MQNetBridge(const char* base_topic = "mqnetbridge/cmd");
     
   
 	/** setDebugChannel()

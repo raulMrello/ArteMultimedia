@@ -216,7 +216,7 @@
 
   <Group>
     <GroupName>Apps</GroupName>
-    <tvExp>0</tvExp>
+    <tvExp>1</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -8972,7 +8972,7 @@
 
   <Group>
     <GroupName>Middleware/MQLib</GroupName>
-    <tvExp>0</tvExp>
+    <tvExp>1</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -9412,7 +9412,7 @@
 
   <Group>
     <GroupName>Middleware/StateMachine</GroupName>
-    <tvExp>1</tvExp>
+    <tvExp>0</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -9432,7 +9432,7 @@
 
   <Group>
     <GroupName>Robotics/CyberRibs</GroupName>
-    <tvExp>1</tvExp>
+    <tvExp>0</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -9496,7 +9496,7 @@
 
   <Group>
     <GroupName>Managers/ServoManager</GroupName>
-    <tvExp>1</tvExp>
+    <tvExp>0</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -9969,6 +9969,18 @@
       <bDave2>0</bDave2>
       <PathWithFileName>.\src\Middleware\StateMachine\test\test_StateMachine.cpp</PathWithFileName>
       <FilenameWithoutPath>test_StateMachine.cpp</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+    <File>
+      <GroupNumber>23</GroupNumber>
+      <FileNumber>799</FileNumber>
+      <FileType>8</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>.\src\Middleware\MQLib\test\test_MQLib.cpp</PathWithFileName>
+      <FilenameWithoutPath>test_MQLib.cpp</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>

@@ -100,7 +100,7 @@ void test_ServoManager(){
     DEBUG_TRACE("OK");
     
     // establezco topic base 'breathe'
-    servoman->setSubscriptionBase("breathe");
+    servoman->setSubscriptionBase("breathe/cmd");
     
     // --------------------------------------
     // Arranca el test

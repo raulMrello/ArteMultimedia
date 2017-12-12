@@ -4479,6 +4479,11 @@
               <FileType>8</FileType>
               <FilePath>.\src\Middleware\StateMachine\test\test_StateMachine.cpp</FilePath>
             </File>
+            <File>
+              <FileName>test_MQLib.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Middleware\MQLib\test\test_MQLib.cpp</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>

@@ -135,6 +135,17 @@ enum ErrorResult{
     OUT_OF_BOUNDS,          ///< Fallo por exceso de tamaño
 };
 	
+/** @enum HierarchyLevels
+ *  @brief Niveles de jerarquía en los topics
+ */
+enum HierarchyLevels{
+	NumLevels_4 = 4,      	///< 4 niveles (-> _token_bits = 16)
+	NumLevels_5,          	///< 5 niveles (-> _token_bits = 13)
+	NumLevels_6,           	///< 6 niveles (-> _token_bits = 10)
+	NumLevels_7,           	///< 7 niveles (-> _token_bits = 9)
+	NumLevels_8,           	///< 8 niveles (-> _token_bits = 8)
+};
+   
     
 /** @struct MQ::topic_t
  *  @brief Tipo definido para definir el identificador de un topic
@@ -739,19 +750,6 @@ public:
     static uint8_t getMaxTopicLen(){
         return MQBroker::getMaxTopicLenReq();
     }        
-    
-
-    
-    /** @fn isTopicToken 
-     *  @brief Chequea si el token final de un topic coincide. Por ejemplo al comparar el topic
-     *         "topic/a/b/c" con el token "/c" devolverá True, ya que el topic termina con ese token.
-     *  @param topic Topic completo a comparar
-     *  @param token token con el que comparar al final del topic
-     *  @return True si coincide, False si no coincide
-     */
-    static inline bool isTopicToken(const char* topic, const char* token){
-        return ((strcmp(topic + strlen(topic) - strlen(token), token) == 0)? true : false);
-    }
 };
 
 } /* End of namespace MQ */

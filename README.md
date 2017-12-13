@@ -7,6 +7,16 @@ Proyecto plantilla para desarrollos con la tarjeta NUCLEO_L432KC de ST en mbed-o
 
 
 *13.12.2017*
+>**"Modificado MQTTNetwork.h"**
+>
+- [x] Añado a MQTTNetwork el servicio set_blocking para dejar el socket interno como no bloqueante y cambio el servicio read para que si lee el valor WOULD_BLOCK, devuelva 0 y pueda salir del ciclo de consulta.
+- [!] He obtenido un HARDFAULT pero parece que funciona mejor. REVISAR DE FORMA AISLADA en test_MQNETBRIDGE.
+- [ ] Añadir la lógica a los diferentes estados funcionales de CyberRibs.	  
+- [ ] Actualizar todos los repos paralelos.	  
+  
+
+-------------------
+*13.12.2017*
 >**"Depurando app_Countdown"**
 >
 - [x] Verificando los pasos de arranque de app_Countdown.

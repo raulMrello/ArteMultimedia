@@ -121,6 +121,7 @@ protected:
       
     
     Thread  _th;                                        /// Manejador del thread
+    uint32_t _timeout;                                  /// Timeout de espera en el Mailbox
     Status  _stat;                                      /// Estado del módulo
     Logger* _debug;                                     /// Canal de depuración
     Queue<RequestOperation_t, MaxQueueEntries> _queue;  /// Request queue

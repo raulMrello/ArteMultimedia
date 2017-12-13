@@ -65,6 +65,9 @@ public:
         Ready,          /// Iniciado pero sin configurar la conexión
         Disconnected,   /// Configurado pero no conectado
         Connected,      /// Configurado y conectado
+        WifiError,      /// Error al conectar con la red wifi
+        SockError,      /// Error al abrir el socket con el servidor mqtt
+        MqttError,      /// Error al conectar el cliente mqtt
     };
     
     /** MQNetBridge()

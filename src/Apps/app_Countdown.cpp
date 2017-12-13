@@ -46,7 +46,7 @@
  *
  *  1) La aplicación se conectará al servidor MQTT y se suscribirá a los topics "xrinst/countdown/cmd/#" pudiendo 
  *     recibir los siguientes mensajes:
- *          "xrinst/countdown/cmd/reset 1" -> Indica que hay que resetear la aplicación
+ *          "xrinst/countdown/cmd/sys/reset 1" -> Indica que hay que resetear la aplicación
  *
  *  2) Por otro lado, desde la aplicación AppXR se podrán enviar diferentes mensajes al módulo CyberRibs:
  *          "xrinst/countdown/cmd/cyberribs/mode M", donde M indica uno de los posibles modos de funcionamiento:
@@ -128,7 +128,13 @@ static void publCallback(const char* topic, int32_t){
 
 //------------------------------------------------------------------------------------
 static void subscCallback(const char* topic, void* msg, uint16_t msg_len){
-   
+    // si es un mensaje para establecer la conexión con el servidor mqtt...
+    if(MQ::MQClient::isTopicToken(topic, "/sys/reset")){
+        if(msg_len > 0){
+            bool doit = (*((char*)msg) == '1')? true : false;
+            DEBUG_TRACE("\r\nSYS_RESET_REQUEST = %d", doit);           
+        }        
+    }   
 }
 
 
@@ -154,17 +160,28 @@ void app_Countdown(){
     DEBUG_TRACE("\r\nCreando NetBridge...");    
     qnet = new MQNetBridge("mqnetbridge/cmd");
     qnet->setDebugChannel(logger);
-    while(!qnet->getStatus() != MQNetBridge::Ready){
+    while(qnet->getStatus() != MQNetBridge::Ready){
         Thread::yield();
     }
     DEBUG_TRACE("OK!"); 
 
     // Configuro el acceso al servidor mqtt
     DEBUG_TRACE("\r\nConfigurando conexión...");            
-    static char* mnb_cfg = "cli,usr,pass,192.168.254.98,1883,Invitado,11FF00DECA";
+    static char* mnb_cfg = "cli,usr,pass,192.168.254.29,1883,Invitado,11FF00DECA";
     MQ::MQClient::publish("mqnetbridge/cmd/conn", mnb_cfg, strlen(mnb_cfg)+1, &publ_cb);
-    while(!qnet->getStatus() != MQNetBridge::Connected){
+    while(qnet->getStatus() != MQNetBridge::Connected){
         Thread::yield();
+        MQNetBridge::Status stat = qnet->getStatus();
+        if(stat >= MQNetBridge::WifiError){
+            char *zeromsg = "0";
+            DEBUG_TRACE("\r\nERR_CONN %d. Desconectando...", (int)stat);      
+            MQ::MQClient::publish("mqnetbridge/cmd/disc", zeromsg, strlen(zeromsg)+1, &publ_cb);
+            while(qnet->getStatus() != MQNetBridge::Ready){
+                Thread::yield();
+            }
+            DEBUG_TRACE("\r\nReintentando conexión...");     
+            MQ::MQClient::publish("mqnetbridge/cmd/conn", mnb_cfg, strlen(mnb_cfg)+1, &publ_cb);
+        }
     }
     DEBUG_TRACE("OK!");
     
@@ -172,8 +189,8 @@ void app_Countdown(){
     static char* mnb_rsubtopic = "xrinst/countdown/cmd/#";
     DEBUG_TRACE("\r\nSuscribiendo a topic remoto: %s...", mnb_rsubtopic);
     MQ::MQClient::publish("mqnetbridge/cmd/rsub", mnb_rsubtopic, strlen(mnb_rsubtopic)+1, &publ_cb);
-    while(!qnet->getStatus() != MQNetBridge::Connected){
-        Thread::yield();
+    while(qnet->getStatus() != MQNetBridge::Connected){
+        Thread::yield();        
     }
     DEBUG_TRACE("OK!");
     
@@ -246,12 +263,12 @@ void app_Countdown(){
         Thread::yield();
     }while(!cybribs->ready());
     DEBUG_TRACE(" OK");
-
-
-    // --------------------------------------
-    // --------------------------------------
-    for(;;){
-        Thread::yield();        
-    }        
+    
+    // Se suscribe a los topics de sistema
+    MQ::MQClient::subscribe("xrinst/countdown/cmd/sys/#", new MQ::SubscribeCallback(&subscCallback));
+    
+    // Publico topic de notificación de estado
+    MQ::MQClient::publish("xrinst/countdown/stat/sys", (void*)"Ready!", strlen("Ready!") + 1, &publ_cb);
+    
 }
 

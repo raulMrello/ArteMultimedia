@@ -30,9 +30,9 @@ typedef void(*CapabilityCallback)();
 static CapabilityCallback capability_list[] = {
     app_Countdown,
     NULL, /** A PARTIR DE AQUI NO SE EJECUTA NADA */   
+    test_MQNetBridge,
     test_StateMachine,
     test_WS281x,
-    test_MQNetBridge,
     test_MQLib,
     test_TouchManager,
     test_ServoManager,    

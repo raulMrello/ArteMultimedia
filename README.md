@@ -6,6 +6,17 @@ Proyecto plantilla para desarrollos con la tarjeta NUCLEO_L432KC de ST en mbed-o
 ## Changelog
 
 
+*13.12.2017*
+>**"Depurando app_Countdown"**
+>
+- [x] Verificando los pasos de arranque de app_Countdown.
+- [x] Incluyo cambio en MQLib para copiar internamente el mensaje publicado, por si algún suscriptor lo modifica via strtok o similar.
+- [ ] Probando MQTT ya que no funciona bien en multihilo. Volver a reactivar los mensajes para hacerlo todo en el hilo propio.
+- [ ] Añadir la lógica a los diferentes estados funcionales de CyberRibs.	  
+- [ ] Actualizar todos los repos paralelos.	  
+  
+
+-------------------
 *12.12.2017*
 >**"Incorporo NVData a driver PCA"**
 >

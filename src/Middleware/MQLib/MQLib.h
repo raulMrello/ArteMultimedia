@@ -335,24 +335,35 @@ public:
 		// obtiene el identificador del topic a publicar
         MQ::topic_t topic_id;
         createTopicId(&topic_id, name);
-        
+                
         // recorre la lista de topics buscando aquellos que coincidan, teniendo en cuenta el tamaño del token_id
         // dado por _token_bits
         MQ_MUTEX_LOCK();
+        
+        // copia el mensaje a enviar por si sufre modificaciones, no alterar el origen
+        char* mem_data = (char*)Heap::memAlloc(datasize);
+        if(!mem_data){
+            MQ_MUTEX_UNLOCK();
+            return NULL_POINTER;
+        }
+        
         MQ::Topic* topic = _topic_list->getFirstItem();
         while(topic){
             // comprueba si el id coincide o si no se usa (=0)
             if(matchIds(&topic_id, &topic->id)){
-                // si coinciden, se invoca a todos los suscriptores
+                // si coinciden, se invoca a todos los suscriptores                
                 MQ::SubscribeCallback *sbc = topic->subscriber_list->getFirstItem();
                 while(sbc){
-                    sbc->call(name, data, datasize);
+                    // restaura el mensaje por si hubiera sufrido modificaciones en algún suscriptor
+                    memcpy(mem_data, data, datasize);
+                    sbc->call(name, mem_data, datasize);
                     sbc = topic->subscriber_list->getNextItem();
                 }                    
             }
             topic = _topic_list->getNextItem();
         }
         publisher->call(name, SUCCESS);
+        Heap::memFree(mem_data);
         MQ_MUTEX_UNLOCK();
 		return SUCCESS;
     }

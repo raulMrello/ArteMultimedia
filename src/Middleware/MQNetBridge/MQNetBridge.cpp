@@ -85,9 +85,9 @@ void MQNetBridge::notifyRemoteSubscription(MQTT::MessageData& md){
 void MQNetBridge::task(){    
     
     // se suscribe a los topics de configuración
-    char* cfg_topics = (char*)Heap::memAlloc(strlen(_base_topic) + strlen("/#")+1);
+    char* cfg_topics = (char*)Heap::memAlloc(strlen(_base_topic) + strlen("/cmd/#")+1);
     if(cfg_topics){
-        sprintf(cfg_topics, "%s/#", _base_topic);
+        sprintf(cfg_topics, "%s/cmd/#", _base_topic);
         MQ::MQClient::subscribe(cfg_topics, &_subscriptionCb);
     }
     
@@ -99,7 +99,7 @@ void MQNetBridge::task(){
         _timeout = osWaitForever;        
         // procesa solicitudes pendientes
         if(_stat == Connected){
-            _client->yield(1);
+            _client->yield(100);
             _timeout = 0;
         }
         osEvent evt = _queue.get(_timeout);
@@ -129,7 +129,13 @@ void MQNetBridge::task(){
                 // Si hay que suscribirse a un topic...
                 case RemoteSubscriptionSig:{
                     DEBUG_TRACE("\r\nNetBridge: Suscribiéndose a %s ... ", msg->data);
-                    if (_client->subscribe(msg->data, MQTT::QOS0, remoteSubscriptionCb) != 0){
+                    char *topic = (char*)Heap::memAlloc(strlen(msg->data)+1);
+                    if(!topic){
+                        DEBUG_TRACE("ERROR HEAP ALLOC");
+                        break;
+                    }
+                    strcpy(topic, msg->data);
+                    if (_client->subscribe(topic, MQTT::QOS0, remoteSubscriptionCb) != 0){
                         DEBUG_TRACE("ERROR");
                     }
                     else{
@@ -198,7 +204,7 @@ void MQNetBridge::localSubscriptionCb(const char* topic, void* msg, uint16_t msg
     // en primer lugar chequea qué tipo de mensaje es
     
     // si es un mensaje para establecer la conexión con el servidor mqtt...
-    if(MQ::MQClient::isTopicToken(topic, "/conn")){
+    if(MQ::MQClient::isTopicToken(topic, "/cmd/conn")){
         DEBUG_TRACE("\r\nNetBridge: Solicitando conexión...");
         // lee los parámetros esperados: ClientId,User,UserPass,Host,Port,ESSID, WifiPasswd
         char* cli = strtok((char*)msg, ",");
@@ -265,7 +271,7 @@ void MQNetBridge::localSubscriptionCb(const char* topic, void* msg, uint16_t msg
     }    
         
     // si es un mensaje para desconectar...
-    if(MQ::MQClient::isTopicToken(topic, "/disc")){
+    if(MQ::MQClient::isTopicToken(topic, "/cmd/disc")){
 //        DEBUG_TRACE("\r\nNetBridge: Desconectando... ");
 //        disconnect();                         
         RequestOperation_t* op = (RequestOperation_t*)Heap::memAlloc(sizeof(RequestOperation_t));
@@ -280,8 +286,12 @@ void MQNetBridge::localSubscriptionCb(const char* topic, void* msg, uint16_t msg
     }   
     
     // si es un mensaje para suscribirse a un topic local en MQLib...
-    if(MQ::MQClient::isTopicToken(topic, "/lsub")){
+    if(MQ::MQClient::isTopicToken(topic, "/cmd/lsub")){
         char* topic = (char*)Heap::memAlloc(msg_len);
+        if(!topic){
+            DEBUG_TRACE("\r\nNetBridge: ERR LOCAL_SUSC HEAP ALLOC");
+            return;
+        }
         strcpy(topic, (char*)msg);
         MQ::MQClient::subscribe(topic, &_subscriptionCb);
         DEBUG_TRACE("\r\nNetBridge: Suscripción local a %s", topic);
@@ -289,7 +299,7 @@ void MQNetBridge::localSubscriptionCb(const char* topic, void* msg, uint16_t msg
     }    
     
     // si es un mensaje para suscribirse a un topic remoto en MQTT...
-    if(MQ::MQClient::isTopicToken(topic, "/rsub")){
+    if(MQ::MQClient::isTopicToken(topic, "/cmd/rsub")){
         // sólo lo permite si está conectado
         if(_stat == Connected){
 //            DEBUG_TRACE("\r\nNetBridge: Suscribiéndose a %s ... ", (char*)msg);
@@ -318,7 +328,7 @@ void MQNetBridge::localSubscriptionCb(const char* topic, void* msg, uint16_t msg
     }    
     
     // si es un mensaje para cancelar una suscripción remota en MQTT...
-    if(MQ::MQClient::isTopicToken(topic, "/runs")){
+    if(MQ::MQClient::isTopicToken(topic, "/cmd/runs")){
         // asegura que esté conectado
         if(_stat == Connected){
 //            DEBUG_TRACE("\r\nNetBridge: Quitando suscripción a %s ... ", (char*)msg);  

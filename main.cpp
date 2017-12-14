@@ -28,9 +28,9 @@ extern void test_MPR121();
 
 typedef void(*CapabilityCallback)();
 static CapabilityCallback capability_list[] = {
-    app_Countdown,
-    NULL, /** A PARTIR DE AQUI NO SE EJECUTA NADA */   
     test_MQNetBridge,
+    NULL, /** A PARTIR DE AQUI NO SE EJECUTA NADA */   
+    app_Countdown,
     test_StateMachine,
     test_WS281x,
     test_MQLib,
@@ -54,7 +54,7 @@ template <typename T, size_t N> inline size_t SizeOfArray(const T(&)[N]) { retur
 
 /** Lista de tokens MQLib */
 static MQ::Token token_list[] = {
-    "xrinst",
+    "cyber_ribs",
     "countdown",
     "breathe",
     "cmd",
@@ -63,6 +63,7 @@ static MQ::Token token_list[] = {
     "deg",
     "disc",
     "dist",
+    "echo",
     "ERROR",
     "info",
     "invalid",
@@ -91,12 +92,14 @@ static MQ::Token token_list[] = {
     "servo9",
     "servo10",
     "servo11",
-    "sta",    
+    "sta",
+    "stat",
     "start",
     "stop",
     "test",
     "touch",
-    "cyber_ribs",
+    "xrinst",
+    
 };
 
 

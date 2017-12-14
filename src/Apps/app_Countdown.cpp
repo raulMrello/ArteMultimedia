@@ -158,7 +158,7 @@ void app_Countdown(){
     // --------------------------------------
     // Creo módulo NetBridge MQTT que escuchará en el topic local "mqnetbridge"
     DEBUG_TRACE("\r\nCreando NetBridge...");    
-    qnet = new MQNetBridge("mqnetbridge/cmd");
+    qnet = new MQNetBridge("mqnetbridge");
     qnet->setDebugChannel(logger);
     while(qnet->getStatus() != MQNetBridge::Ready){
         Thread::yield();

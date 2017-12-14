@@ -6,6 +6,16 @@ Proyecto plantilla para desarrollos con la tarjeta NUCLEO_L432KC de ST en mbed-o
 ## Changelog
 
 
+*14.12.2017*
+>**"Repasando MQNetBridge"**
+>
+- [x] Modifico MQNetBridge para que no borre el topic de la suscripción, que necesita persistir en memoria. Ahora ya funciona bien, aunque siempre publica los mensajes 2 veces, incluso con un retardo de 100ms. REVISARLO.
+- [x] Modifico MQLib porque tenía un bug en matchIds. CORREGIR REPOS PARALELOS.
+- [ ] Añadir la lógica a los diferentes estados funcionales de CyberRibs.	  
+- [ ] Actualizar todos los repos paralelos.	  
+  
+
+-------------------
 *13.12.2017*
 >**"Modificado MQTTNetwork.h"**
 >

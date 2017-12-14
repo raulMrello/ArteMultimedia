@@ -651,18 +651,39 @@ protected:
      */
     static bool matchIds(MQ::topic_t* found_id, MQ::topic_t* search_id){
         for(int i=0;i<MQ::MAX_TOKEN_LEVEL;i++){
-            // si ha llegado al final de la cadena de búsqueda sin errores, es que coincide...
-            if(search_id->tk[i] == WildcardNotUsed){
-                return true;
+            if(i == AddrField){
+                uint32_t search_idex = (((uint32_t)search_id->tk[i]) << (8 * sizeof(MQ::token_t))) + search_id->tk[i+1];       
+                uint32_t found_idex = (((uint32_t)found_id->tk[i]) << (8 * sizeof(MQ::token_t))) + found_id->tk[i+1];       
+                // si ha llegado al final de la cadena de búsqueda sin errores, es que coincide...
+                if(search_idex == WildcardNotUsed){
+                    return true;
+                }
+                // si ha encontrado un wildcard All, es que coincide
+                if(found_idex == WildcardAll){
+                    return true;
+                }
+                
+                // si no coinciden ni hay wildcards '+' involucrados, no hay coincidencia
+                if(found_idex != WildcardAny && found_idex != search_idex){
+                    return false;
+                }
+                // descarta el 2º subcampo
+                i++;
             }
-            // si ha encontrado un wildcard All, es que coincide
-            if(found_id->tk[i] == WildcardAll){
-                return true;
-            }
-            
-            // si no coinciden ni hay wildcards '+' involucrados, no hay coincidencia
-            if(found_id->tk[i] != WildcardAny && found_id->tk[i] != search_id->tk[i]){
-                return false;
+            else{
+                // si ha llegado al final de la cadena de búsqueda sin errores, es que coincide...
+                if(search_id->tk[i] == WildcardNotUsed){
+                    return true;
+                }
+                // si ha encontrado un wildcard All, es que coincide
+                if(found_id->tk[i] == WildcardAll){
+                    return true;
+                }
+                
+                // si no coinciden ni hay wildcards '+' involucrados, no hay coincidencia
+                if(found_id->tk[i] != WildcardAny && found_id->tk[i] != search_id->tk[i]){
+                    return false;
+                }
             }
             // en otro caso, es que coinciden y por lo tanto sigue analizando siguientes elementos
         }        

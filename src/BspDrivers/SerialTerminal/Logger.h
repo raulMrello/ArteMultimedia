@@ -33,6 +33,30 @@
 #include "mbed.h"
 #include "SerialTerminal.h"
 
-typedef class SerialTerminal Logger;
+typedef SerialTerminal Logger;
+
+
+
+class MinLogger : public RawSerial {
+public:
+    MinLogger(PinName tx, PinName rx, int baud) : RawSerial(tx, rx, baud){
+    }
+    
+protected:
+    Mutex _mtx;    
+
+    /** Acquire exclusive access to this serial port
+     */
+    virtual void lock(void){
+        _mtx.lock();
+    }
+
+    /** Release exclusive access to this serial port
+     */
+    virtual void unlock(void){
+        _mtx.unlock();
+    }
+
+};
 
 #endif

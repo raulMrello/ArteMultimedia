@@ -35,8 +35,8 @@
  *  $(base)/cfg E
  *      Ajusta diferentes parámetros de configuración:
  *      E (enable notifications) Permite activar notificaciones en cada cambio de estado, mediante la publicación en el
- *      topic $(base)/stat/mode M,N siendo M el modo en el que se encuentra y N el subestado. Por ejemplo para notificar
- *      que ha cambiado a modo Congratulations.Congrat2 enviará el mensaje: "$(base)/stat/mode 8,2"
+ *      topic $(pubbase)/mode M,N siendo M el modo en el que se encuentra y N el subestado. Por ejemplo para notificar
+ *      que ha cambiado a modo Congratulations.Congrat2 enviará el mensaje: "$(pubbase)/mode 8,2"
  *
  *  AJUSTE Y CALIBRACIÓN DE LOS SERVOS
   *  $(base)/servo/angle S,A

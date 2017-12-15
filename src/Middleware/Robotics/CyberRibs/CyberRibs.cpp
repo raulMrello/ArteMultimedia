@@ -25,6 +25,7 @@
 CyberRibs::CyberRibs(uint8_t num_ribs, uint8_t leds_per_rib, PinName sda_srv, PinName scl_srv, PinName pwm_led)
     : StateMachine() { 
     
+    _debug = 0;        
     _ready = false;        
     
     // asigna propiedades
@@ -61,7 +62,7 @@ CyberRibs::CyberRibs(uint8_t num_ribs, uint8_t leds_per_rib, PinName sda_srv, Pi
     _stCondols0.setHandler(callback(this, &CyberRibs::Condols0_EventHandler));
     _stCondols1.setHandler(callback(this, &CyberRibs::Condols1_EventHandler));
     _stCondols2.setHandler(callback(this, &CyberRibs::Condols2_EventHandler));
-    
+
     // Inicializa parámetros del hilo de ejecución propio
     _th.start(callback(this, &CyberRibs::task));    
 }
@@ -108,28 +109,28 @@ void CyberRibs::task(){
         Thread::yield();
     }while(_servod->getState() != PCA9685_ServoDrv::Ready);
     
-    // recupera parámetros de calibración NV
-    uint32_t* caldata = (uint32_t*)Heap::memAlloc(NVFlash::getPageSize());
-    NVFlash::init();
-    NVFlash::readPage(0, caldata);
-    if(_servod->setNVData(caldata) != 0){
-        DEBUG_TRACE("\r\nERR_NVFLASH_READ, borrando...");
-        NVFlash::erasePage(0);
-        // establezco rangos de funcionamiento por defecto
-        DEBUG_TRACE("\r\nAjustando rangos por defecto... ");
-        for(uint8_t i=0;i<_num_ribs;i++){
-            if(_servod->setServoRanges(i, 0, 120, 180, 480) != PCA9685_ServoDrv::Success){
-                DEBUG_TRACE("ERR_servo_%d\r\n...", i);
-            }            
-        }
-        _servod->getNVData(caldata);
-        NVFlash::writePage(0, caldata);
-        DEBUG_TRACE("OK");
-    }
-    else{
-        DEBUG_TRACE("\r\nNVFLASH_RESTORE... OK!");
-    }
-    Heap::memFree(caldata);
+//    // recupera parámetros de calibración NV
+//    uint32_t* caldata = (uint32_t*)Heap::memAlloc(NVFlash::getPageSize());
+//    NVFlash::init();
+//    NVFlash::readPage(0, caldata);
+//    if(_servod->setNVData(caldata) != 0){
+//        DEBUG_TRACE("\r\nERR_NVFLASH_READ, borrando...");
+//        NVFlash::erasePage(0);
+//        // establezco rangos de funcionamiento por defecto
+//        DEBUG_TRACE("\r\nAjustando rangos por defecto... ");
+//        for(uint8_t i=0;i<_num_ribs;i++){
+//            if(_servod->setServoRanges(i, 0, 120, 180, 480) != PCA9685_ServoDrv::Success){
+//                DEBUG_TRACE("ERR_servo_%d\r\n...", i);
+//            }            
+//        }
+//        _servod->getNVData(caldata);
+//        NVFlash::writePage(0, caldata);
+//        DEBUG_TRACE("OK");
+//    }
+//    else{
+//        DEBUG_TRACE("\r\nNVFLASH_RESTORE... OK!");
+//    }
+//    Heap::memFree(caldata);
     
     
     // apaga la tira de leds
@@ -358,7 +359,8 @@ State::StateResult CyberRibs::GoingDown_EventHandler(State::StateEvent* se){
 State::StateResult CyberRibs::Off_EventHandler(State::StateEvent* se){
     switch(se->evt){
         case State::EV_ENTRY:{       
-             return State::HANDLED;                    
+            DEBUG_TRACE("\r\nCyberRibs ENTER_OFF_MODE\r\n");
+            return State::HANDLED;                    
         }
                                        
         case State::EV_TIMED:{

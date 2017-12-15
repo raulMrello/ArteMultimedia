@@ -10,7 +10,7 @@
 
 
 /** Macro de impresión de trazas de depuración */
-#define DEBUG_TRACE(format, ...)    if(logger){Thread::wait(2); logger->printf(format, ##__VA_ARGS__);}
+#define DEBUG_TRACE(format, ...)    if(logger){logger->printf(format, ##__VA_ARGS__);}
 
 
 // **************************************************************************
@@ -19,13 +19,12 @@
 
 /** Canal de comunicación remota */
 static MQSerialBridge* qserial;
-/** Canal de depuración */
 static Logger* logger;
+
 /** Callbacks MQLib */
 static MQ::PublishCallback publ_cb;
 
 /** Topics de publicación, suscripción */
-static const char* pub_topic = "/config/start";
 static const char* sub_topic = "/move/stop";
 static char* txt_msg = "Hello";
 static void* msg = (void*) txt_msg;
@@ -75,11 +74,11 @@ void test_MQLib(){
     //  - Pines USBTX, USBRX a 115200bps y 256 bytes para buffers
     //  - Configurado por defecto en modo texto
     qserial = new MQSerialBridge(USBTX, USBRX, 115200, 256);
-    
+    logger = (Logger*)qserial;
 
     // --------------------------------------
     // Inicia el canal de depuración (compartiendo salida remota)
-    logger = (Logger*)qserial;    
+    logger = qserial;    
     DEBUG_TRACE("\r\nIniciando test_MQLib...\r\n");
 
 

@@ -1,6 +1,5 @@
 #include "mbed.h"
 #include "MQLib.h"
-#include "MQSerialBridge.h"
 #include "Logger.h"
 #include "WS281xLedStrip.h"
 
@@ -11,15 +10,13 @@
 
 
 /** Macro de impresión de trazas de depuración */
-#define DEBUG_TRACE(format, ...)    if(logger){Thread::wait(10); logger->printf(format, ##__VA_ARGS__);}
+#define DEBUG_TRACE(format, ...)    if(logger){logger->printf(format, ##__VA_ARGS__);}
 
 
 // **************************************************************************
 // *********** OBJETOS  *****************************************************
 // **************************************************************************
 
-/** Canal de comunicación remota */
-static MQSerialBridge* qserial;
 /** Canal de depuración */
 static Logger* logger;
 /** Driver control detector */
@@ -40,14 +37,8 @@ void test_WS281x(){
             
     // --------------------------------------
     // Inicia el canal de comunicación remota
-    //  - Pines USBTX, USBRX a 115200bps y 256 bytes para buffers
-    //  - Configurado por defecto en modo texto
-    qserial = new MQSerialBridge(USBTX, USBRX, 115200, 256);
-    
-
-    // --------------------------------------
-    // Inicia el canal de depuración (compartiendo salida remota)
-    logger = (Logger*)qserial;    
+    //  - Pines USBTX, USBRX a 115200bps 
+    logger = new Logger(USBTX, USBRX, 16, 115200);
     DEBUG_TRACE("\r\nIniciando test_WS281x...\r\n");
 
 

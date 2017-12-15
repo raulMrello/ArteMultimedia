@@ -34,7 +34,7 @@
  *      Permite detener la captura
  *
  *  Publicación:
- *      $(pub_topic)/dist E,D
+ *      $(pub_topic)/dist E;D
  *      Permite notificar eventos de estado indicando E(tipo de evento: 0 si se acerca, 1 si se aleja, 2 error en medida) y 
  *      D(distancia en cm), así para notificar que un objeto se aproxima y que está a 20cm se publicará: $(pub_topic)/dist 0,20 
  *

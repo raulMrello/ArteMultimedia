@@ -7,6 +7,19 @@ Proyecto plantilla para desarrollos con la tarjeta NUCLEO_L432KC de ST en mbed-o
 
 
 *14.12.2017*
+>**"Corrección de múltiples bugs"**
+>
+- [x] Creo clase MinLogger para utilizar un logger de capacidades reducidas.
+- [x] Modifico MQLib con la posibilidad de crear los topics durante las suscripciones.
+- [x] Corrijo bugs en MQNetBridge al publicar duplicados y quito esperas en las trazas de depuración	  
+- [x] Añado claves de compilación ESP-IDF en MQLib, StateMachine.
+- [!] FALLA al recuperar la memoria no volátil en CyberRibs. Buscar forma alternativa.
+- [!] FALLA la notificación de eventos touch cuando ProximityManager está en funcionamiento, seguramente debido a que se queda con mucho % de cpu.
+- [ ] Actualizar todos los repos paralelos.
+  
+
+-------------------
+*14.12.2017*
 >**"Repasando MQNetBridge"**
 >
 - [x] Modifico MQNetBridge para que no borre el topic de la suscripción, que necesita persistir en memoria. Ahora ya funciona bien, aunque siempre publica los mensajes 2 veces, incluso con un retardo de 100ms. REVISARLO.

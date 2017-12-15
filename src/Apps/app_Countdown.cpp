@@ -88,7 +88,7 @@
 
 
 /** Macro de impresión de trazas de depuración */
-#define DEBUG_TRACE(format, ...)    if(logger){Thread::wait(2); logger->printf(format, ##__VA_ARGS__);}
+#define DEBUG_TRACE(format, ...)    if(logger){logger->printf(format, ##__VA_ARGS__);}
 
 
 // **************************************************************************
@@ -128,13 +128,7 @@ static void publCallback(const char* topic, int32_t){
 
 //------------------------------------------------------------------------------------
 static void subscCallback(const char* topic, void* msg, uint16_t msg_len){
-    // si es un mensaje para establecer la conexión con el servidor mqtt...
-    if(MQ::MQClient::isTopicToken(topic, "/sys/reset")){
-        if(msg_len > 0){
-            bool doit = (*((char*)msg) == '1')? true : false;
-            DEBUG_TRACE("\r\nSYS_RESET_REQUEST = %d", doit);           
-        }        
-    }   
+    DEBUG_TRACE("\r\nRecibido en topic[%s], mensaje[%s]", topic, (char*)msg);       
 }
 
 
@@ -150,60 +144,14 @@ void app_Countdown(){
     // Inicia el canal de depuración
     //  - Pines USBTX, USBRX a 115200bps y 256 bytes para buffers
     //  - Configurado por defecto en modo texto
-    logger = new Logger(USBTX, USBRX, 256, 115200);
+    logger = new Logger(USBTX, USBRX, 16, 115200);
     DEBUG_TRACE("\r\nIniciando app_Countdown...\r\n");
-
-
-    
-    // --------------------------------------
-    // Creo módulo NetBridge MQTT que escuchará en el topic local "mqnetbridge"
-    DEBUG_TRACE("\r\nCreando NetBridge...");    
-    qnet = new MQNetBridge("mqnetbridge");
-    qnet->setDebugChannel(logger);
-    while(qnet->getStatus() != MQNetBridge::Ready){
-        Thread::yield();
-    }
-    DEBUG_TRACE("OK!"); 
-
-    // Configuro el acceso al servidor mqtt
-    DEBUG_TRACE("\r\nConfigurando conexión...");            
-    static char* mnb_cfg = "cli,usr,pass,192.168.254.29,1883,Invitado,11FF00DECA";
-    MQ::MQClient::publish("mqnetbridge/cmd/conn", mnb_cfg, strlen(mnb_cfg)+1, &publ_cb);
-    while(qnet->getStatus() != MQNetBridge::Connected){
-        Thread::yield();
-        MQNetBridge::Status stat = qnet->getStatus();
-        if(stat >= MQNetBridge::WifiError){
-            char *zeromsg = "0";
-            DEBUG_TRACE("\r\nERR_CONN %d. Desconectando...", (int)stat);      
-            MQ::MQClient::publish("mqnetbridge/cmd/disc", zeromsg, strlen(zeromsg)+1, &publ_cb);
-            while(qnet->getStatus() != MQNetBridge::Ready){
-                Thread::yield();
-            }
-            DEBUG_TRACE("\r\nReintentando conexión...");     
-            MQ::MQClient::publish("mqnetbridge/cmd/conn", mnb_cfg, strlen(mnb_cfg)+1, &publ_cb);
-        }
-    }
-    DEBUG_TRACE("OK!");
-    
-    // Hago que escuche todos los topics del recurso "xrinst/countdown/cmd"
-    static char* mnb_rsubtopic = "xrinst/countdown/cmd/#";
-    DEBUG_TRACE("\r\nSuscribiendo a topic remoto: %s...", mnb_rsubtopic);
-    MQ::MQClient::publish("mqnetbridge/cmd/rsub", mnb_rsubtopic, strlen(mnb_rsubtopic)+1, &publ_cb);
-    while(qnet->getStatus() != MQNetBridge::Connected){
-        Thread::yield();        
-    }
-    DEBUG_TRACE("OK!");
-    
-    // Hago que escuche topics locales para redireccionarlos al exterior
-    static char* mnb_lsubtopic0 = "xrinst/countdown/stat/#";
-    DEBUG_TRACE("\r\nSuscribiendo a topic local: %s", mnb_lsubtopic0);    
-    MQ::MQClient::publish("mqnetbridge/cmd/lsub", mnb_lsubtopic0, strlen(mnb_lsubtopic0)+1, &publ_cb);
-    
+   
     
     
     // --------------------------------------
     // Creo módulo TouchManager
-    DEBUG_TRACE("\r\nCreando Controlador táctil...");    
+    DEBUG_TRACE("\r\nNew TouchManager... ");    
     touchm = new TouchManager(PB_7, PB_6, PB_1, 0x1ff);
     touchm->setDebugChannel(logger);
     while(!touchm->ready()){
@@ -212,63 +160,115 @@ void app_Countdown(){
     DEBUG_TRACE("OK!");    
         
     // establezco topic base 'touch'
-    DEBUG_TRACE("\r\nEstablece topic base de publicación: xrinst/countdown/stat/touch");    
+    DEBUG_TRACE("\r\n    pub_base  = xrinst/countdown/stat/touch\r\n");    
     touchm->setPublicationBase("xrinst/countdown/stat/touch");
     
     
+//    
+//    // --------------------------------------
+//    // Creo módulo ProximityManager
+//    DEBUG_TRACE("\r\nNew ProximityManager... ");    
+//    proxm = new ProximityManager(PA_0, PA_1);
+//    proxm->setDebugChannel(logger);
+//    while(!proxm->ready()){
+//        Thread::yield();
+//    }
+//    DEBUG_TRACE("OK!");    
+//    
+//    // Establezco topic de configuración y de publicación
+//    DEBUG_TRACE("\r\n    subs_base = xrinst/countdown/cmd/prox");  
+//    proxm->setSubscriptionBase("xrinst/countdown/cmd/prox");    
+//    DEBUG_TRACE("\r\n    pub_base  = xrinst/countdown/stat/prox");  
+//    proxm->setPublicationBase("xrinst/countdown/stat/prox");
+//       
+//    // Configuro 9 sensores con una detección máxima de 1m con cambios de 5cm
+//    DEBUG_TRACE("\r\n    config 100,8,8,2,4,0,0... ");
+//    static char* pm_cfg = "100,8,8,2,4,0,0";
+//    MQ::MQClient::publish("xrinst/countdown/cmd/prox/cfg", pm_cfg, strlen(pm_cfg)+1, &publ_cb);    
+//    DEBUG_TRACE("OK!\r\n");
+//    
+//    
     
     // --------------------------------------
-    // Creo módulo ProximityManager
-    DEBUG_TRACE("\r\nCreando Controlador de proximidad...");    
-    proxm = new ProximityManager(PA_0, PA_1);
-    proxm->setDebugChannel(logger);
-    while(!proxm->ready()){
-        Thread::yield();
-    }
-    DEBUG_TRACE("OK!");    
-    
-    // Establezco topic de configuración y de publicación
-    DEBUG_TRACE("\r\nEstablece topic base de configuración local: xrinst/countdown/cmd/prox");  
-    proxm->setSubscriptionBase("xrinst/countdown/cmd/prox");    
-    DEBUG_TRACE("\r\nEstablece topic base de publicación: xrinst/countdown/stat/prox");  
-    proxm->setPublicationBase("xrinst/countdown/stat/prox");
-       
-    // Configuro 9 sensores con una detección máxima de 1m con cambios de 5cm
-    DEBUG_TRACE("\r\nConfigurando detector de proximidad... ");
-    static char* pm_cfg = "100,8,8,2,4,0,0";
-    MQ::MQClient::publish("xrinst/countdown/cmd/prox/cfg", pm_cfg, strlen(pm_cfg)+1, &publ_cb);    
-    DEBUG_TRACE("OK!");;
-    
-    
-    
-    // --------------------------------------
-    // Creo manejador del costillar (Servos + Leds)
+    // Creo módulo CyberRibs
     //  - Número de servos controlables = 3
     //  - Número de leds por servo = 6
-    DEBUG_TRACE("\r\nCreando Costillar Cibernético...");    
+    DEBUG_TRACE("\r\nNew CyberRibs... ");    
     static const uint8_t SERVO_COUNT = 3;
     static const uint8_t LEDS_x_RIB = 6;
     cybribs = new CyberRibs(SERVO_COUNT, LEDS_x_RIB, PB_4, PA_7, PA_8);
     cybribs->setDebugChannel(logger);
-    
-    // Establezco topic de configuración y de publicación
-    DEBUG_TRACE("\r\nEstablece topic base de configuración local: xrinst/countdown/cmd/cyberribs");  
-    proxm->setSubscriptionBase("xrinst/countdown/cmd/cyberribs");    
-    DEBUG_TRACE("\r\nEstablece topic base de publicación: xrinst/countdown/stat/cyberribs");  
-    proxm->setPublicationBase("xrinst/countdown/stat/cyberribs");
-    
     // espero a que esté listo
-    DEBUG_TRACE("\r\n¿Listo?... ");
     do{
         Thread::yield();
     }while(!cybribs->ready());
-    DEBUG_TRACE(" OK");
+    DEBUG_TRACE("OK!");
+    
+    // Establezco topic de configuración y de publicación
+    DEBUG_TRACE("\r\n    subs_base = xrinst/countdown/cmd/cyberribs");  
+    cybribs->setSubscriptionBase("xrinst/countdown/cmd/cyberribs");    
+    DEBUG_TRACE("\r\n    pub_base  = xrinst/countdown/stat/cyberribs\r\n");  
+    cybribs->setPublicationBase("xrinst/countdown/stat/cyberribs");    
+
+
+    
+    // --------------------------------------
+    // Creo módulo NetBridge MQTT que escuchará en el topic local "mqnetbridge"
+    DEBUG_TRACE("\r\nNew MQNetBridge... ");    
+    qnet = new MQNetBridge("sys/cmd/mqnetbridge");
+    qnet->setDebugChannel(logger);
+    while(qnet->getStatus() != MQNetBridge::Ready){
+        Thread::yield();
+    }
+    DEBUG_TRACE("OK!"); 
+
+    // Configuro el acceso al servidor mqtt
+    DEBUG_TRACE("\r\n    set_conn_params... ");            
+    static char* mnb_cfg = "cli,usr,pass,192.168.254.29,1883,Invitado,11FF00DECA";
+    MQ::MQClient::publish("sys/cmd/mqnetbridge/conn", mnb_cfg, strlen(mnb_cfg)+1, &publ_cb);
+    while(qnet->getStatus() != MQNetBridge::Connected){
+        Thread::yield();
+        MQNetBridge::Status stat = qnet->getStatus();
+        if(stat >= MQNetBridge::WifiError){
+            char *zeromsg = "0";
+            DEBUG_TRACE("ERR_CONN %d. Desconectando...", (int)stat);      
+            MQ::MQClient::publish("sys/cmd/mqnetbridge/disc", zeromsg, strlen(zeromsg)+1, &publ_cb);
+            while(qnet->getStatus() != MQNetBridge::Ready){
+                Thread::yield();
+            }
+            DEBUG_TRACE("\r\n    reconnect... ");     
+            MQ::MQClient::publish("sys/cmd/mqnetbridge/conn", mnb_cfg, strlen(mnb_cfg)+1, &publ_cb);
+        }
+    }
+    DEBUG_TRACE("OK!");
+    
+    // Hago que escuche todos los topics del recurso "xrinst/countdown/cmd"
+    static char* mnb_rsubtopic = "xrinst/countdown/cmd/#";
+    DEBUG_TRACE("\r\n    set_remote_subs_base = %s... ", mnb_rsubtopic);
+    MQ::MQClient::publish("sys/cmd/mqnetbridge/rsub", mnb_rsubtopic, strlen(mnb_rsubtopic)+1, &publ_cb);
+    while(qnet->getStatus() != MQNetBridge::Connected){
+        Thread::yield();        
+    }
+    DEBUG_TRACE("OK!");
+    
+    // Hago que escuche topics locales para redireccionarlos al exterior
+    static char* mnb_lsubtopic0 = "xrinst/countdown/stat/#";
+    DEBUG_TRACE("\r\n    set_local_subs_base = %s\r\n", mnb_lsubtopic0);    
+    MQ::MQClient::publish("sys/cmd/mqnetbridge/lsub", mnb_lsubtopic0, strlen(mnb_lsubtopic0)+1, &publ_cb);
+
+
+    
+    // --------------------------------------
+    // Inicio aplicación
     
     // Se suscribe a los topics de sistema
     MQ::MQClient::subscribe("xrinst/countdown/cmd/sys/#", new MQ::SubscribeCallback(&subscCallback));
     
+    // Se suscribe a los topics de estado
+    MQ::MQClient::subscribe("xrinst/countdown/stat/#", new MQ::SubscribeCallback(&subscCallback));
+    
     // Publico topic de notificación de estado
     MQ::MQClient::publish("xrinst/countdown/stat/sys", (void*)"Ready!", strlen("Ready!") + 1, &publ_cb);
-    
+    DEBUG_TRACE("\r\n ------ APPLICATION RUNNING ------- ");
 }
 

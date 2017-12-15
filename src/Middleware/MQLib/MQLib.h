@@ -67,6 +67,15 @@
 #define MQ_MUTEX_LOCK()    	 	_mutex.lock(osWaitForever)
 #define MQ_MUTEX_UNLOCK()   	_mutex.unlock()
 
+/** Portabilidad a ESP_IDF */
+#elif ESP_PLATFORM == 1
+#include "mbed.h"
+#include "Mutex.h"
+#include "Callback.h"
+#define MQ_MUTEX				Mutex
+#define MQ_MUTEX_LOCK()    	 	_mutex.lock(osWaitForever)
+#define MQ_MUTEX_UNLOCK()   	_mutex.unlock()
+
 /** Portabilidad a cmsis_os utilizando un módulo Callback adaptado */
 #else
 #include "cmsis_os.h"
@@ -166,8 +175,18 @@ class MQBroker {
 public:	    
 
     /** @fn start
-     *  @brief Inicializa el broker MQ estableciendo el número máximo de jerarquías en el
-     *          nombre de los topics. 
+     *  @brief Inicializa el broker MQ estableciendo el número máximo de caracteres en los topics
+     *         Este constructor se utiliza cuando no se proporciona una lista de tokens externa, sino
+     *         que se crea conforme se realizan las diferentes suscripciones a topics.
+     *  @param max_len_of_name Número de caracteres máximo que puede tener un topic (incluyendo '\0' final)
+     *  @return Código de error
+     */
+    static int32_t start(uint8_t max_len_of_name) {
+        return start(0, 0, max_len_of_name);
+    }
+
+    /** @fn start
+     *  @brief Inicializa el broker MQ estableciendo la siguiente configuración:
      *  @param token_list Lista predefinida de tokens
 	 *	@param token_count Máximo número de tokens en la lista
      *  @param max_len_of_name Número de caracteres máximo que puede tener un topic (incluyendo '\0' final)
@@ -176,9 +195,19 @@ public:
     static int32_t start(const char** token_list, uint32_t token_count, uint8_t max_len_of_name) {
         // ajusto parámetros por defecto 
         _max_name_len = max_len_of_name-1;
+        _tokenlist_internal = false;
         _token_provider = token_list;
         // copio el número de tokens y reservo los wildcard (n.a.,+,#) con valores 0,1,2
         _token_provider_count = token_count + WildcardCOUNT;
+        if(!_token_provider || token_count == 0){
+            _tokenlist_internal = true;
+            token_count = DefaultMaxNumTokenEntries;
+            _token_provider_count = 0;
+            _token_provider = (const char**)Heap::memAlloc(token_count * sizeof(const char*));
+            if(!_token_provider){
+                return NULL_POINTER;
+            }
+        }
         
         // si hay un número de tokens mayor que el tamaño que lo puede alojar, devuelve error:
         // ej: token_count = 500 con token_t = uint8_t, que sólo puede codificar hasta 256 valores.
@@ -249,7 +278,15 @@ public:
             return (EXISTS);
         }
 		
-		// si el topic no existe, lo crea reservarvando espacio para el topic
+		// si el topic no existe:
+        // si la lista de tokens es automantenida, crea los ids de los tokens no existentes
+        if(_tokenlist_internal){
+            if(!generateTokens(name)){
+                MQ_MUTEX_UNLOCK();
+				return(OUT_OF_MEMORY);
+            }
+        }
+        // lo crea reservarvando espacio para el topic
         topic = (MQ::Topic*)Heap::memAlloc(sizeof(MQ::Topic));
         if(!topic){
             MQ_MUTEX_UNLOCK();
@@ -481,6 +518,9 @@ protected:
         WildcardCOUNT,
     };    
     
+    /** Máximo número de tokens permitidos en topic provider auto-gestionado */
+    static const uint16_t DefaultMaxNumTokenEntries = (256 - WildcardCOUNT);    
+    
     /** Posición del campo de tamaño especial uint16_t */
     static const uint8_t AddrField = 1;
     
@@ -494,6 +534,7 @@ protected:
     static const char** _token_provider;
     static uint32_t _token_provider_count;
     static uint8_t _token_bits;
+    static bool _tokenlist_internal;
 
 	/** Mutex */
     static MQ_MUTEX _mutex;
@@ -517,6 +558,47 @@ protected:
             topic = _topic_list->getNextItem();
         }
         return NULL;
+    }
+ 
+
+    /** @fn generateTokens 
+     *  @brief Genera los tokens no existentes en la lista auto-gestionada
+     *  @param name nombre del topic a procesar
+     *  @return True Topic insertado, False error en el topic
+     */
+    static bool generateTokens(const char* name){
+        char* token = (char*)Heap::memAlloc(strlen(name));
+        if(!token){
+            return false;
+        }
+        uint8_t to=0, from=0;
+        bool is_final = false;
+        getNextDelimiter(name, &from, &to, &is_final);
+        while(from < to){
+            bool exists = false;
+            for(int i=0;i<_token_provider_count;i++){
+                // si el token ya existe o es un wildcard, pasa al siguiente
+                if(name[from] == '#' || name[from] == '+' || strncmp(_token_provider[i], &name[from], to-from)==0){
+                    exists = true;
+                    break;
+                }
+            }
+            // tras recorrer todo el árbol, si no existe lo añade
+            if(!exists){
+                char* new_token = (char*)Heap::memAlloc(1+to-from);
+                if(!new_token){
+                    Heap::memFree(token);
+                    return false;
+                }
+                strncpy(new_token, &name[from], (to-from)); new_token[to-from] = 0;
+                _token_provider[_token_provider_count] = new_token;
+                _token_provider_count++;
+            }
+            from = to+1;
+            getNextDelimiter(name, &from, &to, &is_final);
+        }
+        Heap::memFree(token);
+        return true;
     }
 
  

@@ -11,7 +11,7 @@
 
 
 /** Macro de impresión de trazas de depuración */
-#define DEBUG_TRACE(format, ...)    if(logger){Thread::wait(10); logger->printf(format, ##__VA_ARGS__);}
+#define DEBUG_TRACE(format, ...)    if(logger){logger->printf(format, ##__VA_ARGS__);}
 
 
 // **************************************************************************
@@ -20,8 +20,8 @@
 
 /** Canal de comunicación remota */
 static MQSerialBridge* qserial;
-/** Canal de depuración */
 static Logger* logger;
+
 /** Driver control de servos */
 static PCA9685_ServoDrv* servodrv;
 /** Callbacks de publicación-suscripción */
@@ -148,11 +148,7 @@ void test_PCA9685(){
     //  - Pines USBTX, USBRX a 115200bps y 256 bytes para buffers
     //  - Configurado por defecto en modo texto
     qserial = new MQSerialBridge(USBTX, USBRX, 115200, 256);
-    
-
-    // --------------------------------------
-    // Inicia el canal de depuración (compartiendo salida remota)
-    logger = (Logger*)qserial;    
+    logger = (Logger*)qserial;
     DEBUG_TRACE("\r\nIniciando test_PCA9685...\r\n");
 
 

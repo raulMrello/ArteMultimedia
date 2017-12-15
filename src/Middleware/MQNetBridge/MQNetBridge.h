@@ -16,23 +16,27 @@
  *      Solicita la conexión, configurando los parámetros necesarios.
  * 
  *  DESCONECTAR
- *  $(base)/cmd/disc 0" 
+ *  $(base)/disc 0" 
  *      Solicita la desconexión
+ * 
+ *  TIEMOUT MQTT_YIELD
+ *  $(base)/yield MILLIS" 
+ *      Solicita cambiar la temporización de espera de mqtt_yield
  *
  *  SUSCRIPCION LOCAL (MQLIB)
- *  $(base)/cmd/lsub TOPIC" 
+ *  $(base)/lsub TOPIC" 
  *      Permite suscribirse al topic local (MQLib) TOPIC y redirigir las actualizaciones recibidas al mismo topic mqtt.
  *
  *  SUSCRIPCION REMOTA
- *  $(base)/cmd/rsub TOPIC" 
+ *  $(base)/rsub TOPIC" 
  *      Permite suscribirse al topic remoto (MQTT) TOPIC y redirigir las actualizaciones al mismo topic mqlib. 
  * 
  *  QUITAR SUSCRIPCION REMOTA
- *  $(base)/cmd/runs TOPIC" 
+ *  $(base)/runs TOPIC" 
  *      Permite quitar la suscribirse al topic remoto (MQTT) TOPIC.
  *
  *  ACTIVAR ESCUCHA MQTT
- *  $(base)/cmd/listen 0" 
+ *  $(base)/listen 0" 
  *      Permite suscribirse al topic remoto (MQTT) TOPIC y redirigir las actualizaciones al mismo topic mqlib. 
  * 
  */
@@ -74,7 +78,7 @@ public:
      *  Crea el objeto asignando un puerto serie para la interfaz con el equipo digital
      *  @param base_topic Topic base, utilizado para poder ser configurado
      */
-    MQNetBridge(const char* base_topic = "mqnetbridge");
+    MQNetBridge(const char* base_topic, uint32_t mqtt_yield_millis = 10);
     
   
 	/** setDebugChannel()
@@ -96,6 +100,13 @@ public:
      *  @return Estado del módulo
      */
     Status getStatus() { return _stat; }
+
+
+    /** changeYieldTimeout()
+     *  Modifica el timeout de mqtt yield
+     *  @param millis Timeout en milisegundos
+     */
+    void changeYieldTimeout(uint32_t millis) { _yield_millis = millis; }    
     
       
 protected:
@@ -124,7 +135,7 @@ protected:
     uint32_t _timeout;                                  /// Timeout de espera en el Mailbox
     Status  _stat;                                      /// Estado del módulo
     Logger* _debug;                                     /// Canal de depuración
-    Queue<RequestOperation_t, MaxQueueEntries> _queue;  /// Request queue
+    Queue<RequestOperation_t, MaxQueueEntries> _queue;  /// Request queue    
     
     NetworkInterface* _network;
     MQTTNetwork *_net;                              /// Conexión MQTT
@@ -144,6 +155,7 @@ protected:
     char* _essid;                                   /// Red wifi
     char* _passwd;                                  /// Clave wifi
     char* _gw;                                      /// Gateway IP
+    uint32_t _yield_millis;                         /// Tiemout para mqtt yield
 
     /** task()
      *  Hilo de ejecución asociado para el procesado de las comunicaciones serie

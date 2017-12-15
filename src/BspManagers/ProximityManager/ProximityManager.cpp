@@ -13,7 +13,7 @@
 //- STATIC ---------------------------------------------------------------------------
 //------------------------------------------------------------------------------------
 
-#define DEBUG_TRACE(format, ...)    if(_debug){_debug->printf(format, ##__VA_ARGS__);}
+#define DEBUG_TRACE(format, ...)    if(_debug){ _debug->printf(format, ##__VA_ARGS__);}
 
 
 
@@ -55,7 +55,7 @@ void ProximityManager::job(uint32_t signals){
     if((signals & DistEventFlag) != 0){                
         if(_pub_topic_unique){
             sprintf(_pub_topic_unique, "%s/dist", _pub_topic);
-            sprintf(_msg, "%d,%d", HCSR04::_last_event, HCSR04::_last_dist_cm);
+            sprintf(_msg, "%d;%d", HCSR04::_last_event, HCSR04::_last_dist_cm);
             MQ::MQClient::publish(_pub_topic_unique, _msg, strlen(_msg)+1, &_publCb);
         }       
     }    
@@ -63,7 +63,7 @@ void ProximityManager::job(uint32_t signals){
     if((signals & InvalidDistEventFlag) != 0){        
         if(_pub_topic_unique){
             sprintf(_pub_topic_unique, "%s/dist/invalid", _pub_topic);
-            sprintf(_msg, "0,%d", HCSR04::_filter.dist_cm[HCSR04::_filter.curr]);
+            sprintf(_msg, "0;%d", HCSR04::_filter.dist_cm[HCSR04::_filter.curr]);
             MQ::MQClient::publish(_pub_topic_unique, _msg, strlen(_msg)+1, &_publCb);
         }       
     }    
@@ -71,7 +71,7 @@ void ProximityManager::job(uint32_t signals){
     if((signals & MeasureErrorEventFlag) != 0){        
         if(_pub_topic_unique){
             sprintf(_pub_topic_unique, "%s/dist/ERROR", _pub_topic);
-            sprintf(_msg, "0,%d", HCSR04::_last_error);
+            sprintf(_msg, "0;%d", HCSR04::_last_error);
             MQ::MQClient::publish(_pub_topic_unique, _msg, strlen(_msg)+1, &_publCb);
         }       
     }        
@@ -149,7 +149,7 @@ void ProximityManager::distEventCb(HCSR04::DistanceEvent ev, int16_t dist){
 void ProximityManager::subscriptionCb(const char* topic, void* msg, uint16_t msg_len){
     // si es un comando para ajustar eventos D(cm)I(cm),O(cm),F,R
     if(MQ::MQClient::isTopicToken(topic, "/config")){
-        DEBUG_TRACE("\r\nServoManager: Topic:%s msg:%s\r\n", topic, msg);
+        DEBUG_TRACE("\r\nProximityManager: Topic:%s msg:%s\r\n", topic, msg);
         // obtengo los parámetros del mensaje Tstep y Tmax
         char* data = (char*)Heap::memAlloc(msg_len);
         if(data){
@@ -176,7 +176,7 @@ void ProximityManager::subscriptionCb(const char* topic, void* msg, uint16_t msg
     
     // si es un comando para iniciar un movimiento repetitivo cada T(ms)
     if(MQ::MQClient::isTopicToken(topic, "/start")){
-        DEBUG_TRACE("\r\nServoManager: Topic:%s msg:%s\r\n", topic, msg);
+        DEBUG_TRACE("\r\nProximityManager: Topic:%s msg:%s\r\n", topic, msg);
         // obtengo los parámetros del mensaje Tstep y Tmax
         char* data = (char*)Heap::memAlloc(msg_len);
         if(data){
@@ -194,7 +194,7 @@ void ProximityManager::subscriptionCb(const char* topic, void* msg, uint16_t msg
 
     // si es un comando para detener el movimiento
     if(MQ::MQClient::isTopicToken(topic, "/stop")){
-        DEBUG_TRACE("\r\nServoManager: Topic:%s msg:%s\r\n", topic, msg);
+        DEBUG_TRACE("\r\nProximityManager: Topic:%s msg:%s\r\n", topic, msg);
         HCSR04::stop();
         return;
     }                      

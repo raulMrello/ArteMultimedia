@@ -12,7 +12,7 @@
 //--- PRIVATE TYPES ------------------------------------------------------------------
 //------------------------------------------------------------------------------------
 
-#define DEBUG_TRACE(format, ...)    if(_debug){_debug->printf(format, ##__VA_ARGS__);}
+#define DEBUG_TRACE(format, ...)    if(_debug){ _debug->printf(format, ##__VA_ARGS__);}
 
 static void defaultCb(TouchManager::TouchMsg* msg){
 }
@@ -75,7 +75,7 @@ void TouchManager::job(uint32_t signals){
                 _evt_cb.call(&msg);
                 // publica mensaje
                 if(_pub_topic){
-                    sprintf(_msg, "%d,%d", msg.elec, msg.evt);
+                    sprintf(_msg, "%d;%d", msg.elec, msg.evt);
                     MQ::MQClient::publish(_pub_topic, _msg, strlen(_msg)+1 , &_publicationCb);
                 }
             }

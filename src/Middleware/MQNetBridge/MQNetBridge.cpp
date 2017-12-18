@@ -169,8 +169,8 @@ void MQNetBridge::task(){
                                 
                 // Si hay que publicar en un topic... 
                 case RemotePublishSig: {
-                    char* topic = strtok(msg->data, ",");
-                    char* msend = strtok(0, ",");                    
+                    char* topic = strtok(msg->data, "\n");
+                    char* msend = strtok(0, "\n");                    
                     if(topic && msend){
                         MQTT::Message message;
                         message.qos = MQTT::QOS0;
@@ -365,7 +365,7 @@ void MQNetBridge::localSubscriptionCb(const char* topic, void* msg, uint16_t msg
         Heap::memFree(op);
         return;
     }
-    sprintf(op->data, "%s,%s", topic, (char*)msg);
+    sprintf(op->data, "%s\n%s", topic, (char*)msg);
     op->id = RemotePublishSig;
     _queue.put(op);        
 }

@@ -13,8 +13,8 @@
  *  El uso de este manager a más alto nivel puede ser, mediante la librería MQLib, mediante la instalación de los topics
  *  de publicación correspondientes y/o por medio de callbacks dedicadas. Así la publicación de topics será:
  *
- *      $(pub_topic) ELEC;1     // Para notificar pulsación en nodo ELEC
- *      $(pub_topic) ELEC;0    // Para notificar liberación en nodo ELEC
+ *      $(pub_topic) ELEC,1     // Para notificar pulsación en nodo ELEC
+ *      $(pub_topic) ELEC,0     // Para notificar liberación en nodo ELEC
  */
  
 #ifndef __TouchManager__H

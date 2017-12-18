@@ -75,7 +75,7 @@ void TouchManager::job(uint32_t signals){
                 _evt_cb.call(&msg);
                 // publica mensaje
                 if(_pub_topic){
-                    sprintf(_msg, "%d;%d", msg.elec, msg.evt);
+                    sprintf(_msg, "%d,%d", msg.elec, msg.evt);
                     MQ::MQClient::publish(_pub_topic, _msg, strlen(_msg)+1 , &_publicationCb);
                 }
             }
@@ -98,9 +98,11 @@ void TouchManager::setPublicationBase(const char* pub_topic) {
 
 //------------------------------------------------------------------------------------
 void TouchManager::task(){
-    
-    _ready = true;
+    while(MPR121_CapTouch::getState() != MPR121_CapTouch::Ready){
+        Thread::yield();
+    }
     _curr_sns = MPR121_CapTouch::touched();
+    _ready = true;
     
     // Arranca espera
     _timeout = osWaitForever;

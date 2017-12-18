@@ -35,8 +35,8 @@
  *                 [TM.scl]<--|D5(PB_6)    LK432KC    (PA_5)A4|
  *                 [TM.irq]-->|D6(PB_1)               (PA_4)A3|
  *                            |D7                     (PA_3)A2|
- *                            |D8                     (PA_1)A1|<--[PM.echo]
- *                 [CR.pwm]<--|D9(PA_8)               (PA_0)A0|-->[PM.out]
+ *                            |D8                     (PA_1)A1|-->[PM.out]
+ *                 [CR.pwm]<--|D9(PA_8)               (PA_0)A0|<--[PM.echo]
  *                            |D10(PA_11)                 AREF|
  *                            |D11(PB_5)                  3.3V|-->VDD
  *                [CR.sda]<-->|D12(PB_4)             (PB_3)D13|
@@ -135,7 +135,10 @@ static void subscCallback(const char* topic, void* msg, uint16_t msg_len){
 //------------------------------------------------------------------------------------
 void app_Countdown(){
     
-    // asigno callbacks 
+    // Inicializa módulo control de FLASH
+    NVFlash::init();
+
+    // asigno callbacks mqlib
     publ_cb = callback(&publCallback);
     subsc_cb = callback(&subscCallback);
     
@@ -146,7 +149,7 @@ void app_Countdown(){
     //  - Configurado por defecto en modo texto
     logger = new Logger(USBTX, USBRX, 16, 115200);
     DEBUG_TRACE("\r\nIniciando app_Countdown...\r\n");
-   
+    
     
     
     // --------------------------------------
@@ -164,30 +167,36 @@ void app_Countdown(){
     touchm->setPublicationBase("xrinst/countdown/stat/touch");
     
     
-//    
-//    // --------------------------------------
-//    // Creo módulo ProximityManager
-//    DEBUG_TRACE("\r\nNew ProximityManager... ");    
-//    proxm = new ProximityManager(PA_0, PA_1);
-//    proxm->setDebugChannel(logger);
-//    while(!proxm->ready()){
-//        Thread::yield();
-//    }
-//    DEBUG_TRACE("OK!");    
-//    
-//    // Establezco topic de configuración y de publicación
-//    DEBUG_TRACE("\r\n    subs_base = xrinst/countdown/cmd/prox");  
-//    proxm->setSubscriptionBase("xrinst/countdown/cmd/prox");    
-//    DEBUG_TRACE("\r\n    pub_base  = xrinst/countdown/stat/prox");  
-//    proxm->setPublicationBase("xrinst/countdown/stat/prox");
-//       
-//    // Configuro 9 sensores con una detección máxima de 1m con cambios de 5cm
-//    DEBUG_TRACE("\r\n    config 100,8,8,2,4,0,0... ");
-//    static char* pm_cfg = "100,8,8,2,4,0,0";
-//    MQ::MQClient::publish("xrinst/countdown/cmd/prox/cfg", pm_cfg, strlen(pm_cfg)+1, &publ_cb);    
-//    DEBUG_TRACE("OK!\r\n");
-//    
-//    
+    
+    // --------------------------------------
+    // Creo módulo ProximityManager
+    DEBUG_TRACE("\r\nNew ProximityManager... ");    
+    proxm = new ProximityManager(PA_1, PA_0);
+    proxm->setDebugChannel(logger);
+    while(!proxm->ready()){
+        Thread::yield();
+    }
+    DEBUG_TRACE("OK!");    
+    
+    // Establezco topic de configuración y de publicación
+    DEBUG_TRACE("\r\n    subs_base = xrinst/countdown/cmd/prox");  
+    proxm->setSubscriptionBase("xrinst/countdown/cmd/prox");    
+    DEBUG_TRACE("\r\n    pub_base  = xrinst/countdown/stat/prox");  
+    proxm->setPublicationBase("xrinst/countdown/stat/prox");
+       
+    // Configuro 9 sensores con una detección máxima de 1m con cambios de 5cm
+    DEBUG_TRACE("\r\n    config 100,8,8,2,4,0,0... ");
+    static char* pm_cfg = "100,8,8,2,4,0,0";
+    MQ::MQClient::publish("xrinst/countdown/cmd/prox/cfg", pm_cfg, strlen(pm_cfg)+1, &publ_cb);    
+    DEBUG_TRACE("OK!\r\n");
+       
+    // Inicia funcionamiento para medida cada 500ms con timeout 400ms
+    DEBUG_TRACE("\r\n    start 500,400... ");
+    static char* pm_start = "500,400";
+    MQ::MQClient::publish("xrinst/countdown/cmd/prox/start", pm_start, strlen(pm_start)+1, &publ_cb);    
+    DEBUG_TRACE("OK!\r\n");
+    
+    
     
     // --------------------------------------
     // Creo módulo CyberRibs

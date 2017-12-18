@@ -6,6 +6,15 @@ Proyecto plantilla para desarrollos con la tarjeta NUCLEO_L432KC de ST en mbed-o
 ## Changelog
 
 
+*18.12.2017*
+>**"Intercambio pinout MPR121 y corrijo NVFlash"**
+>
+- [x] Corrijo pinout en controlador HCSR04 para que no haya solapamiento en las EXTI con el driver MPR121.
+- [x] Corrijo recuperación y backup de datos en CyberRibs.
+- [ ] Actualizar todos los repos paralelos.
+  
+
+-------------------
 *14.12.2017*
 >**"Corrección de múltiples bugs"**
 >

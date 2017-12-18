@@ -41,6 +41,7 @@ public:
     /** init()
      *  Inicializa reservando una zona de la flash
      *  @param base_addr Páginas a reservar
+     *  @param size Tamaño de página.
      *  @return Código de error
      */
     static ErrorResult init(uint32_t base_addr = 0x0803F800, uint32_t size = 2048);
@@ -57,9 +58,10 @@ public:
      *  Lee una página
      *  @param page Página a leer
      *  @param dest Recibe los datos leídos
+     *  @param size Tamaño a leer.
      *  @return Código de error
      */
-    static ErrorResult readPage(uint8_t page, uint32_t* dest);
+    static ErrorResult readPage(uint8_t page, uint32_t* dest, uint32_t size = 2048);
 
 
     /** writePage()

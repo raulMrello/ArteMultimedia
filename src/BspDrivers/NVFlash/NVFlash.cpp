@@ -35,8 +35,8 @@ NVFlash::ErrorResult NVFlash::init(uint32_t base_addr, uint32_t page_size) {
 
 
 //---------------------------------------------------------------------------------
-NVFlash::ErrorResult NVFlash::readPage(uint8_t page, uint32_t* dest){    
-    if(_flash.read(dest, _start_addr + (page * _page_size), _page_size)!=0){
+NVFlash::ErrorResult NVFlash::readPage(uint8_t page, uint32_t* dest, uint32_t size){    
+    if(_flash.read(dest, _start_addr + (page * _page_size), size)!=0){
         return ReadError;
     }
     return Success;

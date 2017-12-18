@@ -55,7 +55,7 @@ void ProximityManager::job(uint32_t signals){
     if((signals & DistEventFlag) != 0){                
         if(_pub_topic_unique){
             sprintf(_pub_topic_unique, "%s/dist", _pub_topic);
-            sprintf(_msg, "%d;%d", HCSR04::_last_event, HCSR04::_last_dist_cm);
+            sprintf(_msg, "%d,%d", HCSR04::_last_event, HCSR04::_last_dist_cm);
             MQ::MQClient::publish(_pub_topic_unique, _msg, strlen(_msg)+1, &_publCb);
         }       
     }    
@@ -63,7 +63,7 @@ void ProximityManager::job(uint32_t signals){
     if((signals & InvalidDistEventFlag) != 0){        
         if(_pub_topic_unique){
             sprintf(_pub_topic_unique, "%s/dist/invalid", _pub_topic);
-            sprintf(_msg, "0;%d", HCSR04::_filter.dist_cm[HCSR04::_filter.curr]);
+            sprintf(_msg, "0,%d", HCSR04::_filter.dist_cm[HCSR04::_filter.curr]);
             MQ::MQClient::publish(_pub_topic_unique, _msg, strlen(_msg)+1, &_publCb);
         }       
     }    
@@ -71,7 +71,7 @@ void ProximityManager::job(uint32_t signals){
     if((signals & MeasureErrorEventFlag) != 0){        
         if(_pub_topic_unique){
             sprintf(_pub_topic_unique, "%s/dist/ERROR", _pub_topic);
-            sprintf(_msg, "0;%d", HCSR04::_last_error);
+            sprintf(_msg, "0,%d", HCSR04::_last_error);
             MQ::MQClient::publish(_pub_topic_unique, _msg, strlen(_msg)+1, &_publCb);
         }       
     }        

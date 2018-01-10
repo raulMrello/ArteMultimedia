@@ -28,12 +28,12 @@ extern void test_MPR121();
 
 typedef void(*CapabilityCallback)();
 static CapabilityCallback capability_list[] = {
-    app_Countdown,
+    test_WS281x,
     NULL,
+    app_Countdown,
     test_TouchManager,
     test_MQNetBridge,
     test_StateMachine,
-    test_WS281x,
     test_MQLib,
     test_ServoManager,    
     test_ProximityManager,

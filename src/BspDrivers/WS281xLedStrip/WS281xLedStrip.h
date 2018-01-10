@@ -80,7 +80,14 @@ class WS281xLedStrip : public DMA_PwmOut {
      *  @param color Referencia al color a cambiar
      */
     void setRange(uint16_t from, uint16_t to, const Color_t& color);
-    
+   
+	
+    /** @fn applyColor()
+     *  @brief Establece el color de un led
+     *  @param led Led al que cambiar el color
+     *  @param color Referencia al color a cambiar
+     */
+    void applyColor(uint16_t led, const Color_t& color);     
         
   protected:       
     static const uint32_t ResetTimeValue = 0;   /// Valor del tiempo de reset.
@@ -91,14 +98,7 @@ class WS281xLedStrip : public DMA_PwmOut {
     uint32_t * _color_buffer;                   /// Buffer para envío de colores
     uint32_t  _bitLow;                          /// Valor para enviar un bit a 0
     uint32_t  _bitHigh;                         /// Valor para enviar un bit a 1
-  
-	
-    /** @fn applyColor()
-     *  @brief Establece el color de un led
-     *  @param led Led al que cambiar el color
-     *  @param color Referencia al color a cambiar
-     */
-    void applyColor(uint16_t led, const Color_t& color);  
+
 };    
 
 

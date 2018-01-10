@@ -132,6 +132,9 @@ int32_t List<T>::removeItem(T* item){
         return(NULL_POINTER);
     }
     ListItem* listitem = _first;
+		if(!listitem){
+			return(ITEM_NOT_FOUND);
+		}
     do{
         if(listitem->item == item){
             //apunta al siguiente

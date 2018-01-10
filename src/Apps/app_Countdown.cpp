@@ -168,33 +168,33 @@ void app_Countdown(){
     
     
     
-    // --------------------------------------
-    // Creo módulo ProximityManager
-    DEBUG_TRACE("\r\nNew ProximityManager... ");    
-    proxm = new ProximityManager(PA_1, PA_0);
-    proxm->setDebugChannel(logger);
-    while(!proxm->ready()){
-        Thread::yield();
-    }
-    DEBUG_TRACE("OK!");    
-    
-    // Establezco topic de configuración y de publicación
-    DEBUG_TRACE("\r\n    subs_base = xrinst/countdown/cmd/prox");  
-    proxm->setSubscriptionBase("xrinst/countdown/cmd/prox");    
-    DEBUG_TRACE("\r\n    pub_base  = xrinst/countdown/stat/prox");  
-    proxm->setPublicationBase("xrinst/countdown/stat/prox");
-       
-    // Configuro 9 sensores con una detección máxima de 1m con cambios de 5cm
-    DEBUG_TRACE("\r\n    config 100,8,8,2,4,0,0... ");
-    static char* pm_cfg = "100,8,8,2,4,0,0";
-    MQ::MQClient::publish("xrinst/countdown/cmd/prox/cfg", pm_cfg, strlen(pm_cfg)+1, &publ_cb);    
-    DEBUG_TRACE("OK!\r\n");
-       
-    // Inicia funcionamiento para medida cada 500ms con timeout 400ms
-    DEBUG_TRACE("\r\n    start 500,400... ");
-    static char* pm_start = "500,400";
-    MQ::MQClient::publish("xrinst/countdown/cmd/prox/start", pm_start, strlen(pm_start)+1, &publ_cb);    
-    DEBUG_TRACE("OK!\r\n");
+//    // --------------------------------------
+//    // Creo módulo ProximityManager
+//    DEBUG_TRACE("\r\nNew ProximityManager... ");    
+//    proxm = new ProximityManager(PA_1, PA_0);
+//    proxm->setDebugChannel(logger);
+//    while(!proxm->ready()){
+//        Thread::yield();
+//    }
+//    DEBUG_TRACE("OK!");    
+//    
+//    // Establezco topic de configuración y de publicación
+//    DEBUG_TRACE("\r\n    subs_base = xrinst/countdown/cmd/prox");  
+//    proxm->setSubscriptionBase("xrinst/countdown/cmd/prox");    
+//    DEBUG_TRACE("\r\n    pub_base  = xrinst/countdown/stat/prox");  
+//    proxm->setPublicationBase("xrinst/countdown/stat/prox");
+//       
+//    // Configuro sensor con una detección máxima de 1m con cambios de 5cm
+//    DEBUG_TRACE("\r\n    config 100,8,8,2,4,0,0... ");
+//    static char* pm_cfg = "100,8,8,2,4,0,0";
+//    MQ::MQClient::publish("xrinst/countdown/cmd/prox/cfg", pm_cfg, strlen(pm_cfg)+1, &publ_cb);    
+//    DEBUG_TRACE("OK!\r\n");
+//       
+//    // Inicia funcionamiento para medida cada 500ms con timeout 400ms
+//    DEBUG_TRACE("\r\n    start 500,400... ");
+//    static char* pm_start = "500,400";
+//    MQ::MQClient::publish("xrinst/countdown/cmd/prox/start", pm_start, strlen(pm_start)+1, &publ_cb);    
+//    DEBUG_TRACE("OK!\r\n");
     
     
     
@@ -233,7 +233,8 @@ void app_Countdown(){
 
     // Configuro el acceso al servidor mqtt
     DEBUG_TRACE("\r\n    set_conn_params... ");            
-    static char* mnb_cfg = "cli,usr,pass,192.168.254.29,1883,Invitado,11FF00DECA";
+    static char* mnb_cfg = "cli,usr,pass,192.168.1.63,1883,MOVISTAR_9BCC,hh9DNmVvV3Km6ZzdKrkx";
+    //static char* mnb_cfg = "cli,usr,pass,192.168.254.29,1883,Invitado,11FF00DECA";
     MQ::MQClient::publish("sys/cmd/mqnetbridge/conn", mnb_cfg, strlen(mnb_cfg)+1, &publ_cb);
     while(qnet->getStatus() != MQNetBridge::Connected){
         Thread::yield();

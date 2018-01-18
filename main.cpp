@@ -8,6 +8,7 @@
 // **************************************************************************
 
 extern void app_Countdown();
+extern void app_RGBGame();
 
 
 // **************************************************************************
@@ -28,8 +29,9 @@ extern void test_MPR121();
 
 typedef void(*CapabilityCallback)();
 static CapabilityCallback capability_list[] = {
-    test_WS281x,
+    app_RGBGame,
     NULL,
+    test_WS281x,
     app_Countdown,
     test_TouchManager,
     test_MQNetBridge,

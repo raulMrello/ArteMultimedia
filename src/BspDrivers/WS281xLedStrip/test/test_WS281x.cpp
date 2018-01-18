@@ -33,7 +33,7 @@ static WS281xLedStrip* leddrv;
 static WS281xLedStrip::Color_t strip[NUM_LEDS];
 
 //------------------------------------------------------------------------------------
-uint8_t wavePoint(uint8_t i, uint8_t max, uint8_t min){
+static uint8_t wavePoint(uint8_t i, uint8_t max, uint8_t min){
     static const float values[] = {0, 0.08f, 0.12f, 0.25f, 0.33f, 0.65f, 0.75f, 1.0f, 0.75f, 0.65f, 0.33f, 0.25f, 0.12f, 0.08f, 0}; 
     i = (i > 14)? 14 : i;
     int16_t result = (int16_t)(((float)(max - min) * values[i]) + min);

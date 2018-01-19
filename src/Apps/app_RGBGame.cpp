@@ -186,32 +186,43 @@ void app_RGBGame(){
         point++;
         point = (point >= NUM_LEDS+16)? 0 : point;
         // la primera vez espera 2s y luego actualiza cada 100ms
-//        if(point==0){
-//            Thread::wait(2000);
-//        }
-//        else{
-//            Thread::wait(50);
-//        }
-        Thread::wait(1000);
+        if(point==0){
+            Thread::wait(2000);
+        }
+        else{
+            Thread::wait(50);
+        }
         // propaga colores por la tira
         // disco superior
-        for(i=NUM_LEDS-1; i>NUM_LEDS-4; i--){
+        for(i=NUM_LEDS-1; i>NUM_LEDS-3; i--){
             strip[i] = strip[i-1];
             strip[i-3] = strip[i-4];
             strip[i-6] = strip[i-7];
         }
+        strip[51] = strip[39];
+        strip[45] = strip[44];
+        strip[48] = strip[34];
+        
         // disco medio-sup
-        for(i=NUM_LEDS-10; i>NUM_LEDS-15; i--){
+        for(i=NUM_LEDS-10; i>NUM_LEDS-14; i--){
             strip[i] = strip[i-1];
             strip[i-5] = strip[i-6];
             strip[i-10] = strip[i-11];
         }
+        strip[40] = strip[24];
+        strip[30] = strip[29];
+        strip[35] = strip[19];
+        
         // disco medio-inf
-        for(i=NUM_LEDS-25; i>NUM_LEDS-30; i--){
+        for(i=NUM_LEDS-25; i>NUM_LEDS-29; i--){
             strip[i] = strip[i-1];
             strip[i-5] = strip[i-6];
             strip[i-10] = strip[i-11];
         }
+        strip[15] = strip[14];
+        strip[20] = strip[4];
+        strip[25] = strip[9];
+        
         // disco inferior
         for(i=NUM_LEDS-40; i>NUM_LEDS-44; i--){
             strip[i] = strip[i-1];

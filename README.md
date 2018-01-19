@@ -6,6 +6,16 @@ Proyecto plantilla para desarrollos con la tarjeta NUCLEO_L432KC de ST en mbed-o
 ## Changelog
 
 
+*19.01.2018*
+>**"Corregido juego de color en estructura"**
+>
+- [x] Corrijo los juegos de propagación del color en la estructura por medio del juego app_RGBGame
+- [ ] Integrar TouchManager para cambiar el color de la tira, primeros cambios de escala y luego degradados en función del tipo de pulsación.
+- [ ] Definir los diferentes modos de juego mediante comando mq: xrinst/rgbgame/select/cmd.
+- [ ] Actualizar todos los repos paralelos.
+  
+
+-------------------
 *18.12.2017*
 >**"Intercambio pinout MPR121 y corrijo NVFlash"**
 >

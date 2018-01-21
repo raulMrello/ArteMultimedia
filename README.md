@@ -6,6 +6,15 @@ Proyecto plantilla para desarrollos con la tarjeta NUCLEO_L432KC de ST en mbed-o
 ## Changelog
 
 
+*21.01.2018*
+>**"Añado detector touch de cambio de color"**
+>
+- [x] Añado detector touch (AUNQUE NO VA FINO QUE DIGAMOS), puede valer.
+- [ ] Definir los diferentes modos de juego mediante comando mq: xrinst/rgbgame/select/cmd.
+- [ ] Actualizar todos los repos paralelos.
+  
+
+-------------------
 *19.01.2018*
 >**"Corregido juego de color en estructura"**
 >

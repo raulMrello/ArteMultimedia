@@ -74,25 +74,9 @@ static TouchManager* touchm;
 static WS281xLedStrip* leddrv;
 
 
-/** Callback para las notificaciones de publicación */
-static MQ::PublishCallback publ_cb;
-
 /** Callback para las notificaciones de suscripción */
 static MQ::SubscribeCallback subsc_cb;
 
-
-// **************************************************************************
-// *********** CALLBACKS ****************************************************
-// **************************************************************************
-
-static void publCallback(const char* topic, int32_t){
-}
-
-
-//------------------------------------------------------------------------------------
-static void subscCallback(const char* topic, void* msg, uint16_t msg_len){
-    DEBUG_TRACE("\r\nRecibido en topic[%s], mensaje[%s]", topic, (char*)msg);       
-}
 // **************************************************************************
 // *********** TEST  ********************************************************
 // **************************************************************************
@@ -106,6 +90,11 @@ static void subscCallback(const char* topic, void* msg, uint16_t msg_len){
 #define OFFSET_BLUE     10
 
 static WS281xLedStrip::Color_t strip[NUM_LEDS];
+static WS281xLedStrip::Color_t color_max;
+static WS281xLedStrip::Color_t color_min;
+static WS281xLedStrip::Color_t color_next_max;
+static WS281xLedStrip::Color_t color_next_min;
+static bool update = false;
 
 //------------------------------------------------------------------------------------
 static uint8_t wavePoint(uint8_t i, uint8_t max, uint8_t min){
@@ -117,6 +106,49 @@ static uint8_t wavePoint(uint8_t i, uint8_t max, uint8_t min){
     return (uint8_t)result;
 }
 
+
+// **************************************************************************
+// *********** CALLBACKS ****************************************************
+// **************************************************************************
+
+static bool disabled = false;
+static Ticker ticker;
+static void antiGlitchCallback(){
+    ticker.detach();
+    disabled = false;
+}   
+
+
+//------------------------------------------------------------------------------------
+static void subscCallback(const char* topic, void* msg, uint16_t msg_len){
+    int elec, value;
+    DEBUG_TRACE("\r\nEVT");
+    elec = atoi(strtok((char*)msg, ","));
+    value = atoi(strtok(0, ","));
+    if(!disabled){
+        if(elec && value){
+            if(value == 1){
+                if(elec < 3){
+                    DEBUG_TRACE("\r\nCOLOR ROJO");
+                    color_next_max.red = 255; color_next_max.green = 0; color_next_max.blue = 0;            
+                    color_next_min.red = 1; color_next_min.green = 0; color_next_min.blue = 0;
+                }
+                else if(elec < 6){
+                    DEBUG_TRACE("\r\nCOLOR VERDE");
+                    color_next_max.red = 0; color_next_max.green = 255; color_next_max.blue = 0;            
+                    color_next_min.red = 0; color_next_min.green = 1; color_next_min.blue = 0;
+                }
+                else{
+                    DEBUG_TRACE("\r\nCOLOR AZUL");
+                    color_next_max.red = 0; color_next_max.green = 0; color_next_max.blue = 255;            
+                    color_next_min.red = 0; color_next_min.green = 0; color_next_min.blue = 1;
+                }
+                update = true;
+            }
+        }
+    }        
+}
+
 //------------------------------------------------------------------------------------
 void app_RGBGame(){
     
@@ -124,7 +156,6 @@ void app_RGBGame(){
     NVFlash::init();
 
     // asigno callbacks mqlib
-    publ_cb = callback(&publCallback);
     subsc_cb = callback(&subscCallback);
     
         
@@ -146,7 +177,9 @@ void app_RGBGame(){
         Thread::yield();
     }
     DEBUG_TRACE("OK!");    
-        
+    
+    MQ::MQClient::subscribe("xrinst/rgbgame/stat/touch", &subsc_cb);
+    
     // establezco topic base 'touch'
     DEBUG_TRACE("\r\n    pub_base  = xrinst/rgbgame/stat/touch\r\n");    
     touchm->setPublicationBase("xrinst/rgbgame/stat/touch");
@@ -164,7 +197,6 @@ void app_RGBGame(){
     DEBUG_TRACE("\r\nElijo color rojo como color base... ");
     WS281xLedStrip::Color_t color_max;
     color_max.red = 0; color_max.green = 0; color_max.blue = 255;            
-    WS281xLedStrip::Color_t color_min;
     color_min.red = 0; color_min.green = 0; color_min.blue = 1;   
 
     int i;
@@ -175,13 +207,26 @@ void app_RGBGame(){
     // --------------------------------------
     // Inicio aplicación
     DEBUG_TRACE("\r\n ------ APPLICATION RUNNING ------- ");
-    
+    disabled = false;
+    update = false;
     leddrv->start();
 
     // continuamente, cada 50ms actualizo el wave propagándolo hacia el final de la tira    
     int8_t point = -1;
     
     for(;;){
+        if(update){
+            disabled = true;
+            ticker.attach_us(callback(&antiGlitchCallback), 500);
+            point = -1;
+            color_max = color_next_max;
+            color_min = color_next_min;
+            for(i=0;i<NUM_LEDS;i++){
+                strip[i] = color_min;
+                leddrv->applyColor(i, strip[i]);
+            }
+            update = false;
+        }
         // actualiza el punto de cresta
         point++;
         point = (point >= NUM_LEDS+16)? 0 : point;

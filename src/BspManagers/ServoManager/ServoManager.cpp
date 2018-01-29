@@ -86,16 +86,12 @@ void ServoManager::setSubscriptionBase(const char* sub_topic) {
         DEBUG_TRACE("\r\nServoManager: ERROR_SUB ya hecha!\r\n");
         return;
     }
-    
-    _sub_topic = (char*)sub_topic; 
- 
-    // Se suscribe a $sub_topic/#
-    char* suscr = (char*)Heap::memAlloc(strlen(sub_topic) + strlen("/#")+1);
-    if(suscr){
-        sprintf(suscr, "%s/#", _sub_topic);
-        MQ::MQClient::subscribe(suscr, &_subscrCb);
-        DEBUG_TRACE("\r\nServoManager: Suscrito a %s/#\r\n", sub_topic);
-    }     
+    MBED_ASSERT(sub_topic);
+    _sub_topic = (char*)Heap::memAlloc(strlen(sub_topic) + strlen("/#")+1); 
+	MBED_ASSERT(_sub_topic);
+    sprintf(_sub_topic, "%s/+/cmd", _sub_topic);
+	MQ::MQClient::subscribe(_sub_topic, &_subscrCb);
+	DEBUG_TRACE("\r\nServoManager: Suscrito a %s\r\n", _sub_topic);         
 }   
 
 //------------------------------------------------------------------------------------
@@ -140,14 +136,14 @@ void ServoManager::onTickCb(){
 //------------------------------------------------------------------------------------
 void ServoManager::subscriptionCb(const char* topic, void* msg, uint16_t msg_len){
     // si es un comando para detener un movimiento repetitivo tipo respiración...
-    if(MQ::MQClient::isTopicToken(topic, "/move/stop")){
+    if(MQ::MQClient::isTopicToken(topic, "/move_stop/cmd")){
         DEBUG_TRACE("\r\nServoManager: Movimiento terminado!\r\n");
         stopMovement();
         return;
     }
     
     // si es un comando para iniciar un movimiento repetitivo tipo respiración...
-    if(MQ::MQClient::isTopicToken(topic, "/move/start")){
+    if(MQ::MQClient::isTopicToken(topic, "/move_start/cmd")){
         DEBUG_TRACE("\r\nServoManager: Topic:%s msg:%s\r\n", topic, msg);
         // obtengo los parámetros del mensaje Tstep y Tmax
         char* data = (char*)Heap::memAlloc(msg_len);
@@ -184,7 +180,7 @@ void ServoManager::subscriptionCb(const char* topic, void* msg, uint16_t msg_len
     }
 
     // si es un comando para mover un único servo
-    if(MQ::MQClient::isTopicToken(topic, "/servo")){
+    if(MQ::MQClient::isTopicToken(topic, "/servo/cmd")){
         DEBUG_TRACE("\r\nServoManager: Topic:%s msg:%s\r\n", topic, msg);
         // obtengo los parámetros del mensaje ServoID,Deg
         char* data = (char*)Heap::memAlloc(msg_len);
@@ -203,7 +199,7 @@ void ServoManager::subscriptionCb(const char* topic, void* msg, uint16_t msg_len
     }    
 
     // si es un comando para mover un único servo
-    if(MQ::MQClient::isTopicToken(topic, "/duty")){
+    if(MQ::MQClient::isTopicToken(topic, "/duty/cmd")){
         DEBUG_TRACE("\r\nServoManager: Topic:%s msg:%s\r\n", topic, msg);
         // obtengo los parámetros del mensaje ServoID,Duty
         char* data = (char*)Heap::memAlloc(msg_len);
@@ -222,7 +218,7 @@ void ServoManager::subscriptionCb(const char* topic, void* msg, uint16_t msg_len
     }  
 
     // si es un comando para mover un único servo
-    if(MQ::MQClient::isTopicToken(topic, "/info")){
+    if(MQ::MQClient::isTopicToken(topic, "/info/cmd")){
         DEBUG_TRACE("\r\nServoManager: Topic:%s msg:%s\r\n", topic, msg);
         // obtengo los parámetros del mensaje ServoID,Duty
         char* data = (char*)Heap::memAlloc(msg_len);
@@ -244,7 +240,7 @@ void ServoManager::subscriptionCb(const char* topic, void* msg, uint16_t msg_len
     }            
 
     // si es un comando para leer el duty del servo del chip i2c
-    if(MQ::MQClient::isTopicToken(topic, "/read")){
+    if(MQ::MQClient::isTopicToken(topic, "/read/cmd")){
         DEBUG_TRACE("\r\nServoManager: Topic:%s msg:%s\r\n", topic, msg);
         // obtengo los parámetros del mensaje ServoID,Duty
         char* data = (char*)Heap::memAlloc(msg_len);
@@ -268,7 +264,7 @@ void ServoManager::subscriptionCb(const char* topic, void* msg, uint16_t msg_len
     }              
 
     // si es un comando para calibrar el servo
-    if(MQ::MQClient::isTopicToken(topic, "/cal")){
+    if(MQ::MQClient::isTopicToken(topic, "/cal/cmd")){
         DEBUG_TRACE("\r\nServoManager: Topic:%s msg:%s\r\n", topic, msg);
         // obtengo los parámetros del mensaje ServoID,Duty
         char* data = (char*)Heap::memAlloc(msg_len);
@@ -293,7 +289,7 @@ void ServoManager::subscriptionCb(const char* topic, void* msg, uint16_t msg_len
     }                  
 
     // si es un comando para guardar la calibración de los servos
-    if(MQ::MQClient::isTopicToken(topic, "/save")){
+    if(MQ::MQClient::isTopicToken(topic, "/save/cmd")){
         DEBUG_TRACE("\r\nServoManager: Topic:%s msg:%s\r\n", topic, msg);
         // obtengo los datos de calibración y los actualizo
         uint32_t* caldata = (uint32_t*)Heap::memAlloc(NVFlash::getPageSize());

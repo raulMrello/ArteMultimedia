@@ -12,27 +12,27 @@
  *
  *  Los topics en los que escucha este módulo son los siguientes: 
  *
- *  ${sub_topic}/servo S,A
+ *  ${sub_topic}/servo/cmd S,A
  *      Mueve el servo S al ángulo A (limitado por rangos min,max)
  *
- *  ${sub_topic}/duty S,D
+ *  ${sub_topic}/duty/cmd S,D
  *      Mueve el servo S al duty D (sin limitación por rango)
  *
- *  ${sub_topic}/move/start StepTimeUs,NumSteps,ServoOrigin,StepDif,AngIni,AngEnd
+ *  ${sub_topic}/move_start/cmd StepTimeUs,NumSteps,ServoOrigin,StepDif,AngIni,AngEnd
  *      Genera un patrón de movimiento senoidal(-1,1,-1) con una cadencia de paso StepTimeUs a completar en NumSteps pasos y 
  *      centrado en el servo ServoOrigin. Los servos adyacentes replican el movimiento variando StepDif pasos del servo
  *      origen.
  *
- *  ${sub_topic}/move/stop 0
+ *  ${sub_topic}/move_stop/cmd 0
  *      Detiene el patrón de movimiento
  *
- *  ${sub_topic}/info S
+ *  ${sub_topic}/info/cmd S
  *      Obtiene información sobre el servo S
  *
- *  ${sub_topic}/cal S,Ai,Af,Di,Df
+ *  ${sub_topic}/cal/cmd S,Ai,Af,Di,Df
  *      Calibra los rangos del servo S, con ángulo minmax Ai,Af y duty minmax Di,Df.
  *
- *  ${sub_topic}/save 0
+ *  ${sub_topic}/save/cmd 0
  *      Guarda los datos de calibración de todos los servos en NVFlash
  */
  

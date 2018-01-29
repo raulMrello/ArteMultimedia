@@ -46,10 +46,10 @@
  *
  *  1) La aplicación se conectará al servidor MQTT y se suscribirá a los topics "xrinst/countdown/cmd/#" pudiendo 
  *     recibir los siguientes mensajes:
- *          "xrinst/countdown/cmd/sys/reset 1" -> Indica que hay que resetear la aplicación
+ *          "xrinst/countdown/sys/reset/cmd 1" -> Indica que hay que resetear la aplicación
  *
  *  2) Por otro lado, desde la aplicación AppXR se podrán enviar diferentes mensajes al módulo CyberRibs:
- *          "xrinst/countdown/cmd/cyberribs/mode M", donde M indica uno de los posibles modos de funcionamiento:
+ *          "xrinst/countdown/cyberribs/mode/cmd M", donde M indica uno de los posibles modos de funcionamiento:
  *              M=0 Estructura apagada, sin leds y sin movimiento. En su estado de reposo. Se desconecta la alimentación 
  *                  de los servos y de los leds.
  *              M=1..7 Estructura en movimiento y con leds activos. Valores bajos (1,2) implican movimientos lentos y 
@@ -57,14 +57,14 @@
  *              M=8 Estructura en modo de animación de éxito.
  *              M=9 Estructura en modo de animación de fracaso.
  *
- *          "xrinst/countdown/cmd/cyberribs/config E", donde E permite activar notificaciones en cada cambio de estado, mediante la 
+ *          "xrinst/countdown/cyberribs/config/cmd E", donde E permite activar notificaciones en cada cambio de estado, mediante la 
  *              publicación en el topic "xrinst/countdown/stat/mode M,N siendo M el modo y N el subestado. Por ejemplo para
- *              notificar un cambio a modo Congratulations.Congrat2 enviará el mensaje: ".../stat/mode 8,2"
+ *              notificar un cambio a modo Congratulations.Congrat2 enviará el mensaje: ".../mode/stat 8,2"
 
  *  3) La aplicación Countdown configurará los submódulos de la siguiente forma:
- *      TM: activará los eventos PRESSED, RELEASED de 9 sensores publicando eventos en "xrinst/countdown/stat/touch"
- *      PM: activará los eventos para medidas de hasta 1m con pasos de 5cm, publicando en "xrinst/countdown/stat/prox/dist"
- *      CR: activará las notificaciones de cambios de estado, que se publicarán en "xrinst/countdown/stat/cyberribs/mode"
+ *      TM: activará los eventos PRESSED, RELEASED de 9 sensores publicando eventos en "xrinst/countdown/touch/stat"
+ *      PM: activará los eventos para medidas de hasta 1m con pasos de 5cm, publicando en "xrinst/countdown/prox/dist/stat"
+ *      CR: activará las notificaciones de cambios de estado, que se publicarán en "xrinst/countdown/cyberribs/mode/stat"
  *      MNB: activará suscripción a los eventos de TM, PM y CR y los reenviará a AppXR via MQTT.
  *
  *  4) Existen diferentes topics de configuración puntual, que pueden verse en cada módulo. Por ejemplo, el módulo

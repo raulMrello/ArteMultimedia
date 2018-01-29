@@ -16,27 +16,27 @@
  *      Solicita la conexión, configurando los parámetros necesarios.
  * 
  *  DESCONECTAR
- *  $(base)/disc 0" 
+ *  $(base)/disc/cmd 0" 
  *      Solicita la desconexión
  * 
  *  TIEMOUT MQTT_YIELD
- *  $(base)/yield MILLIS" 
+ *  $(base)/yield/cmd MILLIS" 
  *      Solicita cambiar la temporización de espera de mqtt_yield
  *
  *  SUSCRIPCION LOCAL (MQLIB)
- *  $(base)/lsub TOPIC" 
+ *  $(base)/lsub/cmd TOPIC" 
  *      Permite suscribirse al topic local (MQLib) TOPIC y redirigir las actualizaciones recibidas al mismo topic mqtt.
  *
  *  SUSCRIPCION REMOTA
- *  $(base)/rsub TOPIC" 
+ *  $(base)/rsub/cmd TOPIC" 
  *      Permite suscribirse al topic remoto (MQTT) TOPIC y redirigir las actualizaciones al mismo topic mqlib. 
  * 
  *  QUITAR SUSCRIPCION REMOTA
- *  $(base)/runs TOPIC" 
+ *  $(base)/runs/cmd TOPIC" 
  *      Permite quitar la suscribirse al topic remoto (MQTT) TOPIC.
  *
  *  ACTIVAR ESCUCHA MQTT
- *  $(base)/listen 0" 
+ *  $(base)/listen/cmd 0" 
  *      Permite suscribirse al topic remoto (MQTT) TOPIC y redirigir las actualizaciones al mismo topic mqlib. 
  * 
  */

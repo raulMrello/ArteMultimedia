@@ -178,11 +178,11 @@ void app_RGBGame(){
     }
     DEBUG_TRACE("OK!");    
     
-    MQ::MQClient::subscribe("xrinst/rgbgame/stat/touch", &subsc_cb);
+    MQ::MQClient::subscribe("xrinst/rgbgame/touch/+/stat", &subsc_cb);
     
     // establezco topic base 'touch'
-    DEBUG_TRACE("\r\n    pub_base  = xrinst/rgbgame/stat/touch\r\n");    
-    touchm->setPublicationBase("xrinst/rgbgame/stat/touch");
+    DEBUG_TRACE("\r\n    pub_base  = xrinst/rgbgame/touch\r\n");    
+    touchm->setPublicationBase("xrinst/rgbgame/touch");
     
 
     // --------------------------------------

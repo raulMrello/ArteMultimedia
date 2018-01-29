@@ -95,9 +95,9 @@ void MQNetBridge::notifyRemoteSubscription(MQTT::MessageData& md){
 void MQNetBridge::task(){    
     
     // se suscribe a los topics de configuración
-    char* cfg_topics = (char*)Heap::memAlloc(strlen(_base_topic) + strlen("/#")+1);
+    char* cfg_topics = (char*)Heap::memAlloc(MQ::MQClient::getMaxTopicLen());
     if(cfg_topics){
-        sprintf(cfg_topics, "%s/#", _base_topic);
+        sprintf(cfg_topics, "%s/+/cmd", _base_topic);
         MQ::MQClient::subscribe(cfg_topics, &_subscriptionCb);
     }
     
@@ -212,7 +212,7 @@ void MQNetBridge::localSubscriptionCb(const char* topic, void* msg, uint16_t msg
     // en primer lugar chequea qué tipo de mensaje es
     
     // si es un mensaje para establecer la conexión con el servidor mqtt...
-    if(MQ::MQClient::isTopicToken(topic, "/conn")){
+    if(MQ::MQClient::isTopicToken(topic, "/conn/cmd")){
         DEBUG_TRACE("\r\nNetBridge: Solicitando conexión...");
         // lee los parámetros esperados: ClientId,User,UserPass,Host,Port,ESSID, WifiPasswd
         char* cli = strtok((char*)msg, ",");
@@ -276,7 +276,7 @@ void MQNetBridge::localSubscriptionCb(const char* topic, void* msg, uint16_t msg
     }    
         
     // si es un mensaje para desconectar...
-    if(MQ::MQClient::isTopicToken(topic, "/disc")){
+    if(MQ::MQClient::isTopicToken(topic, "/disc/cmd")){
         RequestOperation_t* op = (RequestOperation_t*)Heap::memAlloc(sizeof(RequestOperation_t));
         if(!op){
             return;
@@ -289,14 +289,14 @@ void MQNetBridge::localSubscriptionCb(const char* topic, void* msg, uint16_t msg
     }   
         
     // si es un mensaje para cambiar la temporización yield...
-    if(MQ::MQClient::isTopicToken(topic, "/yield")){
+    if(MQ::MQClient::isTopicToken(topic, "/yield/cmd")){
         _yield_millis = (uint32_t)atoi((char*)msg);
         DEBUG_TRACE("\r\nNetBridge: Cambiando yield timeout a %dms.", _yield_millis);
         return;
     }   
     
     // si es un mensaje para suscribirse a un topic local en MQLib...
-    if(MQ::MQClient::isTopicToken(topic, "/lsub")){
+    if(MQ::MQClient::isTopicToken(topic, "/lsub/cmd")){
         char* topic = (char*)Heap::memAlloc(msg_len);
         if(!topic){
             DEBUG_TRACE("\r\nNetBridge: ERR LOCAL_SUSC HEAP ALLOC");
@@ -309,7 +309,7 @@ void MQNetBridge::localSubscriptionCb(const char* topic, void* msg, uint16_t msg
     }    
     
     // si es un mensaje para suscribirse a un topic remoto en MQTT...
-    if(MQ::MQClient::isTopicToken(topic, "/rsub")){
+    if(MQ::MQClient::isTopicToken(topic, "/rsub/cmd")){
         // sólo lo permite si está conectado
         if(_stat == Connected){            
             RequestOperation_t* op = (RequestOperation_t*)Heap::memAlloc(sizeof(RequestOperation_t));
@@ -330,7 +330,7 @@ void MQNetBridge::localSubscriptionCb(const char* topic, void* msg, uint16_t msg
     }    
     
     // si es un mensaje para cancelar una suscripción remota en MQTT...
-    if(MQ::MQClient::isTopicToken(topic, "/runs")){
+    if(MQ::MQClient::isTopicToken(topic, "/runs/cmd")){
         // asegura que esté conectado
         if(_stat == Connected){
             RequestOperation_t* op = (RequestOperation_t*)Heap::memAlloc(sizeof(RequestOperation_t));

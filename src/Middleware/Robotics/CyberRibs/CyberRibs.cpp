@@ -33,9 +33,18 @@ CyberRibs::CyberRibs(uint8_t num_ribs, uint8_t leds_per_rib, PinName sda_srv, Pi
     _leds_per_rib = leds_per_rib;
     _servod = new PCA9685_ServoDrv(sda_srv, scl_srv, _num_ribs, 0);
     _ledd = new WS281xLedStrip(pwm_led, 800000, _num_ribs * _leds_per_rib);
-    _sub_topic = 0;
-    _pub_topic = 0;
-    _pub_topic_unique = 0;
+		
+    _sub_topic = (char*)Heap::memAlloc(MQ::MQClient::getMaxTopicLen());
+	MBED_ASSERT(_sub_topic);
+	strcpy(_sub_topic,"");
+		
+    _pub_topic = (char*)Heap::memAlloc(MQ::MQClient::getMaxTopicLen());
+	MBED_ASSERT(_pub_topic);
+	strcpy(_pub_topic,"");
+		
+    _pub_topic_unique = (char*)Heap::memAlloc(MQ::MQClient::getMaxTopicLen());
+	MBED_ASSERT(_pub_topic_unique);
+	strcpy(_pub_topic_unique,"");
     
     // chequea y continúa
     if(!_servod || !_ledd){
@@ -70,29 +79,17 @@ CyberRibs::CyberRibs(uint8_t num_ribs, uint8_t leds_per_rib, PinName sda_srv, Pi
 
 //------------------------------------------------------------------------------------
 void CyberRibs::setSubscriptionBase(const char* sub_topic) {
-    if(_sub_topic){
-        DEBUG_TRACE("\r\nCyberRibs: ERROR_SUB ya hecha!\r\n");
-        return;
-    }
-    
-    _sub_topic = (char*)sub_topic; 
- 
-    // Se suscribe a $sub_topic/#
-    char* suscr = (char*)Heap::memAlloc(strlen(sub_topic) + strlen("/#")+1);
-    if(suscr){
-        sprintf(suscr, "%s/#", _sub_topic);
-        MQ::MQClient::subscribe(suscr, &_subscriptionCb);
-        DEBUG_TRACE("\r\nCyberRibs: Suscrito a %s/#\r\n", sub_topic);
-    }     
+	MBED_ASSERT(sub_topic);
+	sprintf(_sub_topic, "%s/+/cmd", sub_topic);
+	MQ::MQClient::subscribe(_sub_topic, &_subscriptionCb);
+	DEBUG_TRACE("\r\nCyberRibs: Suscrito a %s\r\n", _sub_topic);         
 }   
 
 
 //------------------------------------------------------------------------------------
 void CyberRibs::setPublicationBase(const char* pub_topic) {
-    _pub_topic = (char*)pub_topic; 
-    if(!_pub_topic_unique){
-        _pub_topic_unique = (char*)Heap::memAlloc(MQ::MQClient::getMaxTopicLen());
-    }
+	MBED_ASSERT(pub_topic);
+	sprintf(_pub_topic, "%s", pub_topic);    
 }   
 
     
@@ -155,7 +152,7 @@ void CyberRibs::subscriptionCb(const char* topic, void* msg, uint16_t msg_len){
     // en primer lugar chequea qué tipo de mensaje es
     
     // si es un mensaje para establecer la configuración...
-    if(MQ::MQClient::isTopicToken(topic, "/cfg")){
+    if(MQ::MQClient::isTopicToken(topic, "/cfg/cmd")){
         // lee el primer caracter y evalúa si se permiten o no las notificaciones de cambio de modo
         char mode_endis = *(char*)msg - 0x30;
         _enable_pub = (mode_endis == 1)? true : false;
@@ -164,7 +161,7 @@ void CyberRibs::subscriptionCb(const char* topic, void* msg, uint16_t msg_len){
     }    
         
     // si es un mensaje para realizar un cambio de modo...
-    if(MQ::MQClient::isTopicToken(topic, "/mode")){
+    if(MQ::MQClient::isTopicToken(topic, "/mode/cmd")){
         DEBUG_TRACE("\r\nCyberRibs: Mode update requested... ");
                
         State::Msg* op = (State::Msg*)Heap::memAlloc(sizeof(State::Msg));
@@ -183,7 +180,7 @@ void CyberRibs::subscriptionCb(const char* topic, void* msg, uint16_t msg_len){
     
 
     // si es un comando para mover un único servo
-    if(MQ::MQClient::isTopicToken(topic, "/angle")){
+    if(MQ::MQClient::isTopicToken(topic, "/angle/cmd")){
         DEBUG_TRACE("\r\nCyberRibs: Set Servo angle... ");
         // obtengo los parámetros del mensaje ServoID,Deg
         char* data = (char*)Heap::memAlloc(msg_len);
@@ -203,7 +200,7 @@ void CyberRibs::subscriptionCb(const char* topic, void* msg, uint16_t msg_len){
     }    
 
     // si es un comando para mover un único servo
-    if(MQ::MQClient::isTopicToken(topic, "/duty")){
+    if(MQ::MQClient::isTopicToken(topic, "/duty/cmd")){
         DEBUG_TRACE("\r\nCyberRibs: Set Servo duty... ");
         // obtengo los parámetros del mensaje ServoID,Duty
         char* data = (char*)Heap::memAlloc(msg_len);
@@ -223,7 +220,7 @@ void CyberRibs::subscriptionCb(const char* topic, void* msg, uint16_t msg_len){
     }  
 
     // si es un comando para obtener los parámetros de un servo
-    if(MQ::MQClient::isTopicToken(topic, "/info")){
+    if(MQ::MQClient::isTopicToken(topic, "/info/cmd")){
         DEBUG_TRACE("\r\nCyberRibs: Lee Servo info... ");
         // obtengo los parámetros del mensaje ServoID,Duty
         char* data = (char*)Heap::memAlloc(msg_len);
@@ -246,7 +243,7 @@ void CyberRibs::subscriptionCb(const char* topic, void* msg, uint16_t msg_len){
     }        
     
     // si es un comando para calibrar el servo
-    if(MQ::MQClient::isTopicToken(topic, "/cal")){
+    if(MQ::MQClient::isTopicToken(topic, "/cal/cmd")){
         DEBUG_TRACE("\r\nCyberRibs: Calibrando... ");
         // obtengo los parámetros del mensaje ServoID,Duty
         char* data = (char*)Heap::memAlloc(msg_len);
@@ -272,7 +269,7 @@ void CyberRibs::subscriptionCb(const char* topic, void* msg, uint16_t msg_len){
     }                  
 
     // si es un comando para guardar la calibración de los servos
-    if(MQ::MQClient::isTopicToken(topic, "/save")){
+    if(MQ::MQClient::isTopicToken(topic, "/save/cmd")){
         DEBUG_TRACE("\r\nCyberRibs: Guardando calibración... ");
         // obtengo los datos de calibración y los actualizo
         uint32_t* caldata = (uint32_t*)Heap::memAlloc(NVFlash::getPageSize());
@@ -312,7 +309,7 @@ void CyberRibs::notifyModeUpdate(){
     // si la publicación está permitida...
     if(_enable_pub){
         // apunto al topic de publicación
-        sprintf(_pub_topic_unique, "%s/mode", _pub_topic);
+        sprintf(_pub_topic_unique, "%s/mode/stat", _pub_topic);
         // creo el mensaje
         char msg[4];
         sprintf(msg, "%d,%d", _mode, _submode);

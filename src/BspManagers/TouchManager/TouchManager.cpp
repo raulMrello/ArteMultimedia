@@ -28,7 +28,9 @@ TouchManager::TouchManager(PinName sda, PinName scl, PinName irq, uint16_t elec_
             
     _debug = 0;
     _ready = false;
-    _pub_topic = 0;
+	_pub_topic = (char*)Heap::memAlloc(MQ::MQClient::getMaxTopicLen());
+	MBED_ASSERT(_pub_topic);
+	strcpy(_pub_topic,"");
     _curr_sns = 0;
     _evt_cb = callback(defaultCb);
                 
@@ -87,7 +89,8 @@ void TouchManager::job(uint32_t signals){
 
 //------------------------------------------------------------------------------------
 void TouchManager::setPublicationBase(const char* pub_topic) {
-    _pub_topic = (char*)pub_topic; 
+		MBED_ASSERT(pub_topic);
+    sprintf(_pub_topic, "%s/elec/stat", pub_topic);
 }   
 
 

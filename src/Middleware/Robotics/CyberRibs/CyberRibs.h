@@ -15,14 +15,13 @@
  *  Utilizará la librería MQLib y esperará mensajes en su topic base $(base) de esta forma:
  *
  *  MODO
- *  $(base)/mode M" 
+ *  $(base)/mode/cmd M" 
  *      M indica uno de los posibles modos de funcionamiento:
  *      M=0 Estructura apagada, sin leds y sin movimiento. En su estado de reposo. Se desconecta la alimentación de los
  *          servos y de los leds. Se compone de dos estados: StGoingDown, StOff.
  *      M=1..7 Estructura en movimiento y con leds activos. Valores bajos (1,2) implican movimientos lentos y colores
  *          suaves (azulados), mientras que valores altos (6,7) implican movimientos rápidos y colores intensos (rojos).
- *          Se compone de 2 estados: StImplosion (cuando la costilla se reduce en diámetro), StExplosion (cuando se 
- *          expande).
+ *          Se compone de 1 único estado: StWave (se define una forma de onda que afectará al color y al movimiento).
  *      M=8 Estructura en modo de animación. Se compone del único estado StCongratulations que elabora 3 tipos de juego  
  *      de movimientos y luces que se repiten cíclicamente durante un tiempo dado. Cada juego es un subestado del anterior
  *      y se denominan como StCongrat0, StCongrat1, StCongrat2. Los juegos serán armónicos, rápidos e intensos.
@@ -32,26 +31,26 @@
  *      y se denominan como StCondols0, StCondols1, StCondols2. Los juegos serán aleatorios, inconexos, lentos y apagados.
  * 
  *  CONFIGURACION
- *  $(base)/cfg E
+ *  $(base)/cfg/cmd E
  *      Ajusta diferentes parámetros de configuración:
  *      E (enable notifications) Permite activar notificaciones en cada cambio de estado, mediante la publicación en el
  *      topic $(pubbase)/mode M,N siendo M el modo en el que se encuentra y N el subestado. Por ejemplo para notificar
- *      que ha cambiado a modo Congratulations.Congrat2 enviará el mensaje: "$(pubbase)/mode 8,2"
+ *      que ha cambiado a modo Congratulations.Congrat2 enviará el mensaje: "$(pubbase)/mode/stat 8,2"
  *
  *  AJUSTE Y CALIBRACIÓN DE LOS SERVOS
-  *  $(base)/servo/angle S,A
+  *  $(base)/angle/cmd S,A
  *      Mueve el servo S al ángulo A (limitado por rangos min,max)
  *
- *  $(base)/servo/duty S,D
+ *  $(base)/duty/cmd S,D
  *      Mueve el servo S al duty D (sin limitación por rango)
  *
- *   $(base)/servo/info S
+ *   $(base)/info/cmd S
  *      Obtiene información sobre el servo S (rangos min max de ángulo y duty)
  *
- *   $(base)/servo/cal S,Ai,Af,Di,Df
+ *   $(base)/cal/cmd S,Ai,Af,Di,Df
  *      Calibra los rangos del servo S, con ángulo minmax Ai,Af y duty minmax Di,Df.
  *
- *   $(base)/servo/save 0
+ *   $(base)/save/cmd 0
  *      Guarda los datos de calibración de todos los servos en NVFlash
  *
  */

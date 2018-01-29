@@ -32,9 +32,18 @@ ProximityManager::ProximityManager(PinName trig, PinName echo, bool run_thread) 
     _msg = (char*)Heap::memAlloc(32);
     
     // Carga callbacks estáticas de publicación/suscripción    
-    _pub_topic = 0;
-    _sub_topic = 0;
-    _pub_topic_unique = 0;
+    _pub_topic = (char*)Heap::memAlloc(MQ::MQClient::getMaxTopicLen());
+	MBED_ASSERT(_pub_topic);
+	strcpy(_pub_topic,"");
+	
+    _sub_topic = (char*)Heap::memAlloc(MQ::MQClient::getMaxTopicLen());
+	MBED_ASSERT(_sub_topic);
+	strcpy(_sub_topic,"");
+	
+    _pub_topic_unique = (char*)Heap::memAlloc(MQ::MQClient::getMaxTopicLen());
+	MBED_ASSERT(_pub_topic_unique);
+	strcpy(_pub_topic_unique,"");
+	
     _publCb = callback(this, &ProximityManager::publicationCb);   
     _subscrCb = callback(this, &ProximityManager::subscriptionCb);   
     
@@ -53,56 +62,38 @@ ProximityManager::ProximityManager(PinName trig, PinName echo, bool run_thread) 
 //------------------------------------------------------------------------------------
 void ProximityManager::job(uint32_t signals){
     if((signals & DistEventFlag) != 0){                
-        if(_pub_topic_unique){
-            sprintf(_pub_topic_unique, "%s/dist", _pub_topic);
-            sprintf(_msg, "%d,%d", HCSR04::_last_event, HCSR04::_last_dist_cm);
-            MQ::MQClient::publish(_pub_topic_unique, _msg, strlen(_msg)+1, &_publCb);
-        }       
+        sprintf(_pub_topic_unique, "%s/dist/stat", _pub_topic);
+        sprintf(_msg, "%d,%d,%d", HCSR04::_last_event, HCSR04::_last_dist_cm, DistEventFlag);
+        MQ::MQClient::publish(_pub_topic_unique, _msg, strlen(_msg)+1, &_publCb);             
     }    
     
     if((signals & InvalidDistEventFlag) != 0){        
-        if(_pub_topic_unique){
-            sprintf(_pub_topic_unique, "%s/dist/invalid", _pub_topic);
-            sprintf(_msg, "0,%d", HCSR04::_filter.dist_cm[HCSR04::_filter.curr]);
-            MQ::MQClient::publish(_pub_topic_unique, _msg, strlen(_msg)+1, &_publCb);
-        }       
+		sprintf(_pub_topic_unique, "%s/dist/stat", _pub_topic);
+		sprintf(_msg, "0,%d,%d", HCSR04::_filter.dist_cm[HCSR04::_filter.curr], InvalidDistEventFlag);
+		MQ::MQClient::publish(_pub_topic_unique, _msg, strlen(_msg)+1, &_publCb);               
     }    
     
     if((signals & MeasureErrorEventFlag) != 0){        
-        if(_pub_topic_unique){
-            sprintf(_pub_topic_unique, "%s/dist/ERROR", _pub_topic);
-            sprintf(_msg, "0,%d", HCSR04::_last_error);
-            MQ::MQClient::publish(_pub_topic_unique, _msg, strlen(_msg)+1, &_publCb);
-        }       
+		sprintf(_pub_topic_unique, "%s/dist/stat", _pub_topic);
+		sprintf(_msg, "0,%d,%d", HCSR04::_last_error, MeasureErrorEventFlag);
+		MQ::MQClient::publish(_pub_topic_unique, _msg, strlen(_msg)+1, &_publCb);               
     }        
 }
 
 
 //------------------------------------------------------------------------------------
 void ProximityManager::setSubscriptionBase(const char* sub_topic) {
-    if(_sub_topic){
-        DEBUG_TRACE("\r\nProximityManager: ERROR_SUB ya hecha!\r\n");
-        return;
-    }
-    
-    _sub_topic = (char*)sub_topic; 
- 
-    // Se suscribe a $sub_topic/#
-    char* suscr = (char*)Heap::memAlloc(strlen(sub_topic) + strlen("/#")+1);
-    if(suscr){
-        sprintf(suscr, "%s/#", _sub_topic);
-        MQ::MQClient::subscribe(suscr, &_subscrCb);
-        DEBUG_TRACE("\r\nProximityManager: Suscrito a %s/#\r\n", sub_topic);
-    }     
+	MBED_ASSERT(sub_topic);
+    sprintf(_sub_topic, "%s/+/cmd", sub_topic);
+	MQ::MQClient::subscribe(suscr, &_subscrCb);
+    DEBUG_TRACE("\r\nProximityManager: Suscrito a %s\r\n", _sub_topic);        
 }   
 
 
 //------------------------------------------------------------------------------------
 void ProximityManager::setPublicationBase(const char* pub_topic) {
-    _pub_topic = (char*)pub_topic; 
-    if(!_pub_topic_unique){
-        _pub_topic_unique = (char*)Heap::memAlloc(MQ::MQClient::getMaxTopicLen());
-    }
+	MBED_ASSERT(pub_topic);
+    sprintf(_pub_topic, "%s", pub_topic);
 }   
 
 
@@ -148,7 +139,7 @@ void ProximityManager::distEventCb(HCSR04::DistanceEvent ev, int16_t dist){
 //------------------------------------------------------------------------------------
 void ProximityManager::subscriptionCb(const char* topic, void* msg, uint16_t msg_len){
     // si es un comando para ajustar eventos D(cm)I(cm),O(cm),F,R
-    if(MQ::MQClient::isTopicToken(topic, "/config")){
+    if(MQ::MQClient::isTopicToken(topic, "/config/cmd")){
         DEBUG_TRACE("\r\nProximityManager: Topic:%s msg:%s\r\n", topic, msg);
         // obtengo los parámetros del mensaje Tstep y Tmax
         char* data = (char*)Heap::memAlloc(msg_len);
@@ -175,7 +166,7 @@ void ProximityManager::subscriptionCb(const char* topic, void* msg, uint16_t msg
     }
     
     // si es un comando para iniciar un movimiento repetitivo cada T(ms)
-    if(MQ::MQClient::isTopicToken(topic, "/start")){
+    if(MQ::MQClient::isTopicToken(topic, "/start/cmd")){
         DEBUG_TRACE("\r\nProximityManager: Topic:%s msg:%s\r\n", topic, msg);
         // obtengo los parámetros del mensaje Tstep y Tmax
         char* data = (char*)Heap::memAlloc(msg_len);
@@ -193,7 +184,7 @@ void ProximityManager::subscriptionCb(const char* topic, void* msg, uint16_t msg
     }
 
     // si es un comando para detener el movimiento
-    if(MQ::MQClient::isTopicToken(topic, "/stop")){
+    if(MQ::MQClient::isTopicToken(topic, "/stop/cmd")){
         DEBUG_TRACE("\r\nProximityManager: Topic:%s msg:%s\r\n", topic, msg);
         HCSR04::stop();
         return;

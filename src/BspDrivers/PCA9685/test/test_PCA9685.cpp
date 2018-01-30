@@ -54,7 +54,7 @@ void test_PCA9685(){
     //  - Dirección I2C = 0h
     //  - Número de servos controlables = 12 (0 al 11)    
     DEBUG_TRACE("\r\nCreando Driver PCA9685...");    
-    servodrv = new PCA9685_ServoDrv(PB_7, PB_6, SERVO_COUNT, 0);
+    servodrv = new PCA9685_ServoDrv(PB_4, PA_7, SERVO_COUNT, 0);
     
     // espero a que esté listo
     DEBUG_TRACE("\r\n¿Listo?... ");

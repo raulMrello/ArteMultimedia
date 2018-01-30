@@ -85,7 +85,7 @@ void ProximityManager::job(uint32_t signals){
 void ProximityManager::setSubscriptionBase(const char* sub_topic) {
 	MBED_ASSERT(sub_topic);
     sprintf(_sub_topic, "%s/+/cmd", sub_topic);
-	MQ::MQClient::subscribe(suscr, &_subscrCb);
+	MQ::MQClient::subscribe(_sub_topic, &_subscrCb);
     DEBUG_TRACE("\r\nProximityManager: Suscrito a %s\r\n", _sub_topic);        
 }   
 

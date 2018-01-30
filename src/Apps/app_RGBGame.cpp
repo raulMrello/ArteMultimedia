@@ -48,6 +48,7 @@
 #include "MQLib.h"
 #include "TouchManager.h"
 #include "WS281xLedStrip.h"
+#include "PCA9685_ServoDrv.h"
 #include "NVFlash.h"
 
 
@@ -70,8 +71,11 @@ static Logger* logger;
 /** Controlador táctil */
 static TouchManager* touchm;
 
-/** Controlador de proximidad */
+/** Controlador de la tira led */
 static WS281xLedStrip* leddrv;
+
+/** Controlador de los servos */
+static PCA9685_ServoDrv* servodrv;
 
 
 /** Callback para las notificaciones de suscripción */
@@ -81,7 +85,7 @@ static MQ::SubscribeCallback subsc_cb;
 // *********** TEST  ********************************************************
 // **************************************************************************
 
-
+#define NUM_SERVOS		3
 #define NUM_LEDS        54
 #define OFFSET_SAME     5
 #define OFFSET_NEXT     15
@@ -89,6 +93,14 @@ static MQ::SubscribeCallback subsc_cb;
 #define OFFSET_GREEN    5
 #define OFFSET_BLUE     10
 
+struct MinMax8_t {
+	uint8_t min;
+	uint8_t max;
+};
+
+static MinMax8_t servo_minmax;
+static uint8_t servo_id[] = {4, 9, 14};
+static uint8_t angles[NUM_LEDS];
 static WS281xLedStrip::Color_t strip[NUM_LEDS];
 static WS281xLedStrip::Color_t color_max;
 static WS281xLedStrip::Color_t color_min;
@@ -190,8 +202,7 @@ void app_RGBGame(){
     //  - Dirección I2C = 0h
     //  - Número de leds controlables = NUM_LEDS    
     DEBUG_TRACE("\r\nCreando Driver WS281x...");    
-    leddrv = new WS281xLedStrip(PA_8, 800000, NUM_LEDS);
-    
+    leddrv = new WS281xLedStrip(PA_8, 800000, NUM_LEDS);	
         
     // elijo un color base, por ejemplo rojo
     DEBUG_TRACE("\r\nElijo color rojo como color base... ");
@@ -199,17 +210,31 @@ void app_RGBGame(){
     color_max.red = 0; color_max.green = 0; color_max.blue = 255;            
     color_min.red = 0; color_min.green = 0; color_min.blue = 1;   
 
-    int i;
-    for(i=0;i<NUM_LEDS;i++){
-        strip[i] = color_min;
-        leddrv->applyColor(i, strip[i]);
-    }
+    
+    // --------------------------------------
+    // Creo driver de control para los servos
+    DEBUG_TRACE("\r\nCreando Driver PCA9685_ServoDrv...");    
+    servodrv = new PCA9685_ServoDrv(PB_4, PA_7, NUM_SERVOS);
+	servo_minmax = (MinMax8_t){0, 80};
+			
+	
     // --------------------------------------
     // Inicio aplicación
     DEBUG_TRACE("\r\n ------ APPLICATION RUNNING ------- ");
     disabled = false;
     update = false;
+	// Inicializa leds y servos
+    int i;
+    for(i=0;i<NUM_LEDS;i++){
+        strip[i] = color_min;
+        leddrv->applyColor(i, strip[i]);
+		angles[i] = servo_minmax.min;
+    }
+	for(i=0;i<NUM_SERVOS;i++){
+		servodrv->setServoAngle(i, angles[servo_id[i]]);
+    }	
     leddrv->start();
+	servodrv->updateAll();
 
     // continuamente, cada 50ms actualizo el wave propagándolo hacia el final de la tira    
     int8_t point = -1;
@@ -224,7 +249,12 @@ void app_RGBGame(){
             for(i=0;i<NUM_LEDS;i++){
                 strip[i] = color_min;
                 leddrv->applyColor(i, strip[i]);
+				angles[i] = servo_minmax.min;
             }
+			for(i=0;i<NUM_SERVOS;i++){
+				servodrv->setServoAngle(i, angles[servo_id[i]]);
+            }
+			servodrv->updateAll();			
             update = false;
         }
         // actualiza el punto de cresta
@@ -285,11 +315,19 @@ void app_RGBGame(){
         strip[10].green = strip[0].green;
         strip[10].blue = strip[0].blue;
         
+		for(i=NUM_LEDS-1;i>0;i--){
+			angles[i] = angles[i-1];
+		}
+		angles[0] = wavePoint(point, servo_minmax.max, servo_minmax.min);
+		for(i=0;i<NUM_SERVOS;i++){
+			servodrv->setServoAngle(i, angles[servo_id[i]]);
+		}
         // actualiza la tira
         for(i=0;i<NUM_LEDS;i++){        
             leddrv->applyColor(i, strip[i]);
         }       
+		// actualiza los servos
+		servodrv->updateAll();
     }    
-    
 }
 

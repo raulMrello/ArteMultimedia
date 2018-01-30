@@ -101,6 +101,7 @@ struct MinMax8_t {
 static MinMax8_t servo_minmax;
 static uint8_t servo_id[] = {4, 9, 14};
 static uint8_t angles[NUM_LEDS];
+
 static WS281xLedStrip::Color_t strip[NUM_LEDS];
 static WS281xLedStrip::Color_t color_max;
 static WS281xLedStrip::Color_t color_min;
@@ -215,6 +216,22 @@ void app_RGBGame(){
     // Creo driver de control para los servos
     DEBUG_TRACE("\r\nCreando Driver PCA9685_ServoDrv...");    
     servodrv = new PCA9685_ServoDrv(PB_4, PA_7, NUM_SERVOS);
+    // espero a que esté listo
+    DEBUG_TRACE("\r\n¿Listo?... ");
+    do{
+        Thread::wait(1);
+    }while(servodrv->getState() != PCA9685_ServoDrv::Ready);
+    DEBUG_TRACE(" OK");
+    
+    // establezco rangos de funcionamiento y marco como deshabilitaos
+    DEBUG_TRACE("\r\nAjustando rangos... ");
+    for(uint8_t i=0;i<NUM_SERVOS;i++){
+        if(servodrv->setServoRanges(i, 0, 180, 1000, 2000) != PCA9685_ServoDrv::Success){
+            DEBUG_TRACE("ERR_servo_%d\r\n...", i);
+        }            
+    }
+    DEBUG_TRACE("OK");
+
 	servo_minmax = (MinMax8_t){0, 80};
 			
 	
@@ -320,7 +337,7 @@ void app_RGBGame(){
 		}
 		angles[0] = wavePoint(point, servo_minmax.max, servo_minmax.min);
 		for(i=0;i<NUM_SERVOS;i++){
-			servodrv->setServoAngle(i, angles[servo_id[i]]);
+			servodrv->setServoAngle(i, angles[servo_id[0]]);
 		}
         // actualiza la tira
         for(i=0;i<NUM_LEDS;i++){        

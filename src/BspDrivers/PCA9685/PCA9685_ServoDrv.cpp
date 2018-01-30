@@ -161,12 +161,18 @@ PCA9685_ServoDrv::PCA9685_ServoDrv(PinName sda, PinName scl, uint8_t numServos, 
         _maxDuty[i] = 4095;
         _dutyValue[i] = 0;
     }
-    
-    // chequea si el dispositivo está presente
-    if (_i2c->write(_addr, NULL, 0) != 0){
-        _stat = NotPresent;
-        return;
-    }
+	init();
+
+ }
+
+
+//------------------------------------------------------------------------------------
+void PCA9685_ServoDrv::init(){
+//	    // chequea si el dispositivo está presente
+//    if (_i2c->write(_addr, NULL, 0) != 0){
+//        _stat = NotPresent;
+//        return;
+//    }
     
     // establece configuración por defecto para el driver:
     //  * Auto-incremento activado
@@ -205,7 +211,7 @@ PCA9685_ServoDrv::PCA9685_ServoDrv(PinName sda, PinName scl, uint8_t numServos, 
         return;
     }
     _stat = Ready;
- }
+}
 
 
 //------------------------------------------------------------------------------------

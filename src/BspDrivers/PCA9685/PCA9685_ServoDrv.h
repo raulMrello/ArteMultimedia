@@ -66,6 +66,10 @@ class PCA9685_ServoDrv{
     /** Destructor
     */
     ~PCA9685_ServoDrv();
+	
+	/** Inicializa el driver
+	 */
+	void init();
     
     
     /** Devuelve el estado del chip

@@ -29,7 +29,8 @@ extern void test_MPR121();
 
 typedef void(*CapabilityCallback)();
 static CapabilityCallback capability_list[] = {
-    app_RGBGame,
+    test_PCA9685,
+//    app_RGBGame,
     NULL,
     test_WS281x,
     app_Countdown,
@@ -41,7 +42,6 @@ static CapabilityCallback capability_list[] = {
     test_ProximityManager,
     test_MPR121,
     test_HCSR04, 
-    test_PCA9685,
 //    program_ESP8266,
     NULL};
 

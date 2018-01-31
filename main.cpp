@@ -29,10 +29,10 @@ extern void test_MPR121();
 
 typedef void(*CapabilityCallback)();
 static CapabilityCallback capability_list[] = {
-    test_PCA9685,
-//    app_RGBGame,
+    app_RGBGame,
     NULL,
     test_WS281x,
+    test_PCA9685,
     app_Countdown,
     test_TouchManager,
     test_MQNetBridge,

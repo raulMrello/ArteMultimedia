@@ -6,6 +6,16 @@ Proyecto plantilla para desarrollos con la tarjeta NUCLEO_L432KC de ST en mbed-o
 ## Changelog
 
 
+*31.01.2018*
+>**"Corrijo funcionamiento del driver PCA9685"**
+>
+- [x] Corrijo activación de los servos ya que no estaba bien calculado el duty en setServoAngle.
+- [!] Cambiando topics en cyberribs. REVISAR
+- [ ] Definir los diferentes modos de juego mediante comando mq: xrinst/rgbgame/select/cmd.
+- [ ] Actualizar todos los repos paralelos.
+  
+
+-------------------
 *30.01.2018*
 >**"Modificando app_RGBGame con servos"**
 >

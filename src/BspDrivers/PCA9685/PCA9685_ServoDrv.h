@@ -67,11 +67,7 @@ class PCA9685_ServoDrv{
     */
     ~PCA9685_ServoDrv();
 	
-	/** Inicializa el driver
-	 */
-	void init();
-    
-    
+
     /** Devuelve el estado del chip
      *  @return Estado del chip
      */
@@ -83,31 +79,11 @@ class PCA9685_ServoDrv{
      * @param servoId Servo id (0 to 15)
      * @param min_angle Mínimo ángulo
      * @param max_angle Maximo ángulo
-     * @param min_duty Mínimo duty
-     * @param max_duty Maximo duty
+     * @param min_us Mínimo tiempo en microseg (ej 1000)
+     * @param max_us Maximo tiempo en microseg (ej 2000)
      * @return error code 
      */
-    ErrorResult setServoRanges(uint8_t servoId, int16_t min_angle, int16_t max_angle, uint16_t min_duty, uint16_t max_duty);
-    
-    
-    
-    /** Establece un ángulo para un servo concreto y opcionalmente actualiza el chip para que tome valor
-     *  de forma instantánea
-     * @param servoId Servo id (0 to 15)
-     * @param angle Angulo entre 0 y 180
-     * @param update True (escribe en chip), False (sólo actualiza variable)
-     * @return error code 
-     */
-    ErrorResult setServoAngle(uint8_t servoId, uint8_t angle, bool update=false);
-    
-
-    /** Establece el pulso de un canal pwm
-     * @param servoId Servo id (0 to 15)
-     * @param duty  Duty value (0 to 4096) 
-     * @param update True (escribe en chip), False (sólo actualiza variable)
-     * @return error code 
-     */
-    ErrorResult setServoDuty(uint8_t servoId, uint16_t duty, bool update=false);    
+    ErrorResult setServoRanges(uint8_t servoId, int16_t min_angle, int16_t max_angle, uint16_t min_us, uint16_t max_us);
     
     
     /** Lee los rangos mínimo y máximo del pulso pwm en us para un canal pwm
@@ -121,11 +97,31 @@ class PCA9685_ServoDrv{
     ErrorResult getServoRanges(uint8_t servoId, int16_t* min_angle, int16_t* max_angle, uint16_t* min_duty, uint16_t* max_duty);
     
     
+    
+    /** Establece un ángulo para un servo concreto y opcionalmente actualiza el chip para que tome valor
+     *  de forma instantánea
+     * @param servoId Servo id (0 to 15)
+     * @param angle Angulo entre 0 y 180
+     * @param update True (escribe en chip), False (sólo actualiza variable)
+     * @return error code 
+     */
+    ErrorResult setServoAngle(uint8_t servoId, uint8_t angle, bool update=false);
+    
+    
     /** Obtiene el ángulo para un servo concreto
      * @param servoId Servo id (0 to 15)
      * @return angle Obtiene el Ángulo entre 0 y 180
      */
     uint8_t getServoAngle(uint8_t servoId);
+    
+
+    /** Establece el pulso de un canal pwm
+     * @param servoId Servo id (0 to 15)
+     * @param duty  Duty value (0 to 4096) 
+     * @param update True (escribe en chip), False (sólo actualiza variable)
+     * @return error code 
+     */
+    ErrorResult setServoDuty(uint8_t servoId, uint16_t duty, bool update=false);    
 
 
     /** Lee el pulso de un canal pwm
@@ -183,21 +179,19 @@ class PCA9685_ServoDrv{
      *  Lee los datos NVData
      *  @param data Recibe los datos NV de recuperación
      */
-    void getNVData(uint32_t* data); 
+    void getNVData(void* data); 
     
-    
-  protected:
-    static const uint16_t MaxAllowedDuty = 4095;    /// Valor máximo del duty
-        
-    /** Estructura de datos con los parámetros de calibración */    
+ /** Estructura de datos con los parámetros de calibración */    
     struct NVData_t{
         int16_t minAngle[ServoCount];
         int16_t maxAngle[ServoCount];
         uint16_t minDuty[ServoCount];
         uint16_t maxDuty[ServoCount];
         uint32_t crc32;
-    };
-
+    };   
+    
+  protected:
+    static const uint16_t MaxAllowedDuty = 4095;    /// Valor máximo del duty
   
     int16_t     _minAngle[ServoCount];          /// Rango inferior en grados para cada servo
     int16_t     _maxAngle[ServoCount];          /// Rango superior en grados por servo

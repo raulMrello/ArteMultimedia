@@ -161,13 +161,7 @@ PCA9685_ServoDrv::PCA9685_ServoDrv(PinName sda, PinName scl, uint8_t numServos, 
         _maxDuty[i] = 4095;
         _dutyValue[i] = 0;
     }
-	init();
 
- }
-
-
-//------------------------------------------------------------------------------------
-void PCA9685_ServoDrv::init(){
     // chequea si el dispositivo está presente
     if (_i2c->write(_addr, NULL, 0) != 0){
         _stat = NotPresent;
@@ -215,7 +209,10 @@ void PCA9685_ServoDrv::init(){
 
 
 //------------------------------------------------------------------------------------
-PCA9685_ServoDrv::ErrorResult PCA9685_ServoDrv::setServoRanges(uint8_t servoId, int16_t min_angle, int16_t max_angle, uint16_t min_duty, uint16_t max_duty){
+PCA9685_ServoDrv::ErrorResult PCA9685_ServoDrv::setServoRanges(uint8_t servoId, int16_t min_angle, int16_t max_angle, uint16_t min_us, uint16_t max_us){
+    uint16_t min_duty, max_duty;
+    min_duty = (min_us * _freq * 4096)/1000000;
+    max_duty = (max_us * _freq * 4096)/1000000;
     // check params to avoid malfunctions
     if(servoId >=ServoCount || min_duty >= max_duty || min_angle >= max_angle || max_duty > MaxAllowedDuty){
         return InvalidArguments;
@@ -227,6 +224,19 @@ PCA9685_ServoDrv::ErrorResult PCA9685_ServoDrv::setServoRanges(uint8_t servoId, 
     return Success;
 }
 
+
+//------------------------------------------------------------------------------------
+PCA9685_ServoDrv::ErrorResult PCA9685_ServoDrv::getServoRanges(uint8_t servoId, int16_t* min_angle, int16_t* max_angle, uint16_t* min_duty, uint16_t* max_duty){
+    // check params to avoid malfunctions
+    if(servoId >=ServoCount){
+        return InvalidArguments;
+    }    
+    *min_angle = _minAngle[servoId];
+    *max_angle = _maxAngle[servoId];
+    *min_duty = _minDuty[servoId];
+    *max_duty = _maxDuty[servoId];    
+    return Success;
+}
 
 //------------------------------------------------------------------------------------
 PCA9685_ServoDrv::ErrorResult PCA9685_ServoDrv::setServoAngle(uint8_t servoId, uint8_t angle, bool update){
@@ -289,19 +299,6 @@ PCA9685_ServoDrv::ErrorResult PCA9685_ServoDrv::setServoDuty(uint8_t servoId, ui
     return Success;
 } 
 
-
-//------------------------------------------------------------------------------------
-PCA9685_ServoDrv::ErrorResult PCA9685_ServoDrv::getServoRanges(uint8_t servoId, int16_t* min_angle, int16_t* max_angle, uint16_t* min_duty, uint16_t* max_duty){
-    // check params to avoid malfunctions
-    if(servoId >=ServoCount){
-        return InvalidArguments;
-    }    
-    *min_angle = _minAngle[servoId];
-    *max_angle = _maxAngle[servoId];
-    *min_duty = _minDuty[servoId];
-    *max_duty = _maxDuty[servoId];    
-    return Success;
-}
 
 //------------------------------------------------------------------------------------
 uint8_t PCA9685_ServoDrv::getServoAngle(uint8_t servoId){
@@ -402,7 +399,7 @@ int PCA9685_ServoDrv::setNVData(void* data) {
 
 
 //------------------------------------------------------------------------------------
-void PCA9685_ServoDrv::getNVData(uint32_t* data) {    
+void PCA9685_ServoDrv::getNVData(void* data) {    
     NVData_t* nvdata = (NVData_t*)data;
     uint32_t crc = 0;
     for(uint8_t i=0; i<PCA9685_ServoDrv::ServoCount; i++){

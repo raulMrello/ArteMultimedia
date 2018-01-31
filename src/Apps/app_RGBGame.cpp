@@ -20,6 +20,7 @@
  *
  *  TouchManager (TM): Controlando 9 pads capacitivos, utiliza los pines I2C (PB_7, PB_6) e IRQ (PB_1)
  *  WS281xLedStrip (WLS): Controlando  la tira de leds [ pin (PA_8)].
+ *  PCA9685_ServoDrv (SRV): Controlando los servos (PB_4, PA_7)
  *
  *  El pinout, por lo tanto queda como sigue:
  *                             _______________________________
@@ -28,7 +29,7 @@
  *                            |NRST                       NRST|
  *                       0V-->|GND                          5V|
  *                            |D2(PA_12)              (PA_2)A7|
- *                            |D3(PB_0)               (PA_7)A6| 
+ *                            |D3(PB_0)               (PA_7)A6|-->[CR.scl] 
  *                 [TM.sda]<->|D4(PB_7)     mbed      (PA_6)A5|
  *                 [TM.scl]<--|D5(PB_6)    LK432KC    (PA_5)A4|
  *                 [TM.irq]-->|D6(PB_1)               (PA_4)A3|
@@ -37,7 +38,7 @@
  *                [WLS.pwm]<--|D9(PA_8)               (PA_0)A0| 
  *                            |D10(PA_11)                 AREF|
  *                            |D11(PB_5)                  3.3V|-->VDD
- *                            |D12(PB_4)             (PB_3)D13|
+ *                [CR.sda]<-->|D12(PB_4)             (PB_3)D13|
  *                            |_______________________________|
  *
  */
@@ -187,7 +188,7 @@ void app_RGBGame(){
     touchm = new TouchManager(PB_7, PB_6, PB_1, 0x1ff);
     touchm->setDebugChannel(logger);
     while(!touchm->ready()){
-        Thread::yield();
+        Thread::wait(1);
     }
     DEBUG_TRACE("OK!");    
     
@@ -226,7 +227,7 @@ void app_RGBGame(){
     // establezco rangos de funcionamiento y marco como deshabilitaos
     DEBUG_TRACE("\r\nAjustando rangos... ");
     for(uint8_t i=0;i<NUM_SERVOS;i++){
-        if(servodrv->setServoRanges(i, 0, 180, 1000, 2000) != PCA9685_ServoDrv::Success){
+        if(servodrv->setServoRanges(i, 0, 180, 800, 2200) != PCA9685_ServoDrv::Success){
             DEBUG_TRACE("ERR_servo_%d\r\n...", i);
         }            
     }

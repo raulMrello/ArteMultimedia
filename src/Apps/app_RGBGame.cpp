@@ -88,6 +88,7 @@ static MQ::SubscribeCallback subsc_cb;
 
 #define NUM_SERVOS		3
 #define NUM_LEDS        54
+#define NUM_STEPS		18
 #define OFFSET_SAME     5
 #define OFFSET_NEXT     15
 #define OFFSET_RED      0
@@ -101,7 +102,8 @@ struct MinMax8_t {
 
 static MinMax8_t servo_minmax;
 static uint8_t servo_id[] = {4, 9, 14};
-static uint8_t angles[NUM_LEDS];
+static uint8_t angles[NUM_STEPS];
+static uint32_t ms_delay = 50;
 
 static WS281xLedStrip::Color_t strip[NUM_LEDS];
 static WS281xLedStrip::Color_t color_max;
@@ -143,16 +145,19 @@ static void subscCallback(const char* topic, void* msg, uint16_t msg_len){
         if(elec && value){
             if(value == 1){
                 if(elec < 3){
+					ms_delay = 50 + (elec - 1)*25;
                     DEBUG_TRACE("\r\nCOLOR ROJO");
                     color_next_max.red = 255; color_next_max.green = 0; color_next_max.blue = 0;            
                     color_next_min.red = 1; color_next_min.green = 0; color_next_min.blue = 0;
                 }
                 else if(elec < 6){
+					ms_delay = 50 + (elec - 4)*25;
                     DEBUG_TRACE("\r\nCOLOR VERDE");
                     color_next_max.red = 0; color_next_max.green = 255; color_next_max.blue = 0;            
                     color_next_min.red = 0; color_next_min.green = 1; color_next_min.blue = 0;
                 }
                 else{
+					ms_delay = 50 + (elec - 7)*25;
                     DEBUG_TRACE("\r\nCOLOR AZUL");
                     color_next_max.red = 0; color_next_max.green = 0; color_next_max.blue = 255;            
                     color_next_min.red = 0; color_next_min.green = 0; color_next_min.blue = 1;
@@ -241,13 +246,17 @@ void app_RGBGame(){
     DEBUG_TRACE("\r\n ------ APPLICATION RUNNING ------- ");
     disabled = false;
     update = false;
+	ms_delay = 50;
 	// Inicializa leds y servos
     int i;
     for(i=0;i<NUM_LEDS;i++){
         strip[i] = color_min;
         leddrv->applyColor(i, strip[i]);
-		angles[i] = servo_minmax.min;
     }
+	for(i=0;i<NUM_STEPS;i++){
+        angles[i] = servo_minmax.min;
+    }
+	
 	for(i=0;i<NUM_SERVOS;i++){
 		servodrv->setServoAngle(i, angles[servo_id[i]]);
     }	
@@ -267,8 +276,11 @@ void app_RGBGame(){
             for(i=0;i<NUM_LEDS;i++){
                 strip[i] = color_min;
                 leddrv->applyColor(i, strip[i]);
+            }
+			for(i=0;i<NUM_STEPS;i++){
 				angles[i] = servo_minmax.min;
             }
+			
 			for(i=0;i<NUM_SERVOS;i++){
 				servodrv->setServoAngle(i, angles[servo_id[i]]);
             }
@@ -277,13 +289,13 @@ void app_RGBGame(){
         }
         // actualiza el punto de cresta
         point++;
-        point = (point >= NUM_LEDS+16)? 0 : point;
+        point = (point >= NUM_STEPS+16)? 0 : point;
         // la primera vez espera 2s y luego actualiza cada 100ms
         if(point==0){
             Thread::wait(2000);
         }
         else{
-            Thread::wait(50);
+            Thread::wait(ms_delay);
         }
         // propaga colores por la tira
         // disco superior
@@ -333,12 +345,12 @@ void app_RGBGame(){
         strip[10].green = strip[0].green;
         strip[10].blue = strip[0].blue;
         
-		for(i=NUM_LEDS-1;i>0;i--){
+		for(i=NUM_STEPS-1;i>0;i--){
 			angles[i] = angles[i-1];
 		}
 		angles[0] = wavePoint(point, servo_minmax.max, servo_minmax.min);
 		for(i=0;i<NUM_SERVOS;i++){
-			servodrv->setServoAngle(i, angles[servo_id[0]]);
+			servodrv->setServoAngle(i, angles[servo_id[i]]);
 		}
         // actualiza la tira
         for(i=0;i<NUM_LEDS;i++){        

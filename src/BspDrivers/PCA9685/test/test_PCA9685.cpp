@@ -105,7 +105,7 @@ void test_PCA9685(){
     
     // situo todos a 0º y doy la orden sincronizada
     DEBUG_TRACE("\r\nGirando servos a 10º cada segundo... ");
-    for(int s=0;s<=180;s=s+45){
+    for(int s=0;s<=80;s=s+10){
         for(uint8_t i=0;i<SERVO_COUNT;i++){
             if(servodrv->setServoAngle(i, s) != PCA9685_ServoDrv::Success){
                 DEBUG_TRACE("\r\nERR_servo_%d", i);
@@ -133,7 +133,8 @@ void test_PCA9685(){
                 DEBUG_TRACE("\r\nREAD_DUTY %d duty=%dº", i, duty);
                 DEBUG_TRACE("\r\n\t[x] - readServoDuty");
             }
-        }       
+        } 
+		Thread::wait(500);
      }
     DEBUG_TRACE("\r\nNV_DATASIZE = %d", servodrv->getNVDataSize()); 
     DEBUG_TRACE("\r\n\t[x] - getNVDataSize");        

@@ -131,10 +131,10 @@ int32_t List<T>::removeItem(T* item){
     if(!item){
         return(NULL_POINTER);
     }
-    ListItem* listitem = _first;
-		if(!listitem){
-			return(ITEM_NOT_FOUND);
-		}
+    if(!_first){
+        return(ITEM_NOT_FOUND);
+    }
+    ListItem* listitem = _first;    
     do{
         if(listitem->item == item){
             //apunta al siguiente

@@ -6,6 +6,18 @@ Proyecto plantilla para desarrollos con la tarjeta NUCLEO_L432KC de ST en mbed-o
 ## Changelog
 
 
+*12.02.2018*
+>**"Rehaciendo RGBGame"**
+>
+- [x] codificando la clase...
+- [ ] Incluir MQTT
+- [ ] Cablear VCC al módulo para arranque al conectar.
+- [!] Cambiando topics en cyberribs. REVISAR
+- [ ] Definir los diferentes modos de juego mediante comando mq: xrinst/rgbgame/select/cmd.
+- [ ] Actualizar todos los repos paralelos.
+  
+
+-------------------
 *09.02.2018*
 >**"Diseñando RGBGame"**
 >

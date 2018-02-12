@@ -30,19 +30,21 @@
 
 #include "mbed.h"
 #include "ActiveModule.h"
+#include "WS281xLedStrip.h"
+#include "PCA9685_ServoDrv.h"
 
 
    
 class RGBGame : public ActiveModule {
   public:
-
-    static const uint32_t MaxNumMessages = 16;		//!< Máximo número de mensajes procesables en el Mailbox del componente
               
     /** Constructor por defecto
+     * 	@param ld Led driver
+     * 	@param sd Servo driver
      * 	@param fs Objeto FSManager para operaciones de backup
      * 	@param defdbg Flag para habilitar depuración por defecto
      */
-    RGBGame(FSManager* fs, bool defdbg = false);
+    RGBGame(WS281xLedStrip* ls, PCA9685_ServoDrv* sd, FSManager* fs, bool defdbg = false);
 
 
     /** Destructor
@@ -57,11 +59,9 @@ class RGBGame : public ActiveModule {
 
     /** Flags de operaciones a realizar por la tarea */
     enum MsgEventFlags{
-    	TouchEvt = (State::EV_RESERVED_USER << 0),  /// Flag al recibir un evento touch
+    	TouchPressEvt 	= (State::EV_RESERVED_USER << 0),  /// Flag al recibir un evento touch-press
+    	TouchReleaseEvt = (State::EV_RESERVED_USER << 1),  /// Flag al recibir un evento touch-release
     };
-
-    /** Flag para la activación de la depuración por defecto */
-    bool _defdbg;
 
     /** Cola de mensajes de la máquina de estados */
     Queue<State::Msg, MaxQueueMessages> _queue;
@@ -72,6 +72,16 @@ class RGBGame : public ActiveModule {
 		uint8_t speed;		// Velocidad de 0..100
 	};
 	Config _cfg;
+	
+	/** Temporización (microseg) para salir del estado por timeout */
+	uint32_t _timeout;
+	int32_t _acc_timeout;
+	
+	/** Gestor de la tira led */
+	WS281xLedStrip* _ls;
+	
+	/** Gestor de los servos */
+	PCA9685_ServoDrv* _sd;
 
 
     /** Interfaz para postear un mensaje de la máquina de estados en el Mailbox de la clase heredera

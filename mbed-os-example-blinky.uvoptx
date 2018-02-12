@@ -9803,7 +9803,7 @@
 
   <Group>
     <GroupName>Drivers/WS281xLedStrip</GroupName>
-    <tvExp>0</tvExp>
+    <tvExp>1</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -9911,7 +9911,7 @@
 
   <Group>
     <GroupName>Drivers/PCA9685</GroupName>
-    <tvExp>0</tvExp>
+    <tvExp>1</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>

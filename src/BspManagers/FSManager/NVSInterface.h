@@ -59,8 +59,21 @@ class NVSInterface{
      *  @return _name Nombre asignado
      */
     const char* getName() { return _name; }
-  
-  
+
+
+    /** Abre el handle para realizar varias operaciones en bloque
+     *
+     * @return True: Handle abierto, False: Handle no abierto (error)
+     */
+    virtual bool open() = 0;
+
+
+    /** cierra el handle
+     *
+     */
+    virtual void close() = 0;
+
+
     /** save
      *  Graba datos en memoria no volátil de acuerdo a un identificador dado
      *  @param data_id Identificador de los datos a grabar

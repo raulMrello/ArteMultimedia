@@ -24,7 +24,6 @@
 
 /** Librerías relativas a módulos software */
 #include "MQLib.h"
-#include "Logger.h"
 #include "MPR121_CapTouch.h"
 
 
@@ -80,7 +79,7 @@ class TouchManager : public MPR121_CapTouch{
      *  Instala canal de depuración
      *  @param dbg Logger
      */
-    void setDebugChannel(Logger* dbg){ _debug = dbg; }
+    void setDebugChannel(bool dbg){ _debug = dbg; }
     
 	
     /** @fn job
@@ -120,7 +119,7 @@ class TouchManager : public MPR121_CapTouch{
     uint32_t    _timeout;               /// Manejador de timming en la tarea
     char*       _pub_topic;             /// Topic base para la publicación
     char        _msg[8];                /// Mensaje a publicar
-    Logger*     _debug;                 /// Canal de depuración
+    bool        _debug;                 /// Canal de depuración
     uint16_t    _curr_sns;              /// Valor actual de los sensores
     uint16_t    _sns;                   /// Valor de la medida en curso
     bool   _ready;                      /// Flag de estado disponible    

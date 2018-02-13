@@ -1,76 +1,109 @@
 /*
- * NVSInterface.h
+ * FSManager.h
  *
- *  Created on: Ene 2018
+ *  Created on: Sep 2017
  *      Author: raulMrello
  *
- *	NVSInterface es un módulo que proporciona un interfaz básico para almacenar y recuperar pares KEY-VALUE de una
- *  zona de memoria no volátil. 
+ *	FSManager es el módulo encargado de gestionar el acceso al sistema de ficheros. Es una implementación de la clase
+ *  FATFileSystem, heredando por lo tanto sus miembros públicos.
+ *  El soporte del sistema de ficheros corre sobre una memoria NOR-Flash SPI SST6VFX de Microchip y por lo tanto se
+ *  implementa un SPIFBlockDevice.
  *
+ *  Este módulo se ejecuta como una librería pasiva, es decir, corriendo en el contexto del objeto llamante, y por lo
+ *  tanto carece de thread asociado
  */
  
-#ifndef __NVSInterface__H
-#define __NVSInterface__H
+#ifndef __FSManager__H
+#define __FSManager__H
 
 #include "mbed.h"
+#include "Heap.h"
+#if __MBED__ == 1
+#include "NVFlash.h"
+#endif
 #include "NVSInterface.h"
 
-class FSManager : public NVSInterface {
+
+class FSManager : public NVSInterface{
   public:
 
-	/** KeyValueType
-	 * 	Tipo de datos almacenables en el sistema KEY-VALUE
-	 */
-	enum KeyValueType{
-		TypeUint8, //!< TypeUint8
-		TypeInt8,  //!< TypeInt8
-		TypeUint16,//!< TypeUint16
-		TypeInt16, //!< TypeInt16
-		TypeUint32,//!< TypeUint32
-		TypeInt32, //!< TypeInt32
-		TypeUint64,//!< TypeUint64
-		TypeInt64, //!< TypeInt64
-		TypeString,//!< TypeString
-		TypeBlob   //!< TypeBlob
-	};
-              
     /** Constructor
-     *  Crea el gestor del sistema NVS asociando un nombre
+     *  Crea el gestor del sistema de ficheros, que puede ser un sistema FAT o un sistema KEY-VALUE. Al cual se le
+     *  asocia un nombre y en el caso de utilizar una SPI_FLASH externa, los gpio del puerto spi utilizado
      *  @param name Nombre del sistema de ficheros
+     *  @param mosi Salida de datos SPI. Por defecto no utilizado (NC)
+     *  @param miso Entrada de datos SPI. Por defecto no utilizado (NC)
+     *  @param sclk Reloj SPI en modo master. Por defecto no utilizado (NC)
+     *  @param csel Salida NSS en modo master gestionada por hardware. Por defecto no utilizado (NC)
+     *  @param freq Frecuencia SPI (40MHz o 20MHz dependiendo del puerto utilizado).. Por defecto no utilizado (0)
+     *  @param defdbg Flag para activar o desactivar el canal de depuración por defecto
      */
-    FSManager(const char *name) : NVSInterface(name){
-		_ready = true;
+    FSManager(const char *name, PinName mosi=NC, PinName miso=NC, PinName sclk=NC, PinName csel=NC, int freq=0, bool defdbg = false) : NVSInterface(name){
+        _ready = false;
+        _defdbg = defdbg;
+        // inicializo
+        _mtx.lock();
+        init();
+        _mtx.unlock();
     }
   
+    virtual ~FSManager(){
+    }
   
     /** init
      *  Inicializa el sistema de ficheros
      *  @return 0 (correcto), <0 (código de error)
      */
     virtual int init(){
-		return 0;
-	}
+        #if __MBED__ == 1
+        NVFlash::init();
+        #endif
+        _ready = true;
+        return 0;
+    }
+    
+
+
+	/** Habilita canal de depuración por defecto <printf>
+     *  @param endis Flag para activar o desactivar el canal de depuración por defecto
+     */
+    void setDebugChannel(bool defdbg) {_defdbg = defdbg; }
+  
   
     /** ready
      *  Chequea si el sistema de ficheros está listo
      *  @return True (si tiene formato) o False (si tiene errores)
      */
-    virtual bool ready() {
-		return _ready;
-	}
+    virtual bool ready() {return _ready; }
+
+
+    /** Abre el handle para realizar varias operaciones en bloque
+     *
+     * @return True: Handle abierto, False: Handle no abierto (error)
+     */
+    virtual bool open(){
+        return true;
+    }
+
+
+    /** cierra el handle
+     *
+     */
+    virtual void close(){
+    }
   
-  
+
     /** save
      *  Graba datos en memoria no volátil de acuerdo a un identificador dado
      *  @param data_id Identificador de los datos a grabar
      *  @param data  Puntero a los datos 
      *  @param size Tamaño de los datos en bytes
      *  @param type tipo de dato
-     *  @return Número de bytes escritos
+     *  @return Resultado de la operación (error=-1, num_datos_escritos >= 0)
      */   
-    virtual int save(const char* data_id, void* data, uint32_t size, KeyValueType type){
-		return 0;
-	}
+    virtual int save(const char* data_id, void* data, uint32_t size, NVSInterface::KeyValueType type){
+        return 0;
+    }
   
   
     /** restore
@@ -79,15 +112,35 @@ class FSManager : public NVSInterface {
      *  @param data  Puntero que recibe los datos recuperados
      *  @param size Tamaño máximo de datos a recuperar
      *  @param type tipo de dato
-     *  @return Número de bytes leídos.
+     *  @return Resultado de la operación (error=-1, num_datos recuperados >= 0)
      */   
-    virtual int restore(const char* data_id, void* data, uint32_t size, KeyValueType type){
-		return 0;
-	}
-    
-  protected:
+    virtual int restore(const char* data_id, void* data, uint32_t size, NVSInterface::KeyValueType type){
+        return 0;
+    }
 
-    bool _ready;
+
+protected:
+
+	/** Flag para habilitar trazas de depuración por defecto */
+	bool _defdbg;
+
+	/** Mutex de acceso al sistema NVS */
+	Mutex _mtx;
+
+private:
+
+	/** Propiedades heredadas de NVSInterface */
+	// const char* _name;          /// Nombre del sistema de ficheros
+	// int _error;                 /// Último error registrado
+
+	#if __MBED__ == 1
+	typedef int nvs_handle;
+	#endif
+	nvs_handle _handle;
+
+	/** Flag para indicar el estado del componente */
+	bool _ready;
+
 };
      
 #endif /*__FSManager__H */

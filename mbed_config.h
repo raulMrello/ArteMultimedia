@@ -38,7 +38,7 @@
 #define MBED_CONF_PPP_CELL_IFACE_BAUD_RATE                115200      // set by library:ppp-cell-iface
 #define MBED_CONF_PLATFORM_STDIO_CONVERT_NEWLINES         0           // set by library:platform
 #define MBED_CONF_PPP_CELL_IFACE_AT_PARSER_BUFFER_SIZE    256         // set by library:ppp-cell-iface
-#define MBED_CONF_PLATFORM_STDIO_BAUD_RATE                9600        // set by library:platform
+#define MBED_CONF_PLATFORM_STDIO_BAUD_RATE                115200      // set by library:platform
 #define CLOCK_SOURCE                                      USE_PLL_MSI // set by target:NUCLEO_L432KC
 #define MBED_CONF_EVENTS_SHARED_HIGHPRIO_STACKSIZE        1024        // set by library:events
 #define MBED_CONF_EVENTS_SHARED_HIGHPRIO_EVENTSIZE        256         // set by library:events

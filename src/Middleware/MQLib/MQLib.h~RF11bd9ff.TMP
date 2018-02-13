@@ -122,10 +122,8 @@ typedef const char* Token;
  *  @brief Tipo definido para las callbacs de suscripción
  */
 #if __MBED__ == 1    
-#define PACKED_STRUCT __packed struct
 typedef Callback<void(const char* name, void*, uint16_t)> SubscribeCallback;
 #elif ESP_PLATFORM == 1
-#define PACKED_STRUCT struct __packed 
 typedef Callback<void(const char* name, void*, uint16_t)> SubscribeCallback;
 #else    
 typedef FuncPtr3<void, const char* name, void*, uint16_t> SubscribeCallback;
@@ -159,7 +157,7 @@ enum ErrorResult{
 /** @struct MQ::topic_t
  *  @brief Tipo definido para definir el identificador de un topic
  */
-PACKED_STRUCT topic_t{
+struct __packed topic_t{
     uint8_t tk[MQ::MAX_TOKEN_LEVEL+1];
 };
 

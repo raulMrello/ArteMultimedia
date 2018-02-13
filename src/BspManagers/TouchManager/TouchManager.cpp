@@ -12,7 +12,7 @@
 //--- PRIVATE TYPES ------------------------------------------------------------------
 //------------------------------------------------------------------------------------
 
-#define DEBUG_TRACE(format, ...)    if(_debug){ _debug->printf(format, ##__VA_ARGS__);}
+#define DEBUG_TRACE(format, ...)    if(_debug){ printf(format, ##__VA_ARGS__);}
 
 static void defaultCb(TouchManager::TouchMsg* msg){
 }
@@ -26,7 +26,7 @@ static void defaultCb(TouchManager::TouchMsg* msg){
 //------------------------------------------------------------------------------------
 TouchManager::TouchManager(PinName sda, PinName scl, PinName irq, uint16_t elec_mask, uint8_t addr, bool run_thread) : MPR121_CapTouch(sda, scl, irq, elec_mask, addr){
             
-    _debug = 0;
+    _debug = false;
     _ready = false;
 	_pub_topic = (char*)Heap::memAlloc(MQ::MQClient::getMaxTopicLen());
 	MBED_ASSERT(_pub_topic);

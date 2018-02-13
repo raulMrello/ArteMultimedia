@@ -51,7 +51,7 @@ void test_TouchManager(){
     // Creo driver de control para el medidor de distancia
     DEBUG_TRACE("\r\nCreando Driver de proximidad...");    
     touchman = new TouchManager(PB_7, PB_6, PB_1, 0x1ff);
-    touchman->setDebugChannel(logger);
+    touchman->setDebugChannel(true);
     while(!touchman->ready()){
         Thread::yield();
     }

@@ -1,30 +1,16 @@
 /*
  * MQLib.cpp
  *
- *  Created on: 20/04/2015
- *      Author: raulMrello
+ *  Versión: 13 Feb 2018
+ *  Author: raulMrello
+ *
  */
 
 #include "MQLib.h"
 
 /** Mutex para MQBroker */
 
-// portabilidad a mbed-os
-#if __MBED__ == 1 
-MQ_MUTEX MQ::MQBroker::_mutex;
-
-// portabilidad a esp-idf
-#elif ESP_PLATFORM == 1
-MQ_MUTEX MQ::MQBroker::_mutex;
-
-// portabilidad a cmsis-rtos
-#else 
-osMutexDef (_mutdef);
-MQ_MUTEX MQ_MUTEX_CREATE(void){
-    return osMutexCreate(osMutex(_mutdef));
-}
-#endif
-
+Mutex MQ::MQBroker::_mutex;
 
 /** Lista de topics */
 List<MQ::Topic> * MQ::MQBroker::_topic_list = 0;

@@ -120,7 +120,7 @@ int main() {
     //  - Espera a que esté operativo
     MQ::MQBroker::start(64);
     while(!MQ::MQBroker::ready()){
-        Thread::yield();
+        Thread::wait(1);
     }
     
     // --------------------------------------

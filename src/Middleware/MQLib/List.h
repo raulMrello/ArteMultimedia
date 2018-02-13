@@ -1,8 +1,9 @@
 /*
  * List.h
  *
- *  Created on: Apr 2015
- *  Author:     raulMrello
+ *
+ *  Versión: 2 Feb 2018
+ *  Author: raulMrello
  *
  * 	List es una librería que permite manejar listas de objetos doblemente enlazadas. La lista puede ser limitada en 
  *	tamaño mediante el método "setLimit" de forma que no crezca de forma descontrolada.

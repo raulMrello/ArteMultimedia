@@ -1,8 +1,8 @@
 /*
  * ActiveModule.h
  *
- *  Created on: Ene 2018
- *      Author: raulMrello
+ *  Versión: 13 Feb 2018
+ *  Author: raulMrello
  *
  *	ActiveModule es un interfaz que proporciona características comunes de funcionamiento relativas a los módulos de
  *	gestión de alto nivel.

@@ -1,8 +1,8 @@
 /*
  * ActiveModule.cpp
  *
- *  Created on: Ene 2018
- *      Author: raulMrello
+ *  Versión: 13 Feb 2018
+ *  Author: raulMrello
  */
 
 #include "ActiveModule.h"

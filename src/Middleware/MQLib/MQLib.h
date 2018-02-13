@@ -1,8 +1,8 @@
 /*
  * MQLib.h
  *
- *  Created on: Sep 2017
- *      Author: raulMrello
+ *  Versión: 13 Feb 2018
+ *  Author: raulMrello
  *
  *  MQLib es una librería que proporciona capacidades de publicación-suscripción de forma pasiva, sin necesidad de
  *	utilizar un thread dedicado y siempre corriendo en el contexto del publicador.
@@ -46,7 +46,6 @@
  *
  *  En caso de no utilizar el wildcard "scope", su valor será 0 y se considerará un topic general.
  *
- * 	Versión: 1.0.0-build-17-sep-2017
  */
 
 #ifndef MQLIB_H_
@@ -54,39 +53,11 @@
 
 
 //------------------------------------------------------------------------------------
-#include <string.h>
-#include <stdlib.h>
+#include "mbed.h"
 #include "List.h"
 #include "Heap.h"
 
 //------------------------------------------------------------------------------------
-/** Portabilidad a la API MBED 5.x */
-#if __MBED__ == 1
-#include "rtos.h"
-#define MQ_MUTEX				Mutex
-#define MQ_MUTEX_LOCK()    	 	_mutex.lock(osWaitForever)
-#define MQ_MUTEX_UNLOCK()   	_mutex.unlock()
-
-/** Portabilidad a ESP_IDF */
-#elif ESP_PLATFORM == 1
-#include "mbed.h"
-#include "Mutex.h"
-#include "Callback.h"
-#define MQ_MUTEX				Mutex
-#define MQ_MUTEX_LOCK()    	 	_mutex.lock(osWaitForever)
-#define MQ_MUTEX_UNLOCK()   	_mutex.unlock()
-
-/** Portabilidad a cmsis_os utilizando un módulo Callback adaptado */
-#else
-#include "cmsis_os.h"
-#include "FuncPtr.h"
-#define MQ_MUTEX				osMutexId
-#define MQ_MUTEX_LOCK()        	osMutexWait(_mutex, osWaitForever)
-#define MQ_MUTEX_UNLOCK()      	osMutexRelease(_mutex)
-MQ_MUTEX MQ_MUTEX_CREATE(void);
-
-#endif
-
 #define MQ_DEBUG_TRACE(format, ...)			\
 if(_defdbg){								\
 	printf(format, ##__VA_ARGS__);			\
@@ -121,26 +92,12 @@ typedef const char* Token;
 /** @type MQ::SubscribeCallback
  *  @brief Tipo definido para las callbacs de suscripción
  */
-#if __MBED__ == 1    
-#define PACKED_STRUCT __packed struct
 typedef Callback<void(const char* name, void*, uint16_t)> SubscribeCallback;
-#elif ESP_PLATFORM == 1
-#define PACKED_STRUCT struct __packed 
-typedef Callback<void(const char* name, void*, uint16_t)> SubscribeCallback;
-#else    
-typedef FuncPtr3<void, const char* name, void*, uint16_t> SubscribeCallback;
-#endif
-	
+
 /** @type MQ::PublishCallback
  *  @brief Tipo definido para las callbacs de publicación
  */
-#if __MBED__ == 1    
-typedef Callback<void(const char* name, int32_t)> PublishCallback;
-#elif ESP_PLATFORM == 1
-typedef Callback<void(const char* name, int32_t)> PublishCallback;
-#else
-typedef FuncPtr2<void, const char* name, int32_t> PublishCallback;
-#endif	
+ typedef Callback<void(const char* name, int32_t)> PublishCallback;
 	
 /** @enum ErrorResult
  *  @brief Resultados de error generados por la librería
@@ -159,9 +116,17 @@ enum ErrorResult{
 /** @struct MQ::topic_t
  *  @brief Tipo definido para definir el identificador de un topic
  */
-PACKED_STRUCT topic_t{
+#if __MBED__ == 1    
+__packed struct topic_t{
     uint8_t tk[MQ::MAX_TOKEN_LEVEL+1];
 };
+
+#elif ESP_PLATFORM == 1
+struct __packed topic_t{
+    uint8_t tk[MQ::MAX_TOKEN_LEVEL+1];
+};
+#endif
+ 
 
 
 /** @struct Topic
@@ -232,19 +197,16 @@ public:
         
         // si no hay lista inicial, se crea...
         if(!_topic_list){
-            #if !defined(__MBED__) && ESP_PLATFORM != 1
-            _mutex = MQ_MUTEX_CREATE();
-            #endif
-            MQ_MUTEX_LOCK();
+            _mutex.lock(osWaitForever);
             _topic_list = new List<MQ::Topic>();
 			if(!_topic_list){
-				MQ_MUTEX_UNLOCK();
+				_mutex.unlock();
 				return OUT_OF_MEMORY;
 			}
 			if(token_count > 0){
 				_topic_list->setLimit(token_count);
 			}
-            MQ_MUTEX_UNLOCK();
+            _mutex.unlock();
 			return SUCCESS;
         }
 		return EXISTS;
@@ -277,7 +239,7 @@ public:
         }
         MQ_DEBUG_TRACE("\r\n[MQLib]\t Iniciando suscripción a [%s]", name);
         // Inicia la búsqueda del topic para ver si ya existe
-        MQ_MUTEX_LOCK();
+        _mutex.lock(osWaitForever);
         MQ::Topic * topic = findTopicByName(name);		
 		// si lo encuentra...
         if(topic){
@@ -286,12 +248,12 @@ public:
 			// si no existe, lo añade
 			if(!sbc){
 				err = topic->subscriber_list->addItem(subscriber);
-				MQ_MUTEX_UNLOCK();
+				_mutex.unlock();
 				return err;
 			}
 			// si existe, devuelve el error
 			MQ_DEBUG_TRACE("\r\n[MQLib]\t ERR_SUBSC. El suscriptor ya existe");
-			MQ_MUTEX_UNLOCK();
+			_mutex.unlock();
             return (EXISTS);
         }
 		
@@ -300,14 +262,14 @@ public:
         // si la lista de tokens es automantenida, crea los ids de los tokens no existentes
         if(_tokenlist_internal){
             if(!generateTokens(name)){
-                MQ_MUTEX_UNLOCK();
+                _mutex.unlock();
 				return(OUT_OF_MEMORY);
             }
         }
         // lo crea reservarvando espacio para el topic
         topic = (MQ::Topic*)Heap::memAlloc(sizeof(MQ::Topic));
         if(!topic){
-            MQ_MUTEX_UNLOCK();
+            _mutex.unlock();
             return(OUT_OF_MEMORY);
         }
         
@@ -318,19 +280,19 @@ public:
         // se crea la lista de suscriptores
         topic->subscriber_list = new List<MQ::SubscribeCallback>();
         if(!topic->subscriber_list){
-            MQ_MUTEX_UNLOCK();
+            _mutex.unlock();
             return(OUT_OF_MEMORY);
         }
         
         // y se añade el suscriptor
         if(topic->subscriber_list->addItem(subscriber) != SUCCESS){
-            MQ_MUTEX_UNLOCK();
+            _mutex.unlock();
             return(OUT_OF_MEMORY);
         }
         
         // se inserta en el árbol de topics
         err = _topic_list->addItem(topic);
-        MQ_MUTEX_UNLOCK();
+        _mutex.unlock();
         return err;
     }
 
@@ -351,21 +313,21 @@ public:
             return OUT_OF_BOUNDS;
         }
         
-        MQ_MUTEX_LOCK();
+        _mutex.lock(osWaitForever);
         MQ::Topic * topic = findTopicByName(name);
         if(!topic){
-            MQ_MUTEX_UNLOCK();
+            _mutex.unlock();
             return NOT_FOUND;
         }
 		
         MQ::SubscribeCallback *sbc = topic->subscriber_list->searchItem(subscriber);
         if(!sbc){
-            MQ_MUTEX_UNLOCK();
+            _mutex.unlock();
             return NOT_FOUND;
         }
 		
         err = topic->subscriber_list->removeItem(sbc);
-        MQ_MUTEX_UNLOCK();
+        _mutex.unlock();
 		return err;
     }
 	
@@ -395,12 +357,12 @@ public:
 
         // recorre la lista de topics buscando aquellos que coincidan, teniendo en cuenta el tamaño del token_id
         // dado por _token_bits
-        MQ_MUTEX_LOCK();
+        _mutex.lock(osWaitForever);
         
         // copia el mensaje a enviar por si sufre modificaciones, no alterar el origen
         char* mem_data = (char*)Heap::memAlloc(datasize);
         if(!mem_data){
-            MQ_MUTEX_UNLOCK();
+            _mutex.unlock();
             MQ_DEBUG_TRACE("\r\n[MQLib]\t ERR_HEAP_ALLOC");
             return NULL_POINTER;
         }
@@ -428,7 +390,7 @@ public:
         }
         publisher->call(name, (notify_subscriber)? SUCCESS : NOT_FOUND);
         Heap::memFree(mem_data);
-        MQ_MUTEX_UNLOCK();
+        _mutex.unlock();
         MQ_DEBUG_TRACE("\r\n[MQLib]\t Fin de la publicación del topic '%s'", name);
 		return SUCCESS;
     }
@@ -565,7 +527,7 @@ private:
     static bool _tokenlist_internal;
 
 	/** Mutex */
-    static MQ_MUTEX _mutex;
+    static Mutex _mutex;
 
     /** Límite de tamaño en nombres de topcis */
     static uint8_t _max_name_len;

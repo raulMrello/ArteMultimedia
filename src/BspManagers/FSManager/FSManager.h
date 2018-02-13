@@ -18,10 +18,11 @@
 
 #include "mbed.h"
 #include "Heap.h"
+#include "NVSInterface.h"
+
 #if __MBED__ == 1
 #include "NVFlash.h"
 #endif
-#include "NVSInterface.h"
 
 
 class FSManager : public NVSInterface{

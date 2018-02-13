@@ -1,8 +1,8 @@
 /*
  * List.tpp
  *
- *  Created on: Apr 2015
- *  Author:     raulMrello
+ *  Versión: 2 Feb 2018
+ *  Author: raulMrello
  *
  *  Implementación de la librería List.
  */

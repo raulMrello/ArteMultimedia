@@ -10,6 +10,10 @@
  *
  *  Por defecto este módulo se registra en MQLib escuchando en el topic base $(base)="mqnetbridge", de forma que 
  *  pueda ser configurado. Las configuraciones básicas que permite son las siguientes:
+ * 
+ *  A través del enlace MQTT escuchará en $BASE/+/cmd. Lo que llegue al topic $BASE/fwd/cmd será retransmitido a la red local.
+ *  Para ello el mensaje será una dupla "topic,msg", así para notificar el mensaje sys/cfg/cmd "1" desde un cliente MQTT remoto
+ *  se hará ej: mosquitto_pub -t /xrinst/mqnetbridge/fwd/cmd -m "sys/cfg/cmd,1".
  *
  *  CONECTAR
  *  $(base)conn Cli,Usr,UsrPass,Host,Port,Essid,Passwd" 
@@ -19,26 +23,9 @@
  *  $(base)/disc/cmd 0" 
  *      Solicita la desconexión
  * 
- *  TIEMOUT MQTT_YIELD
- *  $(base)/yield/cmd MILLIS" 
- *      Solicita cambiar la temporización de espera de mqtt_yield
- *
  *  SUSCRIPCION LOCAL (MQLIB)
  *  $(base)/lsub/cmd TOPIC" 
  *      Permite suscribirse al topic local (MQLib) TOPIC y redirigir las actualizaciones recibidas al mismo topic mqtt.
- *
- *  SUSCRIPCION REMOTA
- *  $(base)/rsub/cmd TOPIC" 
- *      Permite suscribirse al topic remoto (MQTT) TOPIC y redirigir las actualizaciones al mismo topic mqlib. 
- * 
- *  QUITAR SUSCRIPCION REMOTA
- *  $(base)/runs/cmd TOPIC" 
- *      Permite quitar la suscribirse al topic remoto (MQTT) TOPIC.
- *
- *  ACTIVAR ESCUCHA MQTT
- *  $(base)/listen/cmd 0" 
- *      Permite suscribirse al topic remoto (MQTT) TOPIC y redirigir las actualizaciones al mismo topic mqlib. 
- * 
  */
  
  
@@ -47,7 +34,6 @@
 
 
 #include "mbed.h"
-#include "Logger.h"
 #include "MQLib.h"
 #include "MQTTNetwork.h"
 #include "MQTTmbed.h"
@@ -78,14 +64,14 @@ public:
      *  Crea el objeto asignando un puerto serie para la interfaz con el equipo digital
      *  @param base_topic Topic base, utilizado para poder ser configurado
      */
-    MQNetBridge(const char* base_topic, uint32_t mqtt_yield_millis = 10);
+    MQNetBridge(const char* base_topic, uint32_t mqtt_yield_millis = 1000);
     
   
 	/** setDebugChannel()
      *  Instala canal de depuración
      *  @param dbg Logger
      */
-    void setDebugChannel(Logger* dbg){ _debug = dbg; }
+    void setDebugChannel(bool dbg){ _debug = dbg; }
     
                 
 	/** notifyRmoteSubscription()
@@ -134,7 +120,7 @@ protected:
     Thread  _th;                                        /// Manejador del thread
     uint32_t _timeout;                                  /// Timeout de espera en el Mailbox
     Status  _stat;                                      /// Estado del módulo
-    Logger* _debug;                                     /// Canal de depuración
+    bool _debug;                                        /// Canal de depuración
     Queue<RequestOperation_t, MaxQueueEntries> _queue;  /// Request queue    
     
     NetworkInterface* _network;
@@ -146,7 +132,7 @@ protected:
     MQ::PublishCallback     _publicationCb;         /// Callback de publicación en topics
    
     
-    char* _base_topic;                              /// Topic de configuración    
+    const char* _base_topic;                        /// Topic de configuración    
     char* _client_id;                               /// Ciente id MQTT
     char* _user;                                    /// Nombre de usuario MQTT
     char* _userpass;                                /// Clave usuario MQTT

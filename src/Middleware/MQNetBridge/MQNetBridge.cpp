@@ -13,7 +13,7 @@
 //- STATIC ---------------------------------------------------------------------------
 //------------------------------------------------------------------------------------
 
-#define DEBUG_TRACE(format, ...)    if(_debug){ _debug->printf(format, ##__VA_ARGS__);}
+#define DEBUG_TRACE(format, ...)    if(_debug){ printf(format, ##__VA_ARGS__);}
 
 char* MBED_CONF_APP_WIFI_SSID = 0;      // Requerido en easy-connect
 char* MBED_CONF_APP_WIFI_PASSWORD = 0;  // Requerido en easy-connect
@@ -32,7 +32,7 @@ static void remoteSubscriptionCb(MQTT::MessageData& md){
 
 
 MQNetBridge::MQNetBridge(const char* base_topic, uint32_t mqtt_yield_millis) { 
-    _debug = 0;
+    _debug = false;
     _stat = Unknown;
     gThis = this;
     _client_id = 0;
@@ -48,17 +48,14 @@ MQNetBridge::MQNetBridge(const char* base_topic, uint32_t mqtt_yield_millis) {
     _client = 0;    
     _yield_millis = mqtt_yield_millis;
     
-    _base_topic = (char*)Heap::memAlloc(strlen(base_topic)+1);
-    if(_base_topic){
-        strcpy(_base_topic, base_topic);
+    _base_topic = base_topic;
 
-        // Carga callbacks estáticas de publicación/suscripción
-        _subscriptionCb = callback(this, &MQNetBridge::localSubscriptionCb);
-        _publicationCb = callback(this, &MQNetBridge::localPublicationCb);   
-        
-        // Inicializa parámetros del hilo de ejecución propio
-        _th.start(callback(this, &MQNetBridge::task));
-    }
+    // Carga callbacks estáticas de publicación/suscripción
+    _subscriptionCb = callback(this, &MQNetBridge::localSubscriptionCb);
+    _publicationCb = callback(this, &MQNetBridge::localPublicationCb);   
+    
+    // Inicializa parámetros del hilo de ejecución propio
+    _th.start(callback(this, &MQNetBridge::task));
 }
  
 

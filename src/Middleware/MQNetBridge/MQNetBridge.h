@@ -38,6 +38,7 @@
 #include "MQTTNetwork.h"
 #include "MQTTmbed.h"
 #include "MQTTClient.h"
+#include "ActiveModule.h"
   
   
   
@@ -46,7 +47,7 @@
 //---------------------------------------------------------------------------------
 
 
-class MQNetBridge {
+class MQNetBridge : public ActiveModule {
 
 public:
         
@@ -60,111 +61,179 @@ public:
         MqttError,      /// Error al conectar el cliente mqtt
     };
     
-    /** MQNetBridge()
-     *  Crea el objeto asignando un puerto serie para la interfaz con el equipo digital
+    /** Crea el objeto asignando un puerto serie para la interfaz con el equipo digital
+	 *
      *  @param base_topic Topic base, utilizado para poder ser configurado
+     * 	@param fs Objeto FSManager para operaciones de backup
+     * 	@param defdbg Flag para habilitar depuración por defecto
+     * 	@param mqtt_yield_millis Polling de espera de eventos mqtt
      */
-    MQNetBridge(const char* base_topic, uint32_t mqtt_yield_millis = 1000);
-    
-  
-	/** setDebugChannel()
-     *  Instala canal de depuración
-     *  @param dbg Logger
+    MQNetBridge(const char* base_topic, FSManager* fs, bool defdbg = false, uint32_t mqtt_yield_millis = 1000);
+
+
+    /** Destructor
      */
-    void setDebugChannel(bool dbg){ _debug = dbg; }
+    virtual ~MQNetBridge(){}
     
+		
+	/** Añade suscripción local para hacer bridge MQTT
+     *	@param topic Topic bridge local -> mqtt
+     */
+	void addBridgeTopic(const char* topic);
+		
                 
-	/** notifyRmoteSubscription()
-     *  Callback invocada de forma estática al recibir una actualización de un topic remoto al que está suscrito
+	/** Callback para procesar eventos mqtt 
+	 *
      *  @param md Referencia del mensaje recibido
      */    
-    void notifyRemoteSubscription(MQTT::MessageData& md);
+    void mqttEventHandler(MQTT::MessageData& md);
 
 
-    /** getStatus()
-     *  Obtiene el estado del módulo
+    /** Obtiene el estado del módulo
+	 *
      *  @return Estado del módulo
      */
     Status getStatus() { return _stat; }
 
-
-    /** changeYieldTimeout()
-     *  Modifica el timeout de mqtt yield
-     *  @param millis Timeout en milisegundos
-     */
-    void changeYieldTimeout(uint32_t millis) { _yield_millis = millis; }    
     
-      
-protected:
+  protected:
 
-    /** Número de items para la cola de mensajes entrantes */
-    static const uint8_t MaxQueueEntries = 8;
+    /** Interfaz para postear un mensaje de la máquina de estados en el Mailbox de la clase heredera
+     *  @param msg Mensaje a postear
+     */
+    virtual void putMessage(State::Msg *msg);
+
+
+    /** Interfaz para obtener un evento osEvent de la clase heredera
+     *  @param msg Mensaje a postear
+     */
+    virtual osEvent getOsEvent();
+
+
+ 	/** Interfaz para manejar los eventos en la máquina de estados por defecto
+      *  @param se Evento a manejar
+      *  @return State::StateResult Resultado del manejo del evento
+      */
+    virtual State::StateResult Init_EventHandler(State::StateEvent* se);
+
+
+ 	/** Callback invocada al recibir una actualización de un topic local al que está suscrito
+      *  @param topic Identificador del topic
+      *  @param msg Mensaje recibido
+      *  @param msg_len Tamaño del mensaje
+      */
+    virtual void subscriptionCb(const char* topic, void* msg, uint16_t msg_len);
+
+
+ 	/** Callback invocada al finalizar una publicación local
+      *  @param topic Identificador del topic
+      *  @param result Resultado de la publicación
+      */
+    virtual void publicationCb(const char* topic, int32_t result);
+
+
+   	/** Chequea la integridad de los datos de configuración <_cfg>. En caso de que algo no sea
+   	 * 	coherente, restaura a los valores por defecto y graba en memoria NV.
+   	 * 	@return True si la integridad es correcta, False si es incorrecta
+	 */
+	virtual bool checkIntegrity();
+
+
+   	/** Establece la configuración por defecto grabándola en memoria NV
+	 */
+	virtual void setDefaultConfig();
+
+
+   	/** Recupera la configuración de memoria NV
+	 */
+	virtual void restoreConfig();
+
+
+   	/** Graba la configuración en memoria NV
+	 */
+	virtual void saveConfig();
+
+
+	/** Graba un parámetro en la memoria NV
+	 * 	@param param_id Identificador del parámetro
+	 * 	@param data Datos asociados
+	 * 	@param size Tamaño de los datos
+	 * 	@param type Tipo de los datos
+	 * 	@return True: éxito, False: no se pudo recuperar
+	 */
+	virtual bool saveParameter(const char* param_id, void* data, size_t size, NVSInterface::KeyValueType type){
+		return ActiveModule::saveParameter(param_id, data, size, type);
+	}
+
+
+	/** Recupera un parámetro de la memoria NV
+	 * 	@param param_id Identificador del parámetro
+	 * 	@param data Receptor de los datos asociados
+	 * 	@param size Tamaño de los datos a recibir
+	 * 	@param type Tipo de los datos
+	 * 	@return True: éxito, False: no se pudo recuperar
+	 */
+	virtual bool restoreParameter(const char* param_id, void* data, size_t size, NVSInterface::KeyValueType type){
+		return ActiveModule::restoreParameter(param_id, data, size, type);
+	}        
+      
+private:
+ 
+    /** Máximo número de mensajes alojables en la cola asociada a la máquina de estados */
+    static const uint32_t MaxQueueMessages = 16;
+
+	/** Número de intentos tras operación con error */
     static const uint8_t RetriesOnError = 3;
 
-    /** Flags de tarea (asociados a la máquina de estados) */
-    enum SigEventFlags{
-        ConnectSig              = (1<<0),   /// Flag para solicitar un inicio de conexión o reconexión
-        DisconnectSig           = (1<<1),   /// Flag para solicitar una desconexión
-        RemoteSubscriptionSig   = (1<<2),   /// Flag para solicitar una suscripción a un topic mqtt
-        RemoteUnsubscriptionSig = (1<<3),   /// Flag para solicitar la no suscripción a un topic mqtt
-        RemotePublishSig        = (1<<4),   /// Flag para solicitar la publicación a un topic mqtt
+    /** Flags de operaciones a realizar por la tarea */
+    enum MsgEventFlags{
+    	ConnReqEvt = (State::EV_RESERVED_USER << 0),  /// Flag al solicitar conexión
+    	ConnAckEvt = (State::EV_RESERVED_USER << 1),  /// Flag al confirmar conexión
+        SubAckEvt  = (State::EV_RESERVED_USER << 2),  /// Flag al confirmar suscripción
+        PubAckEvt  = (State::EV_RESERVED_USER << 3),  /// Flag al confirmar publicación
+		DiscReqEvt = (State::EV_RESERVED_USER << 4),  /// Flag al solicitar desconexión
     };
-    
-    /** Estructura de datos de las solicitudes insertadas en la cola de proceso */
-    struct RequestOperation_t{
-        SigEventFlags id;                   /// Identificador de la operación a realizar
-        char* data;                         /// Datos asociados a la operación
-    };
-      
-    
-    Thread  _th;                                        /// Manejador del thread
-    uint32_t _timeout;                                  /// Timeout de espera en el Mailbox
-    Status  _stat;                                      /// Estado del módulo
-    bool _debug;                                        /// Canal de depuración
-    Queue<RequestOperation_t, MaxQueueEntries> _queue;  /// Request queue    
-    
+
+    /** Cola de mensajes de la máquina de estados */
+    Queue<State::Msg, MaxQueueMessages> _queue;
+
+    /** Datos de configuración */
+	struct Config {
+		const char* baseTopic;  /// Topic base de escucha
+		char* clientId;       	/// Ciente id MQTT
+		char* userName;       	/// Nombre de usuario MQTT
+		char* userPass;       	/// Clave usuario MQTT
+		char* host;           	/// Servidor MQTT
+		int   port;         	/// Puerto MQTT
+		char* essid;          	/// Red wifi
+		char* passwd;         	/// Clave wifi
+		char* gw;             	/// Gateway IP
+		uint32_t pollDelay; 	/// Tiemout para mqtt yield
+	};
+	Config _cfg;
+	
+	/** flags de estado de la conexión mqtt */
+	Status _stat;
+
+	/** Manejador del interfaz de red */
     NetworkInterface* _network;
-    MQTTNetwork *_net;                              /// Conexión MQTT
-    MQTT::Client<MQTTNetwork, Countdown> *_client;  /// Cliente MQTT
-    MQTTPacket_connectData _data;
-         
-    MQ::SubscribeCallback   _subscriptionCb;        /// Callback de suscripción a topics
-    MQ::PublishCallback     _publicationCb;         /// Callback de publicación en topics
-   
-    
-    const char* _base_topic;                        /// Topic de configuración    
-    char* _client_id;                               /// Ciente id MQTT
-    char* _user;                                    /// Nombre de usuario MQTT
-    char* _userpass;                                /// Clave usuario MQTT
-    char* _host;                                    /// Servidor MQTT
-    int   _port;                                    /// Puerto MQTT
-    char* _essid;                                   /// Red wifi
-    char* _passwd;                                  /// Clave wifi
-    char* _gw;                                      /// Gateway IP
-    uint32_t _yield_millis;                         /// Tiemout para mqtt yield
+	
+	/** Manejador del socket */
+    MQTTNetwork *_net;                            
+	
+	/** Manejador del cliente MQTT */
+    MQTT::Client<MQTTNetwork, Countdown> *_client; 
+	
+	/** Datos de conexión mqtt */
+    MQTTPacket_connectData _data;	
 
-    /** task()
-     *  Hilo de ejecución asociado para el procesado de las comunicaciones serie
+    /** Hilo de ejecución paralelo para la gestión de las comunicaciones mqtt */
+    Thread _th_mqtt;
+	   
+    /** Hilo paralelo para la ejecución de las comunicaciones mqtt
      */
-    void task(); 
-
-                
-	/** localSubscriptionCb()
-     *  Callback invocada al recibir una actualización de un topic local al que está suscrito
-     *  @param topic Identificador del topic
-     *  @param msg Mensaje recibido
-     *  @param msg_len Tamaño del mensaje
-     */    
-    void localSubscriptionCb(const char* topic, void* msg, uint16_t msg_len);
-    
-
-	/** localPublicationCb()
-     *  Callback invocada al finalizar una publicación local
-     *  @param topic Identificador del topic
-     *  @param result Resultado de la publicación
-     */    
-     void localPublicationCb(const char* topic, int32_t result);
-    
+    void mqttThread();
+         
 
 	/** connect()
      *  Inicia el interfaz de red wifi, conecta socket tcp y conecta client mqtt
@@ -183,7 +252,10 @@ protected:
      *  Desconecta y vuelve a conectar 
      *  @return Código de error, o 0 si Success.
      */    
-     int reconnect(){ disconnect(); return(connect()); }
+     int reconnect(){ 
+		disconnect(); 
+		return(connect()); 
+	 }
 
 
 };

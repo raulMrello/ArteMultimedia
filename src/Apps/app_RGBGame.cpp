@@ -51,6 +51,7 @@
 #include "PCA9685_ServoDrv.h"
 #include "FSManager.h"
 #include "RGBGame.h"
+#include "MQNetBridge.h"
 
 
 // **************************************************************************
@@ -81,6 +82,8 @@ static FSManager* fs;
 /** Gestor del juego RGB */
 static RGBGame* game;
 
+/** Gestor de las comunicaciones MQTT */
+static MQNetBridge* qnet;
 
 // **************************************************************************
 // *********** TEST  ********************************************************
@@ -106,6 +109,40 @@ void app_RGBGame(){
     // Crea gestor de memoria NV
     fs = new FSManager("fs");
 
+    
+    // --------------------------------------
+    // Creo módulo NetBridge MQTT que escuchará en el topic local "mqnetbridge"
+    DEBUG_TRACE("\r\n__Main__\t Creando NetBridge...");    
+    qnet = new MQNetBridge("xrinst/rgbgame/qnet", fs, true, 1000);
+    while(!qnet->ready()){
+        Thread::wait(1);
+    }
+    DEBUG_TRACE("\r\n__Main__\t MQNetBridge Ready!"); 
+
+    // Configuro el acceso al servidor mqtt
+    DEBUG_TRACE("\r\n__Main__\t Configurando conexión...");     
+	static char* mnb_cfg = "cli,usr,pass,192.168.1.63,1883,MOVISTAR_9BCC,hh9DNmVvV3Km6ZzdKrkx";	
+    //static char* mnb_cfg = "cli,usr,pass,192.168.254.29,1883,Invitado,11FF00DECA";
+    MQ::MQClient::publish("xrinst/rgbgame/qnet/conn/cmd", mnb_cfg, strlen(mnb_cfg)+1, &publ_cb);
+	
+	DEBUG_TRACE("\r\n__Main__\t Esperando conexión al broker MQTT...");
+	MQNetBridge::Status stat;
+    while((stat = qnet->getStatus()) != MQNetBridge::Connected){
+        if(stat >= MQNetBridge::WifiError){
+            char *zeromsg = "0";
+            DEBUG_TRACE("\r\n__Main__\t ERR_CONN %d. Solicitando desconexión", (int)stat);      
+            MQ::MQClient::publish("xrinst/rgbgame/qnet/disc/cmd", zeromsg, strlen(zeromsg)+1, &publ_cb);
+            while(qnet->getStatus() != MQNetBridge::Ready){
+                Thread::wait(100);
+            }
+            DEBUG_TRACE("\r\nReintentando conexión...");     
+            MQ::MQClient::publish("xrinst/rgbgame/qnet/conn/cmd", mnb_cfg, strlen(mnb_cfg)+1, &publ_cb);
+        }
+		Thread::wait(10);
+    }
+    DEBUG_TRACE("\r\n__Main__\t Conectado al broker MQTT!");
+	
+    
     
     // --------------------------------------
     // Creo módulo TouchManager

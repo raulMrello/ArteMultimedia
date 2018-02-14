@@ -98,11 +98,11 @@ void MQSerialBridge::onTxComplete(){
 void MQSerialBridge::task(){    
     
     // se suscribe a todos los topics de configuración
-    char* all_cfg_topics = (char*)Heap::memAlloc(strlen(_cfg_topic) + strlen("/#")+1);
-    if(all_cfg_topics){
-        sprintf(all_cfg_topics, "%s/#", _cfg_topic);
-        MQ::MQClient::subscribe(all_cfg_topics, &_subscriptionCb);
-    }
+    char* topic = (char*)Heap::memAlloc(strlen(_cfg_topic) + strlen("/#")+1);
+    MBED_ASSERT(topic);
+    sprintf(topic, "%s/#", _cfg_topic);
+    MQ::MQClient::subscribe(topic, &_subscriptionCb);
+    Heap::memFree(topic);
     
     // Inicializo el terminal de recepción    
     SerialTerminal::startReceiver();
@@ -190,10 +190,10 @@ void MQSerialBridge::subscriptionCb(const char* topic, void* msg, uint16_t msg_l
         char* susc_topic = strtok((char*)msg, (const char*)_token);
         if(susc_topic){
             char *st = (char*)Heap::memAlloc(strlen(susc_topic)+1);
-            if(st){
-                strcpy(st, susc_topic);
-                MQ::MQClient::subscribe(st, &_subscriptionCb);
-            }
+            MBED_ASSERT(st);
+            strcpy(st, susc_topic);
+            MQ::MQClient::subscribe(st, &_subscriptionCb);
+            Heap::memFree(st);
         }        
     }    
 }

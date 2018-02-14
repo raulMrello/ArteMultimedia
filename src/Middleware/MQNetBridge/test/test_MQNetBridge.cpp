@@ -2,6 +2,7 @@
 #include "MQLib.h"
 #include "MQNetBridge.h"
 #include "Logger.h"
+#include "FSManager.h"
 
 
 // **************************************************************************
@@ -22,6 +23,10 @@
 static Logger* logger;
 /** Canal de comunicación remota MQTT */
 static MQNetBridge* qnet;
+
+/** Gestor backup NV */
+static FSManager* fs;
+
 
 static MQ::PublishCallback publ_cb;
 
@@ -53,13 +58,16 @@ void test_MQNetBridge(){
     logger = new Logger(USBTX, USBRX, 16, 115200);
     DEBUG_TRACE("\r\nIniciando test_MQNetBridge...\r\n");
 
+    
+    // --------------------------------------
+    // Crea gestor de memoria NV
+    fs = new FSManager("fs");
 
     
     // --------------------------------------
     // Creo módulo NetBridge MQTT que escuchará en el topic local "mqnetbridge"
     DEBUG_TRACE("\r\nCreando NetBridge...");    
-    qnet = new MQNetBridge("sys/cmd/mqnetbridge");
-    qnet->setDebugChannel(logger);
+    qnet = new MQNetBridge("sys/qnet", "xrinst/test", fs, 1000, true);
     while(qnet->getStatus() != MQNetBridge::Ready){
         Thread::yield();
     }

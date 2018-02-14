@@ -18,7 +18,7 @@
  */
 
 #define DEBUG_TRACE(format, ...)			\
-if(ActiveModule::_defdbg){					\
+if(_defdbg){					            \
 	printf(format, ##__VA_ARGS__);			\
 }											\
 
@@ -46,12 +46,12 @@ static void MqttEventHandler(MQTT::MessageData& md){
 
 
 //------------------------------------------------------------------------------------
-MQNetBridge::MQNetBridge(const char* base_topic, uint32_t mqtt_yield_millis) : ActiveModule("RGBGame", osPriorityNormal, OS_STACK_SIZE, fs, defdbg)  { 
+MQNetBridge::MQNetBridge(const char* local_base_topic, const char* remote_base_topic, FSManager* fs, uint32_t mqtt_yield_millis, bool defdbg) : ActiveModule("MQNetBridge", osPriorityNormal, OS_STACK_SIZE, fs, defdbg)  { 
     
 	DEBUG_TRACE("\r\nNetBridge\t Iniciando componente");
 
-	_publicationCb = callback(this, &RGBGame::publicationCb);
-	_subscriptionCb = callback(this, &RGBGame::subscriptionCb);
+	_publicationCb = callback(this, &MQNetBridge::publicationCb);
+	_subscriptionCb = callback(this, &MQNetBridge::subscriptionCb);
 	
 	_cfg.clientId = NULL;
 	_cfg.userName = NULL;
@@ -59,8 +59,12 @@ MQNetBridge::MQNetBridge(const char* base_topic, uint32_t mqtt_yield_millis) : A
 	_cfg.host = NULL;
 	_cfg.essid = NULL;
 	_cfg.passwd = NULL;
-	_cfg.baseTopic = base_topic;
+	_cfg.localBaseTopic = local_base_topic;
+	_cfg.remoteBaseTopic = remote_base_topic;
 	_cfg.pollDelay = mqtt_yield_millis;
+    _network = NULL;
+    _net = NULL;
+    _client = NULL;
 	gThis = this;
 }
 
@@ -70,23 +74,22 @@ void MQNetBridge::mqttEventHandler(MQTT::MessageData& md){
     MQTT::Message &message = md.message;
     MQTTString &topicName = md.topicName;
     char* topic = (char*)Heap::memAlloc(topicName.lenstring.len + 1);
-    if(!topic){
-        return;
-    }
+    MBED_ASSERT(topic);
     char* msg = (char*)Heap::memAlloc(message.payloadlen + 1);    
-    if(!msg){
-        Heap::memFree(topic);
-        return;
-    }
+    MBED_ASSERT(msg);
+    
     strncpy(topic, topicName.lenstring.data, topicName.lenstring.len);
     topic[topicName.lenstring.len] = 0;
+    
     memcpy(msg, message.payload, message.payloadlen);
     msg[message.payloadlen] = 0;
-    MQ::MQClient::publish(topic, msg, strlen(msg)+1, &_publicationCb);
+    
+    MQ::MQClient::publish(topic, msg, message.payloadlen + 1, &_publicationCb);
     Heap::memFree(topic);
     Heap::memFree(msg);
         
 }
+
     
 //------------------------------------------------------------------------------------
 //-- PROTECTED METHODS IMPLEMENTATION ------------------------------------------------
@@ -94,7 +97,7 @@ void MQNetBridge::mqttEventHandler(MQTT::MessageData& md){
 
 
 //------------------------------------------------------------------------------------
-void RGBGame::subscriptionCb(const char* topic, void* msg, uint16_t msg_len){
+void MQNetBridge::subscriptionCb(const char* topic, void* msg, uint16_t msg_len){
     // si es un comando para actualizar los flags de notificación o los flags de evento...
     if(MQ::MQClient::isTopicToken(topic, "/conn/cmd")){
         DEBUG_TRACE("\r\nNetBridge\t Recibido topic '%s' con msg '%s'", topic, (char*)msg);
@@ -136,7 +139,7 @@ void RGBGame::subscriptionCb(const char* topic, void* msg, uint16_t msg_len){
 		// actualiza...
 		_cfg.clientId = (char*)Heap::memAlloc(strlen(cli)+1);
 		MBED_ASSERT(_cfg.clientId);
-		strcpy(_client_id, cli);
+		strcpy(_cfg.clientId, cli);
 		_cfg.userName = (char*)Heap::memAlloc(strlen(usr)+1);
 		MBED_ASSERT(_cfg.userName);
 		strcpy(_cfg.userName, usr);
@@ -153,6 +156,7 @@ void RGBGame::subscriptionCb(const char* topic, void* msg, uint16_t msg_len){
 		_cfg.passwd = (char*)Heap::memAlloc(strlen(passwd)+1);
 		MBED_ASSERT(_cfg.passwd);
 		strcpy(_cfg.passwd, passwd);
+        
 		// ajusta parámetros de conexión para easy-connect de mbed...
 		MBED_CONF_APP_WIFI_SSID = _cfg.essid;
 		MBED_CONF_APP_WIFI_PASSWORD = _cfg.passwd;
@@ -168,7 +172,29 @@ void RGBGame::subscriptionCb(const char* topic, void* msg, uint16_t msg_len){
 		op->msg = NULL;
         return;
     }
-	
+    // si es mensaje para hacer bridge hacia el broker mqtt...
+    if(MQ::MQClient::isTopicToken(topic, "/stat")){
+        DEBUG_TRACE("\r\nNetBridge\t Recibido topic '%s' con msg '%s'", topic, (char*)msg);
+
+        // directamente lo publica en el topic correspondiente siempre que la conexión esté operativa
+        if((_stat & Connected) != 0){
+            MQTT::Message message;
+            message.qos = MQTT::QOS0;
+            message.retained = false;
+            message.dup = false;
+            message.payload = msg;
+            message.payloadlen = msg_len;
+            int err = 0;
+            if((err = _client->publish(topic, message)) != 0){            
+                DEBUG_TRACE("\r\nNetBridge: ERR_MQTT_PUB, publicando en topic '%s', error %d", topic, err); 
+            }
+            else{
+                DEBUG_TRACE("\r\nNetBridge: PUB_OK, mensaje publicado en topic '%s'", topic); 
+            }            
+        }
+        return;
+    }
+		
     // si es un comando para actualizar los flags de notificación o los flags de evento...
     if(MQ::MQClient::isTopicToken(topic, "/disc/cmd")){
         DEBUG_TRACE("\r\nNetBridge\t Recibido topic '%s' con msg '%s'", topic, (char*)msg);        
@@ -189,7 +215,8 @@ void RGBGame::subscriptionCb(const char* topic, void* msg, uint16_t msg_len){
 }
 
 //------------------------------------------------------------------------------------
-State::StateResult RGBGame::Init_EventHandler(State::StateEvent* se){
+State::StateResult MQNetBridge::Init_EventHandler(State::StateEvent* se){
+    State::Msg* st_msg = (State::Msg*)se->oe->value.p;
     switch((int)se->evt){
         case State::EV_ENTRY:{
         	DEBUG_TRACE("\r\nNetBridge\t EV_ENTRY en stInit");
@@ -200,11 +227,10 @@ State::StateResult RGBGame::Init_EventHandler(State::StateEvent* se){
 			// se suscribe a los topics locales $BASE/+/cmd
 			char* topic = (char*)Heap::memAlloc(MQ::MQClient::getMaxTopicLen());
 			MBED_ASSERT(topic);
-			sprintf(topic, "%s/+/cmd", _cfg.baseTopic);
+			sprintf(topic, "%s/+/cmd", _cfg.localBaseTopic);
 			DEBUG_TRACE("\r\nNetBridge\t Suscribiendose a '%s'", topic);
 			MQ::MQClient::subscribe(topic, &_subscriptionCb);
-			#warning TODO cambiar MQLib para que reserve espacio para <name> y aquí se pueda liberar
-			//Heap::memFree(topic);
+			Heap::memFree(topic);
 			
 			// el estado del thread mqtt por el momento es desconocido
             _stat = Unknown;
@@ -215,13 +241,15 @@ State::StateResult RGBGame::Init_EventHandler(State::StateEvent* se){
 		// Evento de solicitud de conexión
 		case ConnReqEvt:{
 			DEBUG_TRACE("\r\nNetBridge\t EV_CONN_REQ en stInit");
-			if(reconnect() == 0){
-				// si el hilo mqtt no se ha iniciado, lo inicia
-				if(_stat == Unknown){
-					DEBUG_TRACE("\r\nNetBridge\t Iniciando thread mqtt");
-					_th_mqtt.start(callback(this, &MQNetBridge::mqttThread));
-				}
+			// si el hilo mqtt no se ha iniciado, lo inicia
+			if(_stat == Unknown){
+				DEBUG_TRACE("\r\nNetBridge\t Iniciando thread mqtt");
+				_th_mqtt.start(callback(this, &MQNetBridge::mqttThread));			
 			}
+            else{
+                DEBUG_TRACE("\r\nNetBridge\t ERR_CONN, conexión ya iniciada anteriormente.");
+            }
+            
             // libera el mensaje (tanto el contenedor de datos como el propio mensaje)
 			if(st_msg->msg){
 				Heap::memFree(st_msg->msg);
@@ -229,54 +257,7 @@ State::StateResult RGBGame::Init_EventHandler(State::StateEvent* se){
             Heap::memFree(st_msg);
 			
 			return State::HANDLED;
-		}
-				
-		// si se notifica una conexión correcta...
-		case ConnAckEvt:{
-			DEBUG_TRACE("\r\nNetBridge\t EV_CONN_ACK en stInit, iniciando suscripción");
-			// se suscribe a $BASE/+/cmd
-			char* topic = (char*)Heap::memAlloc(strlen(_cfg.baseTopic) + strlen("/+/cmd") + 1);
-			MBED_ASSERT(topic);
-			sprintf(topic, "%s/+/cmd", _cfg.baseTopic);
-			if (_client->subscribe(topic, MQTT::QOS0, MqttEventHandler) != 0){
-				DEBUG_TRACE("\r\nNetBridge\t ERR_SUBSC al suscribirse al topic '%s'", topic);
-			}
-			Heap::memFree(topic);
-			
-			// libera el mensaje (tanto el contenedor de datos como el propio mensaje)
-			if(st_msg->msg){
-				Heap::memFree(st_msg->msg);
-			}
-            Heap::memFree(st_msg);
-
-			return State::HANDLED;
-		}             
-				
-		// si se notifica una suscripción correcta...
-		case SubAckEvt:{
-			DEBUG_TRACE("\r\nNetBridge\t EV_SUB_ACK en stInit");
-			
-			// libera el mensaje (tanto el contenedor de datos como el propio mensaje)
-			if(st_msg->msg){
-				Heap::memFree(st_msg->msg);
-			}
-            Heap::memFree(st_msg);
-
-			return State::HANDLED;
-		}             
-				
-		// si se notifica una publicación correcta...
-		case PubAckEvt:{
-			DEBUG_TRACE("\r\nNetBridge\t EV_PUB_ACK en stInit");
-			
-			// libera el mensaje (tanto el contenedor de datos como el propio mensaje)
-			if(st_msg->msg){
-				Heap::memFree(st_msg->msg);
-			}
-            Heap::memFree(st_msg);
-
-			return State::HANDLED;
-		}             
+		}            
 
         case State::EV_EXIT:{
             DEBUG_TRACE("\r\nNetBridge\t EV_EXIT en stInit");
@@ -293,26 +274,26 @@ State::StateResult RGBGame::Init_EventHandler(State::StateEvent* se){
 
 
 //------------------------------------------------------------------------------------
-void RGBGame::putMessage(State::Msg *msg){
+void MQNetBridge::putMessage(State::Msg *msg){
     _queue.put(msg);
 }
 
 
 //------------------------------------------------------------------------------------
-osEvent RGBGame:: getOsEvent(){
+osEvent MQNetBridge:: getOsEvent(){
 	return _queue.get();
 }
 
 
 
 //------------------------------------------------------------------------------------
-void RGBGame::publicationCb(const char* topic, int32_t result){
+void MQNetBridge::publicationCb(const char* topic, int32_t result){
 
 }
 
 
 //------------------------------------------------------------------------------------
-bool RGBGame::checkIntegrity(){
+bool MQNetBridge::checkIntegrity(){
 	bool chk_ok = true;
     /* Chequea integridad de la configuración */
 	if(!_cfg.clientId || !_cfg.userName || !_cfg.userPass || !_cfg.host || !_cfg.essid || !_cfg.passwd){
@@ -330,7 +311,7 @@ bool RGBGame::checkIntegrity(){
 
 
 //------------------------------------------------------------------------------------
-void RGBGame::setDefaultConfig(){
+void MQNetBridge::setDefaultConfig(){
     DEBUG_TRACE("\r\nNetBridge\t Estableciendo configuración por defecto: TBD");
 	
 	/* Guarda en memoria NV */
@@ -339,7 +320,7 @@ void RGBGame::setDefaultConfig(){
 
 
 //------------------------------------------------------------------------------------
-void RGBGame::restoreConfig(){
+void MQNetBridge::restoreConfig(){
     bool success = true;
 	if(!restoreParameter("MQNetBridgeCfg", &_cfg, sizeof(Config), NVSInterface::TypeBlob)){
         DEBUG_TRACE("\r\nNetBridge\t ERR_NV al recuperar la configuración");
@@ -361,7 +342,7 @@ void RGBGame::restoreConfig(){
 
 
 //------------------------------------------------------------------------------------
-void RGBGame::saveConfig(){
+void MQNetBridge::saveConfig(){
     DEBUG_TRACE("\r\nNetBridge\t Guardando configuración en memoria NV");	
 	saveParameter("MQNetBridgeCfg", &_cfg, sizeof(Config), NVSInterface::TypeBlob);
 }
@@ -377,7 +358,7 @@ int MQNetBridge::connect(){
     // inicia el proceso de conexión...
     // Levanta el interfaz de red wifi
     int rc;    
-    if(!_network || _stat == Ready){
+    if(!_network || !_net || !_client){
 		DEBUG_TRACE("\r\nNetBridge\t Levantando interfaz de red");
         _network = easy_connect(true);
         if(!_network){
@@ -385,43 +366,44 @@ int MQNetBridge::connect(){
             _stat = WifiError;
             return -1;
         }
-    }
     
-    // Prepara socket tcp...
-    if(!_net){
-		DEBUG_TRACE("\r\nNetBridge\t Abriendo socket");
-        _net = new MQTTNetwork(_network);
-    }
-    
-    // Prepara para funcionamiento asíncrono
-    _net->set_blocking(true);
+        // Prepara socket tcp...
+        if(!_net){
+            DEBUG_TRACE("\r\nNetBridge\t Abriendo socket");
+            _net = new MQTTNetwork(_network);
+        }
         
-    // Abre socket tcp...
-    if((rc = _net->connect(_host, _port)) != 0){
-		DEBUG_TRACE("\r\nNetBridge\t ERR_CONN, al conectar el socket");
-        _stat = SockError;
-        return rc;
-    }                
-	
-    // Prepara cliente mqtt...
-    if(!_client){
-		DEBUG_TRACE("\r\nNetBridge\t Conectando cliente MQTT");
-        _client = new MQTT::Client<MQTTNetwork, Countdown>(*_net);
+        // Prepara para funcionamiento asíncrono
+        _net->set_blocking(true);
+            
+        // Abre socket tcp...
+        if((rc = _net->connect(_cfg.host, _cfg.port)) != 0){
+            DEBUG_TRACE("\r\nNetBridge\t ERR_CONN, al conectar el socket");
+            _stat = SockError;
+            return rc;
+        }
+        
+        // Prepara cliente mqtt...
+        if(!_client){
+            DEBUG_TRACE("\r\nNetBridge\t Conectando cliente MQTT");
+            _client = new MQTT::Client<MQTTNetwork, Countdown>(*_net);
+        }
+        
+        // Conecta cliente MQTT...
+        MQTTPacket_connectData data = MQTTPacket_connectData_initializer;
+        data.MQTTVersion = 3;
+        data.clientID.cstring = _cfg.clientId;
+        data.username.cstring = _cfg.userName;
+        data.password.cstring = _cfg.userPass;
+        if ((rc = _client->connect(data)) != 0){
+            DEBUG_TRACE("\r\nNetBridge\t ERR_MQTT al conectar con el broker MQTT");
+            _stat = MqttError;
+            return rc;
+        }    
+        DEBUG_TRACE("\r\nNetBridge\t CONN_OK!");
+        _stat = Connected;
+        return 0;
     }
-    
-    // Conecta cliente MQTT...
-    MQTTPacket_connectData data = MQTTPacket_connectData_initializer;
-    data.MQTTVersion = 3;
-    data.clientID.cstring = _client_id;
-    data.username.cstring = _user;
-    data.password.cstring = _userpass;
-    if ((rc = _client->connect(data)) != 0){
-		DEBUG_TRACE("\r\nNetBridge\t ERR_MQTT al conectar con el broker MQTT");
-        _stat = MqttError;
-        return rc;
-    }     
-    DEBUG_TRACE("\r\nNetBridge\t CONN_OK!");
-    _stat = Connected;
     return 0;
 }
 
@@ -444,7 +426,7 @@ void MQNetBridge::disconnect(){
 		DEBUG_TRACE("\r\nNetBridge\t Deteniendo interfaz de red");
         _network->disconnect();
     }
-    _stat = Ready;
+    _stat = Disconnected;
 }
 
 
@@ -454,6 +436,23 @@ void MQNetBridge::mqttThread(){
 
 	// marca thread como iniciado
     _stat = Ready;
+    
+    // si ha llegado a este punto, inicia la conexión de forma reiterada hasta que lo consiga.
+    while(reconnect() != 0){
+        Thread::wait(100);
+    }
+    
+    // una vez que la conexión está establecida, se suscribe a $BASE/+/+/cmd
+    char* topic = (char*)Heap::memAlloc(strlen(_cfg.remoteBaseTopic) + strlen("/+/+/cmd") + 1);
+    MBED_ASSERT(topic);
+    sprintf(topic, "%s/+/+/cmd", _cfg.remoteBaseTopic);
+    if (_client->subscribe(topic, MQTT::QOS0, MqttEventHandler) != 0){
+        DEBUG_TRACE("\r\nNetBridge\t ERR_SUBSC al suscribirse al topic '%s'", topic);
+    }
+    else{
+        DEBUG_TRACE("\r\nNetBridge\t SUBSC_OK, suscrito al topic '%s'", topic);
+    }    
+    Heap::memFree(topic);
     
     DEBUG_TRACE("\r\nNetBridge\t Thread mqtt esperando eventos...");
     for(;;){       

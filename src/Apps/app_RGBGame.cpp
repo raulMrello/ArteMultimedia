@@ -85,10 +85,19 @@ static RGBGame* game;
 /** Gestor de las comunicaciones MQTT */
 static MQNetBridge* qnet;
 
+/** Referencia estática a la callback de publicación mqlib */
+static MQ::PublishCallback publ_cb;
+
+
 // **************************************************************************
 // *********** TEST  ********************************************************
 // **************************************************************************
 
+//------------------------------------------------------------------------------------
+static void publCb(const char* name, int32_t){
+}
+
+//------------------------------------------------------------------------------------
 #define NUM_SERVOS		3
 #define NUM_LEDS        54
 
@@ -102,7 +111,8 @@ static MQNetBridge* qnet;
 void app_RGBGame(){
         
         
-    DEBUG_TRACE("\r\n__Main__\t Iniciando app_RGBGame...");
+    DEBUG_TRACE("\r\n__Main__\t Iniciando app_RGBGame...");          
+    publ_cb = callback(&publCb);
 
     
     // --------------------------------------
@@ -111,9 +121,9 @@ void app_RGBGame(){
 
     
     // --------------------------------------
-    // Creo módulo NetBridge MQTT que escuchará en el topic local "mqnetbridge"
-    DEBUG_TRACE("\r\n__Main__\t Creando NetBridge...");    
-    qnet = new MQNetBridge("xrinst/rgbgame/qnet", fs, true, 1000);
+    // Creo módulo NetBridge MQTT 
+    DEBUG_TRACE("\r\n__Main__\t Creando NetBridge ");    
+    qnet = new MQNetBridge("sys/qnet", "xrinst/rgbgame", fs, 1000, true);
     while(!qnet->ready()){
         Thread::wait(1);
     }
@@ -123,25 +133,15 @@ void app_RGBGame(){
     DEBUG_TRACE("\r\n__Main__\t Configurando conexión...");     
 	static char* mnb_cfg = "cli,usr,pass,192.168.1.63,1883,MOVISTAR_9BCC,hh9DNmVvV3Km6ZzdKrkx";	
     //static char* mnb_cfg = "cli,usr,pass,192.168.254.29,1883,Invitado,11FF00DECA";
-    MQ::MQClient::publish("xrinst/rgbgame/qnet/conn/cmd", mnb_cfg, strlen(mnb_cfg)+1, &publ_cb);
+    MQ::MQClient::publish("sys/qnet/conn/cmd", mnb_cfg, strlen(mnb_cfg)+1, &publ_cb);
 	
 	DEBUG_TRACE("\r\n__Main__\t Esperando conexión al broker MQTT...");
-	MQNetBridge::Status stat;
-    while((stat = qnet->getStatus()) != MQNetBridge::Connected){
-        if(stat >= MQNetBridge::WifiError){
-            char *zeromsg = "0";
-            DEBUG_TRACE("\r\n__Main__\t ERR_CONN %d. Solicitando desconexión", (int)stat);      
-            MQ::MQClient::publish("xrinst/rgbgame/qnet/disc/cmd", zeromsg, strlen(zeromsg)+1, &publ_cb);
-            while(qnet->getStatus() != MQNetBridge::Ready){
-                Thread::wait(100);
-            }
-            DEBUG_TRACE("\r\nReintentando conexión...");     
-            MQ::MQClient::publish("xrinst/rgbgame/qnet/conn/cmd", mnb_cfg, strlen(mnb_cfg)+1, &publ_cb);
-        }
-		Thread::wait(10);
+	while(qnet->getStatus() != MQNetBridge::Connected){
+        Thread::wait(100);
     }
     DEBUG_TRACE("\r\n__Main__\t Conectado al broker MQTT!");
-	
+    DEBUG_TRACE("\r\n__Main__\t Creando bridge en 'xrinst/rgbgame/+/+/stat'");
+	qnet->addBridgeTopic("xrinst/rgbgame/+/+/stat");
     
     
     // --------------------------------------
@@ -153,7 +153,7 @@ void app_RGBGame(){
         Thread::wait(1);
     }
     // establezco topic base 'touch'
-    touchm->setPublicationBase("touch");
+    touchm->setPublicationBase("sys/touch");
     DEBUG_TRACE("\r\n__Main__\t TouchManager READY!");            
     
 
@@ -188,13 +188,13 @@ void app_RGBGame(){
     // --------------------------------------
     // Creo gestor del juego
     game = new RGBGame(leddrv, servodrv, fs, true);
-    game->setPublicationBase("xrinst/rgbgame");
-    game->setSubscriptionBase("xrinst/rgbgame");
+    game->setPublicationBase("xrinst/rgbgame/game");
+    game->setSubscriptionBase("xrinst/rgbgame/game");
     // espero a que esté listo
     do{
         Thread::wait(1);
     }while(!game->ready());
-    game->subscribeToTouchTopics("touch/elec/stat");
+    game->subscribeToTouchTopics("sys/touch/elec/stat");
     DEBUG_TRACE("\r\n__Main__\t RGBGame READY!");
     DEBUG_TRACE("\r\n@@@@@@@@ Aplicación iniciada @@@@@@@@\r\n");
     DEBUG_TRACE("\r\n");

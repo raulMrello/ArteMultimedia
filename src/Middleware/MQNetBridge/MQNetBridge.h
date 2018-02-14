@@ -63,23 +63,18 @@ public:
     
     /** Crea el objeto asignando un puerto serie para la interfaz con el equipo digital
 	 *
-     *  @param base_topic Topic base, utilizado para poder ser configurado
+     *  @param local_base_topic Topic base, utilizado para poder ser configurado en local
+     *  @param remote_base_topic Topic base, utilizado para poder ser accesible via mqtt
      * 	@param fs Objeto FSManager para operaciones de backup
-     * 	@param defdbg Flag para habilitar depuración por defecto
      * 	@param mqtt_yield_millis Polling de espera de eventos mqtt
+     * 	@param defdbg Flag para habilitar depuración por defecto
      */
-    MQNetBridge(const char* base_topic, FSManager* fs, bool defdbg = false, uint32_t mqtt_yield_millis = 1000);
+    MQNetBridge(const char* local_base_topic, const char* remote_base_topic, FSManager* fs, uint32_t mqtt_yield_millis = 1000, bool defdbg = false);
 
 
     /** Destructor
      */
     virtual ~MQNetBridge(){}
-    
-		
-	/** Añade suscripción local para hacer bridge MQTT
-     *	@param topic Topic bridge local -> mqtt
-     */
-	void addBridgeTopic(const char* topic);
 		
                 
 	/** Callback para procesar eventos mqtt 
@@ -94,6 +89,22 @@ public:
      *  @return Estado del módulo
      */
     Status getStatus() { return _stat; }
+
+    		
+	/** Añade suscripción local para hacer bridge MQTT
+     *	@param topic Topic bridge local -> mqtt
+     */
+	void addBridgeTopic(const char* topic){
+        MQ::MQClient::subscribe(topic, &_subscriptionCb);
+    }
+
+    		
+	/** Retira suscripción local para dejar de hacer bridge MQTT
+     *	@param topic Topic bridge local ->x mqtt
+     */
+	void removeBridgeTopic(const char* topic){
+        MQ::MQClient::unsubscribe(topic, &_subscriptionCb);
+    }
 
     
   protected:
@@ -187,11 +198,9 @@ private:
 
     /** Flags de operaciones a realizar por la tarea */
     enum MsgEventFlags{
-    	ConnReqEvt = (State::EV_RESERVED_USER << 0),  /// Flag al solicitar conexión
-    	ConnAckEvt = (State::EV_RESERVED_USER << 1),  /// Flag al confirmar conexión
-        SubAckEvt  = (State::EV_RESERVED_USER << 2),  /// Flag al confirmar suscripción
-        PubAckEvt  = (State::EV_RESERVED_USER << 3),  /// Flag al confirmar publicación
-		DiscReqEvt = (State::EV_RESERVED_USER << 4),  /// Flag al solicitar desconexión
+    	ConnReqEvt   = (State::EV_RESERVED_USER << 0),  /// Flag al solicitar conexión
+        DataRecvEvt  = (State::EV_RESERVED_USER << 1),  /// Flag al confirmar la recepción de datos (suscripción)
+		DiscReqEvt   = (State::EV_RESERVED_USER << 2),  /// Flag al solicitar desconexión
     };
 
     /** Cola de mensajes de la máquina de estados */
@@ -199,7 +208,8 @@ private:
 
     /** Datos de configuración */
 	struct Config {
-		const char* baseTopic;  /// Topic base de escucha
+		const char* localBaseTopic;  /// Topic base de escucha local
+		const char* remoteBaseTopic;  /// Topic base de escucha remoto
 		char* clientId;       	/// Ciente id MQTT
 		char* userName;       	/// Nombre de usuario MQTT
 		char* userPass;       	/// Clave usuario MQTT

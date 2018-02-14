@@ -6,6 +6,21 @@ Proyecto plantilla para desarrollos con la tarjeta NUCLEO_L432KC de ST en mbed-o
 ## Changelog
 
 
+*14.02.2018*
+>**"Finalizo implementación app_RGBGame"**
+>
+- [x] Actualizo a última versión de MQLib
+- [x] Completo MQNetBridge.
+- [ ] Verificar funcionamiento.
+- [ ] Utilizar NVFlash para guardar y recuperar datos de memoria o utilizar mbed-5.7 para utilizar el sistema key-value.
+- [ ] Verificar funcionamiento del juego con trazas de depuración
+- [ ] Incluir MQTT
+- [ ] Cablear VCC al módulo para arranque al conectar.
+- [!] Cambiando topics en cyberribs. REVISAR
+- [ ] Definir los diferentes modos de juego mediante comando mq: xrinst/rgbgame/select/cmd.
+- [ ] Actualizar todos los repos paralelos.
+  
+
 *13.02.2018*
 >**"Compatibilidad MBED y ESP-IDF"**
 >

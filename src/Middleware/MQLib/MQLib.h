@@ -1,8 +1,20 @@
 /*
  * MQLib.h
  *
- *  Versión: 13 Feb 2018
+ *  Versión: 14 Feb 2018
  *  Author: raulMrello
+ *
+ *	-------------------------------------------------------------------------------------------------------------------
+ *
+ *	Changelog:
+ *	- Cambia la descripción de <name> en <struct Topic> para que pase de un <const char*> a un <char*> y que en el servicio
+ *	MQBroker::subscribeReq se reserve espacio para copiar el topic que se desea, de esa forma no es necesario prepararlo
+ *	externamente y puede ser liberado insitu por la propia librería MQLib.
+ *	- @14Feb2018.001: 'name' cambia de const char* a char*
+ *	- @14Feb2018.002: se reserva espacio para el nombre del topic
+ *	- @14Feb2018.003: elimina un topic de la lista si se queda sin suscriptores.
+ *
+ *	-------------------------------------------------------------------------------------------------------------------
  *
  *  MQLib es una librería que proporciona capacidades de publicación-suscripción de forma pasiva, sin necesidad de
  *	utilizar un thread dedicado y siempre corriendo en el contexto del publicador.
@@ -131,10 +143,11 @@ struct __packed topic_t{
 
 /** @struct Topic
  *  @brief Estructura asociada los topics, formada por un nombre y una lista de suscriptores
+ *  	   @14Feb2018.001: 'name' cambia de const char* a char*
  */
 struct Topic{
     MQ::topic_t id;              					/// Identificador del topic
-    const char* name;                               /// Nombre del name asociado a este nivel
+    char* name;                               		/// Nombre del name asociado a este nivel
 	List<MQ::SubscribeCallback > *subscriber_list; 	/// Lista de suscriptores
 };
 
@@ -274,7 +287,16 @@ public:
         }
         
         // se fijan los parámetros del token (delimitadores, id, nombre)
-        topic->name = name;
+
+        //@14Feb2018.002: se reserva espacio para el nombre del topic
+        topic->name = (char*)Heap::memAlloc(strlen(name)+1);
+        if(!topic->name){
+        	_mutex.unlock();
+        	return (OUT_OF_MEMORY);
+        }
+        strcpy(topic->name, name);
+        //
+
         createTopicId(&topic->id, name);
 
         // se crea la lista de suscriptores
@@ -327,6 +349,15 @@ public:
         }
 		
         err = topic->subscriber_list->removeItem(sbc);
+
+        //@14Feb2018.003: elimina un topic de la lista si se queda sin suscriptores.
+        if(topic->subscriber_list->getItemCount() == 0){
+        	Heap::memFree(topic->name);
+        	_topic_list->removeItem(topic);
+        	Heap::memFree(topic);
+        }
+        //
+
         _mutex.unlock();
 		return err;
     }

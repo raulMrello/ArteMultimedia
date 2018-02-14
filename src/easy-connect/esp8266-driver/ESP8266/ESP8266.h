@@ -18,7 +18,8 @@
 #define ESP8266_H
 
 #include "ATCmdParser.h"
-
+#include "nsapi_types.h"
+#include "rtos.h"
 
 /** ESP8266Interface class.
     This is an interface to a ESP8266 radio.
@@ -64,9 +65,9 @@ public:
     *
     * @param ap the name of the AP
     * @param passPhrase the password of AP
-    * @return true only if ESP8266 is connected successfully
+    * @return NSAPI_ERROR_OK only if ESP8266 is connected successfully
     */
-    bool connect(const char *ap, const char *passPhrase);
+    nsapi_error_t connect(const char *ap, const char *passPhrase);
 
     /**
     * Disconnect ESP8266 from AP
@@ -109,13 +110,6 @@ public:
      */
     int8_t getRSSI();
 
-    /**
-    * Check if ESP8266 is conenected
-    *
-    * @return true only if the chip has an IP address
-    */
-    bool isConnected(void);
-
     /** Scan for available networks
      *
      * @param  ap    Pointer to allocated array to store discovered AP
@@ -140,9 +134,24 @@ public:
     * @param id id to give the new socket, valid 0-4
     * @param port port to open connection with
     * @param addr the IP address of the destination
+    * @param port the port on the destination
+    * @param local_port UDP socket's local port, zero means any
     * @return true only if socket opened successfully
     */
-    bool open(const char *type, int id, const char* addr, int port);
+    bool open_udp(int id, const char* addr, int port, int local_port = 0);
+
+    /**
+    * Open a socketed connection
+    *
+    * @param type the type of socket to open "UDP" or "TCP"
+    * @param id id to give the new socket, valid 0-4
+    * @param port port to open connection with
+    * @param addr the IP address of the destination
+    * @param port the port on the destination
+    * @param tcp_keepalive TCP connection's keep alive time, zero means disabled
+    * @return true only if socket opened successfully
+    */
+    bool open_tcp(int id, const char* addr, int port, int keepalive = 0);
 
     /**
     * Sends data to an open socket
@@ -150,9 +159,9 @@ public:
     * @param id id of socket to send to
     * @param data data to be sent
     * @param amount amount of data to be sent - max 1024
-    * @return true only if data sent successfully
+    * @return NSAPI_ERROR_OK in success, negative error code in failure
     */
-    bool send(int id, const void *data, uint32_t amount);
+    nsapi_error_t send(int id, const void *data, uint32_t amount);
 
     /**
     * Receives data from an open socket
@@ -207,10 +216,27 @@ public:
         attach(Callback<void()>(obj, method));
     }
 
+    /**
+     * Read default Wifi mode from flash
+     *
+     * return Station, SoftAP or SoftAP+Station - 0 on failure
+     */
+    int8_t get_default_wifi_mode();
+
+    /**
+     * Write default Wifi mode to flash
+     */
+    bool set_default_wifi_mode(const int8_t mode);
+
+    static const int8_t WIFIMODE_STATION = 1;
+    static const int8_t WIFIMODE_SOFTAP = 2;
+    static const int8_t WIFIMODE_STATION_SOFTAP = 3;
+    static const int8_t SOCKET_COUNT = 5;
+
 private:
     UARTSerial _serial;
     ATCmdParser _parser;
-    
+    Mutex _smutex; // Protect serial port access
 
     struct packet {
         struct packet *next;
@@ -219,12 +245,23 @@ private:
         // data follows
     } *_packets, **_packets_end;
     void _packet_handler();
+    void _connect_error_handler();
     bool recv_ap(nsapi_wifi_ap_t *ap);
+    void _oob_socket0_closed_handler();
+    void _oob_socket1_closed_handler();
+    void _oob_socket2_closed_handler();
+    void _oob_socket3_closed_handler();
+    void _oob_socket4_closed_handler();
+
 
     char _ip_buffer[16];
     char _gateway_buffer[16];
     char _netmask_buffer[16];
     char _mac_buffer[18];
+
+    int _connect_error;
+    bool _fail;
+    int _socket_open[SOCKET_COUNT];
 };
 
 #endif

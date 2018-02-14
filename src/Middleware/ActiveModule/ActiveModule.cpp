@@ -1,7 +1,7 @@
 /*
  * ActiveModule.cpp
  *
- *  Versión: 13 Feb 2018
+ *  Versión: 14 Feb 2018
  *  Author: raulMrello
  */
 
@@ -70,14 +70,13 @@ void ActiveModule::task() {
     // asigna máquina de estados por defecto  y la inicia
     initState(&_stInit);
 
-    // marca como listo para ejecución
-    _ready = true;
-
     // Ejecuta máquinas de estados y espera mensajes que son delegados a la máquina de estados
     // de la clase heredera
     for(;;){
         osEvent oe = getOsEvent();
         run(&oe);
+		// @14Feb2018.001 - marca como listo para ejecución, en este punto ya se habrá ejecutado Init::EV_ENTRY
+		_ready = true;
     }
 }
 

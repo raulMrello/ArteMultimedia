@@ -1,8 +1,11 @@
 /*
  * ActiveModule.h
  *
- *  Versión: 13 Feb 2018
+ *  Versión: 14 Feb 2018
  *  Author: raulMrello
+ *
+ *	Changelog: 
+ *	- @14Feb2018.001 Cambio 'ready=true' una vez que se haya completado el evento Init::EV_ENTRY.
  *
  *	ActiveModule es un interfaz que proporciona características comunes de funcionamiento relativas a los módulos de
  *	gestión de alto nivel.

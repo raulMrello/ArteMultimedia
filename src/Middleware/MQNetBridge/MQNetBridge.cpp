@@ -66,6 +66,8 @@ MQNetBridge::MQNetBridge(const char* local_base_topic, const char* remote_base_t
     _net = NULL;
     _client = NULL;
 	gThis = this;
+	ActiveModule::setPublicationBase(_cfg.localBaseTopic);
+	ActiveModule::setSubscriptionBase(_cfg.localBaseTopic);
 }
 
 
@@ -170,6 +172,9 @@ void MQNetBridge::subscriptionCb(const char* topic, void* msg, uint16_t msg_len)
 		
         /* Asigna el mensaje (anterior) o NULL si no se utiliza ninguno */
 		op->msg = NULL;
+		
+		/** Inserta mensaje en cola de proceso */
+		_queue.put(op);
         return;
     }
     // si es mensaje para hacer bridge hacia el broker mqtt...
@@ -208,6 +213,9 @@ void MQNetBridge::subscriptionCb(const char* topic, void* msg, uint16_t msg_len)
 		
         /* Asigna el mensaje (anterior) o NULL si no se utiliza ninguno */
 		op->msg = NULL;
+		
+		/** Inserta mensaje en cola de proceso */
+		_queue.put(op);
         return;
     }
 	
@@ -374,7 +382,7 @@ int MQNetBridge::connect(){
         }
         
         // Prepara para funcionamiento asíncrono
-        _net->set_blocking(true);
+        _net->set_blocking(false);
             
         // Abre socket tcp...
         if((rc = _net->connect(_cfg.host, _cfg.port)) != 0){
@@ -404,7 +412,7 @@ int MQNetBridge::connect(){
         _stat = Connected;
         return 0;
     }
-    return 0;
+    return (_stat == Connected)? 0 : -1;
 }
 
 

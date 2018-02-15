@@ -86,7 +86,7 @@ void ProximityManager::setSubscriptionBase(const char* sub_topic) {
 	MBED_ASSERT(sub_topic);
     sprintf(_sub_topic, "%s/+/cmd", sub_topic);
 	MQ::MQClient::subscribe(_sub_topic, &_subscrCb);
-    DEBUG_TRACE("\r\nProximityManager: Suscrito a %s\r\n", _sub_topic);        
+    DEBUG_TRACE("\r\n[ProxMan]....... Suscrito a %s\r\n", _sub_topic);        
 }   
 
 
@@ -140,7 +140,7 @@ void ProximityManager::distEventCb(HCSR04::DistanceEvent ev, int16_t dist){
 void ProximityManager::subscriptionCb(const char* topic, void* msg, uint16_t msg_len){
     // si es un comando para ajustar eventos D(cm)I(cm),O(cm),F,R
     if(MQ::MQClient::isTopicToken(topic, "/config/cmd")){
-        DEBUG_TRACE("\r\nProximityManager: Topic:%s msg:%s\r\n", topic, msg);
+        DEBUG_TRACE("\r\n[ProxMan]....... Topic:%s msg:%s\r\n", topic, msg);
         // obtengo los parámetros del mensaje Tstep y Tmax
         char* data = (char*)Heap::memAlloc(msg_len);
         if(data){
@@ -167,7 +167,7 @@ void ProximityManager::subscriptionCb(const char* topic, void* msg, uint16_t msg
     
     // si es un comando para iniciar un movimiento repetitivo cada T(ms)
     if(MQ::MQClient::isTopicToken(topic, "/start/cmd")){
-        DEBUG_TRACE("\r\nProximityManager: Topic:%s msg:%s\r\n", topic, msg);
+        DEBUG_TRACE("\r\n[ProxMan]....... Topic:%s msg:%s\r\n", topic, msg);
         // obtengo los parámetros del mensaje Tstep y Tmax
         char* data = (char*)Heap::memAlloc(msg_len);
         if(data){
@@ -185,7 +185,7 @@ void ProximityManager::subscriptionCb(const char* topic, void* msg, uint16_t msg
 
     // si es un comando para detener el movimiento
     if(MQ::MQClient::isTopicToken(topic, "/stop/cmd")){
-        DEBUG_TRACE("\r\nProximityManager: Topic:%s msg:%s\r\n", topic, msg);
+        DEBUG_TRACE("\r\n[ProxMan]....... Topic:%s msg:%s\r\n", topic, msg);
         HCSR04::stop();
         return;
     }                      

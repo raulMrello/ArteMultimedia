@@ -111,7 +111,7 @@ static void publCb(const char* name, int32_t){
 void app_RGBGame(){
         
         
-    DEBUG_TRACE("\r\n__Main__\t Iniciando app_RGBGame...");          
+    DEBUG_TRACE("\r\n[appRGB]........ Iniciando app_RGBGame...");          
     publ_cb = callback(&publCb);
 
     
@@ -122,32 +122,32 @@ void app_RGBGame(){
     
     // --------------------------------------
     // Creo módulo NetBridge MQTT 
-    DEBUG_TRACE("\r\n__Main__\t Creando NetBridge ");    
+    DEBUG_TRACE("\r\n[appRGB]........ Creando NetBridge ");    
     qnet = new MQNetBridge("sys/qnet", "xrinst/rgbgame", fs, 1000, true);
     while(!qnet->ready()){
         Thread::wait(1);
     }
-    DEBUG_TRACE("\r\n__Main__\t MQNetBridge Ready!"); 
+    DEBUG_TRACE("\r\n[appRGB]........ MQNetBridge Ready!"); 
 
     // Configuro el acceso al servidor mqtt
-    DEBUG_TRACE("\r\n__Main__\t Configurando conexión...");     
+    DEBUG_TRACE("\r\n[appRGB]........ Configurando conexión...");     
 	//static char* mnb_cfg = "cli,usr,pass,192.168.1.63,1883,MOVISTAR_9BCC,hh9DNmVvV3Km6ZzdKrkx";	
     static char* mnb_cfg = "client,user,pass,192.168.254.29,1883,Invitado,11FF00DECA";
     //static char* mnb_cfg = "cli,usr,pass,test.mosquitto.org,1883,Invitado,11FF00DECA";
     MQ::MQClient::publish("sys/qnet/conn/cmd", mnb_cfg, strlen(mnb_cfg)+1, &publ_cb);
 	
-	DEBUG_TRACE("\r\n__Main__\t Esperando conexión al broker MQTT...");
+	DEBUG_TRACE("\r\n[appRGB]........ Esperando conexión al broker MQTT...");
 	while(qnet->getStatus() != MQNetBridge::Connected){
         Thread::wait(100);
     }
-    DEBUG_TRACE("\r\n__Main__\t Conectado al broker MQTT!");
-    DEBUG_TRACE("\r\n__Main__\t Creando bridge en 'xrinst/rgbgame/+/+/stat'");
+    DEBUG_TRACE("\r\n[appRGB]........ Conectado al broker MQTT!");
+    DEBUG_TRACE("\r\n[appRGB]........ Creando bridge en 'xrinst/rgbgame/+/+/stat'");
 	qnet->addBridgeTopic("xrinst/rgbgame/+/+/stat");
     
     
     // --------------------------------------
     // Creo módulo TouchManager
-    DEBUG_TRACE("\r\n__Main__\t Creando TouchManager...");    
+    DEBUG_TRACE("\r\n[appRGB]........ Creando TouchManager...");    
     touchm = new TouchManager(PB_7, PB_6, PB_1, 0x1ff);
     touchm->setDebugChannel(true);
     while(!touchm->ready()){
@@ -155,35 +155,35 @@ void app_RGBGame(){
     }
     // establezco topic base 'touch'
     touchm->setPublicationBase("sys/touch");
-    DEBUG_TRACE("\r\n__Main__\t TouchManager READY!");            
+    DEBUG_TRACE("\r\n[appRGB]........ TouchManager READY!");            
     
 
     // --------------------------------------
     // Creo driver de control para los leds
     //  - Dirección I2C = 0h
     //  - Número de leds controlables = NUM_LEDS    
-    DEBUG_TRACE("\r\n__Main__\t Creando Driver WS281xLedStrip");    
+    DEBUG_TRACE("\r\n[appRGB]........ Creando Driver WS281xLedStrip");    
     leddrv = new WS281xLedStrip(PA_8, 800000, NUM_LEDS);	
         
     
     // --------------------------------------
     // Creo driver de control para los servos
-    DEBUG_TRACE("\r\n__Main__\t Creando Driver PCA9685_ServoDrv...");    
+    DEBUG_TRACE("\r\n[appRGB]........ Creando Driver PCA9685_ServoDrv...");    
     servodrv = new PCA9685_ServoDrv(PB_4, PA_7, NUM_SERVOS);
     // espero a que esté listo
     do{
         Thread::wait(1);
     }while(servodrv->getState() != PCA9685_ServoDrv::Ready);
-    DEBUG_TRACE("\r\n__Main__\t PCA9685_ServoDrv READY!");
+    DEBUG_TRACE("\r\n[appRGB]........ PCA9685_ServoDrv READY!");
     
     // establezco rangos de funcionamiento y marco como deshabilitaos
-    DEBUG_TRACE("\r\n__Main__\t Ajustando rangos para los servos entre 0º y 180º...");
+    DEBUG_TRACE("\r\n[appRGB]........ Ajustando rangos para los servos entre 0º y 180º...");
     for(uint8_t i=0;i<NUM_SERVOS;i++){
         if(servodrv->setServoRanges(i, 0, 180, 800, 2200) != PCA9685_ServoDrv::Success){
-            DEBUG_TRACE("\r\n__Main__\t ERR_servo '%d'", i);
+            DEBUG_TRACE("\r\n[appRGB]........ ERR_servo '%d'", i);
         }            
     }
-    DEBUG_TRACE("\r\n__Main__\t Rangos para servos READY!");
+    DEBUG_TRACE("\r\n[appRGB]........ Rangos para servos READY!");
 
 	
     // --------------------------------------
@@ -196,7 +196,10 @@ void app_RGBGame(){
         Thread::wait(1);
     }while(!game->ready());
     game->subscribeToTouchTopics("sys/touch/elec/stat");
-    DEBUG_TRACE("\r\n__Main__\t RGBGame READY!");
+    
+    DEBUG_TRACE("\r\n[appRGB]........ RGBGame READY!");
+    MQ::MQClient::publish("xrinst/rgbgame/game/sys/evt/stat", (void*)"Ready!", strlen("Ready!")+1, &publ_cb);
+    
     DEBUG_TRACE("\r\n@@@@@@@@ Aplicación iniciada @@@@@@@@\r\n");
     DEBUG_TRACE("\r\n");
 }

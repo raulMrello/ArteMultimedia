@@ -63,7 +63,7 @@ RGBGame::RGBGame(WS281xLedStrip* ls, PCA9685_ServoDrv* sd, FSManager* fs, bool d
 void RGBGame::subscriptionCb(const char* topic, void* msg, uint16_t msg_len){
     // si es un comando para actualizar los flags de notificación o los flags de evento...
     if(MQ::MQClient::isTopicToken(topic, _touch_topic)){
-        DEBUG_TRACE("\r\nRGBGame\t Recibido topic '%s' con msg '%s'", topic, (char*)msg);
+        DEBUG_TRACE("\r\n[RGBGame]....... Recibido topic '%s' con msg '%s'", topic, (char*)msg);
 
         /* Chequea que el mensaje tiene formato correcto */
 		// el mensaje es un stream 'ELEC,0'
@@ -71,7 +71,7 @@ void RGBGame::subscriptionCb(const char* topic, void* msg, uint16_t msg_len){
 		char* value = strtok(NULL, ",");
 		
 		if(!elec || !value){
-			DEBUG_TRACE("\r\nRGBGame\t ERR_MSG, mensaje con formato incorrecto en topic '%s'", topic);
+			DEBUG_TRACE("\r\n[RGBGame]....... ERR_MSG, mensaje con formato incorrecto en topic '%s'", topic);
 			return;
 		}
 				
@@ -94,14 +94,14 @@ void RGBGame::subscriptionCb(const char* topic, void* msg, uint16_t msg_len){
         _queue.put(op);
         return;
     }
-    DEBUG_TRACE("\r\nRGBGame\t ERR_TOPIC. No se puede procesar el topic '%s'", topic);
+    DEBUG_TRACE("\r\n[RGBGame]....... ERR_TOPIC. No se puede procesar el topic '%s'", topic);
 }
 
 //------------------------------------------------------------------------------------
 State::StateResult RGBGame::Init_EventHandler(State::StateEvent* se){
     switch((int)se->evt){
         case State::EV_ENTRY:{
-        	DEBUG_TRACE("\r\nRGBGame\t EV_ENTRY en stInit");
+        	DEBUG_TRACE("\r\n[RGBGame]....... EV_ENTRY en stInit");
         	// recupera los datos de memoria NV
         	restoreConfig();
 			
@@ -110,12 +110,12 @@ State::StateResult RGBGame::Init_EventHandler(State::StateEvent* se){
             _stat.colorMaxNext = _cfg.colorMax;
 
             // Inicia el hilo para la ejecución de efectos y espera a que el hilo se inicie
-            DEBUG_TRACE("\r\nRGBGame\t Inicia thread de efectos");
+            DEBUG_TRACE("\r\n[RGBGame]....... Inicia thread de efectos");
             _th_effect.start(callback(this, &RGBGame::effectsThread));
             Thread::wait(100);
             
             // inicia un efecto wave de un ciclo con inicio de señales led y sin servos
-            DEBUG_TRACE("\r\nRGBGame\t Lanza efecto Wave x1");
+            DEBUG_TRACE("\r\n[RGBGame]....... Lanza efecto Wave x1");
             _stat.cycles = 1;
             _stat.flags = FlagDoLedStart;
             startEffect(WaveEffectEvt);
@@ -126,14 +126,14 @@ State::StateResult RGBGame::Init_EventHandler(State::StateEvent* se){
             }
 			
 			// al terminar conmuta a stWait
-            DEBUG_TRACE("\r\nRGBGame\t Conmuta a stWait");
+            DEBUG_TRACE("\r\n[RGBGame]....... Conmuta a stWait");
 			tranState(_stWait);
         	
             return State::HANDLED;
         }
 
         case State::EV_EXIT:{
-            DEBUG_TRACE("\r\nRGBGame\t EV_EXIT en stInit");
+            DEBUG_TRACE("\r\n[RGBGame]....... EV_EXIT en stInit");
             nextState();
             return State::HANDLED;
         }
@@ -151,10 +151,10 @@ State::StateResult RGBGame::Wait_EventHandler(State::StateEvent* se){
     switch((int)se->evt){
         
         case State::EV_ENTRY:{
-        	DEBUG_TRACE("\r\nRGBGame\t EV_ENTRY en stWait");
+        	DEBUG_TRACE("\r\n[RGBGame]....... EV_ENTRY en stWait");
             
 			// inicializa el timeout para que interrumpa cada 1seg. 
-            DEBUG_TRACE("\r\nRGBGame\t Inicia timeouts");
+            DEBUG_TRACE("\r\n[RGBGame]....... Inicia timeouts");
 			_timeout = 1000;
             // marca un timeout de estado de 10seg.
 			_acc_timeout = 10 * 1000;
@@ -163,11 +163,11 @@ State::StateResult RGBGame::Wait_EventHandler(State::StateEvent* se){
         }
 
         case State::EV_TIMED:{
-            DEBUG_TRACE("\r\nRGBGame\t EV_TIMED en stWait");
+            DEBUG_TRACE("\r\n[RGBGame]....... EV_TIMED en stWait");
 			_acc_timeout -= _timeout;
 			// si la temporización vence, apaga todo y espera indefinidamente nuevos eventos
 			if(_acc_timeout <= 0){
-                DEBUG_TRACE("\r\nRGBGame\t Temporización cumplida. Apaga torre");
+                DEBUG_TRACE("\r\n[RGBGame]....... Temporización cumplida. Apaga torre");
 				_acc_timeout = 10 * 1000;
 				_timeout = osWaitForever;
 				startEffect(SwitchOffEffectEvt);
@@ -178,7 +178,7 @@ State::StateResult RGBGame::Wait_EventHandler(State::StateEvent* se){
 
         // Procesa evento de pulsación
         case TouchPressEvt:{
-            DEBUG_TRACE("\r\nRGBGame\t EV_TOUCH en stWait, conmuta a stConfig");
+            DEBUG_TRACE("\r\n[RGBGame]....... EV_TOUCH en stWait, conmuta a stConfig");
             // conmuta a configuración
 			tranState(_stConfig);
 			
@@ -192,7 +192,7 @@ State::StateResult RGBGame::Wait_EventHandler(State::StateEvent* se){
         }
 
         case State::EV_EXIT:{
-            DEBUG_TRACE("\r\nRGBGame\t EV_EXIT en stWait");
+            DEBUG_TRACE("\r\n[RGBGame]....... EV_EXIT en stWait");
             nextState();
             return State::HANDLED;
         }
@@ -212,7 +212,7 @@ State::StateResult RGBGame::Config_EventHandler(State::StateEvent* se){
     switch((int)se->evt){
         
         case State::EV_ENTRY:{
-        	DEBUG_TRACE("\r\nRGBGame\t EV_ENTRY en stConfig");
+        	DEBUG_TRACE("\r\n[RGBGame]....... EV_ENTRY en stConfig");
 
 			// inicializa el timeout para que interrumpa cada 1seg. 
 			_timeout = 1000;
@@ -222,11 +222,11 @@ State::StateResult RGBGame::Config_EventHandler(State::StateEvent* se){
             timed_play = 10 * 1000;
             
             // publica mensaje con la configuración actual
-            DEBUG_TRACE("\r\nRGBGame\t Publica configuración");
+            DEBUG_TRACE("\r\n[RGBGame]....... Publica configuración");
             publishConfig();
             
             // genera un wave con servos con la configuración por defecto (sin necesidad de reiniciar señales led)
-            DEBUG_TRACE("\r\nRGBGame\t Genera efecto Wave x1");
+            DEBUG_TRACE("\r\n[RGBGame]....... Genera efecto Wave x1");
             _stat.cycles = 1;
             _stat.flags = FlagDoServos;
             startEffect(WaveEffectEvt);
@@ -235,14 +235,14 @@ State::StateResult RGBGame::Config_EventHandler(State::StateEvent* se){
         }
 
         case State::EV_TIMED:{
-            DEBUG_TRACE("\r\nRGBGame\t EV_TIMED en stConfig");
+            DEBUG_TRACE("\r\n[RGBGame]....... EV_TIMED en stConfig");
 			_acc_timeout -= _timeout;
             
             // chequa timeout tras evento touch-press
             if((_stat.flags & FlagTouched) != 0){
                 timed_play -= _timeout;
                 if(timed_play <= 0){
-                    DEBUG_TRACE("\r\nRGBGame\t Conmuta a stGame");
+                    DEBUG_TRACE("\r\n[RGBGame]....... Conmuta a stGame");
                     tranState(_stGame);
                     return State::HANDLED;
                 }
@@ -250,7 +250,7 @@ State::StateResult RGBGame::Config_EventHandler(State::StateEvent* se){
             
 			// si la temporización vence, vuelve a wait
 			if(_acc_timeout <= 0){
-                DEBUG_TRACE("\r\nRGBGame\t Timeout, conmuta a stWait");
+                DEBUG_TRACE("\r\n[RGBGame]....... Timeout, conmuta a stWait");
 				tranState(_stWait);
                 return State::HANDLED;
 			}
@@ -260,7 +260,7 @@ State::StateResult RGBGame::Config_EventHandler(State::StateEvent* se){
 
         // Procesa evento de pulsación
         case TouchPressEvt:{
-            DEBUG_TRACE("\r\nRGBGame\t EV_TOUCH en stConfig");
+            DEBUG_TRACE("\r\n[RGBGame]....... EV_TOUCH en stConfig");
             
             // borra temporización y marca flag
             _stat.flags = (Flags)(_stat.flags|FlagTouched);
@@ -271,7 +271,7 @@ State::StateResult RGBGame::Config_EventHandler(State::StateEvent* se){
             uint32_t elec = *((uint32_t*)st_msg->msg);			
 					
 			// actualiza la configuración en función del electrodo y genera un nuevo efecto
-            DEBUG_TRACE("\r\nRGBGame\t Actualiza estado de la torre e inicia nuevo efecto");
+            DEBUG_TRACE("\r\n[RGBGame]....... Actualiza estado de la torre e inicia nuevo efecto");
             updateEffectConfig((uint8_t)elec);            
 			startEffect(WaveEffectEvt);
 			
@@ -285,7 +285,7 @@ State::StateResult RGBGame::Config_EventHandler(State::StateEvent* se){
         }
         
         case State::EV_EXIT:{
-            DEBUG_TRACE("\r\nRGBGame\t EV_EXIT en stConfig");
+            DEBUG_TRACE("\r\n[RGBGame]....... EV_EXIT en stConfig");
             nextState();
             return State::HANDLED;
         }
@@ -304,7 +304,7 @@ State::StateResult RGBGame::Game_EventHandler(State::StateEvent* se){
     switch((int)se->evt){
         
         case State::EV_ENTRY:{
-        	DEBUG_TRACE("\r\nRGBGame\t Iniciando estado stGame...");
+        	DEBUG_TRACE("\r\n[RGBGame]....... Iniciando estado stGame...");
 
 			// inicializa el timeout para que interrumpa cada 1seg. 
 			_timeout = 1000;
@@ -320,12 +320,12 @@ State::StateResult RGBGame::Game_EventHandler(State::StateEvent* se){
         }
 
         case State::EV_TIMED:{
-            DEBUG_TRACE("\r\nRGBGame\t EV_TIMED en stGame");
+            DEBUG_TRACE("\r\n[RGBGame]....... EV_TIMED en stGame");
 			_acc_timeout -= _timeout;
                         
 			// si la temporización vence, vuelve a wait
 			if(_acc_timeout <= 0){
-                DEBUG_TRACE("\r\nRGBGame\t Conmuta a stWait");
+                DEBUG_TRACE("\r\n[RGBGame]....... Conmuta a stWait");
 				tranState(_stWait);
 			}
 			
@@ -334,7 +334,7 @@ State::StateResult RGBGame::Game_EventHandler(State::StateEvent* se){
 
         // Procesa evento de pulsación
         case TouchPressEvt:{
-            DEBUG_TRACE("\r\nRGBGame\t EV_TOUCH en stGame, conmuta a stConfig");
+            DEBUG_TRACE("\r\n[RGBGame]....... EV_TOUCH en stGame, conmuta a stConfig");
             
             // vuelve a modo configuración
             tranState(_stConfig);
@@ -350,7 +350,7 @@ State::StateResult RGBGame::Game_EventHandler(State::StateEvent* se){
 
         // Procesa evento de inicio de ciclo de efecto
         case EffectCycleEvt:{           
-            DEBUG_TRACE("\r\nRGBGame\t EV_EFFECT en stGame, publica estado");            
+            DEBUG_TRACE("\r\n[RGBGame]....... EV_EFFECT en stGame, publica estado");            
             // publica estado actual
             publishStat();
 			
@@ -364,7 +364,7 @@ State::StateResult RGBGame::Game_EventHandler(State::StateEvent* se){
         }
 
         case State::EV_EXIT:{
-            DEBUG_TRACE("\r\nRGBGame\t EV_EXIT en stGame");
+            DEBUG_TRACE("\r\n[RGBGame]....... EV_EXIT en stGame");
             nextState();
             return State::HANDLED;
         }
@@ -405,18 +405,18 @@ bool RGBGame::checkIntegrity(){
     }    
 	
 	if(!chk_ok){
-        DEBUG_TRACE("\r\nRGBGame\t ERR_CFG al chequear integridad de configuración");	
+        DEBUG_TRACE("\r\n[RGBGame]....... ERR_CFG al chequear integridad de configuración");	
 		setDefaultConfig();
 		return false;
 	}	
-    DEBUG_TRACE("\r\nRGBGame\t Integridad de configuración OK!");	
+    DEBUG_TRACE("\r\n[RGBGame]....... Integridad de configuración OK!");	
 	return true;
 }
 
 
 //------------------------------------------------------------------------------------
 void RGBGame::setDefaultConfig(){
-    DEBUG_TRACE("\r\nRGBGame\t Estableciendo configuración por defecto");
+    DEBUG_TRACE("\r\n[RGBGame]....... Estableciendo configuración por defecto");
 	
 	/* Establece configuración por defecto */
 	_cfg.colorMin = (WS281xLedStrip::Color_t){0,0,2};
@@ -434,27 +434,27 @@ void RGBGame::setDefaultConfig(){
 void RGBGame::restoreConfig(){
     bool success = true;
 	if(!restoreParameter("RGBGameCfg", &_cfg, sizeof(Config), NVSInterface::TypeBlob)){
-        DEBUG_TRACE("\r\nRGBGame\t ERR_NV al recuperar la configuración");
+        DEBUG_TRACE("\r\n[RGBGame]....... ERR_NV al recuperar la configuración");
         success = false;
     }
     if(success){
-		DEBUG_TRACE("\r\nRGBGame\t Datos recuperados OK! Chequeando integridad...");
+		DEBUG_TRACE("\r\n[RGBGame]....... Datos recuperados OK! Chequeando integridad...");
     	// chequea la coherencia de los datos y en caso de algo no esté bien, establece los datos por defecto
     	// almacenándolos de nuevo en memoria NV.
     	if(!checkIntegrity()){
     		return;
     	}
-    	DEBUG_TRACE("\r\nRGBGame\t Configuración recuperada correctamente!");
+    	DEBUG_TRACE("\r\n[RGBGame]....... Configuración recuperada correctamente!");
         return;
 	}
-	DEBUG_TRACE("\r\nRGBGame\t ERR_NV. Error en la recuperación de datos. Establece configuración por defecto");
+	DEBUG_TRACE("\r\n[RGBGame]....... ERR_NV. Error en la recuperación de datos. Establece configuración por defecto");
 	setDefaultConfig();
 }
 
 
 //------------------------------------------------------------------------------------
 void RGBGame::saveConfig(){
-    DEBUG_TRACE("\r\nRGBGame\t Guardando configuración en memoria NV");	
+    DEBUG_TRACE("\r\n[RGBGame]....... Guardando configuración en memoria NV");	
 	saveParameter("RGBGameCfg", &_cfg, sizeof(Config), NVSInterface::TypeBlob);
 }
 
@@ -466,7 +466,7 @@ void RGBGame::saveConfig(){
 
 //------------------------------------------------------------------------------------
 void RGBGame::effectsThread(){
-    DEBUG_TRACE("\r\nRGBGame\t Thread de efectos arrancado!");
+    DEBUG_TRACE("\r\n[RGBGame]....... Thread de efectos arrancado!");
 	
     // espera señales, la variable _stat se actualizará para iniciar un nuevo efecto
     // cuando el efecto finalice (de forma automática o por intervención externa), volverá

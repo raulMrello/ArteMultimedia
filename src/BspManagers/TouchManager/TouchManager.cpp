@@ -58,7 +58,7 @@ void TouchManager::job(uint32_t signals){
         if(_sns == _curr_sns){
             return;
         }
-        DEBUG_TRACE("\r\n[Touch]\t Evt=%d", _sns);
+        DEBUG_TRACE("\r\n[TouchMan]...... Evt=%d", _sns);
         // activa filtro antiglitch
         _tick_glitch.attach_us(callback(this, &TouchManager::isrTickCb), AntiGlitchTimeout);
     }
@@ -101,12 +101,12 @@ void TouchManager::setPublicationBase(const char* pub_topic) {
 
 //------------------------------------------------------------------------------------
 void TouchManager::task(){
-    DEBUG_TRACE("\r\n[Touch]\t Iniciando tarea... ");
+    DEBUG_TRACE("\r\n[TouchMan]...... Iniciando tarea.");
     while(MPR121_CapTouch::getState() != MPR121_CapTouch::Ready){
         Thread::wait(1);
     }
     _curr_sns = MPR121_CapTouch::touched();
-    DEBUG_TRACE("\r\n[Touch]\t Esperando eventos... ");
+    DEBUG_TRACE("\r\n[TouchMan]...... Esperando eventos.");
     _ready = true;
     
     // Arranca espera

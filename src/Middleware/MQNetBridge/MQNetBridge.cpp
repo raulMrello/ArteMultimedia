@@ -48,7 +48,7 @@ static void MqttEventHandler(MQTT::MessageData& md){
 //------------------------------------------------------------------------------------
 MQNetBridge::MQNetBridge(const char* local_base_topic, const char* remote_base_topic, FSManager* fs, uint32_t mqtt_yield_millis, bool defdbg) : ActiveModule("MQNetBridge", osPriorityNormal, OS_STACK_SIZE, fs, defdbg)  { 
     
-	DEBUG_TRACE("\r\nNetBridge\t Iniciando componente");
+	DEBUG_TRACE("\r\n[MQNetBridge]... Iniciando componente");
 
 	_publicationCb = callback(this, &MQNetBridge::publicationCb);
 	_subscriptionCb = callback(this, &MQNetBridge::subscriptionCb);
@@ -102,7 +102,7 @@ void MQNetBridge::mqttEventHandler(MQTT::MessageData& md){
 void MQNetBridge::subscriptionCb(const char* topic, void* msg, uint16_t msg_len){
     // si es un comando para actualizar los flags de notificación o los flags de evento...
     if(MQ::MQClient::isTopicToken(topic, "/conn/cmd")){
-        DEBUG_TRACE("\r\nNetBridge\t Recibido topic '%s' con msg '%s'", topic, (char*)msg);
+        DEBUG_TRACE("\r\n[MQNetBridge]... Recibido topic '%s' con msg '%s'", topic, (char*)msg);
 
         /* Chequea que el mensaje tiene formato correcto */
        // lee los parámetros esperados: ClientId,User,UserPass,Host,Port,ESSID, WifiPasswd
@@ -115,7 +115,7 @@ void MQNetBridge::subscriptionCb(const char* topic, void* msg, uint16_t msg_len)
         char* passwd = strtok(0, ",");
         // si no se leen correctamente, lo descarta
         if(!cli || !usr || !usrpass || !host || !port || !essid || !passwd){   
-			DEBUG_TRACE("\r\nNetBridge\t ERR_MSG, mensaje con formato incorrecto en topic '%s'", topic);
+			DEBUG_TRACE("\r\n[MQNetBridge]... ERR_MSG, mensaje con formato incorrecto en topic '%s'", topic);
 			return;	
 		}
 		// guarda la nueva configuración
@@ -179,7 +179,7 @@ void MQNetBridge::subscriptionCb(const char* topic, void* msg, uint16_t msg_len)
     }
     // si es mensaje para hacer bridge hacia el broker mqtt...
     if(MQ::MQClient::isTopicToken(topic, "/stat")){
-        DEBUG_TRACE("\r\nNetBridge\t Recibido topic '%s' con msg '%s'", topic, (char*)msg);
+        DEBUG_TRACE("\r\n[MQNetBridge]... Recibido topic '%s' con msg '%s'", topic, (char*)msg);
 
         // directamente lo publica en el topic correspondiente siempre que la conexión esté operativa
         if((_stat & Connected) != 0){
@@ -202,7 +202,7 @@ void MQNetBridge::subscriptionCb(const char* topic, void* msg, uint16_t msg_len)
 		
     // si es un comando para actualizar los flags de notificación o los flags de evento...
     if(MQ::MQClient::isTopicToken(topic, "/disc/cmd")){
-        DEBUG_TRACE("\r\nNetBridge\t Recibido topic '%s' con msg '%s'", topic, (char*)msg);        
+        DEBUG_TRACE("\r\n[MQNetBridge]... Recibido topic '%s' con msg '%s'", topic, (char*)msg);        
 				
         // crea mensaje para publicar en la máquina de estados
         State::Msg* op = (State::Msg*)Heap::memAlloc(sizeof(State::Msg));
@@ -219,7 +219,7 @@ void MQNetBridge::subscriptionCb(const char* topic, void* msg, uint16_t msg_len)
         return;
     }
 	
-    DEBUG_TRACE("\r\nNetBridge\t ERR_TOPIC. No se puede procesar el topic '%s'", topic);
+    DEBUG_TRACE("\r\n[MQNetBridge]... ERR_TOPIC. No se puede procesar el topic '%s'", topic);
 }
 
 //------------------------------------------------------------------------------------
@@ -227,7 +227,7 @@ State::StateResult MQNetBridge::Init_EventHandler(State::StateEvent* se){
     State::Msg* st_msg = (State::Msg*)se->oe->value.p;
     switch((int)se->evt){
         case State::EV_ENTRY:{
-        	DEBUG_TRACE("\r\nNetBridge\t EV_ENTRY en stInit");
+        	DEBUG_TRACE("\r\n[MQNetBridge]... EV_ENTRY en stInit");
         	
 			// recupera los datos de memoria NV
         	restoreConfig();
@@ -236,7 +236,7 @@ State::StateResult MQNetBridge::Init_EventHandler(State::StateEvent* se){
 			char* topic = (char*)Heap::memAlloc(MQ::MQClient::getMaxTopicLen());
 			MBED_ASSERT(topic);
 			sprintf(topic, "%s/+/cmd", _cfg.localBaseTopic);
-			DEBUG_TRACE("\r\nNetBridge\t Suscribiendose a '%s'", topic);
+			DEBUG_TRACE("\r\n[MQNetBridge]... Suscribiendose a '%s'", topic);
 			MQ::MQClient::subscribe(topic, &_subscriptionCb);
 			Heap::memFree(topic);
 			
@@ -248,14 +248,14 @@ State::StateResult MQNetBridge::Init_EventHandler(State::StateEvent* se){
                                
 		// Evento de solicitud de conexión
 		case ConnReqEvt:{
-			DEBUG_TRACE("\r\nNetBridge\t EV_CONN_REQ en stInit");
+			DEBUG_TRACE("\r\n[MQNetBridge]... EV_CONN_REQ en stInit");
 			// si el hilo mqtt no se ha iniciado, lo inicia
 			if(_stat == Unknown){
-				DEBUG_TRACE("\r\nNetBridge\t Iniciando thread mqtt");
+				DEBUG_TRACE("\r\n[MQNetBridge]... Iniciando thread mqtt");
 				_th_mqtt.start(callback(this, &MQNetBridge::mqttThread));			
 			}
             else{
-                DEBUG_TRACE("\r\nNetBridge\t ERR_CONN, conexión ya iniciada anteriormente.");
+                DEBUG_TRACE("\r\n[MQNetBridge]... ERR_CONN, conexión ya iniciada anteriormente.");
             }
             
             // libera el mensaje (tanto el contenedor de datos como el propio mensaje)
@@ -268,7 +268,7 @@ State::StateResult MQNetBridge::Init_EventHandler(State::StateEvent* se){
 		}            
 
         case State::EV_EXIT:{
-            DEBUG_TRACE("\r\nNetBridge\t EV_EXIT en stInit");
+            DEBUG_TRACE("\r\n[MQNetBridge]... EV_EXIT en stInit");
             nextState();
             return State::HANDLED;
         }
@@ -309,18 +309,18 @@ bool MQNetBridge::checkIntegrity(){
 	}  
 	
 	if(!chk_ok){
-        DEBUG_TRACE("\r\nNetBridge\t ERR_CFG al chequear integridad de configuración");	
+        DEBUG_TRACE("\r\n[MQNetBridge]... ERR_CFG al chequear integridad de configuración");	
 		setDefaultConfig();
 		return false;
 	}	
-    DEBUG_TRACE("\r\nNetBridge\t Integridad de configuración OK!");	
+    DEBUG_TRACE("\r\n[MQNetBridge]... Integridad de configuración OK!");	
 	return true;
 }
 
 
 //------------------------------------------------------------------------------------
 void MQNetBridge::setDefaultConfig(){
-    DEBUG_TRACE("\r\nNetBridge\t Estableciendo configuración por defecto: TBD");
+    DEBUG_TRACE("\r\n[MQNetBridge]... Estableciendo configuración por defecto: TBD");
 	
 	/* Guarda en memoria NV */
 	saveConfig();
@@ -331,27 +331,27 @@ void MQNetBridge::setDefaultConfig(){
 void MQNetBridge::restoreConfig(){
     bool success = true;
 	if(!restoreParameter("MQNetBridgeCfg", &_cfg, sizeof(Config), NVSInterface::TypeBlob)){
-        DEBUG_TRACE("\r\nNetBridge\t ERR_NV al recuperar la configuración");
+        DEBUG_TRACE("\r\n[MQNetBridge]... ERR_NV al recuperar la configuración");
         success = false;
     }
     if(success){
-		DEBUG_TRACE("\r\nNetBridge\t Datos recuperados OK! Chequeando integridad...");
+		DEBUG_TRACE("\r\n[MQNetBridge]... Datos recuperados OK! Chequeando integridad...");
     	// chequea la coherencia de los datos y en caso de algo no esté bien, establece los datos por defecto
     	// almacenándolos de nuevo en memoria NV.
     	if(!checkIntegrity()){
     		return;
     	}
-    	DEBUG_TRACE("\r\nNetBridge\t Configuración recuperada correctamente!");
+    	DEBUG_TRACE("\r\n[MQNetBridge]... Configuración recuperada correctamente!");
         return;
 	}
-	DEBUG_TRACE("\r\nNetBridge\t ERR_NV. Error en la recuperación de datos. Establece configuración por defecto");
+	DEBUG_TRACE("\r\n[MQNetBridge]... ERR_NV. Error en la recuperación de datos. Establece configuración por defecto");
 	setDefaultConfig();
 }
 
 
 //------------------------------------------------------------------------------------
 void MQNetBridge::saveConfig(){
-    DEBUG_TRACE("\r\nNetBridge\t Guardando configuración en memoria NV");	
+    DEBUG_TRACE("\r\n[MQNetBridge]... Guardando configuración en memoria NV");	
 	saveParameter("MQNetBridgeCfg", &_cfg, sizeof(Config), NVSInterface::TypeBlob);
 }
 
@@ -367,15 +367,15 @@ int MQNetBridge::connect(){
     // Levanta el interfaz de red wifi
     int rc;       
     if(!_network){
-        DEBUG_TRACE("\r\nNetBridge\t Levantando interfaz de red");
+        DEBUG_TRACE("\r\n[MQNetBridge]... Levantando interfaz de red");
         _network = easy_connect(true);
     }
     else if(_network->get_ip_address() == NULL){
-        DEBUG_TRACE("\r\nNetBridge\t Levantando interfaz de red");
+        DEBUG_TRACE("\r\n[MQNetBridge]... Levantando interfaz de red");
         _network = easy_connect(true);
     }
     if(!_network){
-        DEBUG_TRACE("\r\nNetBridge\t ERR_IFUP, no se ha podido conectar a la red wifi");
+        DEBUG_TRACE("\r\n[MQNetBridge]... ERR_IFUP, no se ha podido conectar a la red wifi");
         _stat = WifiError;
         return -1;
     }
@@ -395,14 +395,14 @@ int MQNetBridge::connect(){
            
     // Abre socket tcp...
     if((rc = _net->connect(_cfg.host, _cfg.port)) != 0){
-        DEBUG_TRACE("\r\nNetBridge\t ERR_CONN, al conectar el socket");
+        DEBUG_TRACE("\r\n[MQNetBridge]... ERR_CONN, al conectar el socket");
         _stat = SockError;
         return rc;
     }
-    DEBUG_TRACE("\r\nNetBridge\t SOCK_CONN, socket conectado");    
+    DEBUG_TRACE("\r\n[MQNetBridge]... SOCK_CONN, socket conectado");    
     
     // Conecta cliente MQTT...
-    DEBUG_TRACE("\r\nNetBridge\t Conectando cliente MQTT");
+    DEBUG_TRACE("\r\n[MQNetBridge]... Conectando cliente MQTT");
     MQTTPacket_connectData data = MQTTPacket_connectData_initializer;
     data.MQTTVersion = 3;
     if(strcmp(_cfg.clientId, " ") != 0){
@@ -416,11 +416,11 @@ int MQNetBridge::connect(){
     }
 
     if((rc = _client->connect(data)) != 0){
-        DEBUG_TRACE("\r\nNetBridge\t ERR_MQTT al conectar con el broker MQTT");
+        DEBUG_TRACE("\r\n[MQNetBridge]... ERR_MQTT al conectar con el broker MQTT");
         _stat = MqttError;
         return rc;
     }    
-    DEBUG_TRACE("\r\nNetBridge\t CONN_OK!");
+    DEBUG_TRACE("\r\n[MQNetBridge]... CONN_OK!");
     _stat = Connected;
     return 0;
 }
@@ -431,17 +431,17 @@ void MQNetBridge::disconnect(){
     // desconecta si estuviera conectado
     // cierra conexión mqtt...    
     if(_client && _client->isConnected()){
-		DEBUG_TRACE("\r\nNetBridge\t Deteniendo  cliente mqtt");
+		DEBUG_TRACE("\r\n[MQNetBridge]... Deteniendo  cliente mqtt");
         _client->disconnect();
     }
     // cierra el socket tcp...
     if(_net){
-		DEBUG_TRACE("\r\nNetBridge\t Cerrando socket");
+		DEBUG_TRACE("\r\n[MQNetBridge]... Cerrando socket");
         _net->disconnect();                
     }
     // finaliza conexión wifi...
     if(_network){
-		DEBUG_TRACE("\r\nNetBridge\t Deteniendo interfaz de red");
+		DEBUG_TRACE("\r\n[MQNetBridge]... Deteniendo interfaz de red");
         _network->disconnect();
         _network = NULL;
     }
@@ -475,13 +475,13 @@ int MQNetBridge::reconnect(){
         return connect();
     }
 
-	DEBUG_TRACE("\r\nNetBridge\t No hace ninguna acción, ya está todo levantado.");
+	DEBUG_TRACE("\r\n[MQNetBridge]... No hace ninguna acción, ya está todo levantado.");
     return 0;
 }
 
 //---------------------------------------------------------------------------------
 void MQNetBridge::mqttThread(){    
-    DEBUG_TRACE("\r\nNetBridge\t Thread mqtt iniciado:");
+    DEBUG_TRACE("\r\n[MQNetBridge]... Thread mqtt iniciado:");
 
 	// marca thread como iniciado
     _stat = Ready;
@@ -490,7 +490,7 @@ void MQNetBridge::mqttThread(){
     
         // si ha llegado a este punto, inicia la conexión de forma reiterada hasta que lo consiga.
         while(reconnect() != 0){
-            DEBUG_TRACE("\r\nNetBridge\t ERR_MQTT_CONN, error conectando cliente MQTT, reintentando en 5seg.");
+            DEBUG_TRACE("\r\n[MQNetBridge]... ERR_MQTT_CONN, error conectando cliente MQTT, reintentando en 5seg.");
             Thread::wait(5000);
         }
         
@@ -500,14 +500,14 @@ void MQNetBridge::mqttThread(){
         sprintf(topic, "%s/+/+/cmd", _cfg.remoteBaseTopic);
         int rc;
         if ((rc =_client->subscribe(topic, MQTT::QOS0, MqttEventHandler)) != 0){
-            DEBUG_TRACE("\r\nNetBridge\t ERR_SUBSC %d al suscribirse al topic '%s'", rc, topic);
+            DEBUG_TRACE("\r\n[MQNetBridge]... ERR_SUBSC %d al suscribirse al topic '%s'", rc, topic);
         }
         else{
-            DEBUG_TRACE("\r\nNetBridge\t SUBSC_OK, suscrito al topic '%s'", topic);
+            DEBUG_TRACE("\r\n[MQNetBridge]... SUBSC_OK, suscrito al topic '%s'", topic);
         }    
         Heap::memFree(topic);
         
-        DEBUG_TRACE("\r\nNetBridge\t Thread mqtt esperando eventos...");
+        DEBUG_TRACE("\r\n[MQNetBridge]... Thread mqtt esperando eventos...");
         while(_client->isConnected()){       
             _client->yield(_cfg.pollDelay);
         }

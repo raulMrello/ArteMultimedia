@@ -131,8 +131,9 @@ void app_RGBGame(){
 
     // Configuro el acceso al servidor mqtt
     DEBUG_TRACE("\r\n__Main__\t Configurando conexión...");     
-	static char* mnb_cfg = "cli,usr,pass,192.168.1.63,1883,MOVISTAR_9BCC,hh9DNmVvV3Km6ZzdKrkx";	
-    //static char* mnb_cfg = "cli,usr,pass,192.168.254.29,1883,Invitado,11FF00DECA";
+	//static char* mnb_cfg = "cli,usr,pass,192.168.1.63,1883,MOVISTAR_9BCC,hh9DNmVvV3Km6ZzdKrkx";	
+    static char* mnb_cfg = "client,user,pass,192.168.254.29,1883,Invitado,11FF00DECA";
+    //static char* mnb_cfg = "cli,usr,pass,test.mosquitto.org,1883,Invitado,11FF00DECA";
     MQ::MQClient::publish("sys/qnet/conn/cmd", mnb_cfg, strlen(mnb_cfg)+1, &publ_cb);
 	
 	DEBUG_TRACE("\r\n__Main__\t Esperando conexión al broker MQTT...");

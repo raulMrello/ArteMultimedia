@@ -8,7 +8,7 @@ public:
     MQTTNetwork(NetworkInterface* aNetwork) : network(aNetwork) {
         socket = new TCPSocket();
     }
-
+    
     ~MQTTNetwork() {
         delete socket;
     }

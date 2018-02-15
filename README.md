@@ -6,6 +6,20 @@ Proyecto plantilla para desarrollos con la tarjeta NUCLEO_L432KC de ST en mbed-o
 ## Changelog
 
 
+*15.02.2018*
+>**"Cambio secuencia de conexión"**
+>
+- [x] Cambio secuencia de conexión
+- [ ] Verificar funcionamiento.
+- [ ] Utilizar NVFlash para guardar y recuperar datos de memoria o utilizar mbed-5.7 para utilizar el sistema key-value.
+- [ ] Verificar funcionamiento del juego con trazas de depuración
+- [ ] Incluir MQTT
+- [ ] Cablear VCC al módulo para arranque al conectar.
+- [!] Cambiando topics en cyberribs. REVISAR
+- [ ] Definir los diferentes modos de juego mediante comando mq: xrinst/rgbgame/select/cmd.
+- [ ] Actualizar todos los repos paralelos.
+  
+
 *14.02.2018*
 >**"Verificando wifi. Falla en conexión a socket. Se queda groggy"**
 >

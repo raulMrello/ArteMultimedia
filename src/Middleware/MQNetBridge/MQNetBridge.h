@@ -262,10 +262,7 @@ private:
      *  Desconecta y vuelve a conectar 
      *  @return Código de error, o 0 si Success.
      */    
-     int reconnect(){ 
-		disconnect(); 
-		return(connect()); 
-	 }
+     int reconnect();
 
 
 };

@@ -189,9 +189,9 @@ void MQNetBridge::subscriptionCb(const char* topic, void* msg, uint16_t msg_len)
             message.dup = false;
             message.payload = msg;
             message.payloadlen = msg_len;
-            int err = 0;
-            if((err = _client->publish(topic, message)) != 0){            
-                DEBUG_TRACE("\r\nNetBridge: ERR_MQTT_PUB, publicando en topic '%s', error %d", topic, err); 
+            int rc = 0;
+            if((rc = _client->publish(topic, message)) != 0){            
+                DEBUG_TRACE("\r\nNetBridge: ERR_MQTT_PUB, publicando en topic '%s', error %d", topic, rc); 
             }
             else{
                 DEBUG_TRACE("\r\nNetBridge: PUB_OK, mensaje publicado en topic '%s'", topic); 
@@ -365,54 +365,64 @@ void MQNetBridge::saveConfig(){
 int MQNetBridge::connect(){
     // inicia el proceso de conexión...
     // Levanta el interfaz de red wifi
-    int rc;    
-    if(!_network || !_net || !_client){
-		DEBUG_TRACE("\r\nNetBridge\t Levantando interfaz de red");
+    int rc;       
+    if(!_network){
+        DEBUG_TRACE("\r\nNetBridge\t Levantando interfaz de red");
         _network = easy_connect(true);
-        if(!_network){
-			DEBUG_TRACE("\r\nNetBridge\t ERR_IFUP, no se ha podido conectar a la red wifi");
-            _stat = WifiError;
-            return -1;
-        }
-    
-        // Prepara socket tcp...
-        if(!_net){
-            DEBUG_TRACE("\r\nNetBridge\t Abriendo socket");
-            _net = new MQTTNetwork(_network);
-        }
-        
-        // Prepara para funcionamiento asíncrono
-        _net->set_blocking(false);
-            
-        // Abre socket tcp...
-        if((rc = _net->connect(_cfg.host, _cfg.port)) != 0){
-            DEBUG_TRACE("\r\nNetBridge\t ERR_CONN, al conectar el socket");
-            _stat = SockError;
-            return rc;
-        }
-        
-        // Prepara cliente mqtt...
-        if(!_client){
-            DEBUG_TRACE("\r\nNetBridge\t Conectando cliente MQTT");
-            _client = new MQTT::Client<MQTTNetwork, Countdown>(*_net);
-        }
-        
-        // Conecta cliente MQTT...
-        MQTTPacket_connectData data = MQTTPacket_connectData_initializer;
-        data.MQTTVersion = 3;
-        data.clientID.cstring = _cfg.clientId;
-        data.username.cstring = _cfg.userName;
-        data.password.cstring = _cfg.userPass;
-        if ((rc = _client->connect(data)) != 0){
-            DEBUG_TRACE("\r\nNetBridge\t ERR_MQTT al conectar con el broker MQTT");
-            _stat = MqttError;
-            return rc;
-        }    
-        DEBUG_TRACE("\r\nNetBridge\t CONN_OK!");
-        _stat = Connected;
-        return 0;
     }
-    return (_stat == Connected)? 0 : -1;
+    else if(_network->get_ip_address() == NULL){
+        DEBUG_TRACE("\r\nNetBridge\t Levantando interfaz de red");
+        _network = easy_connect(true);
+    }
+    if(!_network){
+        DEBUG_TRACE("\r\nNetBridge\t ERR_IFUP, no se ha podido conectar a la red wifi");
+        _stat = WifiError;
+        return -1;
+    }
+   
+    // Prepara socket tcp...
+    if(!_net){        
+        _net = new MQTTNetwork(_network);
+        MBED_ASSERT(_net);
+        _net->set_blocking(true);
+    }
+         
+    // Prepara cliente mqtt...
+    if(!_client){        
+        _client = new MQTT::Client<MQTTNetwork, Countdown>(*_net);
+        MBED_ASSERT(_client);
+    }
+           
+    // Abre socket tcp...
+    if((rc = _net->connect(_cfg.host, _cfg.port)) != 0){
+        DEBUG_TRACE("\r\nNetBridge\t ERR_CONN, al conectar el socket");
+        _stat = SockError;
+        return rc;
+    }
+    DEBUG_TRACE("\r\nNetBridge\t SOCK_CONN, socket conectado");    
+    
+    // Conecta cliente MQTT...
+    DEBUG_TRACE("\r\nNetBridge\t Conectando cliente MQTT");
+    MQTTPacket_connectData data = MQTTPacket_connectData_initializer;
+    data.MQTTVersion = 3;
+    if(strcmp(_cfg.clientId, " ") != 0){
+        data.clientID.cstring = _cfg.clientId;
+    }
+    if(strcmp(_cfg.userName, " ") != 0){
+        data.username.cstring = _cfg.userName;
+    }
+    if(strcmp(_cfg.userPass, " ") != 0){
+        data.password.cstring = _cfg.userPass;
+    }
+
+    if((rc = _client->connect(data)) != 0){
+        DEBUG_TRACE("\r\nNetBridge\t ERR_MQTT al conectar con el broker MQTT");
+        _stat = MqttError;
+        return rc;
+    }    
+    DEBUG_TRACE("\r\nNetBridge\t CONN_OK!");
+    _stat = Connected;
+    return 0;
 }
 
 
@@ -433,10 +443,41 @@ void MQNetBridge::disconnect(){
     if(_network){
 		DEBUG_TRACE("\r\nNetBridge\t Deteniendo interfaz de red");
         _network->disconnect();
+        _network = NULL;
     }
     _stat = Disconnected;
 }
 
+
+//------------------------------------------------------------------------------------
+int MQNetBridge::reconnect(){    
+    // si el interfaz wifi está caído, inicia conexión completa
+    if(!_network){
+        disconnect();
+        return connect();
+    }
+    if(_network->get_ip_address() == NULL){
+        disconnect();
+       return connect();     
+    }
+    
+    // en este punto el interfaz wifi está levantado
+    // si el cliente ha fallado, reinicia el socket y el cliente mqtt
+    if(!_client && !_net){
+        return connect();
+    }
+    if(!_client && _net){
+        _net->disconnect();
+        return connect();
+    }
+    if(!_client->isConnected()){
+        _net->disconnect();
+        return connect();
+    }
+
+	DEBUG_TRACE("\r\nNetBridge\t No hace ninguna acción, ya está todo levantado.");
+    return 0;
+}
 
 //---------------------------------------------------------------------------------
 void MQNetBridge::mqttThread(){    
@@ -445,114 +486,31 @@ void MQNetBridge::mqttThread(){
 	// marca thread como iniciado
     _stat = Ready;
     
-    // si ha llegado a este punto, inicia la conexión de forma reiterada hasta que lo consiga.
-    while(reconnect() != 0){
-        Thread::wait(100);
-    }
+    for(;;){
     
-    // una vez que la conexión está establecida, se suscribe a $BASE/+/+/cmd
-    char* topic = (char*)Heap::memAlloc(strlen(_cfg.remoteBaseTopic) + strlen("/+/+/cmd") + 1);
-    MBED_ASSERT(topic);
-    sprintf(topic, "%s/+/+/cmd", _cfg.remoteBaseTopic);
-    if (_client->subscribe(topic, MQTT::QOS0, MqttEventHandler) != 0){
-        DEBUG_TRACE("\r\nNetBridge\t ERR_SUBSC al suscribirse al topic '%s'", topic);
+        // si ha llegado a este punto, inicia la conexión de forma reiterada hasta que lo consiga.
+        while(reconnect() != 0){
+            DEBUG_TRACE("\r\nNetBridge\t ERR_MQTT_CONN, error conectando cliente MQTT, reintentando en 5seg.");
+            Thread::wait(5000);
+        }
+        
+        // una vez que la conexión está establecida, se suscribe a $BASE/+/+/cmd
+        char* topic = (char*)Heap::memAlloc(strlen(_cfg.remoteBaseTopic) + strlen("/+/+/cmd") + 1);
+        MBED_ASSERT(topic);
+        sprintf(topic, "%s/+/+/cmd", _cfg.remoteBaseTopic);
+        int rc;
+        if ((rc =_client->subscribe(topic, MQTT::QOS0, MqttEventHandler)) != 0){
+            DEBUG_TRACE("\r\nNetBridge\t ERR_SUBSC %d al suscribirse al topic '%s'", rc, topic);
+        }
+        else{
+            DEBUG_TRACE("\r\nNetBridge\t SUBSC_OK, suscrito al topic '%s'", topic);
+        }    
+        Heap::memFree(topic);
+        
+        DEBUG_TRACE("\r\nNetBridge\t Thread mqtt esperando eventos...");
+        while(_client->isConnected()){       
+            _client->yield(_cfg.pollDelay);
+        }
     }
-    else{
-        DEBUG_TRACE("\r\nNetBridge\t SUBSC_OK, suscrito al topic '%s'", topic);
-    }    
-    Heap::memFree(topic);
-    
-    DEBUG_TRACE("\r\nNetBridge\t Thread mqtt esperando eventos...");
-    for(;;){       
-        _client->yield(_cfg.pollDelay);
-	}
-//        _timeout = osWaitForever;        
-//        // procesa solicitudes pendientes
-//        if(_stat == Connected){
-//            _client->yield(_yield_millis);
-//            _timeout = 0;
-//        }
-//        osEvent evt = _queue.get(_timeout);
-//        
-//        // Si hay que procesar un mensaje...
-//        if(evt.status == osEventMessage){
-//            RequestOperation_t* msg = (RequestOperation_t*)evt.value.p;
-//            switch(msg->id){
-//                               
-//                // Si hay que conectar...
-//                case ConnectSig:{
-//                    DEBUG_TRACE("\r\nNetBridge\t SIG_CONN, iniciando conexión");
-//                    reconnect();
-//					break;
-//				}
-//				
-//				// si se notifica una conexión correcta...
-//				case ConnAckSig:{
-//					DEBUG_TRACE("\r\nNetBridge\t SIG_CONN_ACK, iniciando suscripción");
-//					// se suscribe a $BASE/+/cmd
-//					char* topic = (char*)Heap::memAlloc(MQ::MQClient::getMaxTopicLength());
-//					MBED_ASSERT(topic);
-//					sprintf(topic, "%s/+/cmd", _base_topic);
-//					if (_client->subscribe(topic, MQTT::QOS0, remoteSubscriptionCb) != 0){
-//						DEBUG_TRACE("\r\nNetBridge\t ERR_SUBSC al suscribirse al topic '%s'", topic);
-//					}
-//					else{
-//						DEBUG_TRACE("OK!!!!");
-//					}  	
-//					Heap::memFree(topic);
-//                    break;
-//                }             
-//				
-//				// si se notifica una conexión correcta...
-//				case SubAckSig:{
-//					DEBUG_TRACE("\r\nNetBridge\t SIG_SUB_ACK, suscripción hecha!");
-//					break;
-//                }             
-//                            
-//                // Si hay que desconectar...
-//                case DisconnectSig:{
-//                    // asegura que esté conectado...
-//                    DEBUG_TRACE("\r\nNetBridge\t SIG_DISC, iniciando desconexión");
-//                    disconnect();                                
-//                    break;
-//                }                                              
-//                                                               
-//                // Si hay que publicar en un topic... 
-//                case RemotePublishSig: {
-//                    char* topic = strtok(msg->data, "\n");
-//                    char* msend = strtok(0, "\n");                    
-//                    if(topic && msend){
-//                        MQTT::Message message;
-//                        message.qos = MQTT::QOS0;
-//                        message.retained = false;
-//                        message.dup = false;
-//                        message.payload = msend;
-//                        message.payloadlen = strlen(msend) + 1;
-//                        uint8_t err = 0;
-//                        DEBUG_TRACE("\r\nNetBridge: Publicando en topic[%s] el mensaje[%s] ... ", topic, msend);
-//                        if(_client->publish(topic, message) != 0){            
-//                            DEBUG_TRACE("ERROR=%d", err); 
-//                        }
-//                        else{
-//                            DEBUG_TRACE("OK!");
-//                        }
-//                    }     
-//                    break;
-//                }             
-//             }
-//            
-//            // Elimina la memoria asignada al mensaje
-//            if(msg->data){
-//                Heap::memFree(msg->data);
-//            }
-//            Heap::memFree(msg);
-//        }    
-//        
-//        // en caso de que haya habido un error y se haya cerrado la conexión, habrá que intentar reconectar
-//        if(_client && _stat == Connected && !_client->isConnected()){
-//            DEBUG_TRACE("\r\nNetBridge: Iniciando reconexión...");
-//            reconnect(); 
-//        }
-//    }
 }
 

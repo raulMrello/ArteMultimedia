@@ -49,6 +49,11 @@ static uint8_t wavePoint(uint8_t i, uint8_t max, uint8_t min){
 RGBGame::RGBGame(WS281xLedStrip* ls, PCA9685_ServoDrv* sd, FSManager* fs, bool defdbg) : ActiveModule("RGBGame", osPriorityNormal, OS_STACK_SIZE, fs, defdbg) {
     _timeout = osWaitForever;
     _touch_topic = "TBD";
+    // creo máquinas de estado posteriores a init
+    _stWait.setHandler(callback(this, &RGBGame::Wait_EventHandler));
+    _stConfig.setHandler(callback(this, &RGBGame::Config_EventHandler));
+    _stGame.setHandler(callback(this, &RGBGame::Game_EventHandler));
+
 	_publicationCb = callback(this, &RGBGame::publicationCb);
 	_subscriptionCb = callback(this, &RGBGame::subscriptionCb);
 }
@@ -127,7 +132,7 @@ State::StateResult RGBGame::Init_EventHandler(State::StateEvent* se){
 			
 			// al terminar conmuta a stWait
             DEBUG_TRACE("\r\n[RGBGame]....... Conmuta a stWait");
-			tranState(_stWait);
+			tranState(&_stWait);
         	
             return State::HANDLED;
         }
@@ -180,7 +185,7 @@ State::StateResult RGBGame::Wait_EventHandler(State::StateEvent* se){
         case TouchPressEvt:{
             DEBUG_TRACE("\r\n[RGBGame]....... EV_TOUCH en stWait, conmuta a stConfig");
             // conmuta a configuración
-			tranState(_stConfig);
+			tranState(&_stConfig);
 			
             // libera el mensaje (tanto el contenedor de datos como el propio mensaje)
 			if(st_msg->msg){
@@ -243,7 +248,7 @@ State::StateResult RGBGame::Config_EventHandler(State::StateEvent* se){
                 timed_play -= _timeout;
                 if(timed_play <= 0){
                     DEBUG_TRACE("\r\n[RGBGame]....... Conmuta a stGame");
-                    tranState(_stGame);
+                    tranState(&_stGame);
                     return State::HANDLED;
                 }
             }
@@ -251,7 +256,7 @@ State::StateResult RGBGame::Config_EventHandler(State::StateEvent* se){
 			// si la temporización vence, vuelve a wait
 			if(_acc_timeout <= 0){
                 DEBUG_TRACE("\r\n[RGBGame]....... Timeout, conmuta a stWait");
-				tranState(_stWait);
+				tranState(&_stWait);
                 return State::HANDLED;
 			}
 			
@@ -326,7 +331,7 @@ State::StateResult RGBGame::Game_EventHandler(State::StateEvent* se){
 			// si la temporización vence, vuelve a wait
 			if(_acc_timeout <= 0){
                 DEBUG_TRACE("\r\n[RGBGame]....... Conmuta a stWait");
-				tranState(_stWait);
+				tranState(&_stWait);
 			}
 			
             return State::HANDLED;
@@ -337,7 +342,7 @@ State::StateResult RGBGame::Game_EventHandler(State::StateEvent* se){
             DEBUG_TRACE("\r\n[RGBGame]....... EV_TOUCH en stGame, conmuta a stConfig");
             
             // vuelve a modo configuración
-            tranState(_stConfig);
+            tranState(&_stConfig);
 			
             // libera el mensaje (tanto el contenedor de datos como el propio mensaje)
 			if(st_msg->msg){
@@ -476,14 +481,17 @@ void RGBGame::effectsThread(){
         _stat.flags = (Flags)(_stat.flags & ~(FlagUpdate | FlagCancel | FlagFinished));
         switch(oe.value.signals){
             case WaveEffectEvt:{
+				DEBUG_TRACE("\r\n[RGBGame]....... WaveEffectEvt recibido");
                 waveEffect();
                 break;
             }
             case SwitchOffEffectEvt:{
+				DEBUG_TRACE("\r\n[RGBGame]....... SwitchOffEffectEvt recibido");
                 switchOff();
                 break;
             }
         }        
+		DEBUG_TRACE("\r\n[RGBGame]....... EFFECT_END");
         _stat.flags = (Flags)(_stat.flags | FlagFinished);
     }
 }
@@ -570,9 +578,9 @@ void RGBGame::waveEffect(){
         
         // actualiza el punto de cresta
         point++;
-        point = (point >= NumSteps+16)? 0 : point;
         // si completa un ciclo, hace espera y chequea si debe finalizar
-        if(point==0){                                    
+        if(point >= NumSteps+16){  
+			point = 0;
             // si no hay que ejecutarlo de forma indefinida, chequea fin de ciclo
             if(_stat.cycles != InfiniteCycles){
                 // si los ciclos cumplen, termina

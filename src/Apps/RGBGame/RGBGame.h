@@ -231,11 +231,11 @@ class RGBGame : public ActiveModule {
     Thread _th_effect;
     
     /** Manejadores de estados */
-    State* _stWait;
+    State _stWait;
     State::StateResult Wait_EventHandler(State::StateEvent* se);
-    State* _stConfig;
+    State _stConfig;
     State::StateResult Config_EventHandler(State::StateEvent* se);
-    State* _stGame;
+    State _stGame;
     State::StateResult Game_EventHandler(State::StateEvent* se);
     
     

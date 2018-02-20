@@ -508,6 +508,7 @@ void MQNetBridge::mqttThread(){
         Heap::memFree(topic);
         
         DEBUG_TRACE("\r\n[MQNetBridge]... Thread mqtt esperando eventos...");
+		MBED_ASSERT(_client);
         while(_client->isConnected()){       
             _client->yield(_cfg.pollDelay);
         }

@@ -6,6 +6,22 @@ Proyecto plantilla para desarrollos con la tarjeta NUCLEO_L432KC de ST en mbed-o
 ## Changelog
 
 
+*20.02.2018*
+>**"Corregido bug en RGBGame"**
+>
+- [x] Corregida asignación de estados _stXX
+- [ ] Modificar Init_Handler para que conmute a wait al recibir el evento de fin de efecto en lugar de chequear el flag.
+- [ ] Ver qué ocurre cuando un mensaje es IGNORADO y tampoco se procesa en el parentState.
+- [ ] A veces se queda pillado la conexión del cliente mqtt. Hacer un delete y volver  a montarlo.
+- [ ] Utilizar NVFlash para guardar y recuperar datos de memoria o utilizar mbed-5.7 para utilizar el sistema key-value.
+- [ ] Verificar funcionamiento del juego con trazas de depuración
+- [ ] Incluir MQTT
+- [ ] Cablear VCC al módulo para arranque al conectar.
+- [!] Cambiando topics en cyberribs. REVISAR
+- [ ] Definir los diferentes modos de juego mediante comando mq: xrinst/rgbgame/select/cmd.
+- [ ] Actualizar todos los repos paralelos.
+  
+
 *15.02.2018*
 >**"Actualizo paquete MQTT y easy-connect"**
 >

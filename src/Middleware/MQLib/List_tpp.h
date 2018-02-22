@@ -1,7 +1,7 @@
 /*
  * List.tpp
  *
- *  Versión: 2 Feb 2018
+ *  Versión: 21 Feb 2018
  *  Author: raulMrello
  *
  *  Implementación de la librería List.
@@ -138,7 +138,8 @@ int32_t List<T>::removeItem(T* item){
     do{
         if(listitem->item == item){
             //apunta al siguiente
-            getNextItem();
+			// @21Feb2018.001 sustituyo por getNextItem para asegurar que _search se posiciona correctamente
+            _search = listitem->next;
             removeListItem(listitem);
             return SUCCESS;
         }

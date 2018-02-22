@@ -29,7 +29,7 @@ extern void test_MPR121();
 
 typedef void(*CapabilityCallback)();
 static CapabilityCallback capability_list[] = {
-    app_RGBGame,
+	app_RGBGame,
     NULL,
     test_WS281x,
     test_PCA9685,

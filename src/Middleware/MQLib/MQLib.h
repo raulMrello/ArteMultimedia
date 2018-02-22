@@ -1,7 +1,7 @@
 /*
  * MQLib.h
  *
- *  Versión: 14 Feb 2018
+ *  Versión: 21 Feb 2018
  *  Author: raulMrello
  *
  *	-------------------------------------------------------------------------------------------------------------------
@@ -10,6 +10,7 @@
  *	- Cambia la descripción de <name> en <struct Topic> para que pase de un <const char*> a un <char*> y que en el servicio
  *	MQBroker::subscribeReq se reserve espacio para copiar el topic que se desea, de esa forma no es necesario prepararlo
  *	externamente y puede ser liberado insitu por la propia librería MQLib.
+ *  - @21Feb2018.001 en List.hpp sustituyo por getNextItem para asegurar que _search se posiciona correctamente
  *	- @14Feb2018.001: 'name' cambia de const char* a char*
  *	- @14Feb2018.002: se reserva espacio para el nombre del topic
  *	- @14Feb2018.003: elimina un topic de la lista si se queda sin suscriptores.

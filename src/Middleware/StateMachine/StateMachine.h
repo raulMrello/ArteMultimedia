@@ -1,7 +1,7 @@
 /*
  * StateMachine.h
  *
- *  Versión: 13 Feb 2018
+ *  Versión: 21 Feb 2018
  *  Author: raulMrello
  *
  *	Framework para funcionalidades HSM
@@ -136,6 +136,14 @@ public:
         else if(oe->status == osEventMail || oe->status == osEventMessage){
             se.evt = (State::Event_type)((State::Msg*)oe->value.p)->sig;                    
             invokeHandler(&se);
+			//@21Feb2018.003 libera recursos del mensaje una vez procesado
+			State::Msg* st_msg = (State::Msg*)(se.oe->value.p);
+			if(st_msg->msg != NULL){
+				Heap::memFree(st_msg->msg);
+			}
+			if(st_msg != NULL && st_msg != &_entryMsg && st_msg != &_exitMsg && st_msg != &_timedMsg && st_msg != &_invalidMsg){
+				Heap::memFree(st_msg);
+			}
         }
         else if(oe->status == osEventSignal){   
             uint32_t mask = 1;

@@ -224,7 +224,6 @@ void MQNetBridge::subscriptionCb(const char* topic, void* msg, uint16_t msg_len)
 
 //------------------------------------------------------------------------------------
 State::StateResult MQNetBridge::Init_EventHandler(State::StateEvent* se){
-    State::Msg* st_msg = (State::Msg*)se->oe->value.p;
     switch((int)se->evt){
         case State::EV_ENTRY:{
         	DEBUG_TRACE("\r\n[MQNetBridge]... EV_ENTRY en stInit");
@@ -258,12 +257,6 @@ State::StateResult MQNetBridge::Init_EventHandler(State::StateEvent* se){
                 DEBUG_TRACE("\r\n[MQNetBridge]... ERR_CONN, conexión ya iniciada anteriormente.");
             }
             
-            // libera el mensaje (tanto el contenedor de datos como el propio mensaje)
-			if(st_msg->msg){
-				Heap::memFree(st_msg->msg);
-			}
-            Heap::memFree(st_msg);
-			
 			return State::HANDLED;
 		}            
 

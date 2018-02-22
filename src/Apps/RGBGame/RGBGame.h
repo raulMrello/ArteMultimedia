@@ -165,6 +165,8 @@ class RGBGame : public ActiveModule {
     	TouchPressEvt 	= (State::EV_RESERVED_USER << 0),  /// Flag al recibir un evento touch-press
     	TouchReleaseEvt = (State::EV_RESERVED_USER << 1),  /// Flag al recibir un evento touch-release
         EffectCycleEvt  = (State::EV_RESERVED_USER << 2),  /// Flag al iniciar un ciclo de effecto
+		EffectEndEvt    = (State::EV_RESERVED_USER << 3),  /// Flag al finalizar un effecto
+		GameTimedEvt    = (State::EV_RESERVED_USER << 4),  /// Flag al finalizar el tiempo de juego
     };
 
     /** Cola de mensajes de la máquina de estados */
@@ -229,6 +231,9 @@ class RGBGame : public ActiveModule {
 
     /** Hilo de ejecución paralelo para la generación de efectos */
     Thread _th_effect;
+	
+	/** Timer para gestión de temporizaciones durante el juego */
+	RtosTimer* _tmr;
     
     /** Manejadores de estados */
     State _stWait;
@@ -272,6 +277,10 @@ class RGBGame : public ActiveModule {
     /** Publica estado del efecto
      */
     void publishStat();
+	
+	/** Callback a invocar cuando el timer del juego vence
+	 */
+	void timed();
     
 };
      

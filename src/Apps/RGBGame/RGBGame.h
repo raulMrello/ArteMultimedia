@@ -163,10 +163,14 @@ class RGBGame : public ActiveModule {
     static const uint8_t DefaultMaxPeakValue = 255;
  
     /** Define el valor mínimo para el color de cresta */
-    static const uint8_t DefaultBasePeakValue = 127;
+    static const uint8_t DefaultBasePeakValue = 0;
 
     /** Define el valor del incremento/decremento de color */
-    static const uint8_t DefaultIncDecStep = 8;
+    static const uint8_t DefaultIncDecStep = 16;
+	
+    /** Define el valor del divisor para obtener el nivel de color mínimo */
+    static const uint8_t DefaultDivValue = 16;
+	
 
 
     /** Flags de operaciones a realizar por la tarea */

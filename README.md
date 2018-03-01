@@ -6,6 +6,14 @@ Proyecto plantilla para desarrollos con la tarjeta NUCLEO_L432KC de ST en mbed-o
 ## Changelog
 
 
+*01.03.2018*
+>**"Versión R01 terminada"**
+>
+- [x] Versión terminada con juego de bolas. Ajusta colores y envía mensajes JSON al servidor MQTT 2-3 seg antes de cada ciclo.
+- [ ] (opcional) Utilizar NVFlash para guardar y recuperar datos de memoria o utilizar mbed-5.7 para utilizar el sistema key-value.
+- [ ] (opcional) Pensar la forma de migrar a submódulos...
+  
+
 *28.02.2018*
 >**"Actualizo TouchManager con eventos HOLD"**
 >

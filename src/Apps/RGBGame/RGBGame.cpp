@@ -421,8 +421,9 @@ void RGBGame::setDefaultConfig(){
     DEBUG_TRACE("[RGBGame]....... Estableciendo configuración por defecto\r\n");
 	
 	/* Establece configuración por defecto */
-	_cfg.colorMin = (WS281xLedStrip::Color_t){0,0,2};
-    _cfg.colorMax = (WS281xLedStrip::Color_t){0, 0, 255};
+	uint8_t defcolor = DefaultBasePeakValue + (DefaultMaxPeakValue - DefaultBasePeakValue)/2;
+	_cfg.colorMin = (WS281xLedStrip::Color_t){defcolor/DefaultDivValue, defcolor/DefaultDivValue, defcolor/DefaultDivValue};
+    _cfg.colorMax = (WS281xLedStrip::Color_t){defcolor, defcolor, defcolor};
     _cfg.degMin = 0;
     _cfg.degMax = 80;
     _cfg.delayMs = 50;
@@ -718,24 +719,24 @@ void RGBGame::switchLeds(){
 void RGBGame::updateEffectConfig(uint8_t elec){    
     int32_t new_color;
     switch(elec){
-        // RED decr
+        // RED incr        
         case 0:{
-            new_color = _cfg.colorMax.red + DefaultIncDecStep;
-            _cfg.colorMax.red = (uint8_t)((new_color > DefaultMaxPeakValue)? DefaultMaxPeakValue : new_color);
+           new_color = _cfg.colorMax.red - DefaultIncDecStep;
+            _cfg.colorMax.red = (uint8_t)((new_color < DefaultBasePeakValue)? DefaultBasePeakValue : new_color);
             break;
         }
-        // GREEN decr
+        // GREEN incr        
         case 1:{
-            new_color = _cfg.colorMax.green + DefaultIncDecStep;
-            _cfg.colorMax.green = (uint8_t)((new_color > DefaultMaxPeakValue)? DefaultMaxPeakValue : new_color);
+            new_color = _cfg.colorMax.green - DefaultIncDecStep;
+            _cfg.colorMax.green = (uint8_t)((new_color < DefaultBasePeakValue)? DefaultBasePeakValue : new_color);
             break;
         }
-        // BLUE decr
+        // BLUE incr        
         case 2:{
-            new_color = _cfg.colorMax.blue + DefaultIncDecStep;
-            _cfg.colorMax.blue = (uint8_t)((new_color > DefaultMaxPeakValue)? DefaultMaxPeakValue : new_color);
-            break;
-        }
+           new_color = _cfg.colorMax.blue - DefaultIncDecStep;
+            _cfg.colorMax.blue = (uint8_t)((new_color < DefaultBasePeakValue)? DefaultBasePeakValue : new_color);
+             break;
+        }        
         // RED medium        
         case 3:{
             _cfg.colorMax.red = DefaultBasePeakValue + (DefaultMaxPeakValue - DefaultBasePeakValue)/2;
@@ -751,33 +752,32 @@ void RGBGame::updateEffectConfig(uint8_t elec){
             _cfg.colorMax.blue = DefaultBasePeakValue + (DefaultMaxPeakValue - DefaultBasePeakValue)/2;
             break;
         }
-        // RED incr        
+        // RED decr
         case 6:{
-           new_color = _cfg.colorMax.red - DefaultIncDecStep;
-            _cfg.colorMax.red = (uint8_t)((new_color < DefaultBasePeakValue)? DefaultBasePeakValue : new_color);
+            new_color = _cfg.colorMax.red + DefaultIncDecStep;
+            _cfg.colorMax.red = (uint8_t)((new_color > DefaultMaxPeakValue)? DefaultMaxPeakValue : new_color);
             break;
         }
-        // GREEN incr        
+        // GREEN decr
         case 7:{
-            new_color = _cfg.colorMax.green - DefaultIncDecStep;
-            _cfg.colorMax.green = (uint8_t)((new_color < DefaultBasePeakValue)? DefaultBasePeakValue : new_color);
+            new_color = _cfg.colorMax.green + DefaultIncDecStep;
+            _cfg.colorMax.green = (uint8_t)((new_color > DefaultMaxPeakValue)? DefaultMaxPeakValue : new_color);
             break;
         }
-        // BLUE incr        
+        // BLUE decr
         case 8:{
-           new_color = _cfg.colorMax.blue - DefaultIncDecStep;
-            _cfg.colorMax.blue = (uint8_t)((new_color < DefaultBasePeakValue)? DefaultBasePeakValue : new_color);
-             break;
-        }        
+            new_color = _cfg.colorMax.blue + DefaultIncDecStep;
+            _cfg.colorMax.blue = (uint8_t)((new_color > DefaultMaxPeakValue)? DefaultMaxPeakValue : new_color);
+            break;
+        }
     }
-    // obtiene el mínimo común divisor
-    uint8_t mcd = (_cfg.colorMax.red <= _cfg.colorMax.green)? _cfg.colorMax.red : _cfg.colorMax.green;
-    mcd = (_cfg.colorMax.green <= _cfg.colorMax.blue)? _cfg.colorMax.green : _cfg.colorMax.blue;
-
+	DEBUG_TRACE("[RGBGame]....... RGB_MAX= %d %d %d\r\n", _cfg.colorMax.red, _cfg.colorMax.green, _cfg.colorMax.blue);
     // ajusta los niveles mínimos
-    _cfg.colorMin.red = _cfg.colorMax.red / mcd;
-    _cfg.colorMin.green = _cfg.colorMax.green / mcd;
-    _cfg.colorMin.blue = _cfg.colorMax.blue / mcd;
+    _cfg.colorMin.red = _cfg.colorMax.red / DefaultDivValue;
+    _cfg.colorMin.green = _cfg.colorMax.green / DefaultDivValue;
+    _cfg.colorMin.blue = _cfg.colorMax.blue / DefaultDivValue;
+	DEBUG_TRACE("[RGBGame]....... RGB_MIN= %d %d %d\r\n", _cfg.colorMin.red, _cfg.colorMin.green, _cfg.colorMin.blue);
+    
 }
 
 //------------------------------------------------------------------------------------

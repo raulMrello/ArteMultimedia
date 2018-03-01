@@ -6,6 +6,16 @@ Proyecto plantilla para desarrollos con la tarjeta NUCLEO_L432KC de ST en mbed-o
 ## Changelog
 
 
+*28.02.2018*
+>**"Depurando funcionamiento"**
+>
+- [x] El cliente mqtt falla al enviar mensajes continuados
+- [x] Veo un heap_overflow, analizarlo
+- [ ] Utilizar NVFlash para guardar y recuperar datos de memoria o utilizar mbed-5.7 para utilizar el sistema key-value.
+- [ ] Cablear VCC al módulo para arranque al conectar.
+- [ ] Pensar la forma de migrar a submódulos...
+  
+
 *22.02.2018*
 >**"Corregidos bugs en RGBGame"**
 >

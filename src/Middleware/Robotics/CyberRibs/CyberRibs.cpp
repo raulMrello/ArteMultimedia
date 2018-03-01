@@ -82,7 +82,7 @@ void CyberRibs::setSubscriptionBase(const char* sub_topic) {
 	MBED_ASSERT(sub_topic);
 	sprintf(_sub_topic, "%s/+/cmd", sub_topic);
 	MQ::MQClient::subscribe(_sub_topic, &_subscriptionCb);
-	DEBUG_TRACE("\r\n[CyberRib]...... Suscrito a %s\r\n", _sub_topic);         
+	DEBUG_TRACE("[CyberRib]...... Suscrito a %s\r\n", _sub_topic);         
 }   
 
 
@@ -110,11 +110,11 @@ void CyberRibs::task(){
     uint32_t* caldata = (uint32_t*)Heap::memAlloc(_servod->getNVDataSize());
     NVFlash::readPage(0, caldata, _servod->getNVDataSize());
     if(_servod->setNVData(caldata) != 0){
-        DEBUG_TRACE("\r\nERR_NVFLASH_READ, rangos por defecto...");
+        DEBUG_TRACE("ERR_NVFLASH_READ, rangos por defecto...\r\n");
         NVFlash::erasePage(0);
         for(uint8_t i=0;i<_num_ribs;i++){
             if(_servod->setServoRanges(i, 0, 120, 180, 480) != PCA9685_ServoDrv::Success){
-                DEBUG_TRACE("ERR_servo_%d\r\n...", i);
+                DEBUG_TRACE("ERR_servo_%d\r\n", i);
             }            
         }
         _servod->getNVData(caldata);
@@ -122,7 +122,7 @@ void CyberRibs::task(){
         DEBUG_TRACE("OK");
     }
     else{
-        DEBUG_TRACE("\r\nNVFLASH_RESTORE... OK!");
+        DEBUG_TRACE("NVFLASH_RESTORE... OK!\r\n");
     }
     Heap::memFree(caldata);
     
@@ -156,17 +156,17 @@ void CyberRibs::subscriptionCb(const char* topic, void* msg, uint16_t msg_len){
         // lee el primer caracter y evalúa si se permiten o no las notificaciones de cambio de modo
         char mode_endis = *(char*)msg - 0x30;
         _enable_pub = (mode_endis == 1)? true : false;
-        DEBUG_TRACE("\r\n[CyberRib]...... Config update, enable_pub=%c", mode_endis);        
+        DEBUG_TRACE("[CyberRib]...... Config update, enable_pub=%c\r\n", mode_endis);        
         return;
     }    
         
     // si es un mensaje para realizar un cambio de modo...
     if(MQ::MQClient::isTopicToken(topic, "/mode/cmd")){
-        DEBUG_TRACE("\r\n[CyberRib]...... Mode update requested... ");
+        DEBUG_TRACE("[CyberRib]...... Mode update requested... \r\n");
                
         State::Msg* op = (State::Msg*)Heap::memAlloc(sizeof(State::Msg));
         if(!op){
-            DEBUG_TRACE("ERR_HEAP!");
+            DEBUG_TRACE("ERR_HEAP!\r\n");
             return;
         }
         // lee el primer caracter para obtener el modo al que cambiar
@@ -181,7 +181,7 @@ void CyberRibs::subscriptionCb(const char* topic, void* msg, uint16_t msg_len){
 
     // si es un comando para mover un único servo
     if(MQ::MQClient::isTopicToken(topic, "/angle/cmd")){
-        DEBUG_TRACE("\r\n[CyberRib]...... Set Servo angle... ");
+        DEBUG_TRACE("[CyberRib]...... Set Servo angle... \r\n");
         // obtengo los parámetros del mensaje ServoID,Deg
         char* data = (char*)Heap::memAlloc(msg_len);
         if(!data){
@@ -201,11 +201,11 @@ void CyberRibs::subscriptionCb(const char* topic, void* msg, uint16_t msg_len){
 
     // si es un comando para mover un único servo
     if(MQ::MQClient::isTopicToken(topic, "/duty/cmd")){
-        DEBUG_TRACE("\r\n[CyberRib]...... Set Servo duty... ");
+        DEBUG_TRACE("[CyberRib]...... Set Servo duty... \r\n");
         // obtengo los parámetros del mensaje ServoID,Duty
         char* data = (char*)Heap::memAlloc(msg_len);
         if(!data){
-            DEBUG_TRACE("ERR_HEAP!");
+            DEBUG_TRACE("ERR_HEAP!\r\n");
             return;
         }        
         strcpy(data, (char*)msg);
@@ -221,11 +221,11 @@ void CyberRibs::subscriptionCb(const char* topic, void* msg, uint16_t msg_len){
 
     // si es un comando para obtener los parámetros de un servo
     if(MQ::MQClient::isTopicToken(topic, "/info/cmd")){
-        DEBUG_TRACE("\r\n[CyberRib]...... Lee Servo info... ");
+        DEBUG_TRACE("[CyberRib]...... Lee Servo info... \r\n");
         // obtengo los parámetros del mensaje ServoID,Duty
         char* data = (char*)Heap::memAlloc(msg_len);
         if(!data){
-            DEBUG_TRACE("ERR_HEAP!");
+            DEBUG_TRACE("ERR_HEAP!\r\n");
             return;
         }        
         strcpy(data, (char*)msg);
@@ -238,13 +238,13 @@ void CyberRibs::subscriptionCb(const char* topic, void* msg, uint16_t msg_len){
         int16_t min_ang, max_ang;
         uint16_t min_duty, max_duty;
         _servod->getServoRanges(servo, &min_ang, &max_ang, &min_duty, &max_duty);             
-        DEBUG_TRACE("\r\n[CyberRib]...... Servo %d: ang=%d (%d,%d), duty=%d (%d,%d)\r\n", servo, angle, min_ang, max_ang, duty, min_duty, max_duty); 
+        DEBUG_TRACE("[CyberRib]...... Servo %d: ang=%d (%d,%d), duty=%d (%d,%d)\r\n", servo, angle, min_ang, max_ang, duty, min_duty, max_duty); 
         return;
     }        
     
     // si es un comando para calibrar el servo
     if(MQ::MQClient::isTopicToken(topic, "/cal/cmd")){
-        DEBUG_TRACE("\r\n[CyberRib]...... Calibrando... ");
+        DEBUG_TRACE("[CyberRib]...... Calibrando... ");
         // obtengo los parámetros del mensaje ServoID,Duty
         char* data = (char*)Heap::memAlloc(msg_len);
         MBED_ASSERT(data);      
@@ -267,7 +267,7 @@ void CyberRibs::subscriptionCb(const char* topic, void* msg, uint16_t msg_len){
 
     // si es un comando para guardar la calibración de los servos
     if(MQ::MQClient::isTopicToken(topic, "/save/cmd")){
-        DEBUG_TRACE("\r\n[CyberRib]...... Guardando calibración... ");
+        DEBUG_TRACE("[CyberRib]...... Guardando calibración... ");
         // obtengo los datos de calibración y los actualizo
         uint32_t* caldata = (uint32_t*)Heap::memAlloc(NVFlash::getPageSize());
         MBED_ASSERT(caldata);      
@@ -275,10 +275,10 @@ void CyberRibs::subscriptionCb(const char* topic, void* msg, uint16_t msg_len){
         _servod->getNVData(caldata);
         NVFlash::erasePage(0);
         if(NVFlash::writePage(0, caldata) == NVFlash::Success){
-            DEBUG_TRACE("\r\nGuardados datos de calibración\r\n");               
+            DEBUG_TRACE("Guardados datos de calibración\r\n");               
         }
         else{
-            DEBUG_TRACE("\r\nERROR guardando datos de calibración\r\n");
+            DEBUG_TRACE("ERROR guardando datos de calibración\r\n");
         }
         Heap::memFree(caldata);
         return;
@@ -347,7 +347,7 @@ State::StateResult CyberRibs::GoingDown_EventHandler(State::StateEvent* se){
 State::StateResult CyberRibs::Off_EventHandler(State::StateEvent* se){
     switch(se->evt){
         case State::EV_ENTRY:{       
-            DEBUG_TRACE("\r\nCyberRibs ENTER_OFF_MODE\r\n");
+            DEBUG_TRACE("CyberRibs ENTER_OFF_MODE\r\n");
             return State::HANDLED;                    
         }
                                        

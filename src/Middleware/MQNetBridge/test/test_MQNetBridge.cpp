@@ -56,7 +56,7 @@ void test_MQNetBridge(){
     //  - Pines USBTX, USBRX a 115200bps y 256 bytes para buffers
     //  - Configurado por defecto en modo texto
     logger = new Logger(USBTX, USBRX, 16, 115200);
-    DEBUG_TRACE("\r\nIniciando test_MQNetBridge...\r\n");
+    DEBUG_TRACE("Iniciando test_MQNetBridge...\r\n");
 
     
     // --------------------------------------
@@ -66,15 +66,15 @@ void test_MQNetBridge(){
     
     // --------------------------------------
     // Creo módulo NetBridge MQTT que escuchará en el topic local "mqnetbridge"
-    DEBUG_TRACE("\r\nCreando NetBridge...");    
+    DEBUG_TRACE("Creando NetBridge...\r\n");    
     qnet = new MQNetBridge("sys/qnet", "xrinst/test", fs, 1000, true);
     while(qnet->getStatus() != MQNetBridge::Ready){
         Thread::yield();
     }
-    DEBUG_TRACE("OK!"); 
+    DEBUG_TRACE("OK!\r\n"); 
 
     // Configuro el acceso al servidor mqtt
-    DEBUG_TRACE("\r\nConfigurando conexión...");            
+    DEBUG_TRACE("Configurando conexión...\r\n");            
     static char* mnb_cfg = "cli,usr,pass,192.168.254.29,1883,Invitado,11FF00DECA";
     MQ::MQClient::publish("sys/cmd/mqnetbridge/conn", mnb_cfg, strlen(mnb_cfg)+1, &publ_cb);
     while(qnet->getStatus() != MQNetBridge::Connected){
@@ -82,29 +82,29 @@ void test_MQNetBridge(){
         MQNetBridge::Status stat = qnet->getStatus();
         if(stat >= MQNetBridge::WifiError){
             char *zeromsg = "0";
-            DEBUG_TRACE("\r\nERR_CONN %d. Desconectando...", (int)stat);      
+            DEBUG_TRACE("ERR_CONN %d. Desconectando...\r\n", (int)stat);      
             MQ::MQClient::publish("sys/cmd/mqnetbridge/disc", zeromsg, strlen(zeromsg)+1, &publ_cb);
             while(qnet->getStatus() != MQNetBridge::Ready){
                 Thread::yield();
             }
-            DEBUG_TRACE("\r\nReintentando conexión...");     
+            DEBUG_TRACE("Reintentando conexión...\r\n");     
             MQ::MQClient::publish("sys/cmd/mqnetbridge/conn", mnb_cfg, strlen(mnb_cfg)+1, &publ_cb);
         }
     }
-    DEBUG_TRACE("OK!");
+    DEBUG_TRACE("OK!\r\n");
     
     // Hago que escuche todos los topics del recurso "test/mqtt/cmd"
     static char* mnb_rsubtopic = "test/mqtt/cmd/#";
-    DEBUG_TRACE("\r\nSuscribiendo a topic remoto: %s...", mnb_rsubtopic);
+    DEBUG_TRACE("Suscribiendo a topic remoto: %s...\r\n", mnb_rsubtopic);
     MQ::MQClient::publish("sys/cmd/mqnetbridge/rsub", mnb_rsubtopic, strlen(mnb_rsubtopic)+1, &publ_cb);
     while(qnet->getStatus() != MQNetBridge::Connected){
         Thread::yield();        
     }
-    DEBUG_TRACE("OK!");
+    DEBUG_TRACE("OK!\r\n");
     
     // Hago que escuche topics locales para redireccionarlos al exterior
     static char* mnb_lsubtopic0 = "test/mqtt/stat/#";
-    DEBUG_TRACE("\r\nSuscribiendo a topic local: %s", mnb_lsubtopic0);    
+    DEBUG_TRACE("Suscribiendo a topic local: %s\r\n", mnb_lsubtopic0);    
     MQ::MQClient::publish("sys/cmd/mqnetbridge/lsub", mnb_lsubtopic0, strlen(mnb_lsubtopic0)+1, &publ_cb);
     
     // Se suscribe a los topics de test
@@ -115,8 +115,8 @@ void test_MQNetBridge(){
     
     // --------------------------------------
     // Arranca el test
-    DEBUG_TRACE("\r\n...................INICIO DEL TEST.........................\r\n");    
-    DEBUG_TRACE("\r\n- Escucha en test/mqtt/cmd/# ");    
-    DEBUG_TRACE("\r\n- Publica en test/mqtt/sta/...");    
+    DEBUG_TRACE("...................INICIO DEL TEST.........................\r\n");    
+    DEBUG_TRACE("- Escucha en test/mqtt/cmd/# \r\n");    
+    DEBUG_TRACE("- Publica en test/mqtt/sta/...\r\n");    
 }
 

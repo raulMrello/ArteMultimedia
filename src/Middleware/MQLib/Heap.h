@@ -16,13 +16,13 @@
 #include <stddef.h>
 #include <stdlib.h>
 
-
 class Heap{
 public:
 	static void* memAlloc(size_t size){
         void *ptr = malloc(size);
         if(!ptr){
             volatile int i = 0;
+			printf("\r\n\r\n ###### HEAP OVERFLOW ######## \r\n");
             while(i==0){
             }
         }

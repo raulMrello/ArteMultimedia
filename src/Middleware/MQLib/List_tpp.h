@@ -54,9 +54,8 @@ int32_t List<T>::addItem(T* item){
         return(LIMIT_EXCEEDED);
     }
     ListItem* listitem = (ListItem*)Heap::memAlloc(sizeof(ListItem));
-    if(!listitem){
-        return(OUT_OF_MEMORY);
-    }
+    MBED_ASSERT(listitem);
+    
     listitem->item = item;
     // si es el primero, inicializa los punteros
     if(!_count){
@@ -87,9 +86,8 @@ int32_t List<T>::insertItem(T* item){
         return(LIMIT_EXCEEDED);
     }
     ListItem* listitem = (ListItem*)Heap::memAlloc(sizeof(ListItem));
-    if(!listitem){
-        return(OUT_OF_MEMORY);
-    }
+    MBED_ASSERT(listitem);
+    
     listitem->item = item;
     // si es el primero, inicializa punteros
     if(!_search){

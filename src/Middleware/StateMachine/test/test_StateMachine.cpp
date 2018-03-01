@@ -45,11 +45,10 @@ static void tick0_callback(){
 static void tick1_callback(){
     tick.detach();
     State::Msg* msg = (State::Msg*)Heap::memAlloc(sizeof(State::Msg));
-    if(msg){
-        msg->sig = EVENT_1;
-        msg->msg = hello_msg;
-        queue.put(msg);
-    }
+    MBED_ASSERT(msg);
+    msg->sig = EVENT_1;
+    msg->msg = hello_msg;
+    queue.put(msg);    
 }
 
 static void putMsgCallback(State::Msg* msg){

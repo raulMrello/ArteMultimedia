@@ -251,9 +251,7 @@ public:
             }
             default:{
                 State::Msg* pmsg = (State::Msg*)Heap::memAlloc(sizeof(State::Msg));
-                if(!pmsg){
-                    return 0;
-                }
+                MBED_ASSERT(pmsg);
                 pmsg->sig = evt;
                 pmsg->msg = 0;
                 _put_cb->call(pmsg);

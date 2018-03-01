@@ -16,7 +16,7 @@
 #define MBED_CONF_APP_NETWORK_INTERFACE     WIFI_ESP8266
 #define MBED_CONF_APP_ESP8266_TX            PA_9
 #define MBED_CONF_APP_ESP8266_RX            PA_10
-#define MBED_CONF_APP_ESP8266_DEBUG         true
+#define MBED_CONF_APP_ESP8266_DEBUG         false
 //#define MBED_CONF_APP_ESP8266_SSID          "Invitado"
 //#define MBED_CONF_APP_ESP8266_PASSWORD      "11FF00DECA"
 

@@ -52,20 +52,19 @@ void ServoManager::startMovement(uint16_t* duty, uint8_t steps, uint32_t step_ti
         _rmove.duty = NULL;
     }
     _rmove.duty = (uint16_t*)Heap::memAlloc(steps * sizeof(uint16_t));
-    if(_rmove.duty){
-        _rmove.steps = steps;
-        _rmove.step_tick_us = step_tick_us;
-        for(uint8_t i=0;i<steps;i++){
-            _rmove.duty[i] = duty[i];
-        }
-        for(uint8_t i=servo_zero;i<_num_servos;i++){
-            _move_step[i] = step_dif * (i - servo_zero);
-        }
-        for(int8_t i=servo_zero-1;i>=0;i--){
-            _move_step[i] = step_dif * (servo_zero-i);
-        }        
-        _tick_move.attach_us(callback(this, &ServoManager::onTickCb), _rmove.step_tick_us);
-    }    
+    MBED_ASSERT(_rmove.duty);
+    _rmove.steps = steps;
+    _rmove.step_tick_us = step_tick_us;
+    for(uint8_t i=0;i<steps;i++){
+        _rmove.duty[i] = duty[i];
+    }
+    for(uint8_t i=servo_zero;i<_num_servos;i++){
+        _move_step[i] = step_dif * (i - servo_zero);
+    }
+    for(int8_t i=servo_zero-1;i>=0;i--){
+        _move_step[i] = step_dif * (servo_zero-i);
+    }        
+    _tick_move.attach_us(callback(this, &ServoManager::onTickCb), _rmove.step_tick_us);
 }
 
 
@@ -147,35 +146,33 @@ void ServoManager::subscriptionCb(const char* topic, void* msg, uint16_t msg_len
         DEBUG_TRACE("\r\n[ServoMan]...... Topic:%s msg:%s\r\n", topic, msg);
         // obtengo los parámetros del mensaje Tstep y Tmax
         char* data = (char*)Heap::memAlloc(msg_len);
-        if(data){
-            strcpy(data, (char*)msg);
-            char* arg = strtok(data, ",");
-            uint32_t tstep = atoi(arg);
-            arg = strtok(NULL, ",");
-            uint32_t num_steps = atoi(arg);
-            arg = strtok(NULL, ",");
-            uint8_t srvorig = atoi(arg);
-            arg = strtok(NULL, ",");
-            uint8_t stepdif = atoi(arg);
-            arg = strtok(NULL, ",");
-            uint8_t ang_min = atoi(arg);
-            arg = strtok(NULL, ",");
-            uint8_t ang_max = atoi(arg);
-            Heap::memFree(data);
-            
-            // obtiene el número de pasos
-            uint16_t* duties = (uint16_t*)Heap::memAlloc(num_steps * sizeof(uint16_t));            
-            if(duties){
-                float rad_inc = (((360.0f/num_steps) * 3.14159265f) / 180);
-                for(int i=0; i<num_steps;i++){
-                    float value = sinf((i * rad_inc));
-                    uint8_t angle = (uint8_t)((((ang_max - ang_min)/2) * value) + (ang_max - ang_min)/2);
-                    duties[i] = PCA9685_ServoDrv::getDutyFromAngle(srvorig, angle);                    
-                }
-                startMovement(duties, num_steps, tstep, srvorig, stepdif);
-                Heap::memFree(duties);
-            }            
+        MBED_ASSERT(data);
+        strcpy(data, (char*)msg);
+        char* arg = strtok(data, ",");
+        uint32_t tstep = atoi(arg);
+        arg = strtok(NULL, ",");
+        uint32_t num_steps = atoi(arg);
+        arg = strtok(NULL, ",");
+        uint8_t srvorig = atoi(arg);
+        arg = strtok(NULL, ",");
+        uint8_t stepdif = atoi(arg);
+        arg = strtok(NULL, ",");
+        uint8_t ang_min = atoi(arg);
+        arg = strtok(NULL, ",");
+        uint8_t ang_max = atoi(arg);
+        Heap::memFree(data);
+        
+        // obtiene el número de pasos
+        uint16_t* duties = (uint16_t*)Heap::memAlloc(num_steps * sizeof(uint16_t));            
+        MBED_ASSERT(duties);
+        float rad_inc = (((360.0f/num_steps) * 3.14159265f) / 180);
+        for(int i=0; i<num_steps;i++){
+            float value = sinf((i * rad_inc));
+            uint8_t angle = (uint8_t)((((ang_max - ang_min)/2) * value) + (ang_max - ang_min)/2);
+            duties[i] = PCA9685_ServoDrv::getDutyFromAngle(srvorig, angle);                    
         }
+        startMovement(duties, num_steps, tstep, srvorig, stepdif);
+        Heap::memFree(duties);
         return;
     }
 
@@ -184,17 +181,16 @@ void ServoManager::subscriptionCb(const char* topic, void* msg, uint16_t msg_len
         DEBUG_TRACE("\r\n[ServoMan]...... Topic:%s msg:%s\r\n", topic, msg);
         // obtengo los parámetros del mensaje ServoID,Deg
         char* data = (char*)Heap::memAlloc(msg_len);
-        if(data){
-            strcpy(data, (char*)msg);
-            char* arg = strtok(data, ",");
-            uint8_t servo = atoi(arg);
-            arg = strtok(NULL, ",");
-            uint8_t deg = atoi(arg);
-            Heap::memFree(data);
-            
-            // mueve el servo
-            PCA9685_ServoDrv::setServoAngle(servo, deg, true);                       
-        }
+        MBED_ASSERT(data);
+        strcpy(data, (char*)msg);
+        char* arg = strtok(data, ",");
+        uint8_t servo = atoi(arg);
+        arg = strtok(NULL, ",");
+        uint8_t deg = atoi(arg);
+        Heap::memFree(data);
+        
+        // mueve el servo
+        PCA9685_ServoDrv::setServoAngle(servo, deg, true);                       
         return;
     }    
 
@@ -203,17 +199,16 @@ void ServoManager::subscriptionCb(const char* topic, void* msg, uint16_t msg_len
         DEBUG_TRACE("\r\n[ServoMan]...... Topic:%s msg:%s\r\n", topic, msg);
         // obtengo los parámetros del mensaje ServoID,Duty
         char* data = (char*)Heap::memAlloc(msg_len);
-        if(data){
-            strcpy(data, (char*)msg);
-            char* arg = strtok(data, ",");
-            uint8_t servo = atoi(arg);
-            arg = strtok(NULL, ",");
-            uint16_t duty = atoi(arg);
-            Heap::memFree(data);
-            
-            // mueve el servo
-            PCA9685_ServoDrv::setServoDuty(servo, duty, true);                       
-        }
+        MBED_ASSERT(data);
+        strcpy(data, (char*)msg);
+        char* arg = strtok(data, ",");
+        uint8_t servo = atoi(arg);
+        arg = strtok(NULL, ",");
+        uint16_t duty = atoi(arg);
+        Heap::memFree(data);
+        
+        // mueve el servo
+        PCA9685_ServoDrv::setServoDuty(servo, duty, true);                       
         return;
     }  
 
@@ -222,20 +217,19 @@ void ServoManager::subscriptionCb(const char* topic, void* msg, uint16_t msg_len
         DEBUG_TRACE("\r\n[ServoMan]...... Topic:%s msg:%s\r\n", topic, msg);
         // obtengo los parámetros del mensaje ServoID,Duty
         char* data = (char*)Heap::memAlloc(msg_len);
-        if(data){
-            strcpy(data, (char*)msg);
-            char* arg = strtok(data, ",");
-            uint8_t servo = atoi(arg);
-            Heap::memFree(data);
-            
-            // mueve el servo
-            uint8_t angle = PCA9685_ServoDrv::getServoAngle(servo);                       
-            uint16_t duty = PCA9685_ServoDrv::getServoDuty(servo);
-            int16_t min_ang, max_ang;
-            uint16_t min_duty, max_duty;
-            PCA9685_ServoDrv::getServoRanges(servo, &min_ang, &max_ang, &min_duty, &max_duty);             
-            DEBUG_TRACE("\r\n[ServoMan]...... Servo %d: ang=%d (%d,%d), duty=%d (%d,%d)\r\n", servo, angle, min_ang, max_ang, duty, min_duty, max_duty); 
-        }
+        MBED_ASSERT(data);
+        strcpy(data, (char*)msg);
+        char* arg = strtok(data, ",");
+        uint8_t servo = atoi(arg);
+        Heap::memFree(data);
+        
+        // mueve el servo
+        uint8_t angle = PCA9685_ServoDrv::getServoAngle(servo);                       
+        uint16_t duty = PCA9685_ServoDrv::getServoDuty(servo);
+        int16_t min_ang, max_ang;
+        uint16_t min_duty, max_duty;
+        PCA9685_ServoDrv::getServoRanges(servo, &min_ang, &max_ang, &min_duty, &max_duty);             
+        DEBUG_TRACE("\r\n[ServoMan]...... Servo %d: ang=%d (%d,%d), duty=%d (%d,%d)\r\n", servo, angle, min_ang, max_ang, duty, min_duty, max_duty); 
         return;
     }            
 
@@ -244,21 +238,20 @@ void ServoManager::subscriptionCb(const char* topic, void* msg, uint16_t msg_len
         DEBUG_TRACE("\r\n[ServoMan]...... Topic:%s msg:%s\r\n", topic, msg);
         // obtengo los parámetros del mensaje ServoID,Duty
         char* data = (char*)Heap::memAlloc(msg_len);
-        if(data){
-            strcpy(data, (char*)msg);
-            char* arg = strtok(data, ",");
-            uint8_t servo = atoi(arg);
-            Heap::memFree(data);
-            
-            // mueve el servo
-            uint16_t duty;    
-            if(PCA9685_ServoDrv::readServoDuty(servo, &duty) == PCA9685_ServoDrv::Success){
-                uint8_t angle = PCA9685_ServoDrv::getAngleFromDuty(servo, duty);                                   
-                DEBUG_TRACE("\r\n[ServoMan]...... Servo %d: ang=%d, duty=%d\r\n", servo, angle, duty);                 
-            }
-            else{
-                DEBUG_TRACE("\r\n[ServoMan]...... ERR_READ Servo %d\r\n", servo); 
-            }
+        MBED_ASSERT(data);
+        strcpy(data, (char*)msg);
+        char* arg = strtok(data, ",");
+        uint8_t servo = atoi(arg);
+        Heap::memFree(data);
+        
+        // mueve el servo
+        uint16_t duty;    
+        if(PCA9685_ServoDrv::readServoDuty(servo, &duty) == PCA9685_ServoDrv::Success){
+            uint8_t angle = PCA9685_ServoDrv::getAngleFromDuty(servo, duty);                                   
+            DEBUG_TRACE("\r\n[ServoMan]...... Servo %d: ang=%d, duty=%d\r\n", servo, angle, duty);                 
+        }
+        else{
+            DEBUG_TRACE("\r\n[ServoMan]...... ERR_READ Servo %d\r\n", servo); 
         }
         return;
     }              
@@ -268,23 +261,22 @@ void ServoManager::subscriptionCb(const char* topic, void* msg, uint16_t msg_len
         DEBUG_TRACE("\r\n[ServoMan]...... Topic:%s msg:%s\r\n", topic, msg);
         // obtengo los parámetros del mensaje ServoID,Duty
         char* data = (char*)Heap::memAlloc(msg_len);
-        if(data){
-            strcpy(data, (char*)msg);
-            char* arg = strtok(data, ",");
-            uint8_t servo = atoi(arg);
-            arg = strtok(NULL, ",");
-            uint8_t ang_min = atoi(arg);
-            arg = strtok(NULL, ",");
-            uint8_t ang_max = atoi(arg);
-            arg = strtok(NULL, ",");
-            uint16_t d_min = atoi(arg);
-            arg = strtok(NULL, ",");
-            uint16_t d_max = atoi(arg);
-            Heap::memFree(data);
-            
-            // calibra el servo
-            PCA9685_ServoDrv::setServoRanges(servo, ang_min, ang_max, d_min, d_max);
-        }
+        MBED_ASSERT(data);
+        strcpy(data, (char*)msg);
+        char* arg = strtok(data, ",");
+        uint8_t servo = atoi(arg);
+        arg = strtok(NULL, ",");
+        uint8_t ang_min = atoi(arg);
+        arg = strtok(NULL, ",");
+        uint8_t ang_max = atoi(arg);
+        arg = strtok(NULL, ",");
+        uint16_t d_min = atoi(arg);
+        arg = strtok(NULL, ",");
+        uint16_t d_max = atoi(arg);
+        Heap::memFree(data);
+        
+        // calibra el servo
+        PCA9685_ServoDrv::setServoRanges(servo, ang_min, ang_max, d_min, d_max);
         return;
     }                  
 
@@ -293,18 +285,18 @@ void ServoManager::subscriptionCb(const char* topic, void* msg, uint16_t msg_len
         DEBUG_TRACE("\r\n[ServoMan]...... Topic:%s msg:%s\r\n", topic, msg);
         // obtengo los datos de calibración y los actualizo
         uint32_t* caldata = (uint32_t*)Heap::memAlloc(NVFlash::getPageSize());
-        if(caldata){
-            NVFlash::readPage(0, caldata);
-            PCA9685_ServoDrv::getNVData(caldata);
-            NVFlash::erasePage(0);
-            if(NVFlash::writePage(0, caldata) == NVFlash::Success){
-                DEBUG_TRACE("\r\n[ServoMan]...... Guardados datos de calibración\r\n");               
-            }
-            else{
-                DEBUG_TRACE("\r\n[ServoMan]...... ERROR guardando datos de calibración\r\n");
-            }
-            Heap::memFree(caldata);
+        MBED_ASSERT(caldata);
+        NVFlash::readPage(0, caldata);
+        PCA9685_ServoDrv::getNVData(caldata);
+        NVFlash::erasePage(0);
+        if(NVFlash::writePage(0, caldata) == NVFlash::Success){
+            DEBUG_TRACE("\r\n[ServoMan]...... Guardados datos de calibración\r\n");               
         }
+        else{
+            DEBUG_TRACE("\r\n[ServoMan]...... ERROR guardando datos de calibración\r\n");
+        }
+        Heap::memFree(caldata);
+        
         return;
     }                      
 }

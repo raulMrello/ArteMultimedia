@@ -61,6 +61,7 @@ void test_ServoManager(){
 
     // recupera parámetros de calibración NV
     uint32_t* caldata = (uint32_t*)Heap::memAlloc(NVFlash::getPageSize());
+    MBED_ASSERT(caldata);
     NVFlash::init();
     NVFlash::readPage(0, caldata);
     if(servoman->setNVData(caldata) != 0){

@@ -7,6 +7,18 @@ Proyecto plantilla para desarrollos con la tarjeta NUCLEO_L432KC de ST en mbed-o
 
 
 *28.02.2018*
+>**"Verificado funcionamiento correcto"**
+>
+- [x] Verificado funcionamiento general correcto
+- [x] Corrijo heap_overflow
+- [x] Actualizo MQLib utilizando MBED_ASSERT en las asignaciones de memoria dinámica
+- [ ] Implementar actualización de efectos y pulsaciones largas en Touch.
+- [ ] Utilizar NVFlash para guardar y recuperar datos de memoria o utilizar mbed-5.7 para utilizar el sistema key-value.
+- [ ] Cablear VCC al módulo para arranque al conectar.
+- [ ] Pensar la forma de migrar a submódulos...
+  
+
+*28.02.2018*
 >**"Depurando funcionamiento"**
 >
 - [x] El cliente mqtt falla al enviar mensajes continuados

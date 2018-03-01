@@ -198,9 +198,7 @@ public:
             token_count = DefaultMaxNumTokenEntries;
             _token_provider_count = WildcardCOUNT;
             _token_provider = (const char**)Heap::memAlloc(token_count * sizeof(const char*));
-            if(!_token_provider){
-                return NULL_POINTER;
-            }
+            MBED_ASSERT(_token_provider);
         }
         
         // si hay un número de tokens mayor que el tamaño que lo puede alojar, devuelve error:
@@ -282,22 +280,15 @@ public:
         }
         // lo crea reservarvando espacio para el topic
         topic = (MQ::Topic*)Heap::memAlloc(sizeof(MQ::Topic));
-        if(!topic){
-            _mutex.unlock();
-            return(OUT_OF_MEMORY);
-        }
+        MBED_ASSERT(topic);
         
         // se fijan los parámetros del token (delimitadores, id, nombre)
 
         //@14Feb2018.002: se reserva espacio para el nombre del topic
         topic->name = (char*)Heap::memAlloc(strlen(name)+1);
-        if(!topic->name){
-        	_mutex.unlock();
-        	return (OUT_OF_MEMORY);
-        }
+        MBED_ASSERT(topic->name);
+        
         strcpy(topic->name, name);
-        //
-
         createTopicId(&topic->id, name);
 
         // se crea la lista de suscriptores
@@ -393,11 +384,7 @@ public:
         
         // copia el mensaje a enviar por si sufre modificaciones, no alterar el origen
         char* mem_data = (char*)Heap::memAlloc(datasize);
-        if(!mem_data){
-            _mutex.unlock();
-            MQ_DEBUG_TRACE("\r\n[MQLib]\t ERR_HEAP_ALLOC");
-            return NULL_POINTER;
-        }
+        MBED_ASSERT(mem_data);
         
         MQ_DEBUG_TRACE("\r\n[MQLib]\t Buscando topic '%s' en la lista", name);
         MQ::Topic* topic = _topic_list->getFirstItem();
@@ -591,9 +578,7 @@ private:
      */
     static bool generateTokens(const char* name){
         char* token = (char*)Heap::memAlloc(strlen(name));
-        if(!token){
-            return false;
-        }
+        MBED_ASSERT(token);
         uint8_t to=0, from=0;
         bool is_final = false;
         getNextDelimiter(name, &from, &to, &is_final);
@@ -609,10 +594,7 @@ private:
             // tras recorrer todo el árbol, si no existe lo añade
             if(!exists){
                 char* new_token = (char*)Heap::memAlloc(1+to-from);
-                if(!new_token){
-                    Heap::memFree(token);
-                    return false;
-                }
+                MBED_ASSERT(new_token);
                 strncpy(new_token, &name[from], (to-from)); new_token[to-from] = 0;
                 _token_provider[_token_provider_count-WildcardCOUNT] = new_token;
                 _token_provider_count++;

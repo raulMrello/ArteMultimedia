@@ -46,24 +46,25 @@ MQSerialBridge::MQSerialBridge(PinName tx, PinName rx, uint32_t baud, uint16_t r
     
     if(_rbufsize){
         _tbuf = (char*)Heap::memAlloc(_rbufsize);
+        MBED_ASSERT(_tbuf);
         _rbuf = (char*)Heap::memAlloc(_rbufsize);
-        if(_tbuf && _rbuf){
-            // prepara buffers
-            memset(_tbuf, 0, _rbufsize);
-            memset(_rbuf, 0, _rbufsize);
-            
-            // Carga callbacks estáticas de publicación/suscripción
-            _subscriptionCb = callback(this, &MQSerialBridge::subscriptionCb);
-            _publicationCb = callback(this, &MQSerialBridge::publicationCb);   
-            
-            // Prepara terminal serie con un breaktime de 4 * tbyte y un mínimo de 500us
-            uint32_t break_time = 4 * (10000000/baud);
-            break_time = (break_time < 500)? 500 : break_time;
-            SerialTerminal::config(callback(this, &MQSerialBridge::onRxComplete), callback(this, &MQSerialBridge::onRxTimeout), callback(this, &MQSerialBridge::onRxOvf), break_time, 0);
+        MBED_ASSERT(_rbuf);
 
-            // Inicializa parámetros del hilo de ejecución propio
-            _th.start(callback(this, &MQSerialBridge::task));
-        }
+        // prepara buffers
+        memset(_tbuf, 0, _rbufsize);
+        memset(_rbuf, 0, _rbufsize);
+        
+        // Carga callbacks estáticas de publicación/suscripción
+        _subscriptionCb = callback(this, &MQSerialBridge::subscriptionCb);
+        _publicationCb = callback(this, &MQSerialBridge::publicationCb);   
+        
+        // Prepara terminal serie con un breaktime de 4 * tbyte y un mínimo de 500us
+        uint32_t break_time = 4 * (10000000/baud);
+        break_time = (break_time < 500)? 500 : break_time;
+        SerialTerminal::config(callback(this, &MQSerialBridge::onRxComplete), callback(this, &MQSerialBridge::onRxTimeout), callback(this, &MQSerialBridge::onRxOvf), break_time, 0);
+
+        // Inicializa parámetros del hilo de ejecución propio
+        _th.start(callback(this, &MQSerialBridge::task));
     }
 }
  

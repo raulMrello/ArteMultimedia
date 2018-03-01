@@ -108,6 +108,7 @@ void CyberRibs::task(){
     
     // recupera parámetros de calibración NV
     uint32_t* caldata = (uint32_t*)Heap::memAlloc(_servod->getNVDataSize());
+    MBED_ASSERT(caldata);
     NVFlash::readPage(0, caldata, _servod->getNVDataSize());
     if(_servod->setNVData(caldata) != 0){
         DEBUG_TRACE("ERR_NVFLASH_READ, rangos por defecto...\r\n");
@@ -165,16 +166,13 @@ void CyberRibs::subscriptionCb(const char* topic, void* msg, uint16_t msg_len){
         DEBUG_TRACE("[CyberRib]...... Mode update requested... \r\n");
                
         State::Msg* op = (State::Msg*)Heap::memAlloc(sizeof(State::Msg));
-        if(!op){
-            DEBUG_TRACE("ERR_HEAP!\r\n");
-            return;
-        }
+        MBED_ASSERT(op);
         // lee el primer caracter para obtener el modo al que cambiar
         char mode = *(char*)msg - 0x30;
         op->msg = (void*)mode;
         op->sig = ModeUpdateMsg;            
         DEBUG_TRACE("OK!"); 
-        _queue.put(op); 
+        putMessage(op);
         return;
     }   
     
@@ -184,10 +182,7 @@ void CyberRibs::subscriptionCb(const char* topic, void* msg, uint16_t msg_len){
         DEBUG_TRACE("[CyberRib]...... Set Servo angle... \r\n");
         // obtengo los parámetros del mensaje ServoID,Deg
         char* data = (char*)Heap::memAlloc(msg_len);
-        if(!data){
-            DEBUG_TRACE("ERR_HEAP!");
-            return;
-        }        
+        MBED_ASSERT(data);      
         strcpy(data, (char*)msg);
         char* arg = strtok(data, ",");
         uint8_t servo = atoi(arg);
@@ -204,10 +199,7 @@ void CyberRibs::subscriptionCb(const char* topic, void* msg, uint16_t msg_len){
         DEBUG_TRACE("[CyberRib]...... Set Servo duty... \r\n");
         // obtengo los parámetros del mensaje ServoID,Duty
         char* data = (char*)Heap::memAlloc(msg_len);
-        if(!data){
-            DEBUG_TRACE("ERR_HEAP!\r\n");
-            return;
-        }        
+        MBED_ASSERT(data);      
         strcpy(data, (char*)msg);
         char* arg = strtok(data, ",");
         uint8_t servo = atoi(arg);
@@ -224,10 +216,7 @@ void CyberRibs::subscriptionCb(const char* topic, void* msg, uint16_t msg_len){
         DEBUG_TRACE("[CyberRib]...... Lee Servo info... \r\n");
         // obtengo los parámetros del mensaje ServoID,Duty
         char* data = (char*)Heap::memAlloc(msg_len);
-        if(!data){
-            DEBUG_TRACE("ERR_HEAP!\r\n");
-            return;
-        }        
+        MBED_ASSERT(data);   
         strcpy(data, (char*)msg);
         char* arg = strtok(data, ",");
         uint8_t servo = atoi(arg);
@@ -288,7 +277,10 @@ void CyberRibs::subscriptionCb(const char* topic, void* msg, uint16_t msg_len){
 
 //------------------------------------------------------------------------------------
 void CyberRibs::putMessage(State::Msg* msg){
-    _queue.put(msg);
+    osStatus ost = _queue.put(msg);
+    if(ost != osOK){
+        DEBUG_TRACE("[CyberRib]...... QUEUE_PUT_ERROR %d\r\n", ost);
+    }
 }  
 
 

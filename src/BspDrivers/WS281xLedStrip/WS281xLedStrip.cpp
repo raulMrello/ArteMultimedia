@@ -26,9 +26,9 @@ WS281xLedStrip::WS281xLedStrip(PinName pin, uint32_t hz, uint16_t num_leds) : DM
     _num_leds = num_leds;
     _buffer_size = ((_num_leds * ColorBits) + ResetTimeBits) * sizeof(uint32_t);
     _color_buffer = (uint32_t*)Heap::memAlloc(_buffer_size);
-    if(_color_buffer){
-        memset(_color_buffer, ResetTimeValue, _buffer_size);        
-    }
+    MBED_ASSERT(_color_buffer);
+
+    memset(_color_buffer, ResetTimeValue, _buffer_size);        
     _bitLow = DMA_PwmOut::getTickPercent(32);
     _bitHigh = DMA_PwmOut::getTickPercent(64);
 }

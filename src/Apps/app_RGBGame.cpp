@@ -131,8 +131,8 @@ void app_RGBGame(){
 
     // Configuro el acceso al servidor mqtt
     DEBUG_TRACE("\r\n[appRGB]........ Configurando conexión...");     
-	static char* mnb_cfg = "cli,usr,pass,192.168.1.63,1883,MOVISTAR_9BCC,hh9DNmVvV3Km6ZzdKrkx";	
-    //static char* mnb_cfg = "client,user,pass,192.168.254.29,1883,Invitado,11FF00DECA";
+	//static char* mnb_cfg = "cli,usr,pass,192.168.1.63,1883,MOVISTAR_9BCC,hh9DNmVvV3Km6ZzdKrkx";	
+    static char* mnb_cfg = "client,user,pass,192.168.254.29,1883,Invitado,11FF00DECA";
     //static char* mnb_cfg = "cli,usr,pass,test.mosquitto.org,1883,Invitado,11FF00DECA";
     MQ::MQClient::publish("sys/qnet/conn/cmd", mnb_cfg, strlen(mnb_cfg)+1, &publ_cb);
 	
@@ -183,7 +183,7 @@ void app_RGBGame(){
             DEBUG_TRACE("\r\n[appRGB]........ ERR_servo '%d'", i);
         }            
     }
-    DEBUG_TRACE("\r\n[appRGB]........ Rangos para servos READY!");
+    DEBUG_TRACE("\r\n[appRGB]........ Rangos para servos READY!\r\n");
 
 	
     // --------------------------------------

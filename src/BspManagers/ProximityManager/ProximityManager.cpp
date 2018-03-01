@@ -30,6 +30,7 @@ ProximityManager::ProximityManager(PinName trig, PinName echo, bool run_thread) 
     _ready = false;
     _debug = 0;
     _msg = (char*)Heap::memAlloc(32);
+    MBED_ASSERT(_msg);
     
     // Carga callbacks estáticas de publicación/suscripción    
     _pub_topic = (char*)Heap::memAlloc(MQ::MQClient::getMaxTopicLen());
@@ -143,25 +144,24 @@ void ProximityManager::subscriptionCb(const char* topic, void* msg, uint16_t msg
         DEBUG_TRACE("\r\n[ProxMan]....... Topic:%s msg:%s\r\n", topic, msg);
         // obtengo los parámetros del mensaje Tstep y Tmax
         char* data = (char*)Heap::memAlloc(msg_len);
-        if(data){
-            strcpy(data, (char*)msg);
-            char* arg = strtok(data, ",");
-            uint16_t max_dist = atoi(arg);
-            arg = strtok(NULL, ",");
-            uint16_t approach_dist = atoi(arg);
-            arg = strtok(NULL, ",");
-            uint16_t goaway_dist = atoi(arg);
-            arg = strtok(NULL, ",");
-            uint8_t filt_count = atoi(arg);
-            arg = strtok(NULL, ",");
-            uint16_t filt_range = atoi(arg);
-            arg = strtok(NULL, ",");
-            uint8_t endis_invalid_evts = atoi(arg);
-            arg = strtok(NULL, ",");
-            uint8_t endis_err_evts = atoi(arg);
-            Heap::memFree(data);
-            HCSR04::config(max_dist, approach_dist, goaway_dist, filt_count, filt_range, endis_invalid_evts, endis_err_evts);
-        }
+        MBED_ASSERT(data);
+        strcpy(data, (char*)msg);
+        char* arg = strtok(data, ",");
+        uint16_t max_dist = atoi(arg);
+        arg = strtok(NULL, ",");
+        uint16_t approach_dist = atoi(arg);
+        arg = strtok(NULL, ",");
+        uint16_t goaway_dist = atoi(arg);
+        arg = strtok(NULL, ",");
+        uint8_t filt_count = atoi(arg);
+        arg = strtok(NULL, ",");
+        uint16_t filt_range = atoi(arg);
+        arg = strtok(NULL, ",");
+        uint8_t endis_invalid_evts = atoi(arg);
+        arg = strtok(NULL, ",");
+        uint8_t endis_err_evts = atoi(arg);
+        Heap::memFree(data);
+        HCSR04::config(max_dist, approach_dist, goaway_dist, filt_count, filt_range, endis_invalid_evts, endis_err_evts);
         return;
     }
     
@@ -170,16 +170,15 @@ void ProximityManager::subscriptionCb(const char* topic, void* msg, uint16_t msg
         DEBUG_TRACE("\r\n[ProxMan]....... Topic:%s msg:%s\r\n", topic, msg);
         // obtengo los parámetros del mensaje Tstep y Tmax
         char* data = (char*)Heap::memAlloc(msg_len);
-        if(data){
-            strcpy(data, (char*)msg);
-            char* arg = strtok(data, ",");
-            uint32_t lapse_ms = atoi(arg);
-            arg = strtok(0, ",");
-            uint32_t timeout_ms = atoi(arg);
-            Heap::memFree(data);
-            // inicia el movimiento
-            HCSR04::start(_distCb, lapse_ms, timeout_ms);
-        }
+        MBED_ASSERT(data);
+        strcpy(data, (char*)msg);
+        char* arg = strtok(data, ",");
+        uint32_t lapse_ms = atoi(arg);
+        arg = strtok(0, ",");
+        uint32_t timeout_ms = atoi(arg);
+        Heap::memFree(data);
+        // inicia el movimiento
+        HCSR04::start(_distCb, lapse_ms, timeout_ms);
         return;
     }
 

@@ -87,8 +87,8 @@ void MQNetBridge::mqttEventHandler(MQTT::MessageData& md){
     msg[message.payloadlen] = 0;
     
     MQ::MQClient::publish(topic, msg, message.payloadlen + 1, &_publicationCb);
-    Heap::memFree(topic);
     Heap::memFree(msg);
+    Heap::memFree(topic);
         
 }
 
@@ -174,7 +174,7 @@ void MQNetBridge::subscriptionCb(const char* topic, void* msg, uint16_t msg_len)
 		op->msg = NULL;
 		
 		/** Inserta mensaje en cola de proceso */
-		_queue.put(op);
+        putMessage(op);
         return;
     }
     // si es mensaje para hacer bridge hacia el broker mqtt...
@@ -191,10 +191,10 @@ void MQNetBridge::subscriptionCb(const char* topic, void* msg, uint16_t msg_len)
             message.payloadlen = msg_len;
             int rc = 0;
             if((rc = _client->publish(topic, message)) != 0){            
-                DEBUG_TRACE("NetBridge: ERR_MQTT_PUB, publicando en topic '%s', error %d\r\n", topic, rc); 
+                DEBUG_TRACE("[MQNetBridge]... ERR_MQTT_PUB, publicando en topic '%s', error %d\r\n", topic, rc); 
             }
             else{
-                DEBUG_TRACE("NetBridge: PUB_OK, mensaje publicado en topic '%s'\r\n", topic); 
+                DEBUG_TRACE("[MQNetBridge]... PUB_OK, mensaje publicado en topic '%s'\r\n", topic); 
             }            
         }
         return;
@@ -215,7 +215,7 @@ void MQNetBridge::subscriptionCb(const char* topic, void* msg, uint16_t msg_len)
 		op->msg = NULL;
 		
 		/** Inserta mensaje en cola de proceso */
-		_queue.put(op);
+        putMessage(op);
         return;
     }
 	
@@ -276,7 +276,10 @@ State::StateResult MQNetBridge::Init_EventHandler(State::StateEvent* se){
 
 //------------------------------------------------------------------------------------
 void MQNetBridge::putMessage(State::Msg *msg){
-    _queue.put(msg);
+    osStatus ost = _queue.put(msg);
+    if(ost != osOK){
+        DEBUG_TRACE("[MQNetBridge]... QUEUE_PUT_ERROR %d\r\n", ost);
+    }
 }
 
 
@@ -361,7 +364,7 @@ int MQNetBridge::connect(){
     int rc;       
     if(!_network){
         DEBUG_TRACE("[MQNetBridge]... Levantando interfaz de red\r\n");
-        _network = easy_connect(true);
+        _network = easy_connect();
     }
     else if(_network->get_ip_address() == NULL){
         DEBUG_TRACE("[MQNetBridge]... Levantando interfaz de red\r\n");

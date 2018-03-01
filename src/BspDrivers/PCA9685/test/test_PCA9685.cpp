@@ -149,6 +149,7 @@ void test_PCA9685(){
     if(servodrv->setNVData(nvdata) == 0){
         DEBUG_TRACE("\r\n\t[x] - setNVData"); 
     }	
+    Heap::memFree(nvdata);
    
     DEBUG_TRACE("\r\n...FIN DEL TEST...\r\n");    
 }

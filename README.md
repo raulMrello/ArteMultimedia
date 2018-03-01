@@ -7,6 +7,15 @@ Proyecto plantilla para desarrollos con la tarjeta NUCLEO_L432KC de ST en mbed-o
 
 
 *28.02.2018*
+>**"Actualizo TouchManager con eventos HOLD"**
+>
+- [x] Implementados eventos HOLD en TouchManager
+- [x] Implemento actualización de efectos como sigue: Electrodos en posición superior incrementan, en posición inferior decrementan y posición central fijan a valor medio.
+- [ ] (opcional) Utilizar NVFlash para guardar y recuperar datos de memoria o utilizar mbed-5.7 para utilizar el sistema key-value.
+- [ ] (opcional) Pensar la forma de migrar a submódulos...
+  
+
+*28.02.2018*
 >**"Verificado funcionamiento correcto"**
 >
 - [x] Verificado funcionamiento general correcto

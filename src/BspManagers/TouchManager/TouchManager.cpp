@@ -58,17 +58,47 @@ void TouchManager::job(uint32_t signals){
         if(_sns == _curr_sns){
             return;
         }
-        DEBUG_TRACE("[TouchMan]...... Evt=%d\r\n", _sns);
+        DEBUG_TRACE("[TouchMan]...... EvtPreGlitch=%d\r\n", _sns);
         // activa filtro antiglitch
         _tick_glitch.attach_us(callback(this, &TouchManager::isrTickCb), AntiGlitchTimeout);
     }
     
+    // si es un evento repetitivo
+    if((signals & HoldFlag)!=0){
+        // lee el valor de los sensores
+        _sns = MPR121_CapTouch::touched();
+        // si el valor no es el mismo que en el instante anterior, o no hay pulsados descarta
+        if(_sns != _curr_sns || _sns == ReleasedEvent){
+            _tick_hold.detach();
+            _curr_sns = _sns;
+            return;
+        }
+        DEBUG_TRACE("[TouchMan]...... EvtHold=%d\r\n", _sns);
+        // evalúa sensor a sensor
+        for(uint8_t i = 0; i< MPR121_CapTouch::SensorCount; i++){
+            if((_sns & ((uint16_t)1 << i)) != 0){
+                TouchMsg msg = {i, TouchedEvent};
+                // notifica evento en callback
+                _evt_cb.call(&msg);
+                // publica mensaje
+                if(_pub_topic){
+                    sprintf(_msg, "%d,%d", msg.elec, msg.evt);
+                    MQ::MQClient::publish(_pub_topic, _msg, strlen(_msg)+1 , &_publicationCb);
+                }
+            }
+        }
+        _curr_sns = _sns;
+    }
+
+    // si es un evento antiglitch
     if((signals & AntiGlitchFlag)!=0){  
         uint16_t sns = MPR121_CapTouch::touched();        
         // descarta glitches
         if(sns != _sns){
+            _tick_hold.detach();
             return;
         }
+        DEBUG_TRACE("[TouchMan]...... EvtTouch=%d\r\n", _sns);
         // evalúa sensor a sensor
         for(uint8_t i = 0; i< MPR121_CapTouch::SensorCount; i++){
             if((_sns & ((uint16_t)1 << i)) != (_curr_sns & ((uint16_t)1 << i))){
@@ -83,6 +113,7 @@ void TouchManager::job(uint32_t signals){
             }
         }
         _curr_sns = _sns;
+        _tick_hold.attach_us(callback(this, &TouchManager::isrTickHoldCb), 500000);
     }  
 }
 
@@ -131,6 +162,12 @@ void TouchManager::onIrqCb(){
 void TouchManager::isrTickCb(){
     _tick_glitch.detach();
     _th.signal_set(AntiGlitchFlag);   
+}
+    
+
+//------------------------------------------------------------------------------------
+void TouchManager::isrTickHoldCb(){
+    _th.signal_set(HoldFlag);   
 }
 
 

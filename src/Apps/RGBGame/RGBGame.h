@@ -158,6 +158,15 @@ class RGBGame : public ActiveModule {
  
     /** Define un número de ciclos infinito */
     static const int InfiniteCycles = 1000000;
+ 
+    /** Define el valor máximo para el color de cresta */
+    static const uint8_t DefaultMaxPeakValue = 255;
+ 
+    /** Define el valor mínimo para el color de cresta */
+    static const uint8_t DefaultBasePeakValue = 127;
+
+    /** Define el valor del incremento/decremento de color */
+    static const uint8_t DefaultIncDecStep = 8;
 
 
     /** Flags de operaciones a realizar por la tarea */
@@ -225,8 +234,9 @@ class RGBGame : public ActiveModule {
 
     /** Flags para el hilo de efectos */
     enum EffectsEventFlags{
-    	WaveEffectEvt 	= (1 << 0),  /// Flag para iniciar un evento wave
+    	WaveEffectEvt 	    = (1 << 0),  /// Flag para iniciar un evento wave
     	SwitchOffEffectEvt  = (1 << 1),  /// Flag para apagar todo
+    	SwitchLedsEffectEvt = (1 << 2),  /// Flag para actualizar los leds de la torre
     };
 
     /** Hilo de ejecución paralelo para la generación de efectos */
@@ -258,6 +268,12 @@ class RGBGame : public ActiveModule {
     /** Apaga los leds y los servos
      */
     void switchOff();
+
+
+    /** Cambia el color de los leds
+     */
+    void switchLeds();
+    
     
     /** Actualiza la configuración en función del electrodo tocado
      *  @param elec Electrodo tocado

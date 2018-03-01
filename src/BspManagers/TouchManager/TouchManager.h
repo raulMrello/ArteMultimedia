@@ -68,38 +68,38 @@ class TouchManager : public MPR121_CapTouch{
     ~TouchManager();
     
   
-	/** ready()
-     *  Devuelve el estado de ejecución
+	/** Devuelve el estado de ejecución
+     *
      *  @return True, False
      */
     bool ready() {return _ready; }
     
   
-	/** setDebugChannel()
-     *  Instala canal de depuración
+	/** Instala canal de depuración
+     *
      *  @param dbg Logger
      */
     void setDebugChannel(bool dbg){ _debug = dbg; }
     
 	
-    /** @fn job
-     *  @brief Rutina de ejecución para procesar eventos de forma asíncrona, suele utilizarse
+    /** Rutina de ejecución para procesar eventos de forma asíncrona, suele utilizarse
      *  en threads de control externos que se encargan de lanzar trabajos a otros módulos que
      *  carecen de thread propio.
+     *
      *  @param signals Flags activos
      */
     void job(uint32_t signals);
     
   
-	/** attachCallback()
-     *  Instala callback de recepción de eventos
+	/** Instala callback de recepción de eventos
+     *
      *  @param onEventCb Callback a instalar para recbir eventos tipo TouchEvent
      */
     void attachCallback(TouchEventCallback onEventCb) { _evt_cb = onEventCb; }
     
   
-	/** setPublicationBase()
-     *  Registra el topic base a los que publicará el módulo
+	/** Registra el topic base a los que publicará el módulo
+     *
      *  @param pub_topic Topic base para la publicación
      */
     void setPublicationBase(const char* pub_topic);  
@@ -112,10 +112,12 @@ class TouchManager : public MPR121_CapTouch{
     enum SigEventFlags{
         IrqFlag         = (1<<0),       /// Flag para notificar interrupción del driver
         AntiGlitchFlag  = (1<<1),       /// Flag para notificar interrupción del filtro anti-glitch
+        HoldFlag        = (1<<2),       /// Flag para notificar interrupción repetitiva
     };
     
     Thread      _th;                    /// Manejador del thread
     Ticker      _tick_glitch;           /// Ticker del filtro anti-glitch
+    Ticker      _tick_hold;             /// ticker de eventos repetitivos
     uint32_t    _timeout;               /// Manejador de timming en la tarea
     char*       _pub_topic;             /// Topic base para la publicación
     char        _msg[8];                /// Mensaje a publicar
@@ -127,26 +129,28 @@ class TouchManager : public MPR121_CapTouch{
     TouchEventCallback _evt_cb;         /// Callback a invocar para la notificación de eventos
     MQ::PublishCallback _publicationCb; /// Callback de publicación en topics
     
-	/** task()
-     *  Hilo de ejecución del protocolo 
+	/** Hilo de ejecución del protocolo 
      */
     void task();
   
     
-	/** onIrqCb()
-     *  Callback invocada tras recibir un evento del chip en la línea irq
+	/** Callback invocada tras recibir un evento del chip en la línea irq
      */
     void onIrqCb();        
   
     
-	/** isrTickCb()
-     *  Callback invocada tras la temporización del filtro antiglitch
+	/** Callback invocada tras la temporización del filtro antiglitch
      */
     void isrTickCb();        
+  
+    
+	/** Callback invocada tras la temporización del evento hold
+     */
+    void isrTickHoldCb();        
     
 
-	/** publicationCb()
-     *  Callback invocada al finalizar una publicación
+	/** Callback invocada al finalizar una publicación
+     *
      *  @param topic Identificador del topic
      *  @param result Resultado de la publicación
      */    

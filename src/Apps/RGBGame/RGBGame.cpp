@@ -87,6 +87,11 @@ void RGBGame::subscriptionCb(const char* topic, void* msg, uint16_t msg_len){
 			DEBUG_TRACE("[RGBGame]....... TOPIC_SUB %s | ERR_MSG, mensaje con formato incorrecto en topic\r\n", topic);
 			return;
 		}
+        
+        // sólo procesa eventos TouchPress
+        if(atoi(value) == TouchReleaseEvt){
+            return;
+        }
 				
         // crea mensaje para publicar en la máquina de estados
         State::Msg* op = (State::Msg*)Heap::memAlloc(sizeof(State::Msg));
@@ -98,7 +103,7 @@ void RGBGame::subscriptionCb(const char* topic, void* msg, uint16_t msg_len){
 		*pelec = atoi(elec);
 
 		/* Asigna el tipo de señal (evento) */
-		op->sig = (atoi(value) == 0)? TouchReleaseEvt : TouchPressEvt;
+		op->sig = TouchPressEvt;
 		
         /* Asigna el mensaje (anterior) o NULL si no se utiliza ninguno */
 		op->msg = pelec;
@@ -269,9 +274,11 @@ State::StateResult RGBGame::Config_EventHandler(State::StateEvent* se){
             uint32_t elec = *((uint32_t*)st_msg->msg);			
 					
 			// actualiza la configuración en función del electrodo y genera un nuevo efecto
-            DEBUG_TRACE("[RGBGame]....... ST_CONFIG: [onTouch] Actualiza estado de la torre e inicia nuevo efecto\r\n");
-            updateEffectConfig((uint8_t)elec);            
-			startEffect(WaveEffectEvt);
+            DEBUG_TRACE("[RGBGame]....... ST_CONFIG: [onTouch] Actualiza leds de la torre\r\n");
+            updateEffectConfig((uint8_t)elec);       
+            _stat.cycles = 1;
+            _stat.flags = (Flags)(_stat.flags & ~FlagDoServos);
+            startEffect(SwitchLedsEffectEvt);
 			
             return State::HANDLED;
         }
@@ -478,6 +485,11 @@ void RGBGame::effectsThread(){
             case SwitchOffEffectEvt:{
 				DEBUG_TRACE("[RGBGame]....... SwitchOffEffectEvt recibido\r\n");
                 switchOff();
+                break;
+            }
+            case SwitchLedsEffectEvt:{
+				DEBUG_TRACE("[RGBGame]....... SwitchLedsEffectEvt recibido\r\n");
+                switchLeds();
                 break;
             }
         }        
@@ -694,9 +706,78 @@ void RGBGame::switchOff(){
 
 
 //------------------------------------------------------------------------------------
+void RGBGame::switchLeds(){
+    for(int i=0;i<NumLeds;i++){
+        _strip[i] = _cfg.colorMax;
+        _ls->applyColor(i, _strip[i]);
+    }
+}
+
+
+//------------------------------------------------------------------------------------
 void RGBGame::updateEffectConfig(uint8_t elec){    
-    #warning TODO; 
-    DEBUG_TRACE("~~~~~~ TODO ~~~~~~ Actualizar parámetros del efecto\r\n");
+    int32_t new_color;
+    switch(elec){
+        // RED decr
+        case 0:{
+            new_color = _cfg.colorMax.red + DefaultIncDecStep;
+            _cfg.colorMax.red = (uint8_t)((new_color > DefaultMaxPeakValue)? DefaultMaxPeakValue : new_color);
+            break;
+        }
+        // GREEN decr
+        case 1:{
+            new_color = _cfg.colorMax.green + DefaultIncDecStep;
+            _cfg.colorMax.green = (uint8_t)((new_color > DefaultMaxPeakValue)? DefaultMaxPeakValue : new_color);
+            break;
+        }
+        // BLUE decr
+        case 2:{
+            new_color = _cfg.colorMax.blue + DefaultIncDecStep;
+            _cfg.colorMax.blue = (uint8_t)((new_color > DefaultMaxPeakValue)? DefaultMaxPeakValue : new_color);
+            break;
+        }
+        // RED medium        
+        case 3:{
+            _cfg.colorMax.red = DefaultBasePeakValue + (DefaultMaxPeakValue - DefaultBasePeakValue)/2;
+            break;
+        }
+        // GREEN medium        
+        case 4:{
+            _cfg.colorMax.green = DefaultBasePeakValue + (DefaultMaxPeakValue - DefaultBasePeakValue)/2;
+            break;
+        }
+        // BLUE medium        
+        case 5:{
+            _cfg.colorMax.blue = DefaultBasePeakValue + (DefaultMaxPeakValue - DefaultBasePeakValue)/2;
+            break;
+        }
+        // RED incr        
+        case 6:{
+           new_color = _cfg.colorMax.red - DefaultIncDecStep;
+            _cfg.colorMax.red = (uint8_t)((new_color < DefaultBasePeakValue)? DefaultBasePeakValue : new_color);
+            break;
+        }
+        // GREEN incr        
+        case 7:{
+            new_color = _cfg.colorMax.green - DefaultIncDecStep;
+            _cfg.colorMax.green = (uint8_t)((new_color < DefaultBasePeakValue)? DefaultBasePeakValue : new_color);
+            break;
+        }
+        // BLUE incr        
+        case 8:{
+           new_color = _cfg.colorMax.blue - DefaultIncDecStep;
+            _cfg.colorMax.blue = (uint8_t)((new_color < DefaultBasePeakValue)? DefaultBasePeakValue : new_color);
+             break;
+        }        
+    }
+    // obtiene el mínimo común divisor
+    uint8_t mcd = (_cfg.colorMax.red <= _cfg.colorMax.green)? _cfg.colorMax.red : _cfg.colorMax.green;
+    mcd = (_cfg.colorMax.green <= _cfg.colorMax.blue)? _cfg.colorMax.green : _cfg.colorMax.blue;
+
+    // ajusta los niveles mínimos
+    _cfg.colorMin.red = _cfg.colorMax.red / mcd;
+    _cfg.colorMin.green = _cfg.colorMax.green / mcd;
+    _cfg.colorMin.blue = _cfg.colorMax.blue / mcd;
 }
 
 //------------------------------------------------------------------------------------

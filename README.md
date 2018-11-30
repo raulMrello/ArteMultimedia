@@ -1,6 +1,9 @@
-# mbed-os-l432kc
+# ArteMultimedia
 
-Proyecto plantilla para desarrollos con la tarjeta NUCLEO_L432KC de ST en mbed-os
+Parte del proyecto XR+Inst (ver descripción en /docs/XR+Inst.doc) en el que se lleva a cabo el desarrollo del firmware de las 
+diferentes estructuras robotizadas (Continuum & Flex Robots).
+
+Se pueden ver fotos/vídeos del desarrollo de las diferentes estructuras en [este enlace](https://photos.app.goo.gl/LPMHRP82iHefyZrRA)
 
   
 ## Changelog
